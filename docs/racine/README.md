@@ -1,7 +1,10 @@
-# Plan de lancement RACINE (myrootalia)
+# Plan de lancement myrootalia
 
-Cet index regroupe les **35 documents** du plan de lancement de la marque `RACINE`
-(nom de travail — voir doc 08 pour la finalisation du nom définitif).
+Cet index regroupe les **35 documents** du plan de lancement de la marque **myrootalia**.
+
+> Les documents ont été rédigés sous le nom de travail `RACINE`. La marque finale
+> est **myrootalia** — c'est la même marque, il faut simplement lire « RACINE » comme
+> « myrootalia » dans les documents ci-dessous.
 
 - **Marque** : soins naturels, marque-maison évolutive (cheveux → visage → corps).
 - **Lancement** : sérum de croissance capillaire (kit + sérum).
@@ -100,7 +103,7 @@ Typos : titres en **serif élégante** (Playfair, Cormorant, Fraunces),
 textes en **sans-serif lisible** (Inter, Poppins, Work Sans).
 
 **Ton de voix (doc 10)** — naturel, honnête, pédagogue, chaleureux, premium accessible.
-Messages-clés : « Repars de la racine. » — « 2 minutes par jour, de vrais ingrédients. »
+Messages-clés : « Repars de la racine avec myrootalia. » — « 2 minutes par jour, de vrais ingrédients. »
 
 **Fiche hero (doc 13)** — sérum cuir chevelu (romarin, ricin, biotine, jojoba/argan),
 flacon compte-gouttes 30–60 ml, 39,99 $ (33,99 $ en abonnement, ancre 59,99 $).

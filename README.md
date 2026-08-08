@@ -1,6 +1,8 @@
 # myrootalia
 
-Boutique Shopify et plan de lancement de la marque **myrootalia** (nom de travail : `RACINE`) — soins naturels, marque-maison évolutive qui démarre par les cheveux (kit + sérum) et s'étend vers le visage et le corps.
+Boutique Shopify et plan de lancement de la marque **myrootalia** — soins naturels, marque-maison évolutive qui démarre par les cheveux (kit + sérum) et s'étend vers le visage et le corps.
+
+> Les documents du plan portent l'ancien nom de travail `RACINE` : c'est la même marque, renommée **myrootalia**.
 
 - **Marchés** : Canada puis USA
 - **Cible** : femmes 25–45
@@ -50,7 +52,7 @@ Grands blocs :
 - **Titres** : serif élégante (Playfair, Cormorant, Fraunces, Bodoni Moda).
 - **Textes** : sans-serif lisible (Inter, Poppins, Work Sans).
 - **Ton** : naturel, honnête, pédagogue, chaleureux, premium accessible.
-- **Messages-clés** : « Repars de la racine. » — « 2 minutes par jour, de vrais ingrédients. »
+- **Messages-clés** : « Repars de la racine avec myrootalia. » — « 2 minutes par jour, de vrais ingrédients. »
 
 ⚠️ **Zéro allégation médicale.** « Favorise l'apparence de cheveux plus denses », jamais « fait repousser ». Voir doc 34.
 

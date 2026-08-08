@@ -1,0 +1,68 @@
+    DOCUMENT 19 / 35
+
+
+
+
+ Création de la Boutique Shopify (Bilingue)
+ Du compte au paiement : une boutique propre & rapide
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Procédure complète pour créer ta boutique bilingue FR/EN, prête pour le Canada et les USA.
+
+
+
+
+ 1. Compte & bases
+ 1. Inscris-toi (forfait Basic). Devise principale CAD, multi-devise CAD/USD.
+ 2. Connecte le domaine (Paramètres → Domaines).
+ 3. Active le bilingue via Translate & Adapt (gratuit).
+
+ 2. Thème & charte
+ • Thème gratuit Dawn (rapide), applique la charte (doc 09).
+ • Logo, favicon, bannière avec la promesse.
+ • Design épuré & rapide (vitesse = conversions).
+
+ 3. Applications essentielles
+  Besoin                                          App
+
+  Avis (photos)                                   Judge.me / Loox
+
+  Email & automatisations                         Shopify Email / Klaviyo
+
+  Abonnement (sérum)                              Shopify Subscriptions / Seal
+
+  Traduction FR/EN                                Translate & Adapt
+
+  Pixels                                          Canaux Google, Meta, TikTok
+
+
+    Ne surcharge pas
+    Chaque app ralentit le site. Démarre avec l'essentiel.
+
+
+
+ 4. Paiements, livraison, taxes
+ 1. Active Shopify Payments + PayPal + Shop/Apple/Google Pay.
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                              Page 1 / 2
+ 2. Livraison gratuite dès 50 $ (Canada + USA), délais affichés.
+ 3. Active le calcul automatique des taxes (doc 34).
+ 4. Personnalise les emails de notification aux couleurs RACINE.
+
+ 5. Checklist avant lancement
+ • ■ Domaine + HTTPS ■ Thème personnalisé rapide ■ Bilingue FR/EN
+ • ■ Page produit (doc 20) ■ Pages & politiques (docs 21, 34)
+ • ■ Paiements testés (commande test) ■ Taxes & livraison
+ • ■ Pixels installés ■ Abonnement activé ■ Mobile vérifié
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel          Page 2 / 2
+

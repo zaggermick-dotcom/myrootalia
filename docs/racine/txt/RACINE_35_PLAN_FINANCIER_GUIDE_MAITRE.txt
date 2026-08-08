@@ -1,0 +1,148 @@
+    DOCUMENT 35 / 35 — LE PLUS IMPORTANT
+
+
+
+
+ Plan Financier, Objectifs & GUIDE MAÎTRE
+ Budget, objectifs 3/6/12 mois, et ta feuille de route étape par étape
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ LE document à suivre. Il fixe le budget, les objectifs, et relie les 34 autres dans le bon ordre. Coche chaque
+ étape ; chaque renvoi (→ doc X) pointe vers le guide détaillé.
+
+
+
+
+ 1. Budget de départ (~1 300 $)
+  Poste                                                                              Montant (CAD)
+
+  Stock kit (~60–80 unités)                                                          450–550 $
+
+  Shopify + apps (2 mois)                                                            60–90 $
+
+  Domaine + email pro                                                                40–70 $
+
+  Logo / visuels                                                                     30–60 $
+
+  Échantillons                                                                       30–60 $
+
+  Budget publicité (test)                                                            300–400 $
+
+  Réserve                                                                            50–80 $
+
+  TOTAL                                                                              ≈ 960–1 310 $
+
+
+    Arbitrage
+    Si serré : réduis le stock (50 kits), ne sacrifie pas la pub. Le sérum se finance avec les profits réinvestis +
+    ton ajout de budget.
+
+
+
+ 2. Objectifs (réalistes)
+  Échéance                    Objectif
+
+  3 mois                      Phase 1 rentable (kit) + base email + 1ers avis
+
+  6 mois                      Sérum lancé, 5–10 K$/mois, abonnement qui démarre
+
+  12 mois                     20 K$+/mois, USA renforcé, gamme élargie
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                     Page 1 / 3
+    Honnêteté
+    20 K–500 K$/mois est un horizon, pas un départ. Vise d'abord la rentabilité, réinvestis avec discipline. Le
+    modèle (rachat + saisons + gamme) est fait pour grossir.
+
+
+
+ 3. GUIDE MAÎTRE — Phase 1 (Kit, mois 1–2)
+ Semaine 1 — Fondations
+ 1. Finalise ton nom (4 vérifs) & remplace « RACINE ». → doc 08
+ 2. Immatricule l'entreprise (REQ/NEQ, TPS/TVQ, compte bancaire). → doc 33
+ 3. Achète domaine + emails pro (SPF/DKIM/DMARC). → doc 12
+ 4. Valide charte & logo. → doc 09
+
+ Semaine 1–2 — Sourcing kit
+ 1. Présélectionne 4–6 fournisseurs, demande devis. → doc 15
+ 2. Commande échantillons, teste, filme. → doc 16 / 30
+ 3. Commande 50–80 kits en DDP (branded). → doc 15 / 17
+
+ Semaine 2–3 — Boutique & contenu
+ 1. Crée la boutique Shopify bilingue + apps. → doc 19
+ 2. Rédige la page produit du kit + pages + section « Bientôt ». → doc 20 / 21
+ 3. Publie les politiques. → doc 34
+ 4. Installe pixels Google/Meta/TikTok. → doc 27/28/29
+ 5. Mets en place pop-up + séquences email. → doc 32
+ 6. Récolte 5–10 avis de testeurs + filme de l'UGC. → doc 23 / 30
+ 7. Prépare le poste d'emballage. → doc 24
+
+ Semaine 4 — Lancement pub (Google prioritaire)
+ 1. Lance Google Shopping + Search. → doc 27
+ 2. Lance Meta (Ventes). → doc 28
+ 3. Poste 1–3 vidéos TikTok/jour, booste les meilleures. → doc 29 / 30
+ 4. Surveille CPM, CTR, CPA, ROAS (sans paniquer en 2 jours).
+
+    Fin de Phase 1 = feu vert Phase 2
+    Le kit est rentable (ROAS > 2,5x), tu as une base email + des avis + du cash réinvesti.
+
+
+
+ 4. GUIDE MAÎTRE — Phase 2 (Sérum, mois 3+)
+ 1. Source le sérum en marque privée (INCI + GMP/ISO). → doc 15
+ 2. Fais la déclaration cosmétique Santé Canada + étiquetage. → doc 34
+ 3. Brande le sérum + crée la page + active l'abonnement. → doc 13 / 20 / 19
+ 4. Lance les pubs sérum (angles par avatar). → doc 27/28/29
+ 5. Active rachat + abonnement + parrainage. → doc 31 / 32
+ 6. Propose le bundle kit + sérum. → doc 17
+
+ 5. GUIDE MAÎTRE — Phase 3 (Expansion, mois 6+)
+ 1. Sonde ta liste d'attente : visage ou corps en premier ? → doc 02
+ 2. Valide la demande, source & déclare la nouvelle gamme. → doc 02 / 34
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                  Page 2 / 3
+ 3. Lance auprès de tes clients existants (email). → doc 32
+
+ 6. Tableau de bord hebdo
+  Indicateur                              Cible              S1        S2             S3             S4
+
+  Ventes                                  ↑
+
+  ROAS                                    ≥ 2,5x
+
+  CPA                                     < marge
+
+  Conversion                              ≥2%
+
+  Abonnés (P2)                            ↑
+
+  Trésorerie                              saine
+
+
+
+ 7. Les 7 règles d'or
+ 1. Une étape à la fois (suis les phases, ne te disperse pas).
+ 2. Le contenu > le ciblage (filme beaucoup d'UGC).
+ 3. Ne juge pas en 2 jours (7–14 j de données).
+ 4. Zéro claim médical, zéro faux avis (durable).
+ 5. L'abonnement & l'email font le profit (installe-les tôt).
+ 6. Surveille trésorerie & taxes (mets les taxes de côté).
+ 7. Réinvestis ce qui marche (scale par paliers, garde une réserve).
+
+    Mot de la fin
+    Tu as une marque évolutive (cheveux → visage → corps), un hero (sérum), un plan en phases sûr, et une
+    feuille de route complète. Le succès vient de l'exécution régulière. Une case cochée à la fois — et bientôt,
+    ton premier « Vous avez une vente ! » ■
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                 Page 3 / 3
+

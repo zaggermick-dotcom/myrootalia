@@ -1,0 +1,81 @@
+    DOCUMENT 17 / 35
+
+
+
+
+ Prix, Marges & Unit Economics
+ Coûts, prix, marges et seuil de rentabilité
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Décomposition des coûts et marges (kit & sérum) et seuil de rentabilité publicitaire. Chiffres en CAD, à
+ recalibrer avec tes coûts réels.
+
+
+
+
+ 1. Coût de revient
+  Poste                                                      Kit                Sérum
+
+  Produit                                                    4,50 $             4,00 $
+
+  Branding/packaging                                         1,00 $             1,50 $
+
+  Transport/douane (DDP)                                     2,50 $             2,00 $
+
+  Emballage expédition                                       1,00 $             1,00 $
+
+  COÛT TOTAL                                                 9,00 $             8,50 $
+
+
+
+ 2. Prix & marge
+  Élément                                                    Kit                Sérum
+
+  Prix de vente                                              34,99 $            39,99 $
+
+  Abonnement                                                 —                  33,99 $
+
+  Marge brute                                                ≈ 26 $ (74 %)      ≈ 31 $ (78 %)
+
+
+    Pouvoir du rachat
+    Le sérum se finit en 4–8 semaines → rachat. Avec l'abonnement, un client peut valoir 3 à 6× son 1er achat
+    (LTV). C'est ce qui permet de payer l'acquisition.
+
+
+
+ 3. Seuil de rentabilité
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                              Page 1 / 2
+  Indicateur                                      Kit                  Sérum
+
+  Marge avant pub                                 ≈ 25 $               ≈ 30 $
+
+  CPA cible                                       12–18 $              15–22 $
+
+  ROAS break-even                                 ≈ 1,4x               ≈ 1,3x
+
+  ROAS cible                                      ≥ 2,5x               ≥ 2,5x
+
+
+
+ 4. Augmenter le panier (AOV)
+ • Bundle kit + sérum (« routine complète »).
+ • Abonnement (récurrence).
+ • Upsell masque/huile (+8–12 $).
+ • Livraison gratuite dès 50 $.
+ Règle : tant que CPA < marge et ROAS > 2,5x, tu es rentable et tu peux augmenter le budget.
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                     Page 2 / 2
+

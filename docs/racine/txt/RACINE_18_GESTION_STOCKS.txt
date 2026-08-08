@@ -1,0 +1,66 @@
+    DOCUMENT 18 / 35
+
+
+
+
+ Gestion des Stocks &
+ Réapprovisionnement
+ Combien commander, quand recommander, zéro rupture
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Piloter ton inventaire simplement : quantité de départ, run rate, point de réappro, pics saisonniers.
+
+
+
+
+ 1. Première commande
+  Scénario                                                   Kit                 Sérum
+
+  Démarrage lean                                             50–80               100–200
+
+  Après validation                                           200–300             300–500
+
+
+    Règle (budget ~1 300 $)
+    Commande petit au départ (50–80 kits) et garde du cash pour la pub. Le sérum se finance avec les profits
+    réinvestis.
+
+
+
+ 2. Indicateurs
+  Indicateur                          Définition
+
+  Run rate                            Ventes/jour (moyenne 7 j)
+
+  Délai de réappro                    Production + transport (25–40 j sérum)
+
+  Stock de sécurité                   Tampon anti-imprévu
+
+
+    Point de commande
+    (ventes/jour × délai) + stock de sécurité. Ex. : 5/j × 35 j + 50 = recommander à 225 unités restantes.
+
+
+
+ 3. Pics saisonniers
+ • Automne (chute) + janvier (résolutions) = renforcer le sérum.
+ • Nov.–Déc. (cadeaux) = renforcer le kit/coffrets.
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                   Page 1 / 2
+ • Commander 6–8 semaines avant le pic.
+ • Filet anti-rupture : bascule dropshipping temporaire.
+
+ 4. Dans Shopify
+ • Active le suivi des quantités, mets à jour à chaque réception.
+ • Calcule le run rate chaque semaine, configure les alertes de stock bas.
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                   Page 2 / 2
+

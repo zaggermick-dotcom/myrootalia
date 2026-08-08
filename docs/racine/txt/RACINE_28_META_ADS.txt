@@ -1,0 +1,75 @@
+    DOCUMENT 28 / 35
+
+
+
+
+ Meta Ads (Facebook & Instagram)
+ Créer la demande : structure, audiences, créatives
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Meta complète Google : générer de la demande via des créatives émotionnelles auprès des femmes 25–45
+ au lancement.
+
+
+
+
+ 1. Mise en place
+ 1. Business Manager + page FB + compte Insta.
+ 2. Pixel/Dataset installé via le canal Facebook de Shopify + API de conversions (CAPI).
+ 3. Vérifie le domaine, priorise l'événement Achat.
+
+ 2. Structure
+  Niveau                      Réglage
+
+  Campagne                    Objectif Ventes (conversions), CBO, 40–60 $/j test
+
+  Ensembles                   2–3 audiences (large + intérêts)
+
+  Publicités                  3–4 créatives / ensemble
+
+
+    Philosophie
+    Ciblage large + bonnes créatives : l'algo trouve l'acheteur, ton énergie va aux créatives.
+
+
+
+ 3. Audiences
+  Audience                                Description
+
+  Large (Advantage+)                      Algo libre, 25–45
+
+  Intérêts naturel/soin                   Skincare, beauté clean
+
+  Retargeting                             Visiteurs, panier, vues vidéo 50 %
+
+  Lookalike (plus tard)                   1–3 % des acheteurs (après ~50 achats)
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                              Page 1 / 2
+ 4. Créatives (1 angle = 1 pub)
+ • UGC vidéo (témoignage authentique) = le plus performant (doc 30).
+ • Démonstration application + sous-titres.
+ • Carrousel « routine 4 étapes ».
+ • Avant/après honnête (8 semaines).
+
+    Conformité
+    Pas de promesse médicale, pas de ciblage « problème de santé », pas d'avant/après trompeur (doc 34).
+
+
+
+ 5. Lecture & scaling
+ • Surveille CPM, CTR (≥ 1–2 %), CPA, ROAS.
+ • Coupe les perdantes, duplique les gagnantes, scale +20 %/2-3 j.
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                            Page 2 / 2
+

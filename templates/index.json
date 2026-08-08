@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "42f1fbd7-9a5f-4361-bee4-1dd38dc77aa3": {
@@ -29,7 +38,7 @@
           "type": "button",
           "settings": {
             "button_text": "Découvrir les essentiels",
-            "button_link": "shopify://collections/kit",
+            "button_link": "shopify://products/kit-scalp-activator-masseur-derma-roller",
             "button_style": "1",
             "button_text_secondary": "",
             "button_link_secondary": "#hey",
@@ -53,9 +62,7 @@
         "layout_orientation": "right",
         "gutterless_mobile": true,
         "media_type": "image",
-        "image": "shopify://shop_images/hero_sylys.png",
         "media_type_mobile": "image",
-        "image_mobile": "shopify://shop_images/hero_mobile_sylys_2.png",
         "lazy": false,
         "content_container_width": 500,
         "text_color": "text",
@@ -243,7 +250,6 @@
       "settings": {
         "section_id": "",
         "media_type": "image",
-        "image": "shopify://shop_images/before_after.webp",
         "height": "adapt",
         "desktop_image_width": "large",
         "layout": "text_first",
@@ -345,7 +351,6 @@
       "settings": {
         "section_id": "",
         "media_type": "image",
-        "image": "shopify://shop_images/Kit.webp",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "image_first",
@@ -515,6 +520,8 @@
         "pause_on_hover": true,
         "enable_rating": true,
         "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
         "equalize_review_heights": false,
         "review_content_position": "flex-start",
         "subheading": "",
@@ -593,6 +600,8 @@
         "pause_on_hover": true,
         "enable_rating": true,
         "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
         "equalize_review_heights": false,
         "review_content_position": "flex-start",
         "subheading": "",
@@ -741,6 +750,8 @@
         "pause_on_hover": true,
         "enable_rating": true,
         "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
         "equalize_review_heights": false,
         "review_content_position": "flex-start",
         "subheading": "Details",
@@ -759,7 +770,7 @@
         "padding_bottom_sm": 0,
         "color_palette": "",
         "enable_cut_bg_color": false,
-        "cut_bg_color": "#F6F6F6",
+        "cut_bg_color": "#f6f6f6",
         "cut_bg_color_vertical": 0,
         "cut_bg_color_vertical_mobile": 0,
         "cut_bg_color_horizontal": 0,
@@ -819,6 +830,8 @@
         "pause_on_hover": true,
         "enable_rating": true,
         "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
         "equalize_review_heights": false,
         "review_content_position": "flex-start",
         "subheading": "",
@@ -837,7 +850,7 @@
         "padding_bottom_sm": 0,
         "color_palette": "",
         "enable_cut_bg_color": false,
-        "cut_bg_color": "#F6F6F6",
+        "cut_bg_color": "#f6f6f6",
         "cut_bg_color_vertical": 0,
         "cut_bg_color_vertical_mobile": 0,
         "cut_bg_color_horizontal": 0,
@@ -897,6 +910,8 @@
         "pause_on_hover": true,
         "enable_rating": true,
         "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
         "equalize_review_heights": false,
         "review_content_position": "flex-start",
         "subheading": "",
@@ -915,7 +930,7 @@
         "padding_bottom_sm": 0,
         "color_palette": "",
         "enable_cut_bg_color": false,
-        "cut_bg_color": "#F6F6F6",
+        "cut_bg_color": "#f6f6f6",
         "cut_bg_color_vertical": 0,
         "cut_bg_color_vertical_mobile": 0,
         "cut_bg_color_horizontal": 0,

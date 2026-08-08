@@ -1,0 +1,7 @@
+{%- comment -%}
+  Pas d'animation dans l'aperçu du sélecteur de blocs : AOS y met opacity:0 sans
+  jamais lever le voile (son JS ne tourne pas dans ce rendu isolé), et l'éditeur
+  affiche alors « Aucun aperçu disponible ». Le canvas de l'éditeur et la
+  boutique ne sont pas concernés : l'animation y joue normalement.
+{%- endcomment -%}
+{% if enable_animations and settings.enable_animations and request.visual_preview_mode != true %}data-aos="{{ animation }}"{% endif %}

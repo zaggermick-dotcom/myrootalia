@@ -1,0 +1,45 @@
+{
+  "wrapper": "section#wishlist.wishlist",
+  "sections": {
+    "main": {
+      "type": "main-wishlist",
+      "settings": {
+        "section_id": "",
+        "wishlist_empty": "<p>Wishlist is empty. Start adding some products to the wishlist by clicking on the heart icon.</p>",
+        "media_aspect_ratio": "portrait",
+        "show_secondary_image": true,
+        "show_rating": true,
+        "slides_on_desktop": 3,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": "1",
+        "subheading": "WISHLIST",
+        "heading": "<p>Gardez un œil sur vos produits phares</p>",
+        "heading_style": "2",
+        "description": "<p>Voici tous les produits que vous avez marqués en favoris ♡</p>",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "narrow",
+        "padding_top": 36,
+        "padding_bottom": 64,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

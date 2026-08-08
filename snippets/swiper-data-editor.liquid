@@ -1,0 +1,12 @@
+{%- liquid
+  assign settings_source = settings | default: section.settings
+-%}
+{% if request.design_mode -%}
+  data-slides-on-mobile="{{ settings_source.slides_on_mobile }}" data-slides-on-tablet="
+  {{- settings_source.slides_on_tablet -}}
+  " data-slides-on-desktop="{{ settings_source.slides_on_desktop }}" data-preshot="
+  {{- settings_source.preshot_swiper -}}
+  " data-number-of-slides="{{ numberOfSlides | default: section.blocks.size }}" data-loop="{{ settings_source.loop }}"
+  data-autoplay="{{ settings_source.autoplay }}" data-autoplay-delay="{{ settings_source.speed }}"
+  data-slide-class="{{ slideClass | default: 'swiper-slide' }}"
+{%- endif %}

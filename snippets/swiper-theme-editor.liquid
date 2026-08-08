@@ -1,0 +1,130 @@
+{%- assign swiper = swiperVariant | append: sectionId -%}
+{%- assign swiper_final_options = swiperOptions -%}
+
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # region(collapsed) Default Options -%}
+{%- capture swiper_defaults -%}
+  watchOverflow: true,
+  on: {
+    init: toggleScroll,
+    resize: toggleScroll,
+    update: toggleScroll
+  },
+{%- endcapture -%}
+{%- assign swiper_final_options = swiper_final_options | append: swiper_defaults -%}
+{%- # endregion ══════════════════════════════════════════════════════════════ -%}
+
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # region(collapsed) Scrollbar options -%}
+{%- if settings.swiper_pagination_style == 'scrollbar' and pagination != false -%}
+  {%- capture swiper_scrollbar -%}
+    scrollbar: { 
+      el: '.scrollbar_{{ sectionId }}',
+      draggable: true
+    },
+  {%- endcapture -%}
+  {%- assign swiper_final_options = swiper_final_options | append: swiper_scrollbar -%}
+{%- endif -%}
+{%- # endregion ══════════════════════════════════════════════════════════════ -%}
+
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # region(collapsed) Pagination Options -%}
+{%- if settings.swiper_pagination_style == 'dots' and pagination != false -%}
+  {%- capture swiper_pagination -%}
+    pagination: {
+      el:'.pagination_{{ sectionId }}',
+      clickable:true
+      {%- if numberOfBlocks > 5 -%}
+      ,dynamicBullets:true
+      {%- endif -%}
+    },
+  {%- endcapture -%}
+  {%- assign swiper_final_options = swiper_final_options | append: swiper_pagination -%}
+{%- endif -%}
+{%- # endregion ══════════════════════════════════════════════════════════════ -%}
+
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # region(collapsed) Navigation Options -%}
+{%- if settings.swiper_navigation_style != 'none' and navigation != false -%}
+  {%- capture swiperNavigation -%}
+    navigation: {
+      prevEl: '.prev_{{ sectionId }}',
+      nextEl: '.next_{{ sectionId }}'
+    }
+  {%- endcapture -%}
+  {%- assign swiper_final_options = swiper_final_options | append: swiperNavigation -%}
+{%- endif -%}
+{%- # endregion ══════════════════════════════════════════════════════════════ -%}
+
+{%- render 'swiper-elements', unique: sectionId, pagination: pagination, navigation: navigation %}
+
+{% if settings.swiper_arrows_noloop %}
+<style>
+  .swiper-button-prev.swiper-button-disabled,
+  .swiper-button-next.swiper-button-disabled {
+    display: none;
+  }
+</style>
+{% endif %}
+
+<script>
+  (() => {
+    const init = () => {
+    const toggleScroll = sw => sw.el.classList.toggle('no-scroll', sw.isLocked);
+    const {{ swiper }} = new Swiper({{ swiperEl }}, { {{ swiper_final_options }} });
+
+    if (Shopify.designMode) {
+      const createOrUpdateSwiper = (swiperEl, swiperOptions) => {
+        if (swiperInstance && swiperInstance.destroy) swiperInstance.destroy();
+        swiperInstance = new Swiper(swiperEl, swiperOptions);
+      }    
+      const launchNewSlider = (event) => {
+        const sectionId = event.detail.sectionId;
+        const swiperEl = document.querySelector(`[data-section-id="${sectionId}"] .swiper`);
+      
+        const numberOfSlides = +swiperEl.dataset.numberOfSlides;
+        const preshot = swiperEl.dataset.preshot;
+        const slides_on_mobile = (preshot === "true" && +swiperEl.dataset.slidesOnMobile < numberOfSlides) ? +swiperEl.dataset.slidesOnMobile + 0.4 : +swiperEl.dataset.slidesOnMobile;
+        const slides_on_tablet = (preshot === "true" && +swiperEl.dataset.slidesOnTablet < numberOfSlides) ? +swiperEl.dataset.slidesOnTablet + 0.4 : +swiperEl.dataset.slidesOnTablet;
+        const slides_on_desktop = (preshot === "true" && +swiperEl.dataset.slidesOnDesktop < numberOfSlides) ? +swiperEl.dataset.slidesOnDesktop + 0.4 : +swiperEl.dataset.slidesOnDesktop;
+        const loop = swiperEl.dataset.loop;
+        const autoplay = swiperEl.dataset.autoplay;
+        const autoplayDelay = +swiperEl.dataset.autoplayDelay;
+        const slideClass = swiperEl.dataset.slideClass || 'swiper-slide';
+
+        swiper_final_options = {
+          slideClass: slideClass,
+          loop: loop,
+          mousewheel: { forceToAxis: true },
+          spaceBetween: 24,
+          slidesPerView: slides_on_mobile,
+          autoplay: {
+            pauseOnMouseEnter: true,
+            enabled: autoplay,
+            delay: autoplayDelay * 1000
+          },
+          breakpoints: {
+            750: { slidesPerView: slides_on_tablet },
+            990: { slidesPerView: slides_on_desktop }
+          }
+        };
+        
+        if (swiperEl && swiper_final_options) createOrUpdateSwiper(swiperEl, swiper_final_options);
+      }
+      document.addEventListener("shopify:section:load", (event) => { launchNewSlider(event); });
+    }
+    };
+
+    {%- comment -%}
+      swiper.js est chargé en defer : au premier parse, Swiper n'existe pas encore,
+      on attend DOMContentLoaded (les scripts defer sont garantis exécutés avant).
+      Lors d'un re-rendu de section dans l'éditeur, DOMContentLoaded est déjà passé
+      et Swiper est disponible : on initialise immédiatement.
+    {%- endcomment -%}
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

@@ -1,0 +1,465 @@
+/* Le host ne porte jamais de transform : il deviendrait le bloc conteneur du
+   position:fixed de la popup, qui resterait alors enfermée dans la vignette. */
+floating-video {
+  position: fixed;
+  bottom: var(--floating-video-offset);
+  z-index: 20;
+  display: block;
+  width: var(--floating-video-width);
+  max-width: calc(100vw - 2 * var(--floating-video-offset));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transitions-delay) ease, visibility var(--transitions-delay) ease,
+    width var(--transitions-delay) ease;
+}
+
+floating-video[data-position='bottom-left'] {
+  left: var(--floating-video-offset);
+}
+
+floating-video[data-position='bottom-right'] {
+  right: var(--floating-video-offset);
+}
+
+floating-video.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+floating-video.is-expanded {
+  width: min(var(--floating-video-width-expanded), calc(100vw - 2 * var(--floating-video-offset)));
+}
+
+/* Popup ouverte : la vignette se verrait par transparence derrière le fond.
+   Après .is-visible, qui a la même spécificité. */
+floating-video.is-popup-open {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.floating-video__card {
+  position: relative;
+  transform: translateY(1rem);
+  transition: transform var(--transitions-delay) ease;
+}
+
+floating-video.is-visible .floating-video__card {
+  transform: translateY(0);
+}
+
+.floating-video__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--floating-video-ratio);
+  overflow: hidden;
+  border-radius: var(--media-container-radius);
+  box-shadow: var(--floating-video-shadow, none);
+  background: rgb(var(--color-background-secondary));
+}
+
+.floating-video__frame video,
+.floating-video__frame img,
+.floating-video__frame .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Zone cliquable qui déclenche l'action. Séparée du cadre pour ne pas imbriquer
+   les boutons son/fermeture dans un bouton. */
+.floating-video__open {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.floating-video__controls {
+  position: absolute;
+  inset: 0.6rem auto auto 0.6rem;
+}
+
+/* Couleurs communes à tous les contrôles posés sur la vidéo. */
+.floating-video__control,
+.floating-video__close,
+.floating-video__handle {
+  background: rgba(var(--floating-video-controls-background, 0, 0, 0), var(--floating-video-controls-alpha, 1));
+  color: rgb(var(--floating-video-controls-color, 255, 255, 255));
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--transitions-delay) ease;
+}
+
+.floating-video__control:hover,
+.floating-video__close:hover,
+.floating-video__handle:hover {
+  opacity: 0.85;
+}
+
+.floating-video__control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.floating-video__control svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+}
+
+.floating-video__time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* La vignette démarre muette : on n'affiche que l'icône correspondant à l'état. */
+.floating-video__sound .icon-sound--on,
+.floating-video__sound--on .icon-sound--off {
+  display: none;
+}
+
+.floating-video__sound--on .icon-sound--on {
+  display: block;
+}
+
+.floating-video__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--floating-video-close-size, 22px);
+  height: var(--floating-video-close-size, 22px);
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* L'icône suit le diamètre du bouton, une seule valeur à régler. */
+.floating-video__close svg {
+  width: 50%;
+  height: 50%;
+}
+
+/* Poignée du panneau rétractable, sur le bord intérieur. Mobile uniquement. */
+.floating-video__handle {
+  display: none;
+  position: absolute;
+  top: 50%;
+  margin-top: -2.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 4.8rem;
+  padding: 0;
+}
+
+.floating-video__handle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform var(--transitions-delay) ease;
+}
+
+.floating-video__label {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.9rem 1.2rem;
+  background: rgba(var(--floating-video-label-background, 18, 18, 18), var(--floating-video-label-alpha, 1));
+  color: rgb(var(--floating-video-label-color, 255, 255, 255));
+  font-size: 1.4rem;
+  line-height: 1.2;
+  text-align: left;
+  pointer-events: none;
+}
+
+/* Libellé en haut : les contrôles descendent pour ne pas se chevaucher. */
+floating-video[data-label-position='top'] .floating-video__label {
+  inset: 0 0 auto 0;
+}
+
+floating-video[data-label-position='top'] .floating-video__controls {
+  inset: auto auto 0.6rem 0.6rem;
+}
+
+.floating-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  pointer-events: none;
+}
+
+.floating-video__play svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-left: 0.2rem;
+}
+
+/* #region Popup plein écran (déplacée dans <body> par le JS) */
+.floating-video__popup {
+  position: fixed;
+  inset: 0;
+  /* Au-dessus du header du thème, qui monte à 100000. */
+  z-index: 100001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 2rem 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transitions-delay) ease, visibility var(--transitions-delay) ease;
+}
+
+.floating-video__popup[data-backdrop='dark'] {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.floating-video__popup[data-backdrop='blur'] {
+  background: rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+}
+
+.floating-video__popup[data-backdrop='dark-blur'] {
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(0.6rem);
+  backdrop-filter: blur(0.6rem);
+}
+
+.floating-video__popup.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Aucun ratio ni fond imposés : la vidéo dicte sa taille, donc pas de bandes. */
+.floating-video__popup-inner {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+  line-height: 0;
+}
+
+.floating-video__popup-inner video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 9rem);
+  display: block;
+  border-radius: var(--media-container-radius);
+}
+
+/* Une iframe n'a pas de dimensions propres : elle garde le format réglé. */
+.floating-video__popup-inner--embed {
+  width: min(100%, calc((100vh - 9rem) * var(--floating-video-ratio)));
+  aspect-ratio: var(--floating-video-ratio);
+}
+
+.floating-video__popup-inner--embed iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+  border-radius: var(--media-container-radius);
+}
+
+.floating-video__popup-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 50%;
+  /* Fond sombre plutôt que blanc translucide : sur un fond seulement flouté,
+     une croix claire sur une page claire devient invisible. */
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color var(--transitions-delay) ease;
+}
+
+.floating-video__popup-close:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+/* #endregion */
+
+@media screen and (max-width: 749px) {
+  floating-video {
+    width: var(--floating-video-width-mobile);
+  }
+
+  /* Au-delà de 160px le rond mange l'écran : on borne, quel que soit le curseur. */
+  floating-video[data-mobile-display='circle'] {
+    width: clamp(60px, var(--floating-video-width-mobile), 160px);
+  }
+
+  /* Rond et carré : format 1:1, le libellé n'a plus la place de s'afficher. */
+  floating-video[data-mobile-display='circle'] .floating-video__frame,
+  floating-video[data-mobile-display='square'] .floating-video__frame {
+    aspect-ratio: 1 / 1;
+  }
+
+  floating-video[data-mobile-display='circle'] .floating-video__frame {
+    border-radius: 50%;
+  }
+
+  floating-video[data-mobile-display='circle'] .floating-video__label,
+  floating-video[data-mobile-display='square'] .floating-video__label,
+  floating-video[data-mobile-display='circle'] .floating-video__controls,
+  floating-video[data-mobile-display='square'] .floating-video__controls {
+    display: none;
+  }
+
+  floating-video[data-mobile-display='square'] .floating-video__close {
+    top: -0.4rem;
+    right: -0.4rem;
+  }
+
+  /* Le coin d'un rond est vide : la croix se pose sur la diagonale du cercle.
+     14,6% = (1 − 1/√2)/2, le point à 45°. En pourcentage du cadre avec un
+     recentrage par translate, la croix suit le bord quelle que soit sa taille. */
+  floating-video[data-mobile-display='circle'] .floating-video__close {
+    top: 14.6%;
+    right: 14.6%;
+    transform: translate(50%, -50%);
+  }
+
+  /* Rond et carré sont des états de repos : une fois agrandi on revient à un
+     vrai panneau vidéo, sinon on obtient un disque géant et une croix qui
+     dérive vers le centre en suivant le pourcentage du cadre. */
+  floating-video[data-mobile-display='circle'].is-expanded,
+  floating-video[data-mobile-display='square'].is-expanded {
+    width: min(var(--floating-video-width-expanded), calc(100vw - 2 * var(--floating-video-offset)));
+  }
+
+  floating-video[data-mobile-display='circle'].is-expanded .floating-video__frame,
+  floating-video[data-mobile-display='square'].is-expanded .floating-video__frame {
+    aspect-ratio: var(--floating-video-ratio);
+    border-radius: var(--media-container-radius);
+  }
+
+  floating-video[data-mobile-display='circle'].is-expanded .floating-video__label,
+  floating-video[data-mobile-display='square'].is-expanded .floating-video__label,
+  floating-video[data-mobile-display='circle'].is-expanded .floating-video__controls,
+  floating-video[data-mobile-display='square'].is-expanded .floating-video__controls {
+    display: block;
+  }
+
+  floating-video[data-mobile-display='circle'].is-expanded .floating-video__close,
+  floating-video[data-mobile-display='square'].is-expanded .floating-video__close {
+    top: 0.6rem;
+    right: 0.6rem;
+    transform: none;
+  }
+
+  /* Panneau : collé au bord, arrondi côté intérieur. Centrage vertical par
+     marges auto — un translate ferait du host le conteneur de la popup. */
+  floating-video[data-mobile-display='edge'] {
+    top: 0;
+    bottom: 0;
+    height: fit-content;
+    margin-block: auto;
+    max-width: calc(100vw - var(--floating-video-offset));
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-left'] {
+    left: 0;
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-right'] {
+    right: 0;
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-left'] .floating-video__frame {
+    border-radius: 0 var(--media-container-radius) var(--media-container-radius) 0;
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-right'] .floating-video__frame {
+    border-radius: var(--media-container-radius) 0 0 var(--media-container-radius);
+  }
+
+  /* Rétractation animée sur left/right : un transform sur le host en ferait le
+     bloc conteneur de tout position:fixed qu'on y ajouterait plus tard. */
+  floating-video[data-mobile-display='edge'] {
+    transition: opacity var(--transitions-delay) ease, visibility var(--transitions-delay) ease,
+      left var(--transitions-delay) ease, right var(--transitions-delay) ease;
+  }
+
+  floating-video[data-mobile-display='edge'] .floating-video__handle {
+    display: inline-flex;
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-left'] .floating-video__handle {
+    right: 0;
+    border-radius: var(--media-container-radius) 0 0 var(--media-container-radius);
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-right'] .floating-video__handle {
+    left: 0;
+    border-radius: 0 var(--media-container-radius) var(--media-container-radius) 0;
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-left'].is-retracted {
+    left: calc(2.6rem - var(--floating-video-width-mobile));
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-right'].is-retracted {
+    right: calc(2.6rem - var(--floating-video-width-mobile));
+  }
+
+  /* La flèche indique toujours le sens du prochain geste. */
+  floating-video[data-mobile-display='edge'][data-position='bottom-left'] .floating-video__handle svg,
+  floating-video[data-mobile-display='edge'][data-position='bottom-right'].is-retracted .floating-video__handle svg {
+    transform: rotate(180deg);
+  }
+
+  floating-video[data-mobile-display='edge'][data-position='bottom-left'].is-retracted .floating-video__handle svg {
+    transform: rotate(0deg);
+  }
+
+  .floating-video__popup {
+    padding: 6rem 1.5rem 1.5rem;
+  }
+
+  .floating-video__popup-inner video {
+    max-height: calc(100vh - 8rem);
+  }
+
+  .floating-video__popup-inner--embed {
+    width: min(100%, calc((100vh - 8rem) * var(--floating-video-ratio)));
+  }
+
+  .floating-video__popup-close {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  floating-video,
+  .floating-video__card,
+  .floating-video__popup {
+    transition: none;
+  }
+}

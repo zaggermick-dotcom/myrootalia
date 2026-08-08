@@ -1,0 +1,17 @@
+      {%- assign collection = section.settings.cart_upsell_collection -%}
+
+      <div id="drawer-upsell__swiper" class="swiper drawer__upsell--swiper">
+        <div class="swiper-wrapper theme-vertical-layout">
+          {%- for product in collection.products limit: 3 -%}
+            <div class="swiper-slide">
+              {%- render 'card-product-upsell-drawer',
+                section_id: section.id,
+                card_product: product,
+                card_style: section.settings.product_card_style,
+                button_text: section.settings.cart_upsell_button_text,
+                button_style: section.settings.cart_upsell_button_style
+              -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>

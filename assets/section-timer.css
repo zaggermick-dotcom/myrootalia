@@ -1,0 +1,58 @@
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Section */
+.section-timer {
+  display: none;
+}
+.section-timer[active] {
+  display: block;
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Content */
+.timer-section__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.timer-section__content strong {
+  display: contents;
+}
+.timer-section__timer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Timer Cards */
+.timer-section__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em 0.4em;
+  border-radius: 2px;
+  background: rgba(var(--color-foreground-secondary));
+  color: rgb(var(--color-background));
+  color: var(--gradient-background);
+}
+/* Hide days and hours + colons if days/hours are empty */
+.timer-section__timer:has(> .timer-section__card:nth-child(1) > .timer-section__number:empty)
+  > :is(.timer-section__card:nth-child(1), b:nth-child(2)),
+.timer-section__timer:has(> .timer-section__card:nth-child(1) > .timer-section__number:empty):has(
+    > .timer-section__card:nth-child(3) > .timer-section__number:empty
+  )
+  > :is(.timer-section__card:nth-child(3), b:nth-child(4)) {
+  display: none;
+}
+.timer-section__number {
+  line-height: 1em;
+}
+.timer-section__number:empty::before {
+  content: '00';
+}
+.timer-section__label {
+  line-height: 1em;
+  font-size: 0.6em;
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */

@@ -1,0 +1,294 @@
+{
+  "sections": {
+    "banner_bWPEqk": {
+      "type": "banner",
+      "blocks": {
+        "heading_FYwzfQ": {
+          "type": "heading",
+          "settings": {
+            "subheading": "À propos de Sylys",
+            "heading": "<p>L’art du regard naturel</p>",
+            "heading_style": "1",
+            "heading_font_size": 140,
+            "heading_font_size_mobile": 100,
+            "enable_slides": false,
+            "slides": "d'être soi-même, de se maquiller, de se faire belle",
+            "margin_bottom": 16
+          }
+        },
+        "text_nJ6NbH": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Sylys est née d’une envie simple : créer des produits de beauté qui subliment le regard sans le transformer. Des essentiels sourcils pensés pour révéler votre beauté naturelle, chaque jour.</p>",
+            "description_font_size": 100,
+            "description_font_size_mobile": 100,
+            "margin_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "heading_FYwzfQ",
+        "text_nJ6NbH"
+      ],
+      "settings": {
+        "section_id": "",
+        "image_overlay_opacity": 0,
+        "image_overlay_color": "foreground",
+        "height": "two_thirds",
+        "layout": "full",
+        "layout_orientation": "right",
+        "gutterless_mobile": true,
+        "media_type": "image",
+        "image": "shopify://shop_images/banniere_notre_histoire.webp",
+        "media_type_mobile": "image",
+        "image_mobile": "shopify://shop_images/Hero_notre_histoire_mobile.webp",
+        "lazy": false,
+        "content_container_width": 500,
+        "text_color": "text",
+        "desktop_content_position": "middle_left",
+        "mobile_content_position": "top",
+        "content_background_behavior": "transparent",
+        "enable_animations": false,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "image_with_text_zxJeAt": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_bxjBqE": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h2>Notre mission</h2>",
+            "heading_level": "2",
+            "heading_style": "2",
+            "icon": "none"
+          }
+        },
+        "text_DUYmDi": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Nous croyons que la beauté réside dans l’authenticité. Notre mission est de vous accompagner avec des produits simples, efficaces et accessibles, pour vous sentir belle et confiante, sans effort.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "icons_td748U": {
+          "type": "icons",
+          "settings": {
+            "icons_style": "grid",
+            "fill_color": "accent",
+            "fill_fade_background": false,
+            "bg_color_icons": false,
+            "icon_1_icon_type": "plant",
+            "icon_1_text": "Des formules douces et respectueuses",
+            "icon_1_description": "Put here a description of the benefit or the feature.",
+            "icon_1_url": "",
+            "icon_2_icon_type": "lightning_bolt",
+            "icon_2_text": "Des produits efficaces et faciles à utiliser",
+            "icon_2_description": "Put here a description of the benefit or the feature.",
+            "icon_2_url": "",
+            "icon_3_icon_type": "lipstick",
+            "icon_3_text": "Un engagement pour la beauté naturelle",
+            "icon_3_description": "Put here a description of the benefit or the feature.",
+            "icon_3_url": "",
+            "icon_4_icon_type": "check_mark",
+            "icon_4_text": "",
+            "icon_4_description": "Put here a description of the benefit or the feature.",
+            "icon_4_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_bxjBqE",
+        "text_DUYmDi",
+        "icons_td748U"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_id": "",
+        "media_type": "image",
+        "image": "shopify://shop_images/image_texte_histoire.webp",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "layout_style": "normal",
+        "remove_gap": false,
+        "make_square": false,
+        "text_container_max_width": 700,
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "normal",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_sm": 36,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "69ed5b56-f988-40ca-84f2-986d2ba9d6a8": {
+      "type": "timeline",
+      "blocks": {
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-0": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2017",
+            "heading": "L'idée",
+            "text": "Tout a commencé avec une idée simple : révolutionner les codes du maquillage pour s’adapter à la femme moderne."
+          }
+        },
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-1": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2018",
+            "heading": "La création",
+            "text": "Recherche et développement. En collaboration avec plusieurs laboratoires, nous avons conçu nos premiers produits de maquillage."
+          }
+        },
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-2": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2019",
+            "heading": "Le lancement",
+            "text": "La marque Sylys voit le jour. Nos premiers produits sont lancés et adoptés par une communauté grandissante."
+          }
+        },
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-3": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Aujourd'hui",
+            "heading": "Et demain",
+            "text": "Nous continuons d’innover pour vous proposer des essentiels toujours plus performants, tout en restant fidèles à nos valeurs."
+          }
+        }
+      },
+      "block_order": [
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-0",
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-1",
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-2",
+        "template--19365947343145__69ed5b56-f988-40ca-84f2-986d2ba9d6a8-1686586227e413a403-3"
+      ],
+      "settings": {
+        "section_id": "",
+        "subheading": "",
+        "heading": "<p>Notre histoire</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "switch": true,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 52,
+        "padding_bottom": 44,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "3e184eb9-f1ee-4a15-9e87-89033daeae21": {
+      "type": "featured-collection",
+      "settings": {
+        "section_id": "",
+        "collection": "nos-essentiels-copie",
+        "limit": 8,
+        "media_aspect_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "variants_wrap": false,
+        "show_all": false,
+        "button_text": "View all products",
+        "button_style": "2",
+        "layout": "swiper",
+        "slides_on_desktop": 3,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": "1",
+        "preshot_swiper": true,
+        "loop": true,
+        "navigation": true,
+        "pagination": true,
+        "autoplay": true,
+        "speed": 4,
+        "subheading": "Nos bestsellers",
+        "heading": "<p>Le kit parfait pour une routine en or</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_sm": 24,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    }
+  },
+  "order": [
+    "banner_bWPEqk",
+    "image_with_text_zxJeAt",
+    "69ed5b56-f988-40ca-84f2-986d2ba9d6a8",
+    "3e184eb9-f1ee-4a15-9e87-89033daeae21"
+  ]
+}

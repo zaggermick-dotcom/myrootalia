@@ -1,0 +1,52 @@
+{%- comment -%}
+  Tab panel for the "sidebar" and "stacked" layouts of sections/tabs.liquid.
+  Accepts: block, section, prefix, first, with_button
+{%- endcomment -%}
+<div
+  class="{{ prefix }}__panel{% if first %} {{ prefix }}__panel--active{% endif %}"
+  role="tabpanel"
+  id="{{ prefix }}-panel-{{ block.id }}"
+  aria-labelledby="{{ prefix }}-tab-{{ block.id }}"
+  data-tabs-panel
+  {% unless first %}hidden{% endunless %}
+  {%- render 'animation',
+    enable_animations: section.settings.enable_animations,
+    animation: section.settings.animation
+  -%}
+>
+  <div class="{{ prefix }}__panel-content">
+    {%- if block.settings.image != blank -%}
+      <div class="{{ prefix }}__panel-image global-media-settings">
+        {%- capture sizes -%}
+          (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+          (min-width: 750px) calc((100vw - 130px) / 2), calc(100vw - 30px)
+        {%- endcapture -%}
+        {{
+          block.settings.image
+          | image_url: width: 800
+          | image_tag: loading: 'lazy', sizes: sizes, widths: '400, 600, 800, 1000'
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="{{ prefix }}__panel-text{% if with_button %} {{ prefix }}__panel-text--{{ block.settings.text_alignment }}{% endif %}">
+      <h3 class="{{ prefix }}__panel-title h3">{{ block.settings.heading }}</h3>
+      {%- if block.settings.text != blank -%}
+        <div class="{{ prefix }}__panel-description rte">
+          {{ block.settings.text }}
+        </div>
+      {%- endif -%}
+      {{ block.settings.page_content.content }}
+      {%- if with_button and block.settings.button_label != blank -%}
+        <div class="{{ prefix }}__panel-button">
+          <a
+            {% if block.settings.button_url != blank %}href="{{ block.settings.button_url }}"{% endif %}
+            class="button button__style--{{ block.settings.button_style }}"
+          >
+            {{ block.settings.button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

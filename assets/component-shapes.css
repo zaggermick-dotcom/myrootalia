@@ -1,0 +1,400 @@
+/* Extracted from base.css: loaded only where the feature renders. */
+/* #region(collapsed) Shapes */
+.shape {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+.shape::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  z-index: 3;
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+@media (min-width: 1000px) {
+  .shape::before {
+    bottom: 0vw;
+    left: -0.1vw;
+    right: -0.1vw;
+    top: 0vw;
+  }
+}
+@keyframes shape-animation {
+  100% {
+    transform: scaleX(4) translateX(calc(100% - (100% / 4)));
+  }
+}
+.shape.animated::before {
+  transform: scaleX(4);
+  transform-origin: 100% 0;
+  animation: 10s infinite alternate shape-animation linear;
+}
+@media (min-width: 750px) {
+  .shape.animated::before {
+    transform: scaleX(4);
+    transform-origin: 100% 0;
+    animation: 10s infinite alternate shape-animation linear;
+  }
+}
+@media (min-width: 1000px) {
+  .shape.animated::before {
+    transform: scaleX(4);
+    transform-origin: 100% 0;
+    animation: 10s infinite alternate shape-animation linear;
+  }
+}
+/* Wave */
+.shape-wave {
+  height: 60px;
+}
+.shape-wave::before {
+  background-size: 145% 60px;
+}
+@media (min-width: 750px) {
+  .shape-wave::before {
+    background-size: 100% 60px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-wave {
+    height: 100px;
+  }
+  .shape-wave::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-wave {
+    height: calc(2vw + 100px);
+  }
+  .shape-wave::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/* Curve 1 */
+.shape-curve-1 {
+  height: 58px;
+}
+.shape-curve-1.bottom {
+  margin-bottom: -3.5rem;
+}
+.shape-curve-1.top {
+  margin-top: -3.5rem;
+}
+.shape-curve-1::before {
+  background-size: 136% 58px;
+}
+@media (min-width: 750) {
+  .shape-curve-1::before {
+    background-size: 167% 101px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-curve-1 {
+    height: 100px;
+  }
+  .shape-curve-1.bottom {
+    margin-bottom: -6rem;
+  }
+  .shape-curve-1.top {
+    margin-top: -6rem;
+  }
+  .shape-curve-1::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-curve-1 {
+    height: calc(2vw + 100px);
+  }
+  .shape-curve-1::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/*  Curve 2  */
+.shape-curve-2 {
+  height: 58px;
+}
+.shape-curve-2::before {
+  background-size: 136% 58px;
+}
+@media (min-width: 750) {
+  .shape-curve-2::before {
+    background-size: 167% 101px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-curve-2 {
+    height: 100px;
+  }
+  .shape-curve-2::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-curve-2 {
+    height: calc(2vw + 100px);
+  }
+  .shape-curve-2::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/*  Curve 3  */
+.shape-curve-3 {
+  height: 58px;
+}
+.shape-curve-3::before {
+  background-size: 136% 58px;
+}
+@media (min-width: 750) {
+  .shape-curve-3::before {
+    background-size: 167% 101px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-curve-3 {
+    height: 100px;
+  }
+  .shape-curve-3::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-curve-3 {
+    height: calc(2vw + 100px);
+  }
+  .shape-curve-3::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/*  Arrow 1 (not animated)  */
+.shape-arrow-1 {
+  height: 60px;
+}
+.shape-arrow-1::before {
+  background-size: 136% 60px;
+}
+@media (min-width: 750px) {
+  .shape-arrow-1 {
+    height: 79px;
+  }
+  .shape-arrow-1::before {
+    background-size: 167% 79px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-arrow-1 {
+    height: 110px;
+  }
+  .shape-arrow-1::before {
+    background-size: 100% 110px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-arrow-1 {
+    height: calc(2vw + 110px);
+  }
+  .shape-arrow-1::before {
+    background-size: 100% calc(2vw + 110px);
+  }
+}
+/*  Arrow 2 (not animated)  */
+.shape-arrow-2 {
+  height: 60px;
+}
+.shape-arrow-2::before {
+  background-size: 136% 60px;
+}
+@media (min-width: 750px) {
+  .shape-arrow-2 {
+    height: 79px;
+  }
+  .shape-arrow-2::before {
+    background-size: 167% 79px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-arrow-2 {
+    height: 110px;
+  }
+  .shape-arrow-2::before {
+    background-size: 100% 110px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-arrow-2 {
+    height: calc(2vw + 110px);
+  }
+  .shape-arrow-2::before {
+    background-size: 100% calc(2vw + 110px);
+  }
+}
+/*  circle (not animated)  */
+.shape-circle {
+  height: 60px;
+}
+.shape-circle::before {
+  background-size: 136% 60px;
+}
+@media (min-width: 750px) {
+  .shape-circle {
+    height: 80px;
+  }
+  .shape-circle::before {
+    background-size: 167% 80px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-circle {
+    height: 80px;
+  }
+  .shape-circle::before {
+    background-size: 100% 80px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-circle {
+    height: calc(2vw + 80px);
+  }
+  .shape-circle::before {
+    background-size: 100% calc(2vw + 80px);
+  }
+}
+/*  Diagonal 1 (not animated)  */
+.shape-diagonal-1 {
+  height: 60px;
+}
+.shape-diagonal-1::before {
+  background-size: 130% 60px;
+}
+@media (min-width: 750px) {
+  .shape-diagonal-1 {
+    height: 80px;
+  }
+  .shape-diagonal-1::before {
+    background-size: 120% 80px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-diagonal-1 {
+    height: 100px;
+  }
+  .shape-diagonal-1::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-diagonal-1 {
+    height: calc(2vw + 100px);
+  }
+  .shape-diagonal-1::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/*  Diagonal 2 (not animated)  */
+.shape-diagonal-2 {
+  height: 60px;
+}
+.shape-diagonal-2::before {
+  background-size: 130% 60px;
+}
+@media (min-width: 750px) {
+  .shape-diagonal-2 {
+    height: 80px;
+  }
+  .shape-diagonal-2::before {
+    background-size: 120% 80px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-diagonal-2 {
+    height: 100px;
+  }
+  .shape-diagonal-2::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-diagonal-2 {
+    height: calc(2vw + 100px);
+  }
+  .shape-diagonal-2::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/*  Diagonal 3 (not animated)  */
+.shape-diagonal-3 {
+  height: 60px;
+}
+.shape-diagonal-3::before {
+  background-size: 130% 60px;
+}
+@media (min-width: 750px) {
+  .shape-diagonal-3 {
+    height: 80px;
+  }
+  .shape-diagonal-3::before {
+    background-size: 120% 80px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-diagonal-3 {
+    height: 100px;
+  }
+  .shape-diagonal-3::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-diagonal-3 {
+    height: calc(2vw + 100px);
+  }
+  .shape-diagonal-3::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/*  Fade (not animated)  */
+.shape-fade {
+  height: 70px;
+}
+.shape-fade::before {
+  background-size: 130% 70px;
+}
+@media (min-width: 750px) {
+  .shape-fade {
+    height: 80px;
+  }
+  .shape-fade::before {
+    background-size: 120% 80px;
+  }
+}
+@media (min-width: 1000px) {
+  .shape-fade {
+    height: 100px;
+  }
+  .shape-fade::before {
+    background-size: 100% 100px;
+  }
+}
+@media (min-width: 2000px) {
+  .shape-fade {
+    height: calc(2vw + 100px);
+  }
+  .shape-fade::before {
+    background-size: 100% calc(2vw + 100px);
+  }
+}
+/* Line */
+.shape-line {
+  height: 2px;
+}
+.shape-line::before {
+  background: rgb(var(--color-background-secondary));
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */

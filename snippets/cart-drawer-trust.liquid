@@ -1,0 +1,24 @@
+<style>
+  .drawer__module .drawer-trust__slide img,
+  .drawer__module .drawer-trust__slide svg {
+    width: {{ block.settings.size }}px;
+    height: {{ block.settings.size }}px;
+  }
+</style>
+<div
+  class="drawer__module text-{{ section.settings.cart_modules_alignment }} color-{{ block.settings.color_palette }} drawer__module--trust"
+  {{ block.shopify_attributes }}
+>
+  <div
+    {%- if block.settings.style == 'slider' %}
+      id="drawer-trust__swiper"
+    {% endif %}
+    class="{% if block.settings.style == 'slider' %}swiper swiper_no_pagination {% else %}bullets bullets__alignement--{{ section.settings.cart_modules_alignment }} {% endif %}drawer-trust__swiper"
+  >
+    {%- render 'cart-drawer-icons' -%}
+    {%- if block.settings.style == 'slider' %}
+      <div class="swiper-button-prev button-prev-drawer-trust__swiper"></div>
+      <div class="swiper-button-next button-next-drawer-trust__swiper"></div>
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,59 @@
+{%- liquid
+  # Filtrer les images de variantes du carousel (si activé)
+  assign variant_media_ids = ''
+  if exclude_variant_images
+    for variant in product.variants
+      if variant.featured_media
+        assign variant_media_ids = variant_media_ids | append: variant.featured_media.id | append: ','
+      endif
+    endfor
+  endif
+-%}
+
+{%- for media in product.media -%}
+  {%- liquid
+    assign is_variant_image = false
+    if exclude_variant_images and variant_media_ids contains media.id
+      assign is_variant_image = true
+    endif
+  -%}
+  {%- unless is_variant_image -%}
+    <div class="media__popup" style="opacity: 0; visibility: hidden;" id="media_{{ section.id }}_{{ media.id }}">
+    <div class="media__popup-wrapper">
+      <span class="popup-media__closer">{%- render 'icon-close' -%}</span>
+      <div class="media__popup-container">
+        {%- case media.media_type -%}
+          {%- when 'video' -%}
+            {%- assign player_id = 'player_' | append: media.id -%}
+            <div class="media__video-container">
+              {{
+                media
+                | video_tag:
+                  id: player_id,
+                  class: 'js-custom',
+                  image_size: '1100x',
+                  autoplay: false,
+                  controls: true,
+                  muted: false
+              }}
+            </div>
+          {%- when 'external_video' -%}
+            <div class="media__video-container">
+              {{ media | external_video_tag }}
+            </div>
+          {%- else -%}
+            <div class="media__image-container">
+              {{
+                media | image_url: width: 1100 | image_tag:
+                  loading: 'lazy',
+                  width: media.width,
+                  height: media.height,
+                  class: 'media__image'
+              }}
+            </div>
+        {%- endcase -%}
+      </div>
+    </div>
+  </div>
+  {%- endunless -%}
+{%- endfor -%}

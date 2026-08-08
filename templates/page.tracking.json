@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-tracking",
+      "settings": {
+        "track": "Numéro de suivi",
+        "subheading": "",
+        "heading": "<p>Suivre ma commande</p>",
+        "heading_style": "2",
+        "description": "<p>Si vous vous demandez où peut bien être votre commande, vous êtes au bon endroit. Renseignez votre numéro de commande si-dessous.</p>",
+        "alignment": "center",
+        "button_text": "Suivre ma commande",
+        "button_style": "1",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "narrow",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

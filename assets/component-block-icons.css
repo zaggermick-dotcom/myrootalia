@@ -1,0 +1,157 @@
+/* Extracted from base.css: loaded only where the feature renders. */
+/* #region(collapsed) Block Icons */
+.block-icons--grid,
+.block-icons--block {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.block-icons--block {
+  gap: 2.3rem;
+}
+.block-icons--bullets_half {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.block-icons--bullets_half .block-icons--item {
+  width: 100%;
+}
+.block-icons--item {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  gap: 1rem;
+}
+.block-icons--colored-icons .block-icons--item {
+  align-items: center;
+}
+a.block-icons--item {
+  text-decoration: none;
+}
+.block-icons--fade-background .block-icons--item {
+  padding: 0.8rem;
+  border-radius: var(--content-container-radius);
+  border: var(--content-container-border);
+  box-shadow: var(--content-container-shadow);
+  background-color: rgb(var(--color-background-secondary));
+}
+.block-icons--bullets .block-icons--item:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.block-icons:not(.block-icons--block) .block-icons--item:not(:has(> .icon__text)) {
+  /* hide block item if there is no text */
+  display: none;
+}
+.block-icons--item p {
+  line-height: 1.2;
+  width: 100%;
+}
+.block-icons--grid {
+  align-items: center !important;
+}
+.block-icons--icon > * {
+  display: block;
+}
+.block-icons--icon.block-icons--bg_color_icon {
+  padding: 0.5rem;
+  border-radius: calc(var(--content-container-radius) / 3.5);
+}
+.block-icons--grid .block-icons--item {
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 1.4rem;
+  width: calc(50% - 0.6rem);
+}
+.block-icons--block .block-icons--item {
+  flex-wrap: wrap;
+  align-items: center;
+}
+.block-icons--fade-background.block-icons--block .block-icons--item {
+  padding: 1.2rem;
+}
+.block-icons--block .block-icons--item {
+  width: 100%;
+}
+.block-icons--block .block-icons--item .icon + * {
+  width: calc(100% - 3rem);
+}
+.block-icons--block .block-icons--item .icon__text {
+  font-size: 1.7rem;
+  color: rgb(var(--color-foreground));
+  width: calc(100% - 5rem);
+}
+.block-icons--block .block-icons--item .icon__description {
+  font-size: 1.4rem;
+  color: rgb(var(--color-foreground-secondary));
+  line-height: 1.4;
+}
+.block-icons--grid.with-1-item .block-icons--item,
+.block-icons--grid.with-3-item .block-icons--item:last-child {
+  width: 100%;
+}
+.block-icons__fill--accent .block-icons--item .icon {
+  fill: rgb(var(--color-accent-1));
+}
+.block-icons__fill--accent .block-icons--icon.block-icons--bg_color_icon {
+  background-color: rgba(var(--color-accent-1), 0.12);
+}
+.block-icons__fill--text .block-icons--item .icon {
+  fill: rgb(var(--color-foreground));
+}
+.block-icons__fill--text .block-icons--icon.block-icons--bg_color_icon {
+  background-color: rgba(var(--color-foreground), 0.12);
+}
+.block-icons:not(.block-icons--grid) .block-icons--item .icon {
+  width: 2rem;
+}
+.block-icons:not(.block-icons--block) .icon__description {
+  display: none;
+}
+@media only screen and (min-width: 750px) {
+  .block-icons--block {
+    column-gap: 1.5rem;
+    row-gap: 2rem;
+  }
+  .block-icons--block .block-icons--item {
+    width: calc(50% - 0.75rem);
+  }
+  .block-icons--block .block-icons--item + .block-icons--item,
+  .block-icons--block:not(.block-icons--fade-background) .block-icons--item + .block-icons--item {
+    margin-top: 0;
+  }
+}
+@media only screen and (min-width: 750px) and (max-width: 919px) {
+  .block-icons--bullets_half .block-icons--item {
+    width: calc(50% - 0.5rem);
+  }
+}
+@media only screen and (min-width: 920px) {
+  .block-icons--block {
+    column-gap: 2rem;
+    row-gap: 2.5rem;
+  }
+  .block-icons--block .block-icons--item {
+    width: calc(50% - 1rem);
+  }
+  .block-icons--grid .block-icons--item {
+    width: calc(25% - 0.9rem);
+  }
+  .block-icons--grid.with-2-item .block-icons--item {
+    width: calc(50% - 0.6rem);
+  }
+  .block-icons--grid.with-3-item .block-icons--item,
+  .block-icons--grid.with-3-item .block-icons--item:last-child {
+    width: calc(33% - 0.7rem);
+  }
+  .block-icons--bullets_half .block-icons--item {
+    width: calc(50% - 0.5rem);
+  }
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */

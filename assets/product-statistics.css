@@ -1,0 +1,101 @@
+.product-statistics{
+  background: rgb(var(--color-background-secondary));
+  padding:2rem;
+  border-radius:14px;
+  width:100%;
+  color: rgb(var(--color-foreground));
+}
+
+.product-statistics h3{
+  font-size:18px;
+  margin-bottom:16px;
+  padding-bottom:6px;
+  border-bottom:3px solid rgb(var(--color-background-dark));
+}
+
+/* row */
+
+.product-statistics .stat-row{
+  display:grid;
+  grid-template-columns:90px 40px 1fr;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  font-size:14px;
+}
+
+/* label */
+
+.product-statistics .stat-row span:first-child{
+  color: rgb(var(--color-foreground-secondary));
+    font-weight: 700;
+}
+
+.product-statistics .stat-row:last-child {
+    margin-bottom: 0;
+}
+/* value */
+
+.product-statistics .stat-row span:nth-child(2){
+  font-size:13px;
+  color: rgb(var(--color-foreground));
+}
+
+/* progress bar */
+
+.product-statistics .stat-bar{
+  width:100%;
+  height:8px;
+  background: rgb(var(--color-background-dark));
+  border-radius:20px;
+  overflow:hidden;
+}
+
+/* progress fill */
+
+.product-statistics .stat-bar div{
+  height:100%;
+  background: rgb(var(--color-accent-1));
+  border-radius:20px;
+  transition: width .4s ease;
+}
+
+/* LARGE (default) */
+.product-statistics.style-large{
+  padding: 2rem;
+}
+
+.product-statistics.style-large .stat-row{
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+/* COMPACT */
+.product-statistics.style-compact{
+  padding: 1rem;
+}
+
+.product-statistics.style-compact h3{
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.product-statistics.style-compact .stat-row{
+  margin-bottom: 6px;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.product-statistics.style-compact .stat-bar{
+  height: 6px;
+}
+
+.product-statistics.style-large .stat-row:last-child {
+  margin-bottom: 0;
+}
+
+.product-statistics.style-compact .stat-row:last-child {
+  margin-bottom: 0;
+
+}
+

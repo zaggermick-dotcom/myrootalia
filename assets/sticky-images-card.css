@@ -1,0 +1,198 @@
+/* ==========================
+   GRID LAYOUT
+   ========================== */
+
+.stack-scroll-section .stack-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.stack-scroll-section .stack-grid.layout--image_first .stack-left {
+  order: 2;
+}
+
+.stack-scroll-section .stack-grid.layout--text_first .stack-right {
+  order: 2;
+}
+
+/* ==========================
+   TEXT BLOCK
+   ========================== */
+
+.stack-scroll-section .stack-block {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 var(--grid-desktop-horizontal-spacing);
+}
+
+.stack-scroll-section .button__container,
+.stack-scroll-section .button__extra {
+  align-items: flex-start;
+}
+
+/* ==========================
+   MEDIA (SVG / IMAGE)
+   ========================== */
+
+.stack-scroll-section .sticky-image-with-cards svg {
+  width: 100%;
+  height: auto;
+  margin: auto;
+  display: block;
+}
+
+/* ==========================
+   IMAGE CARD STYLES
+   ========================== */
+
+.stack-scroll-section .stack-right {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stack-scroll-section .image-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-height: 90%;
+  aspect-ratio: 1 / 2;
+  border-radius: var(--media-container-radius);
+  overflow: hidden;
+}
+
+.stack-scroll-section .sticky-image-with-cards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.stack-scroll-section .sticky-image-with-cards img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* States */
+
+.stack-scroll-section .sticky-image-with-cards.base {
+  transform: none;
+}
+
+.stack-scroll-section .sticky-image-with-cards.active {
+  transform: translateY(-100%);
+}
+
+.stack-scroll-section .sticky-image-with-cards:first-child {
+  transform: translateY(0);
+}
+
+/* ==========================
+   PLACEHOLDER STYLING
+   ========================== */
+
+.stack-scroll-section .stack-right .placeholder-svg {
+  height: 100vh;
+  fill: rgb(var(--color-background));
+  background: rgba(var(--color-accent-1));
+}
+
+/* Per card colors */
+
+.stack-scroll-section .stack-right
+.sticky-image-with-cards[data-index="0"] .placeholder-svg {
+  background: rgba(var(--color-accent-1));
+  fill: rgb(var(--color-background));
+}
+
+.stack-scroll-section .stack-right
+.sticky-image-with-cards[data-index="1"] .placeholder-svg {
+  background: rgba(var(--color-background-secondary));
+  fill: rgb(var(--color-foreground));
+}
+
+.stack-scroll-section .stack-right
+.sticky-image-with-cards[data-index="2"] .placeholder-svg {
+  background: rgba(var(--color-accent-2));
+  fill: rgb(var(--color-background));
+}
+
+/* ==========================
+   MOBILE
+   ========================== */
+
+.stack-scroll-section .mobile-stack {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  
+  /* Layout switch */
+  .stack-scroll-section .stack-grid {
+    display: none;
+  }
+
+  .stack-scroll-section .mobile-stack {
+    display: block;
+  }
+
+  /* Card */
+  .stack-scroll-section .mobile-card {
+    position: sticky;
+    top: 0;
+    margin-bottom: 30px;
+    background: #fff;
+    overflow: visible;
+  }
+
+  .stack-scroll-section .mobile-content {
+    padding: 12px;
+  }
+
+  /* Media */
+  .stack-scroll-section .mobile-card video,
+  .stack-scroll-section .mobile-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  /* Placeholder */
+  .stack-scroll-section .mobile-card .placeholder-svg {
+    fill: rgb(var(--color-background));
+    background: rgba(var(--color-accent-1));
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  /* Per card colors */
+  .stack-scroll-section .mobile-card:nth-child(1) .placeholder-svg {
+    background: rgba(var(--color-accent-1));
+    fill: rgb(var(--color-background));
+  }
+
+  .stack-scroll-section .mobile-card:nth-child(2) .placeholder-svg {
+    background: rgba(var(--color-background-secondary));
+    fill: rgb(var(--color-foreground));
+  }
+
+  .stack-scroll-section .mobile-card:nth-child(3) .placeholder-svg {
+    background: rgba(var(--color-accent-2));
+    fill: rgb(var(--color-background));
+  }
+}

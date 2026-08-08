@@ -1,0 +1,58 @@
+.product-spin-message{
+  /* background: rgb(var(--color-background-secondary));
+  padding:1.5rem;
+  border-radius:14px; */
+  color: rgb(var(--color-foreground));
+  font-size:15px;
+
+}
+
+.product-spin-message__viewport{
+  height:26px;
+  overflow:hidden;
+  position:relative;
+}
+
+.product-spin-message__track{
+  display:flex;
+  flex-direction:column;
+animation-name: product-spin-scroll;   
+animation-iteration-count: infinite;    
+
+}
+
+.product-spin-message__item{
+  height:26px;
+  display:flex;
+  align-items:center;
+}
+
+/* animation */
+
+@keyframes product-spin-scroll {
+
+  /* Message 1 (pause) */
+  0%   { transform: translateY(0); }
+  15%  { transform: translateY(0); }
+
+  /* Move fast */
+  20%  { transform: translateY(-26px); }
+
+  /* Message 2 (pause) */
+  35%  { transform: translateY(-26px); }
+
+  /* Move fast */
+  40%  { transform: translateY(-52px); }
+
+  /* Message 3 (pause) */
+  55%  { transform: translateY(-52px); }
+
+  /* Move fast */
+  60%  { transform: translateY(-78px); }
+
+  /* Message 4 (pause) */
+  75%  { transform: translateY(-78px); }
+
+  /* Quick reset */
+  100% { transform: translateY(0); }
+}

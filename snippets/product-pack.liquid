@@ -1,0 +1,333 @@
+{{ 'component-product-pack.css' | asset_url | stylesheet_tag }}
+{{ 'product-pack-gift-feature.css' | asset_url | stylesheet_tag }}
+
+{%- render 'script' with 'product-pack', defer: true -%}
+{%- render 'script' with 'product-pack-gifts', defer: true -%}
+
+{% style %}
+  variant-radios {
+    display: none;
+  }
+
+  :root,
+  .product-pack {
+    --pack-color-selected: {{ block.settings.color_selected.red }}, {{ block.settings.color_selected.green }}, {{ block.settings.color_selected.blue }};
+    --pack-color-selected-background: {{ block.settings.color_selected_background }};
+    --pack-color-background: {{ block.settings.color_background }};
+    --pack-color-background-dark: {{ block.settings.color_background | color_darken: 10 }};
+    --pack-color-title: {{ block.settings.color_title }};
+    --pack-color-price: {{ block.settings.color_price }};
+    --pack-color-discount-price: {{ block.settings.color_discount_price }};
+    --pack-color-texts: {{ block.settings.color_texts }};
+    --pack-color-variants-title: {{ block.settings.color_variants_title }};
+    --pack-color-disclaimer: {{ block.settings.color_disclaimer.red }}, {{ block.settings.color_disclaimer.green }}, {{ block.settings.color_disclaimer.blue }};
+    --pack-color-disclaimer-fade: {{ block.settings.color_disclaimer | color_lighten: 50 }};
+  }
+{% endstyle %}
+
+{%- assign style = block.settings.pack_style -%}
+{% if block.settings.quantity0 != 0 or block.settings.quantity1 != 0 or block.settings.quantity2 != 0 %}
+  <product-pack
+    class="pack__style--{{ style }}"
+    data-style="{{ block.settings.pack_style }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.selected_or_first_available_variant.id }}"
+    data-gift-count-0="{{ block.settings.gift_count0 }}"
+    data-gift-count-1="{{ block.settings.gift_count1 }}"
+    data-gift-count-2="{{ block.settings.gift_count2 }}"
+    data-gift-display-behavior="{{ block.settings.gift_display_behavior }}"
+
+    data-auto-add-gifts="true"
+    data-gift-variant-1="{% if block.settings.gift_slot_mode1 == 'product' and block.settings.gift_slot_product1 != blank and all_products[block.settings.gift_slot_product1] %}{{ all_products[block.settings.gift_slot_product1].variants.first.id }}{% endif %}"
+    data-gift-variant-2="{% if block.settings.gift_slot_mode2 == 'product' and block.settings.gift_slot_product2 != blank and all_products[block.settings.gift_slot_product2] %}{{ all_products[block.settings.gift_slot_product2].variants.first.id }}{% endif %}"
+    data-gift-variant-3="{% if block.settings.gift_slot_mode3 == 'product' and block.settings.gift_slot_product3 != blank and all_products[block.settings.gift_slot_product3] %}{{ all_products[block.settings.gift_slot_product3].variants.first.id }}{% endif %}"
+  >
+    {% if block.settings.label != blank %}
+      <label class="form__label{% if block.settings.add_lines %} form__label--lines{% endif %}">
+        {{ block.settings.label }}
+      </label>
+    {% endif %}
+
+    <div class="pack__wrapper">
+      {% for i in (0..2) %}
+        {% capture quantity_key %}quantity{{ i }}{% endcapture %}
+        {% capture image_key %}image{{ i }}{% endcapture %}
+        {% capture price_key %}price{{ i }}{% endcapture %}
+        {% capture price_before_key %}price_before{{ i }}{% endcapture %}
+        {% capture title_key %}title{{ i }}{% endcapture %}
+        {% capture disclaimer_key %}disclaimer{{ i }}{% endcapture %}
+        {% capture additional_text_key %}additional_text{{ i }}{% endcapture %}
+
+        {% assign quantity = block.settings[quantity_key] %}
+        {% assign image = block.settings[image_key] %}
+        {% assign price = block.settings[price_key] %}
+        {% assign price_before = block.settings[price_before_key] %}
+        {% assign title = block.settings[title_key] %}
+        {% assign disclaimer = block.settings[disclaimer_key] %}
+        {% assign additional_text = block.settings[additional_text_key] %}
+
+        {% if quantity != 0 %}
+          <component-pack
+            class="pack{% if image != blank %} pack__with-image{% endif %} pack-accordion__shadow--{{ block.settings.pack_accordions_shadow }} pack-accordion__border--{{ block.settings.pack_accordions_border }}{% if i == 0 %} pack__selected{% endif %}"
+            data-quantity="{{ quantity }}"
+            data-regular-price="{{ price }}"
+            data-compare-price="{{ price_before }}"
+            data-pack-index="{{ i }}"
+            {% if block.settings.pack_style == 'stack' %}
+              data-stack="pack__stack--{{ i }}"
+            {% endif %}
+          >
+            {%- if image != blank -%}
+              {{ image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'pack__image' }}
+            {%- endif -%}
+
+            <div class="pack__infos">
+              {%- render 'product-pack-item',
+                style: style,
+                title: title,
+                disclaimer: disclaimer,
+                price_color: block.settings.pack_price_color,
+                text_color: block.settings.pack_text_color,
+                price: price,
+                price_before: price_before,
+                text: additional_text
+              -%}
+
+              {%- if block.settings.pack_style != 'stack' -%}
+                {%- render 'product-pack-selects', style: style, product: product, quantity: quantity -%}
+              {%- endif -%}
+            </div>
+          </component-pack>
+        {% endif %}
+      {% endfor %}
+
+      {%- if block.settings.pack_style == 'stack' -%}
+        {% for i in (0..2) %}
+          {% capture quantity_key %}quantity{{ i }}{% endcapture %}
+          {% assign quantity = block.settings[quantity_key] %}
+
+          {% if quantity != 0 %}
+            <div class="pack__stack--selects pack__stack--{{ i }}{% if i == 0 %} stack-active{% endif %}">
+              {%- render 'product-pack-selects', product: product, style: style, quantity: quantity -%}
+            </div>
+          {% endif %}
+        {% endfor %}
+      {%- endif -%}
+    </div>
+    {%- comment -%} Gift Feature Update Starts {%- endcomment -%}
+
+    {%- if block.settings.enable_free_gifts -%}
+      <div
+        class="pack-free-gifts"
+        data-section-id="{{ section.id }}"
+        data-gift-display-behavior="{{ block.settings.gift_display_behavior }}"
+        data-gift-count-0="{{ block.settings.gift_count0 }}"
+        data-gift-count-1="{{ block.settings.gift_count1 }}"
+        data-gift-count-2="{{ block.settings.gift_count2 }}"
+      >
+        <h3 class="pack-free-gifts__title">{{ block.settings.free_gifts_title }}</h3>
+
+        <div class="pack-free-gifts__list">
+          {%- for g in (1..3) -%}
+            {% assign mode_key = 'gift_slot_mode' | append: g %}
+            {% assign product_key = 'gift_slot_product' | append: g %}
+            {% assign image_key = 'gift_slot_image' | append: g %}
+            {% assign title_key = 'gift_slot_title' | append: g %}
+            {% assign price_key = 'gift_slot_price' | append: g %}
+
+            {% assign mode = block.settings[mode_key] %}
+            {% assign p_handle = block.settings[product_key] %}
+            {% assign c_image = block.settings[image_key] %}
+            {% assign c_title = block.settings[title_key] %}
+            {% assign c_price_text = block.settings[price_key] %}
+
+            {% assign configured = false %}
+            {% if mode == 'product' and p_handle != blank %}
+              {% assign configured = true %}
+              {% assign p = all_products[p_handle] %}
+            {% elsif mode == 'custom' and c_image != blank %}
+              {% assign configured = true %}
+            {% elsif mode == 'custom' and c_title != blank %}
+              {% assign configured = true %}
+            {% endif %}
+
+            {%- comment -%} determine if we have a real image to show (for has-real-image class) {%- endcomment -%}
+            {% assign has_real_image = false %}
+            {% if mode == 'product' and p_handle != blank and p and p.featured_image %}
+              {% assign has_real_image = true %}
+            {% elsif mode == 'custom' and c_image != blank %}
+              {% assign has_real_image = true %}
+            {% endif %}
+
+            <div
+              class="pack-free-gift{% if configured %} is-configured{% endif %}{% if has_real_image %} has-real-image{% endif %}"
+              data-gift-index="{{ g }}"
+            >
+              <div class="pack-free-gift__media">
+                <div class="pack-free-gift__placeholder" aria-hidden="true">
+                  <div class="pack-free-gift__placeholder-text">
+                    {{ c_title | default: p.title | default: 'Free gift' }}
+                  </div>
+                </div>
+
+                <div class="pack-free-gift__real-media" aria-hidden="true">
+                  {%- if mode == 'product' and p_handle != blank and p and p.featured_image -%}
+                    {{
+                      p.featured_image
+                      | image_url: width: 800
+                      | image_tag: loading: 'lazy', class: 'pack-free-gift__img', alt: p.title
+                    }}
+                  {%- elsif mode == 'custom' and c_image != blank -%}
+                    {{
+                      c_image
+                      | image_url: width: 800
+                      | image_tag: loading: 'lazy', class: 'pack-free-gift__img', alt: c_title
+                    }}
+                  {%- endif -%}
+                </div>
+              </div>
+
+              <div class="pack-free-gift__meta">
+                <div class="pack-free-gift__title">
+                  {%- if mode == 'product' and p_handle != blank and p -%}
+                    {{ p.title }}
+                  {%- else -%}
+                    {{ c_title | default: 'Free gift' }}
+                  {%- endif -%}
+                </div>
+
+                <div class="pack-free-gift__price">
+                  {%- if mode == 'product' and p_handle != blank and p -%}
+                    {{ p.price_min | money }}
+                  {%- elsif mode == 'custom' and c_price_text != blank -%}
+                    {{ c_price_text }}
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Gift Feature Update Ends {%- endcomment -%}
+    {% if settings.enable_wishlist %}
+      {%- assign class = 'form product-form__button--atc--with-wishlist' -%}
+    {% else %}
+      {%- assign class = 'form' -%}
+    {% endif %}
+    {%- if block.settings.text_above != blank -%}
+      <div class="product-form__text-above" style="text-align: {{ block.settings.text_alignment }};">
+        {{ block.settings.text_above }}
+      </div>
+    {%- endif -%}
+    {%- form 'product',
+      product,
+      id: 'product-pack-form',
+      class: class,
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form'
+    -%}
+      <button
+        type="submit"
+        name="add"
+        id="product-pack-submit"
+        class="product-form__submit button button__style--{{ block.settings.button_style }}"
+        {% if product.selected_or_first_available_variant.available == false %}
+          disabled
+        {% endif %}
+        style="
+          {%- if block.settings.color_text != blank and block.settings.color_text.alpha != 0.0 %}--color-text:{{ block.settings.color_text.rgba }};{% endif -%}
+          {%- if block.settings.color_bg != blank and block.settings.color_bg.alpha != 0.0 %}--color-bg:{{ block.settings.color_bg.rgba }};{% endif -%}
+          {%- if block.settings.color_bg_hover != blank and block.settings.color_bg_hover.alpha != 0.0 %}--color-bg-hover:{{ block.settings.color_bg_hover.rgba }};{% endif -%}
+        "
+      >
+        <span class="buy-buttons__text-flex addbtntext">
+          {%- unless block.settings.icon == 'none' -%}
+            {%- render "icons-atc-buttons", icon: block.settings.icon -%}
+          {%- endunless -%}
+          {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- else -%}
+            {{- block.settings.button_text -}}
+          {%- endif -%}
+        </span>
+        <div class="loading-overlay__spinner hidden">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="spinner"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+      </button>
+
+      {%- if settings.enable_wishlist -%}
+        {%- render 'button-wishlist', product: product -%}
+      {%- endif -%}
+    {%- endform -%}
+    {%- liquid
+      if block.settings.extra_button
+        render 'extra-button', unique: section.id
+      endif
+    -%}
+
+    <template id="product-pack-variants">
+      {%- for _variant in product.variants -%}
+        <option
+          value="{{ _variant.id }}"
+          data-id="{{ _variant.id }}"
+          data-options="{{ _variant.options | json | escape }}"
+          data-available="{{ _variant.available }}"
+        >
+          {{ _variant.title }}
+        </option>
+      {%- endfor -%}
+    </template>
+  </product-pack>
+{% endif %}
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let swiperInstance = document.querySelector('.product__medias-wrapper').swiper;
+  let productData = {{ product | json }};
+  let productMedis = document.querySelectorAll('.product__medias .product__thumbs-wrapper .product__slide');
+
+  var firstPack = document.querySelector('component-pack[data-pack-index="0"]');
+
+  if (firstPack && firstPack.dataset.quantity === "1") {
+    var selects = firstPack.querySelectorAll('select.pack__select');
+
+    selects.forEach(function(select) {
+      select.addEventListener('change', function() {
+        const selectedValues = Array.from(selects).map(s => s.value);
+
+        const matchingVariant = productData.variants.find(variant =>
+          variant.options[0] === selectedValues[0] &&
+          variant.options[1] === selectedValues[1]
+        );
+
+        if (matchingVariant && matchingVariant.featured_media) {
+          const featuredMediaId = matchingVariant.featured_media.id;
+          const mediaArray = Array.from(productMedis);
+          const targetIndex = mediaArray.findIndex(
+            el => parseInt(el.getAttribute('media-id'), 10) === featuredMediaId
+          );
+
+          if (targetIndex !== -1) {
+            swiperInstance.slideTo(targetIndex);
+          }
+        }
+      });
+    });
+  }
+});
+</script>

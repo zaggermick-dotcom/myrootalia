@@ -1,0 +1,107 @@
+{%- liquid
+  if forced_heading_level
+    assign level = forced_heading_level
+  else
+    case heading_style
+      when '1'
+        assign level = settings.heading_1_level
+      when '2'
+        assign level = settings.heading_2_level
+      when '3'
+        assign level = settings.heading_3_level
+    endcase
+  endif
+
+  # The heading setting is a richtext. Semantics and styling are kept apart:
+  # the level only ever decides the tag, never the look, so switching it in the
+  # editor cannot change the design. Picking a level with "Aa" overrides the
+  # theme default; typing plain text still ships a real <hN>, never a <p>.
+  if heading contains '<h1'
+    assign level = 1
+  elsif heading contains '<h2'
+    assign level = 2
+  elsif heading contains '<h3'
+    assign level = 3
+  elsif heading contains '<h4'
+    assign level = 4
+  elsif heading contains '<h5'
+    assign level = 5
+  elsif heading contains '<h6'
+    assign level = 6
+  endif
+
+  # One single tag out: block wrappers become <br>, inline formatting is kept.
+  # Only the wrappers actually present are processed — a plain <p> heading,
+  # which is the common case, costs two replaces instead of twenty.
+  if heading contains '<'
+    assign heading_flat = heading | replace: '</p>', '|nl|' | replace: '<p>', ''
+
+    if heading_flat contains '<br'
+      assign heading_flat = heading_flat | replace: '<br>', '|nl|' | replace: '<br />', '|nl|' | replace: '<br/>', '|nl|'
+    endif
+
+    if heading_flat contains '<h'
+      assign heading_flat = heading_flat | replace: '</h1>', '|nl|' | replace: '</h2>', '|nl|' | replace: '</h3>', '|nl|'
+      assign heading_flat = heading_flat | replace: '</h4>', '|nl|' | replace: '</h5>', '|nl|' | replace: '</h6>', '|nl|'
+      assign heading_flat = heading_flat | replace: '<h1>', '' | replace: '<h2>', '' | replace: '<h3>', ''
+      assign heading_flat = heading_flat | replace: '<h4>', '' | replace: '<h5>', '' | replace: '<h6>', ''
+    endif
+
+    if heading_flat contains '<li'
+      assign heading_flat = heading_flat | replace: '</li>', '|nl|' | replace: '<li>', ''
+      assign heading_flat = heading_flat | replace: '<ul>', '' | replace: '</ul>', '' | replace: '<ol>', '' | replace: '</ol>', ''
+    endif
+
+    assign heading_text = ''
+    assign heading_lines = heading_flat | split: '|nl|'
+    for line in heading_lines
+      assign piece = line | strip
+      if piece != blank
+        if heading_text == blank
+          assign heading_text = piece
+        else
+          assign heading_text = heading_text | append: '<br>' | append: piece
+        endif
+      endif
+    endfor
+    assign heading = heading_text
+  endif
+-%}
+<div class="heading__section {{ alignment }}">
+  {%- if subheading != blank -%}
+    <p class="h3 subheading" 
+      {% if color != blank and color.alpha != 0.0 -%}
+        style="color:{{ color }}"
+      {%- endif %}
+      {%- render "animation", enable_animations: enable_animations, animation: animation -%}>
+      {{ subheading }}
+    </p>
+  {%- endif -%}
+  {%- if heading != blank -%}
+    <h{{ level }}
+      class="heading heading__style--{{ heading_style }} {{ heading_class }}{% if icon_custom != blank or icon and icon != 'none' %} heading__icon{% endif %}"
+      {% if color != blank and color.alpha != 0.0 -%}
+        style="color:{{ color }}"
+      {%- endif %}
+      {%- render "animation", enable_animations: enable_animations, animation: animation -%}>
+      {%- if icon_custom != blank -%}
+        {{ icon_custom | image_url: width: 40 | image_tag:
+          loading: 'lazy',
+          class: 'icon__icon icon__custom-icon'
+        }}
+      {%- elsif icon and icon != 'none' -%}
+        {%- render 'icons', icon: icon -%}
+      {%- endif -%}
+      <span>{{ heading }}</span>
+      {%- if enable_slides -%}
+        {{ slides }}
+      {%- endif -%}
+    </h{{ level }}>
+  {%- endif -%}
+  {%- if description != blank -%}
+    <div class="heading__description rte"
+      {%- render "animation", enable_animations: enable_animations, animation: animation -%}>
+      {{ description }}
+    </div>
+  {%- endif -%}
+</div>

@@ -1,0 +1,687 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "10c101c7-10ee-4da7-adfd-de7769bbf7cf": {
+          "type": "rating",
+          "settings": {
+            "stars_style": "stars",
+            "rating": 4.9,
+            "rating_text": "/5 (avis testeurs myrootalia)",
+            "block_margin_bottom": 4
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_style": "3",
+            "show_price": false,
+            "price_color": "accent-1",
+            "block_margin_bottom": 16
+          }
+        },
+        "56ec55a3-8a57-4807-87f9-66d3c0e83a70": {
+          "type": "media",
+          "settings": {
+            "block_margin_bottom": 16
+          }
+        },
+        "delivery_estimation_Pyticb": {
+          "type": "delivery_estimation",
+          "settings": {
+            "icons_color": "accent-1",
+            "today_info": "Commandé",
+            "ready_info": "Expédié",
+            "ready": 3,
+            "delivered_info": "Livré",
+            "delivered": 4,
+            "block_margin_bottom": 12
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "checked_color": "accent",
+            "custom_width": "none",
+            "flex": false,
+            "hide_label": false,
+            "bg_secondary": false,
+            "size": "small",
+            "selection": "background",
+            "size_guide": false,
+            "size_guide_trigger": "Couleur",
+            "size_guide_placement": "under",
+            "size_guide_text": "Guide de taille",
+            "size_guide_image": "shopify://shop_images/Banniere_d873098a-91d9-4f03-816b-4899fcb6d13b.jpg",
+            "block_margin_bottom": 24
+          }
+        },
+        "pack_C9mwaN": {
+          "type": "pack",
+          "settings": {
+            "pack_style": "tight",
+            "label": "Pack:",
+            "add_lines": true,
+            "color_selected": "#000000",
+            "color_selected_background": "#f6f6f6",
+            "color_background": "#ffffff",
+            "color_title": "#000000",
+            "color_price": "#000000",
+            "color_discount_price": "#777777",
+            "color_texts": "#777777",
+            "color_variants_title": "#000000",
+            "color_disclaimer": "#33c91c",
+            "pack_accordions_shadow": "1",
+            "quantity0": 1,
+            "title0": "1 crayon",
+            "price0": "14,90€",
+            "price_before0": "",
+            "additional_text0": "",
+            "disclaimer0": "",
+            "quantity1": 2,
+            "title1": "2 crayons",
+            "price1": "24,80€",
+            "price_before1": "29,80€",
+            "additional_text1": "Vous économisez 5€",
+            "disclaimer1": "<strong>Le + populaire</strong>",
+            "quantity2": 4,
+            "title2": "3 crayons + 1 OFFERT",
+            "price2": "44,70€",
+            "price_before2": "59,60€",
+            "additional_text2": "Vous économisez 15€",
+            "disclaimer2": "<strong>Le - moins cher</strong>",
+            "button_text": "Ajouter au panier",
+            "button_style": "1",
+            "icon": "none",
+            "extra_button": true,
+            "color_text": "",
+            "color_bg": "",
+            "color_bg_hover": ""
+          }
+        },
+        "quantity_reductions_Wj47jc": {
+          "type": "quantity_reductions",
+          "disabled": true,
+          "settings": {
+            "label1": "",
+            "heading1": "1 trousse",
+            "quantity1": 1,
+            "compare1": "19.99€",
+            "sale1": "14.99€",
+            "label2": "",
+            "heading2": "2 trousses",
+            "quantity2": 2,
+            "compare2": "39.99€",
+            "sale2": "19.99€",
+            "label3": "",
+            "heading3": "3 trousses",
+            "quantity3": 3,
+            "compare3": "59.99€",
+            "sale3": "24.99€",
+            "block_margin_bottom": 16
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "button_text": "Ajouter au panier",
+            "button_style": "1",
+            "icon": "none",
+            "extra_button": true,
+            "show_qty": false,
+            "show_dynamic_checkout": false,
+            "button_width": "all",
+            "color_text": "",
+            "color_bg": "",
+            "color_bg_hover": "",
+            "block_margin_bottom": 16
+          }
+        },
+        "16dbe4cf-9594-4612-b397-ca5a5fd46278": {
+          "type": "icon-with-text",
+          "settings": {
+            "icons_style": "grid",
+            "fill_color": "accent",
+            "color_bg_secondary": true,
+            "fill_fade_background": false,
+            "bg_color_icons": false,
+            "border": "border--1",
+            "shadow": "shadow--none",
+            "icon_1_icon_type": "check_mark",
+            "icon_1_text": "Simple à prendre en main",
+            "icon_1_description": "Put here a description of the benefit or the feature.",
+            "icon_1_url": "",
+            "icon_2_icon_type": "price_tag",
+            "icon_2_text": "Paiement 100% sécurisé",
+            "icon_2_description": "Put here a description of the benefit or the feature.",
+            "icon_2_url": "",
+            "icon_3_icon_type": "truck",
+            "icon_3_text": "Livraison ultra-rapide",
+            "icon_3_description": "Put here a description of the benefit or the feature.",
+            "icon_3_url": "",
+            "icon_4_icon_type": "star",
+            "icon_4_text": "Produit de haute qualité",
+            "icon_4_description": "",
+            "icon_4_url": "",
+            "show_shipping_delay": false,
+            "ship_weekend": false,
+            "format": "dd/MM",
+            "ship_min": 2,
+            "ship_max": 5,
+            "block_margin_bottom": 16
+          }
+        },
+        "review_DrN7XB": {
+          "type": "review",
+          "settings": {
+            "autoplay": true,
+            "speed": 4,
+            "enable_reviews_images": true,
+            "image1": "shopify://shop_images/Mob.jpg",
+            "heading1": "Name / Username",
+            "text1": "Your product helps me so much to reach my goal. I used to struggle a lot before buying your stuff: I totally recommend it!",
+            "rating1": 5,
+            "verified1": true,
+            "image2": "shopify://shop_images/Capture_d_ecran_2020-10-26_143447.jpg",
+            "heading2": "Name / Username",
+            "text2": "Your product helps me so much to reach my goal. I used to struggle a lot before buying your stuff: I totally recommend it!",
+            "rating2": 5,
+            "verified2": true,
+            "heading3": "Name / Username",
+            "text3": "Your product helps me so much to reach my goal. I used to struggle a lot before buying your stuff: I totally recommend it!",
+            "rating3": 5,
+            "verified3": true,
+            "stars_style": "stars",
+            "color_bg_secondary": false,
+            "border": "border--1",
+            "shadow": "shadow--none",
+            "block_margin_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "10c101c7-10ee-4da7-adfd-de7769bbf7cf",
+        "title",
+        "56ec55a3-8a57-4807-87f9-66d3c0e83a70",
+        "delivery_estimation_Pyticb",
+        "variant_picker",
+        "pack_C9mwaN",
+        "quantity_reductions_Wj47jc",
+        "buy_buttons",
+        "16dbe4cf-9594-4612-b397-ca5a5fd46278",
+        "review_DrN7XB"
+      ],
+      "settings": {
+        "section_id": "",
+        "product_style": "medium",
+        "image_ratio": "adapt",
+        "thumbnails_style": true,
+        "preshot": true,
+        "navigation": true,
+        "pagination": true,
+        "super_glue": false,
+        "enable_zoom": true,
+        "desktop_content_alignment": "left",
+        "enable_animations": false,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 36,
+        "padding_bottom": 64,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "icons_4957e222ff": {
+      "type": "icons",
+      "blocks": {
+        "counter_c57376ae87": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🌱",
+            "heading": "Cuir chevelu apaisé",
+            "description": "Le masseur silicone stimule et détend, sans arracher."
+          }
+        },
+        "counter_758ef53ce5": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "✨",
+            "heading": "Cheveux préparés",
+            "description": "Le derma roller réveille le cuir chevelu et l'ouvre à tes soins."
+          }
+        },
+        "counter_6dd77c8f20": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "⏱️",
+            "heading": "2 minutes par jour",
+            "description": "Un geste simple. Constance > intensité."
+          }
+        }
+      },
+      "block_order": [
+        "counter_c57376ae87",
+        "counter_758ef53ce5",
+        "counter_6dd77c8f20"
+      ],
+      "settings": {
+        "subheading": "Les bénéfices",
+        "heading": "Trois choses que change une vraie routine cuir chevelu",
+        "heading_style": "2",
+        "slides_on_desktop": 3,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": 1,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    },
+    "rt_cf8226e9fb": {
+      "type": "rich-text",
+      "blocks": {
+        "h_df149bd756": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Le problème",
+            "heading": "Cuir chevelu ignoré, cheveux qui fatiguent ?",
+            "heading_style": "2"
+          }
+        },
+        "t_3c42d8ae73": {
+          "type": "text",
+          "settings": {
+            "description": "<p>On brosse, on lave, on stylise. Mais on oublie la base : le cuir chevelu.</p><p>Un cuir chevelu tendu, mal irrigué, encombré — c'est là que la fibre commence à s'affaiblir.</p><p><strong>myrootalia prend le contrepied :</strong> un geste simple, mécanique, quotidien.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "h_df149bd756",
+        "t_3c42d8ae73"
+      ],
+      "settings": {
+        "alignment": "center",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-2"
+      }
+    },
+    "iwt_cdc459b503": {
+      "type": "image-with-text",
+      "blocks": {
+        "h_5f66ae43de": {
+          "type": "heading",
+          "settings": {
+            "heading": "La solution<br>La routine 2 min qui fait la différence",
+            "heading_level": "2",
+            "heading_style": "2"
+          }
+        },
+        "t_e0a9051cad": {
+          "type": "text",
+          "settings": {
+            "description": "<p><strong>60 s</strong> — masseur silicone, mouvements circulaires, du front à la nuque.</p><p><strong>30 s</strong> — derma roller, passages doux, jamais d'insistance.</p><p><strong>30 s</strong> — repos ou application du sérum myrootalia si tu en utilises.</p><p>C'est tout. Pas de promesse magique — juste un rituel qui devient un réflexe.</p>"
+          }
+        },
+        "btn_34dc1f6556": {
+          "type": "button",
+          "settings": {
+            "button_text": "Adopter la routine — 34,99 $",
+            "button_link": "shopify://products/kit-scalp-activator",
+            "button_style": "1"
+          }
+        }
+      },
+      "block_order": [
+        "h_5f66ae43de",
+        "t_e0a9051cad",
+        "btn_34dc1f6556"
+      ],
+      "settings": {
+        "layout": "image_first",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    },
+    "icons_3e5a64b943": {
+      "type": "icons",
+      "blocks": {
+        "counter_76c5fd932d": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🖐️",
+            "heading": "Masseur silicone",
+            "description": "Ergonomique, souple, hypoallergénique. Marqué myrootalia."
+          }
+        },
+        "counter_f7d1b32702": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🪡",
+            "heading": "Derma roller",
+            "description": "Micro-aiguilles avec capuchon de protection inclus."
+          }
+        },
+        "counter_261aa1c008": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "📇",
+            "heading": "Carte routine",
+            "description": "Semaine 1 à 4, avec QR vers la vidéo tuto."
+          }
+        }
+      },
+      "block_order": [
+        "counter_76c5fd932d",
+        "counter_f7d1b32702",
+        "counter_261aa1c008"
+      ],
+      "settings": {
+        "subheading": "Dans la boîte",
+        "heading": "Trois pièces, une routine",
+        "heading_style": "2",
+        "slides_on_desktop": 3,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": 1,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    },
+    "rt_f680fddc67": {
+      "type": "rich-text",
+      "blocks": {
+        "h_3ea3148fbd": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Sécurité derma roller",
+            "heading": "À lire avant la première utilisation",
+            "heading_style": "2"
+          }
+        },
+        "t_1b19cdd1a3": {
+          "type": "text",
+          "settings": {
+            "description": "<ul><li>🧼 <strong>Nettoie</strong> avant et après chaque usage (alcool 70°).</li><li>🙅 <strong>Ne partage pas</strong> ton derma roller — outil personnel.</li><li>🗓️ <strong>Fréquence</strong> : 3–4 fois par semaine max, jamais deux jours consécutifs.</li><li>🛑 <strong>Pas d'utilisation</strong> sur peau irritée, blessée ou colorée récemment.</li><li>🎒 <strong>Range-le</strong> avec le capuchon pour préserver les aiguilles.</li></ul><p>Une notice complète est fournie dans la boîte.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "h_3ea3148fbd",
+        "t_1b19cdd1a3"
+      ],
+      "settings": {
+        "alignment": "center",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab"
+      }
+    },
+    "rv_b1775393f1": {
+      "type": "reviews",
+      "blocks": {
+        "rvtxt_0aad4e7a60": {
+          "type": "text",
+          "settings": {
+            "name": "Léa, 34 ans — Montréal",
+            "heading": "Bien-être ressenti",
+            "description": "<p>J'ai commencé sans grand espoir. Après 3 semaines, mon cuir chevelu me démange moins. Le geste est devenu un moment pour moi.</p>",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "rvtxt_94fbb5b54d": {
+          "type": "text",
+          "settings": {
+            "name": "Sophie, 28 ans — Québec",
+            "heading": "Agréable, facile",
+            "description": "<p>Le masseur est super agréable. Le derma roller pique un peu au début, ensuite on s'habitue. Je l'utilise le soir.</p>",
+            "verified": true,
+            "stars_rating": 4
+          }
+        },
+        "rvtxt_a66c3ee3db": {
+          "type": "text",
+          "settings": {
+            "name": "Karim, 41 ans — Longueuil",
+            "heading": "Parfait pour cuir sensible",
+            "description": "<p>Cuir chevelu sensible. Je passe doucement, jamais deux jours de suite comme conseillé. La carte routine aide beaucoup.</p>",
+            "verified": true,
+            "stars_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "rvtxt_0aad4e7a60",
+        "rvtxt_94fbb5b54d",
+        "rvtxt_a66c3ee3db"
+      ],
+      "settings": {
+        "subheading": "Avis clients",
+        "heading": "Ce que les premières testeuses en disent",
+        "heading_style": "2",
+        "description": "<p>Avis vérifiés — à remplacer par de vrais avis (Judge.me/Loox) avant lancement.</p>",
+        "alignment": "center",
+        "enable_rating": true,
+        "stars_style": "stars",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    },
+    "tl_08929c1817": {
+      "type": "timeline",
+      "blocks": {
+        "tle_28b86c5b36": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaine 1",
+            "heading": "Masseur seul, tous les jours (60 s).",
+            "text": "<p>Sensation de détente, cuir chevelu plus « éveillé ».</p>"
+          }
+        },
+        "tle_7dcfd68623": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaine 2",
+            "heading": "Ajouter le derma roller 3×/sem (30 s).",
+            "text": "<p>Le geste devient un réflexe.</p>"
+          }
+        },
+        "tle_43bf4af0c6": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaine 3",
+            "heading": "Routine complète, 4×/sem.",
+            "text": "<p>Cuir chevelu moins tendu, plus confortable.</p>"
+          }
+        },
+        "tle_ddf8efe78f": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaine 4",
+            "heading": "Continuer + ajouter le sérum myrootalia si tu veux.",
+            "text": "<p>Ta routine est en place.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tle_28b86c5b36",
+        "tle_7dcfd68623",
+        "tle_43bf4af0c6",
+        "tle_ddf8efe78f"
+      ],
+      "settings": {
+        "subheading": "Ta progression",
+        "heading": "À quoi t'attendre, semaine par semaine",
+        "heading_style": "2",
+        "alignment": "center",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    },
+    "faq_8d467f0287": {
+      "type": "collapsible-content",
+      "blocks": {
+        "fq_7636e26f6e": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Est-ce que ça fait repousser les cheveux ?",
+            "icon": "none",
+            "row_content": "<p>Non. Le kit stimule et détend le cuir chevelu — un rituel bien-être, pas un traitement médical.</p>"
+          }
+        },
+        "fq_d497d79cf8": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Ça fait mal ?",
+            "icon": "none",
+            "row_content": "<p>Le masseur est très doux. Le derma roller peut piquer légèrement les premières fois — allège la pression si besoin.</p>"
+          }
+        },
+        "fq_09112e9b51": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "À quelle fréquence ?",
+            "icon": "none",
+            "row_content": "<p>Masseur : tous les jours. Derma roller : 3–4 fois par semaine, jamais deux jours de suite.</p>"
+          }
+        },
+        "fq_ff925744cb": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Pour qui ?",
+            "icon": "none",
+            "row_content": "<p>Femmes et hommes, tous types de cheveux, dès 18 ans. Pas sur peau lésée ou irritée.</p>"
+          }
+        },
+        "fq_78d0495b33": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Et si ça ne me convient pas ?",
+            "icon": "none",
+            "row_content": "<p>Essai 60 jours, remboursé. Écris-nous à hello@myrootalia.com.</p>"
+          }
+        },
+        "fq_2011cdaa27": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Livraison ?",
+            "icon": "none",
+            "row_content": "<p>Gratuite au Canada dès 50 $. Sinon 6,99 $. Expédié sous 24–48 h, livré en 3–8 jours.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "fq_7636e26f6e",
+        "fq_d497d79cf8",
+        "fq_09112e9b51",
+        "fq_ff925744cb",
+        "fq_78d0495b33",
+        "fq_2011cdaa27"
+      ],
+      "settings": {
+        "subheading": "FAQ",
+        "heading": "Questions fréquentes",
+        "heading_style": "2",
+        "alignment": "center",
+        "open_first_collapsible_row": true,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    },
+    "icons_85bf8b919b": {
+      "type": "icons",
+      "blocks": {
+        "counter_87da818916": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🌿",
+            "heading": "Essai 60 jours",
+            "description": "Remboursé si tu n'aimes pas."
+          }
+        },
+        "counter_ccc75367ec": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🚚",
+            "heading": "Livraison gratuite 50 $+",
+            "description": "Expédié depuis le Canada."
+          }
+        },
+        "counter_b8b801a2f2": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "💌",
+            "heading": "Support humain",
+            "description": "On répond en 24 h."
+          }
+        },
+        "counter_c772bd074b": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🔒",
+            "heading": "Paiement sécurisé",
+            "description": "Visa · Mastercard · Amex · Shop Pay."
+          }
+        }
+      },
+      "block_order": [
+        "counter_87da818916",
+        "counter_ccc75367ec",
+        "counter_b8b801a2f2",
+        "counter_c772bd074b"
+      ],
+      "settings": {
+        "subheading": "Nos garanties",
+        "heading": "On te couvre à chaque étape",
+        "heading_style": "2",
+        "slides_on_desktop": 4,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": 1,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "color_palette": "background-1"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "icons_4957e222ff",
+    "rt_cf8226e9fb",
+    "iwt_cdc459b503",
+    "icons_3e5a64b943",
+    "rt_f680fddc67",
+    "rv_b1775393f1",
+    "tl_08929c1817",
+    "faq_8d467f0287",
+    "icons_85bf8b919b"
+  ]
+}

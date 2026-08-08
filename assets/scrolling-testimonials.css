@@ -1,0 +1,113 @@
+.scrolling-testimonials-section {
+  width: 100%;
+}
+
+.scrolling-testimonials-section .scrolling-testimonials {
+  overflow: hidden;
+  width: 100%;
+}
+
+.scrolling-testimonials-section .heading__section{
+      margin-bottom: 2rem;
+      padding-inline: 1.5rem;
+
+}
+
+.scrolling-testimonials-section .testimonials-track {
+  display: flex;
+  gap: 24px;
+  flex-wrap: nowrap;
+  animation: scrollingTestimonials linear infinite;
+  will-change: transform;
+}
+
+.scrolling-testimonials-section .testimonial-author strong{
+
+      display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: .5rem;
+    font-weight: 600;
+    font-size: 14px;
+}
+.scrolling-testimonials-section .testimonial-author strong svg {
+  border-radius: 50%;
+  background-color: rgb(var(--color-accent-1));
+  fill: rgb(var(--color-background));
+      width: 1.7rem;
+    height: 1.7rem;
+}
+
+.scrolling-testimonials-section .testimonial-author strong svg path:first-child {
+  display: none;
+}
+
+.scrolling-testimonials-section .testimonial-card {
+  min-width: 320px;
+  max-width: 320px;
+  background: rgb(var(--color-background-secondary));
+  padding: 24px;
+  flex-shrink: 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrolling-testimonials-section .stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+/* Falls back to the theme's general star settings; the section overrides the
+   variable when the merchant picks the palette or a custom colour. */
+.scrolling-testimonials-section .stars svg {
+  width: 18px;
+  height: 18px;
+  fill: rgb(var(--testimonial-stars-color, var(--stars-color)));
+}
+
+.scrolling-testimonials-section .testimonial-text {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  color: rgb(var(--color-foreground));
+}
+
+.scrolling-testimonials-section .testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scrolling-testimonials-section .testimonial-author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.scrolling-testimonials-section .testimonial-author span {
+  display: block;
+  font-size: 13px;
+  color: rgb(var(--color-foreground-secondary));
+  opacity: 0.7;
+}
+
+/* Infinite scroll animation */
+@keyframes scrollingTestimonials {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--track-width)));
+  }
+}
+
+/* Responsive */
+@media (max-width: 749px) {
+  .scrolling-testimonials-section .testimonial-card {
+    min-width: 260px;
+    max-width: 260px;
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "fdf8af59-798e-415c-8656-02428e1da8b5": {
+          "type": "announcement-fade",
+          "settings": {
+            "text": "L’art du regard naturel, Livraison offerte dès 49€, Paiement sécurisé, Satisfait ou remboursé 14 jours",
+            "color_palette": "inverse",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "fdf8af59-798e-415c-8656-02428e1da8b5"
+      ],
+      "settings": {
+        "sticky_announcement": false,
+        "padding_top": 4,
+        "padding_bottom": 4,
+        "padding_top_sm": 2,
+        "padding_bottom_sm": 2
+      }
+    },
+    "main_popup_newsletter_iV4dBd": {
+      "type": "main-popup-newsletter",
+      "settings": {
+        "modal_delay": 30,
+        "image": "shopify://shop_images/Page_conseils.webp",
+        "subheading": "",
+        "heading": "<p>Bénéficiez de -10% de réductions sur votre première commande</p>",
+        "heading_style": "2",
+        "description": "Rejoignez la communauté Sylys et recevez nos conseils beauté et nos exclusivités",
+        "button_text": "S'abonner",
+        "button_style": "1",
+        "disclaimer": "Nous détestons tout autant que vous les spams : vos cordoonnées seront sécurisées et confidentielles."
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "color_palette": "background-1",
+        "logo": "shopify://shop_images/Sylys_Logo_Classic.png",
+        "logo_width": 170,
+        "logo_width_mobile": 100,
+        "logo_position": "middle-left",
+        "menu": "menu-principal-2-0",
+        "menu_type_desktop": "dropdown",
+        "header_background_behavior": "normal",
+        "logo_transparent": "shopify://shop_images/Logo_vert_clair_petit.png",
+        "highlight_last_link": false,
+        "sticky_header_type": "always",
+        "show_line_separator": false,
+        "search_enabled": true,
+        "cart_disabled": false,
+        "mobile_logo_position": "center",
+        "icon_burger_type": "triple",
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "main_popup_newsletter_iV4dBd",
+    "header"
+  ]
+}

@@ -1,0 +1,358 @@
+{%- liquid
+  assign alignment = block.settings.alignment | default: 'left'
+  assign style = block.settings.timer_style | default: 'cards'
+  assign size = block.settings.font_size | default: 20
+  assign radius = block.settings.corner_radius | default: 8
+
+  case alignment
+    when 'center'
+      assign justify = 'center'
+    when 'right'
+      assign justify = 'flex-end'
+    else
+      assign justify = 'flex-start'
+  endcase
+
+  comment
+    Fond doux tiré de la couleur de texte : s'adapte à toutes les palettes,
+    au lieu d'un aplat sombre imposé.
+  endcomment
+  assign box = 'rgba(var(--color-foreground, 18,18,18), 0.06)'
+  if block.settings.accent_color != blank and block.settings.accent_color.alpha != 0.0
+    assign box = block.settings.accent_color
+  endif
+
+
+  comment
+    Sans texte, le bloc ne rendrait rien du tout : on garde au moins le compteur.
+  endcomment
+  assign text = block.settings.text
+  if text == blank
+    assign text = '[timer]'
+  endif
+
+  assign boxed = false
+  if style == 'cards' or style == 'outline'
+    assign boxed = true
+  endif
+-%}
+
+{%- style -%}
+  .custom-countdown--{{ block.id }} {
+    flex: var(--group-child-flex, 1 1 0%);
+    min-width: 0;
+  }
+
+
+  .custom-countdown--{{ block.id }} .custom-countdown__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: {{ justify }};
+    gap: 0.8rem 1.2rem;
+  }
+
+  .custom-countdown--{{ block.id }} .custom-countdown__content strong {
+    display: contents;
+  }
+
+  .custom-countdown--{{ block.id }} .custom-countdown__timer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: {% if boxed %}stretch{% else %}baseline{% endif %};
+    gap: {% if boxed %}0.4em{% elsif style == 'inline' %}0.7em{% else %}0.25em{% endif %};
+    /* Se réduit sur écran étroit au lieu de déborder, mais jamais sous 12px :
+       un simple min() tombe à zéro là où le viewport est nul, et le bloc
+       devient invisible (c'est ce qui cassait l'aperçu du sélecteur). */
+    font-size: clamp(12px, 6vw, {{ size | divided_by: 10.0 }}rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .custom-countdown--{{ block.id }} .custom-countdown__unit {
+    display: flex;
+    {%- if boxed %}
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35em;
+      min-width: 3.2em;
+      padding: 0.65em 0.5em;
+      border-radius: {{ radius }}px;
+      {%- if style == 'cards' %}
+        background: {{ box }};
+      {%- else %}
+        border: 1px solid {{ box }};
+      {%- endif %}
+    {%- else %}
+      align-items: baseline;
+      gap: 0.08em;
+    {%- endif %}
+  }
+
+  .custom-countdown--{{ block.id }} .custom-countdown__number {
+    font-weight: var(--font-body-weight-bold, 700);
+    line-height: 1;
+  }
+
+  .custom-countdown--{{ block.id }} .custom-countdown__label {
+    {%- if boxed %}
+      font-size: 0.45em;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    {%- else %}
+      font-size: 0.7em;
+      opacity: 0.6;
+    {%- endif %}
+  }
+
+  .custom-countdown--{{ block.id }} .custom-countdown__sep {
+    font-weight: var(--font-body-weight-bold, 700);
+    opacity: 0.35;
+  }
+
+  /* Masque les unités vides (jours puis heures) et leur séparateur. */
+  .custom-countdown--{{ block.id }} .custom-countdown__unit:has(.custom-countdown__number:empty),
+  .custom-countdown--{{ block.id }} .custom-countdown__unit:has(.custom-countdown__number:empty) + .custom-countdown__sep {
+    display: none;
+  }
+
+  {%- if block.settings.mobile_hidden %}
+    @media screen and (max-width: 749px) {
+      .custom-countdown--{{ block.id }} {
+        display: none;
+      }
+    }
+  {%- endif %}
+
+{%- endstyle -%}
+
+<div
+  class="custom-countdown custom-countdown--{{ block.id }} custom-countdown--{{ style }}"
+  {% render 'animation', enable_animations: block.settings.enable_animations, animation: block.settings.animation %}
+  {{ block.shopify_attributes }}
+>
+    {%- capture counter -%}
+      <span class="custom-countdown__timer">
+        <span class="custom-countdown__unit">
+          <span class="custom-countdown__number" data-days></span>
+          {%- if style != 'minimal' -%}
+            <span class="custom-countdown__label">{{- block.settings.days -}}</span>
+          {%- endif -%}
+        </span>
+        {%- if style == 'minimal' -%}<span class="custom-countdown__sep">:</span>{%- endif -%}
+        <span class="custom-countdown__unit">
+          <span class="custom-countdown__number" data-hours></span>
+          {%- if style != 'minimal' -%}
+            <span class="custom-countdown__label">{{- block.settings.hours -}}</span>
+          {%- endif -%}
+        </span>
+        {%- if style == 'minimal' -%}<span class="custom-countdown__sep">:</span>{%- endif -%}
+        <span class="custom-countdown__unit">
+          <span class="custom-countdown__number" data-minutes></span>
+          {%- if style != 'minimal' -%}
+            <span class="custom-countdown__label">{{- block.settings.mins -}}</span>
+          {%- endif -%}
+        </span>
+        {%- if style == 'minimal' -%}<span class="custom-countdown__sep">:</span>{%- endif -%}
+        <span class="custom-countdown__unit">
+          <span class="custom-countdown__number" data-seconds></span>
+          {%- if style != 'minimal' -%}
+            <span class="custom-countdown__label">{{- block.settings.secs -}}</span>
+          {%- endif -%}
+        </span>
+      </span>
+    {%- endcapture -%}
+  <custom-countdown>
+    <div class="custom-countdown__content">
+      {{ text | replace: '[timer]', counter }}
+    </div>
+    <script type="application/json">
+      {
+        "id": {{ block.id | json }},
+        "time": {{ block.settings.time | default: 0 }},
+        "expiry": {{ block.settings.renew | default: 0 }}
+      }
+    </script>
+  </custom-countdown>
+</div>
+
+{%- comment -%}
+  Dans un asset : sinon la classe entière serait réécrite dans le HTML à chaque
+  instance du bloc, sans cache possible.
+{%- endcomment -%}
+{%- render 'script' with 'custom-countdown', defer: true -%}
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.countdown",
+  "tag": null,
+  "class": "custom-countdown-block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.advanced_custom_section.headers.style"
+    },
+    {
+      "type": "select",
+      "id": "timer_style",
+      "label": "t:sections.advanced_custom_section.countdown.style.label",
+      "options": [
+        { "value": "cards", "label": "t:sections.advanced_custom_section.countdown.style.options.cards" },
+        { "value": "outline", "label": "t:sections.advanced_custom_section.countdown.style.options.outline" },
+        { "value": "inline", "label": "t:sections.advanced_custom_section.countdown.style.options.inline" },
+        { "value": "minimal", "label": "t:sections.advanced_custom_section.countdown.style.options.minimal" }
+      ],
+      "default": "cards"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.global.font_size.label",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.corner_radius",
+      "default": 8,
+      "visible_if": "{{ block.settings.timer_style == 'cards' or block.settings.timer_style == 'outline' }}"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "t:sections.advanced_custom_section.countdown.accent_color",
+      "info": "t:sections.advanced_custom_section.countdown.accent_color_info",
+      "visible_if": "{{ block.settings.timer_style == 'cards' or block.settings.timer_style == 'outline' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "t:sections.timer.settings.text.label",
+      "info": "t:sections.timer.settings.text.info",
+      "default": "t:sections.advanced_custom_section.countdown.text_default"
+    },
+    {
+      "type": "number",
+      "id": "time",
+      "label": "t:sections.timer.settings.time.label",
+      "default": 1501
+    },
+    {
+      "type": "select",
+      "id": "renew",
+      "label": "t:sections.timer.settings.renew.label",
+      "default": "0",
+      "options": [
+        { "value": "0", "label": "t:sections.timer.settings.renew.options.1" },
+        { "value": "1", "label": "t:sections.timer.settings.renew.options.2" },
+        { "value": "15", "label": "t:sections.timer.settings.renew.options.3" },
+        { "value": "30", "label": "t:sections.timer.settings.renew.options.4" },
+        { "value": "60", "label": "t:sections.timer.settings.renew.options.5" },
+        { "value": "180", "label": "t:sections.timer.settings.renew.options.6" },
+        { "value": "360", "label": "t:sections.timer.settings.renew.options.7" },
+        { "value": "720", "label": "t:sections.timer.settings.renew.options.8" },
+        { "value": "1440", "label": "t:sections.timer.settings.renew.options.9" },
+        { "value": "10080", "label": "t:sections.timer.settings.renew.options.10" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.advanced_custom_section.countdown.headers.labels",
+      "visible_if": "{{ block.settings.timer_style != 'minimal' }}"
+    },
+    {
+      "type": "text",
+      "id": "days",
+      "label": "t:sections.timer.settings.days.label",
+      "default": "t:sections.advanced_custom_section.countdown.days_default",
+      "visible_if": "{{ block.settings.timer_style != 'minimal' }}"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "t:sections.timer.settings.hours.label",
+      "default": "t:sections.advanced_custom_section.countdown.hours_default",
+      "visible_if": "{{ block.settings.timer_style != 'minimal' }}"
+    },
+    {
+      "type": "text",
+      "id": "mins",
+      "label": "t:sections.timer.settings.mins.label",
+      "default": "t:sections.advanced_custom_section.countdown.mins_default",
+      "visible_if": "{{ block.settings.timer_style != 'minimal' }}"
+    },
+    {
+      "type": "text",
+      "id": "secs",
+      "label": "t:sections.timer.settings.secs.label",
+      "default": "t:sections.advanced_custom_section.countdown.secs_default",
+      "visible_if": "{{ block.settings.timer_style != 'minimal' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        { "value": "left", "label": "t:sections.global.alignment.options.left" },
+        { "value": "center", "label": "t:sections.global.alignment.options.center" },
+        { "value": "right", "label": "t:sections.global.alignment.options.right" }
+      ],
+      "default": "left",
+      "label": "t:sections.global.alignment.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_hidden",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "t:sections.global.animation.enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "options": [
+        { "value": "fade-up", "label": "t:sections.global.animation.options.fade_up" },
+        { "value": "fade-down", "label": "t:sections.global.animation.options.fade_down" },
+        { "value": "fade-right", "label": "t:sections.global.animation.options.fade_right" },
+        { "value": "fade-left", "label": "t:sections.global.animation.options.fade_left" },
+        { "value": "zoom-in", "label": "t:sections.global.animation.options.zoom_in" },
+        { "value": "zoom-out", "label": "t:sections.global.animation.options.zoom_out" }
+      ],
+      "default": "fade-up",
+      "label": "t:sections.global.animation.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.countdown",
+      "category": "t:categories.selling"
+    }
+  ]
+}
+{% endschema %}

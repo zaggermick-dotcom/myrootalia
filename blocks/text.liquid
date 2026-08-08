@@ -1,0 +1,143 @@
+{{ 'component-rte.css' | asset_url | stylesheet_tag }}
+{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign color_bold_words = block.settings.color_bold_words | default: 'text'
+-%}
+
+{%- style -%}
+  .custom-text--{{ block.id }} {
+    flex: var(--group-child-flex, 1 1 0%);
+    min-width: 0;
+  }
+
+  {%- if block.settings.custom_size %}
+    .custom-text--{{ block.id }} {
+      font-size: {{ block.settings.size_mobile }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .custom-text--{{ block.id }} {
+        font-size: {{ block.settings.size_desktop }}px;
+      }
+    }
+  {%- endif %}
+
+  .custom-text--{{ block.id }} p:has(+ ul) {
+    margin-bottom: 0;
+  }
+
+  .custom-text--{{ block.id }} ul {
+    margin-bottom: 1rem;
+  }
+
+  {%- if block.settings.mobile_hidden %}
+    @media screen and (max-width: 749px) {
+      .custom-text--{{ block.id }} {
+        display: none;
+      }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+{%- if block.settings.description != blank -%}
+  <div
+    class="custom-text custom-text--{{ block.id }} tj-richtext-class image-with-text__bold-{{ color_bold_words }} rte"
+    {% render 'animation', enable_animations: block.settings.enable_animations, animation: block.settings.animation %}
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.description }}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.text",
+  "tag": null,
+  "class": "custom-text-block",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.global.description.label",
+      "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+    },
+    {
+      "type": "select",
+      "id": "color_bold_words",
+      "options": [
+        { "value": "heading", "label": "t:sections.image-with-text.blocks.text.color_bold_words.options.heading" },
+        { "value": "text", "label": "t:sections.image-with-text.blocks.text.color_bold_words.options.text" },
+        { "value": "accent-1", "label": "t:sections.image-with-text.blocks.text.color_bold_words.options.accent-1" },
+        { "value": "accent-2", "label": "t:sections.image-with-text.blocks.text.color_bold_words.options.accent-2" }
+      ],
+      "default": "text",
+      "label": "t:sections.image-with-text.blocks.text.color_bold_words.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_size",
+      "label": "t:sections.advanced_custom_section.heading_settings.custom_size",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "size_desktop",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.heading_settings.size_desktop",
+      "default": 16,
+      "visible_if": "{{ block.settings.custom_size }}"
+    },
+    {
+      "type": "range",
+      "id": "size_mobile",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.heading_settings.size_mobile",
+      "default": 14,
+      "visible_if": "{{ block.settings.custom_size }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_hidden",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "t:sections.global.animation.enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "options": [
+        { "value": "fade-up", "label": "t:sections.global.animation.options.fade_up" },
+        { "value": "fade-down", "label": "t:sections.global.animation.options.fade_down" },
+        { "value": "fade-right", "label": "t:sections.global.animation.options.fade_right" },
+        { "value": "fade-left", "label": "t:sections.global.animation.options.fade_left" },
+        { "value": "zoom-in", "label": "t:sections.global.animation.options.zoom_in" },
+        { "value": "zoom-out", "label": "t:sections.global.animation.options.zoom_out" }
+      ],
+      "default": "fade-up",
+      "label": "t:sections.global.animation.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.text",
+      "category": "t:categories.content"
+    }
+  ]
+}
+{% endschema %}

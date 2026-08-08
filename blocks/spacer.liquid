@@ -1,0 +1,154 @@
+{%- liquid
+  assign size = block.settings.size | default: 32
+  assign size_mobile = block.settings.size_mobile | default: 24
+  assign line_style = block.settings.line_style | default: 'solid'
+  assign line_thickness = block.settings.line_thickness | default: 1
+
+  assign line_color = 'rgba(var(--color-foreground, 18,18,18), 0.15)'
+  if block.settings.line_color != blank and block.settings.line_color.alpha != 0.0
+    assign line_color = block.settings.line_color
+  endif
+-%}
+
+{%- style -%}
+  /* Sa taille EST son réglage : jamais d'étirement, donc pas de --group-child-flex. */
+  .custom-spacer--{{ block.id }} {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: {{ size_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .custom-spacer--{{ block.id }} {
+      height: {{ size }}px;
+    }
+  }
+
+  {%- if request.visual_preview_mode %}
+    /* Aperçu : un espace est transparent, il n'y a rien à photographier.
+       On dessine un SVG aux dimensions explicites — même structure que le bloc
+       Vidéo, qui est le seul dont l'aperçu fonctionne de façon certaine. */
+    .custom-spacer--{{ block.id }} {
+      height: auto;
+      min-height: 0;
+    }
+  {%- endif %}
+
+  {%- if line_style != 'none' %}
+    .custom-spacer--{{ block.id }} .custom-spacer__line {
+      display: block;
+      width: 100%;
+      border-top: {{ line_thickness }}px {{ line_style }} {{ line_color }};
+    }
+  {%- endif %}
+
+  {%- if block.settings.mobile_hidden %}
+    @media screen and (max-width: 749px) {
+      .custom-spacer--{{ block.id }} {
+        display: none;
+      }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+<div
+  class="custom-spacer custom-spacer--{{ block.id }}"
+  {%- unless request.visual_preview_mode %} aria-hidden="true"{% endunless -%}
+  {{ block.shopify_attributes }}
+>
+  {%- if request.visual_preview_mode -%}
+    <svg
+      width="320"
+      height="64"
+      viewBox="0 0 320 64"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Espace / Séparateur"
+    >
+      <rect width="320" height="64" fill="#f1f1f1" />
+      <line x1="24" y1="32" x2="296" y2="32" stroke="#8a8a8a" stroke-width="2" stroke-dasharray="8 6" />
+    </svg>
+  {%- elsif line_style != 'none' -%}
+    <span class="custom-spacer__line"></span>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.spacer",
+  "tag": null,
+  "class": "custom-spacer-block",
+  "settings": [
+    {
+      "type": "select",
+      "id": "line_style",
+      "label": "t:sections.advanced_custom_section.spacer.line_style.label",
+      "options": [
+        { "value": "none", "label": "t:sections.advanced_custom_section.spacer.line_style.options.none" },
+        { "value": "solid", "label": "t:sections.advanced_custom_section.spacer.line_style.options.solid" },
+        { "value": "dashed", "label": "t:sections.advanced_custom_section.spacer.line_style.options.dashed" },
+        { "value": "dotted", "label": "t:sections.advanced_custom_section.spacer.line_style.options.dotted" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "range",
+      "id": "line_thickness",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.spacer.line_thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.line_style != 'none' }}"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "t:sections.advanced_custom_section.spacer.line_color",
+      "info": "t:sections.advanced_custom_section.spacer.line_color_info",
+      "visible_if": "{{ block.settings.line_style != 'none' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.layout"
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.spacer.size.label",
+      "info": "t:sections.advanced_custom_section.spacer.size.info",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "size_mobile",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.spacer.size_mobile",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_hidden",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.spacer",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}

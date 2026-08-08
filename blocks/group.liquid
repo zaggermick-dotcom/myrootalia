@@ -1,0 +1,434 @@
+{%- liquid
+  assign direction = block.settings.direction | default: 'horizontal'
+  assign align_horizontal = block.settings.align_horizontal | default: 'stretch'
+  assign align_vertical = block.settings.align_vertical | default: 'stretch'
+  assign gap = block.settings.gap | default: 24
+  assign gap_mobile = block.settings.gap_mobile | default: 16
+  assign width = block.settings.width | default: 'fill'
+  assign width_custom = block.settings.width_custom | default: 12
+  assign padding_top = block.settings.padding_top | default: 0
+  assign padding_bottom = block.settings.padding_bottom | default: 0
+  assign padding_horizontal = block.settings.padding_horizontal | default: 0
+  assign padding_horizontal_mobile = block.settings.padding_horizontal_mobile | default: 0
+  assign link = block.settings.link
+  assign corner_radius = block.settings.corner_radius | default: 0
+  assign background_color = block.settings.color_scheme
+  assign align_self = block.settings.align_self | default: 'auto'
+
+  case align_self
+    when 'top'
+      assign align_self_css = 'flex-start'
+    when 'center'
+      assign align_self_css = 'center'
+    when 'bottom'
+      assign align_self_css = 'flex-end'
+    when 'stretch'
+      assign align_self_css = 'stretch'
+    else
+      assign align_self_css = 'auto'
+  endcase
+
+  case align_horizontal
+    when 'center'
+      assign align_horizontal_cross = 'center'
+      assign align_horizontal_main = 'center'
+    when 'right'
+      assign align_horizontal_cross = 'flex-end'
+      assign align_horizontal_main = 'flex-end'
+    when 'stretch'
+      assign align_horizontal_cross = 'stretch'
+      assign align_horizontal_main = 'flex-start'
+    else
+      assign align_horizontal_cross = 'flex-start'
+      assign align_horizontal_main = 'flex-start'
+  endcase
+
+  case align_vertical
+    when 'center'
+      assign align_vertical_cross = 'center'
+      assign align_vertical_main = 'center'
+    when 'bottom'
+      assign align_vertical_cross = 'flex-end'
+      assign align_vertical_main = 'flex-end'
+    when 'stretch'
+      assign align_vertical_cross = 'stretch'
+      assign align_vertical_main = 'flex-start'
+    else
+      assign align_vertical_cross = 'flex-start'
+      assign align_vertical_main = 'flex-start'
+  endcase
+
+  if direction == 'vertical'
+    assign justify_content = align_vertical_main
+    assign align_items = align_horizontal_cross
+  else
+    assign justify_content = align_horizontal_main
+    assign align_items = align_vertical_cross
+  endif
+
+  comment
+    Children only grow along the main axis, and only when the merchant asked for
+    "stretch". Growing unconditionally leaves no free space, which makes
+    left/center/right silently inert.
+  endcomment
+  if direction == 'vertical' or align_horizontal != 'stretch'
+    assign child_flex = '0 0 auto'
+  else
+    assign child_flex = '1 1 0%'
+  endif
+
+  comment
+    Cross axis in a vertical parent, main axis in a horizontal one: either way a
+    child is only full-width when the alignment is "stretch". Blocks with no
+    intrinsic width read this instead of hardcoding 100%.
+  endcomment
+  if align_horizontal == 'stretch'
+    assign child_width = '100%'
+  else
+    assign child_width = 'auto'
+  endif
+-%}
+
+{%- style -%}
+  .group--{{ block.id }} {
+    display: flex;
+    flex-direction: {% if direction == 'vertical' %}column{% else %}row{% endif %};
+    flex-wrap: {% if direction == 'vertical' %}nowrap{% else %}wrap{% endif %};
+    justify-content: {{ justify_content }};
+    align-items: {{ align_items }};
+    --group-gap: {{ gap_mobile }}px;
+    --group-width-fraction: {{ width_custom }};
+    column-gap: var(--group-gap);
+    row-gap: var(--group-gap);
+    min-width: 0;
+    align-self: {{ align_self_css }};
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    padding-left: {{ padding_horizontal_mobile }}px;
+    padding-right: {{ padding_horizontal_mobile }}px;
+    {%- if link != blank %}
+      position: relative;
+    {%- endif %}
+    {%- if corner_radius > 0 %}
+      border-radius: {{ corner_radius }}px;
+    {%- endif %}
+    {%- if width == 'custom' %}
+      /* La part de gouttière d'un enfant ne dépend que de sa propre fraction :
+         somme des fractions = 12 => somme des gouttières = (n - 1) × gap,
+         quel que soit le nombre d'enfants ou leur type. */
+      flex: 0 1 auto;
+      width: calc((var(--group-width-fraction) / 12 * 100%) - ((12 - var(--group-width-fraction)) / 12 * var(--group-parent-gap, 0px)));
+      max-width: calc((var(--group-width-fraction) / 12 * 100%) - ((12 - var(--group-width-fraction)) / 12 * var(--group-parent-gap, 0px)));
+    {%- elsif width == 'fit' %}
+      flex: 0 0 auto;
+    {%- else %}
+      flex: var(--group-child-flex, 1 1 0%);
+    {%- endif %}
+  }
+
+  /* Container contract: children only grow along the parent's axis. */
+  .group--{{ block.id }} > * {
+    --group-child-flex: {{ child_flex }};
+    --group-child-width: {{ child_width }};
+    --group-parent-gap: {% if direction == 'vertical' %}0px{% else %}{{ gap_mobile }}px{% endif %};
+  }
+
+  {%- if link != blank %}
+    /* Overlay instead of a wrapping <a>: nested links would be re-parsed. */
+    .group--{{ block.id }} > .group__link {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+  {%- endif %}
+
+  @media screen and (min-width: 750px) {
+    .group--{{ block.id }} {
+      --group-gap: {{ gap }}px;
+      padding-left: {{ padding_horizontal }}px;
+      padding-right: {{ padding_horizontal }}px;
+    }
+
+    {%- if direction != 'vertical' %}
+      .group--{{ block.id }} > * {
+        --group-parent-gap: {{ gap }}px;
+      }
+    {%- endif %}
+  }
+
+  {%- if block.settings.stack_on_mobile and direction == 'horizontal' %}
+    @media screen and (max-width: 749px) {
+      .group--{{ block.id }} {
+        flex-direction: column;
+        /* The row becomes a column: axes swap. */
+        justify-content: {{ align_vertical_main }};
+        align-items: {{ align_horizontal_cross }};
+      }
+
+      .group--{{ block.id }} > * {
+        --group-child-flex: 0 0 auto;
+        --group-parent-gap: 0px;
+      }
+
+      .group--{{ block.id }} > .group {
+        width: var(--group-child-width, 100%);
+        max-width: 100%;
+      }
+    }
+  {%- endif %}
+
+  {%- if block.settings.hide_mobile %}
+    @media screen and (max-width: 749px) {
+      .group--{{ block.id }} { display: none; }
+    }
+  {%- endif %}
+
+  {%- if block.settings.hide_desktop %}
+    @media screen and (min-width: 750px) {
+      .group--{{ block.id }} { display: none; }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+<div
+  class="group group--{{ block.id }}{% if background_color != blank %} color-{{ background_color }} gradient{% endif %}"
+  {% render 'animation', enable_animations: block.settings.enable_animations, animation: block.settings.animation %}
+  {{ block.shopify_attributes }}
+>
+  {%- if link != blank -%}
+    {%- # Decorative: screen readers and keyboard use the real links inside. -%}
+    <a href="{{ link }}" class="group__link" tabindex="-1" aria-hidden="true"></a>
+  {%- endif -%}
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.group",
+  "tag": null,
+  "class": "group-block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.layout"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "t:sections.advanced_custom_section.group.direction.label",
+      "options": [
+        { "value": "horizontal", "label": "t:sections.advanced_custom_section.group.direction.options.horizontal" },
+        { "value": "vertical", "label": "t:sections.advanced_custom_section.group.direction.options.vertical" }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_on_mobile",
+      "label": "t:sections.advanced_custom_section.group.stack_on_mobile",
+      "default": true,
+      "visible_if": "{{ block.settings.direction == 'horizontal' }}"
+    },
+    {
+      "type": "select",
+      "id": "align_horizontal",
+      "label": "t:sections.advanced_custom_section.group.align_horizontal.label",
+      "options": [
+        { "value": "left", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.left" },
+        { "value": "center", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.center" },
+        { "value": "right", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.right" },
+        { "value": "stretch", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.stretch" }
+      ],
+      "default": "stretch"
+    },
+    {
+      "type": "select",
+      "id": "align_vertical",
+      "label": "t:sections.advanced_custom_section.group.align_vertical.label",
+      "options": [
+        { "value": "top", "label": "t:sections.advanced_custom_section.group.align_vertical.options.top" },
+        { "value": "center", "label": "t:sections.advanced_custom_section.group.align_vertical.options.center" },
+        { "value": "bottom", "label": "t:sections.advanced_custom_section.group.align_vertical.options.bottom" },
+        { "value": "stretch", "label": "t:sections.advanced_custom_section.group.align_vertical.options.stretch" }
+      ],
+      "default": "stretch"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.gap",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.gap_mobile",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "t:sections.advanced_custom_section.group.headers.sizing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.advanced_custom_section.group.width.label",
+      "options": [
+        { "value": "fill", "label": "t:sections.advanced_custom_section.group.width.options.fill" },
+        { "value": "fit", "label": "t:sections.advanced_custom_section.group.width.options.fit" },
+        { "value": "custom", "label": "t:sections.advanced_custom_section.group.width.options.custom" }
+      ],
+      "default": "fill",
+      "info": "t:sections.advanced_custom_section.group.width.info"
+    },
+    {
+      "type": "range",
+      "id": "width_custom",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "unit": "/12",
+      "label": "t:sections.advanced_custom_section.group.width_custom",
+      "default": 12,
+      "visible_if": "{{ block.settings.width == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "align_self",
+      "label": "t:sections.advanced_custom_section.group.align_self.label",
+      "info": "t:sections.advanced_custom_section.group.align_self.info",
+      "options": [
+        { "value": "auto", "label": "t:sections.advanced_custom_section.group.align_self.options.auto" },
+        { "value": "top", "label": "t:sections.advanced_custom_section.group.align_self.options.top" },
+        { "value": "center", "label": "t:sections.advanced_custom_section.group.align_self.options.center" },
+        { "value": "bottom", "label": "t:sections.advanced_custom_section.group.align_self.options.bottom" },
+        { "value": "stretch", "label": "t:sections.advanced_custom_section.group.align_self.options.stretch" }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.padding_top.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.padding_bottom.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.padding_horizontal",
+      "info": "t:sections.advanced_custom_section.group.padding_horizontal_info",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.padding_horizontal_mobile",
+      "default": 0
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.advanced_custom_section.group.link.label",
+      "info": "t:sections.advanced_custom_section.group.link.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:sections.advanced_custom_section.hide_desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.global.colors_palette.label"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.corner_radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "t:sections.global.animation.enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "options": [
+        { "value": "fade-up", "label": "t:sections.global.animation.options.fade_up" },
+        { "value": "fade-down", "label": "t:sections.global.animation.options.fade_down" },
+        { "value": "fade-right", "label": "t:sections.global.animation.options.fade_right" },
+        { "value": "fade-left", "label": "t:sections.global.animation.options.fade_left" },
+        { "value": "zoom-in", "label": "t:sections.global.animation.options.zoom_in" },
+        { "value": "zoom-out", "label": "t:sections.global.animation.options.zoom_out" }
+      ],
+      "default": "fade-up",
+      "label": "t:sections.global.animation.label"
+    }
+  ],
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.group",
+      "category": "t:categories.layout",
+      "settings": {
+        "direction": "vertical"
+      }
+    }
+  ]
+}
+{% endschema %}

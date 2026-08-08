@@ -1,0 +1,397 @@
+{%- liquid
+  assign tabs_style = block.settings.tabs_style | default: 'pills'
+  assign alignment = block.settings.alignment | default: 'left'
+  assign text_size = block.settings.text_size | default: 13
+  assign nav_gap = block.settings.nav_gap | default: 8
+  assign nav_spacing = block.settings.nav_spacing | default: 28
+
+  case alignment
+    when 'center'
+      assign nav_justify = 'center'
+    when 'right'
+      assign nav_justify = 'flex-end'
+    else
+      assign nav_justify = 'flex-start'
+  endcase
+
+  assign active_bg = 'rgb(var(--color-foreground))'
+  if block.settings.active_background != blank and block.settings.active_background.alpha != 0.0
+    assign active_bg = block.settings.active_background
+  endif
+
+  assign active_text = 'rgb(var(--color-background))'
+  if block.settings.active_text != blank and block.settings.active_text.alpha != 0.0
+    assign active_text = block.settings.active_text
+  endif
+
+  assign inactive_bg = 'rgb(var(--color-background-secondary, 246,246,246))'
+  if block.settings.inactive_background != blank and block.settings.inactive_background.alpha != 0.0
+    assign inactive_bg = block.settings.inactive_background
+  endif
+
+  assign inactive_text = 'rgb(var(--color-foreground))'
+  if block.settings.inactive_text != blank and block.settings.inactive_text.alpha != 0.0
+    assign inactive_text = block.settings.inactive_text
+  endif
+
+  assign btn_pad_v = block.settings.button_padding_vertical | default: 10
+  assign btn_pad_h = block.settings.button_padding_horizontal | default: 18
+  assign btn_radius = block.settings.button_corner_radius | default: 100
+  assign border_width = block.settings.border_width | default: 0
+  assign border_color_css = 'rgba(var(--color-foreground), 0.15)'
+  if block.settings.border_color != blank and block.settings.border_color.alpha != 0.0
+    assign border_color_css = block.settings.border_color
+  endif
+-%}
+
+{%- style -%}
+  .custom-tabs--{{ block.id }} {
+    flex: var(--group-child-flex, 1 1 0%);
+    min-width: 0;
+    display: block;
+  }
+
+  .custom-tabs--{{ block.id }} .custom-tabs__nav {
+    display: flex;
+    justify-content: {{ nav_justify }};
+    gap: {{ nav_gap }}px;
+    margin-bottom: {{ nav_spacing }}px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .custom-tabs--{{ block.id }} .custom-tabs__nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Empty until JS builds the buttons. */
+  .custom-tabs--{{ block.id }}:not(.js-ready) .custom-tabs__nav {
+    display: none;
+  }
+
+  .custom-tabs--{{ block.id }} .custom-tabs__tab {
+    appearance: none;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: var(--font-heading-family, inherit);
+    font-size: {{ text_size }}px;
+    font-weight: {% if block.settings.bold == false %}400{% else %}600{% endif %};
+    line-height: 1;
+    {%- if block.settings.uppercase %}
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    {%- endif %}
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    {%- case tabs_style %}
+      {%- when 'underline' %}
+        padding: 0.6em 0.2em;
+        background: transparent;
+        color: {{ inactive_text }};
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+      {%- when 'minimal' %}
+        padding: 0.4em 0.2em;
+        background: transparent;
+        color: {{ inactive_text }};
+        opacity: 0.5;
+      {%- else %}
+        padding: {{ btn_pad_v }}px {{ btn_pad_h }}px;
+        background: {{ inactive_bg }};
+        color: {{ inactive_text }};
+        border-radius: {{ btn_radius }}px;
+        {%- if border_width > 0 %}
+          border: {{ border_width }}px solid {{ border_color_css }};
+        {%- endif %}
+    {%- endcase %}
+  }
+
+  {%- if alignment == 'stretch' %}
+    .custom-tabs--{{ block.id }} .custom-tabs__tab {
+      flex: 1 1 0;
+    }
+  {%- endif %}
+
+  .custom-tabs--{{ block.id }} .custom-tabs__tab:hover {
+    opacity: 0.8;
+  }
+
+  .custom-tabs--{{ block.id }} .custom-tabs__tab.is-active {
+    {%- case tabs_style %}
+      {%- when 'underline' %}
+        color: {{ active_bg }};
+        border-bottom-color: {{ active_bg }};
+      {%- when 'minimal' %}
+        color: {{ active_bg }};
+        opacity: 1;
+      {%- else %}
+        background: {{ active_bg }};
+        color: {{ active_text }};
+        {%- if border_width > 0 %}
+          border-color: {{ active_bg }};
+        {%- endif %}
+    {%- endcase %}
+  }
+
+  .custom-tabs--{{ block.id }} .custom-tabs__tab.is-active:hover {
+    opacity: 1;
+  }
+
+  /* Before JS init, only the first panel shows. */
+  .custom-tabs--{{ block.id }}:not(.js-ready) .custom-tabs__panels > .custom-tab-panel:not(:first-child) {
+    display: none;
+  }
+
+  .custom-tabs--{{ block.id }}.js-ready .custom-tab-panel:not(.is-active) {
+    display: none;
+  }
+
+  .custom-tabs--{{ block.id }}.js-ready .custom-tab-panel.is-active {
+    animation: customTabsReveal 0.3s ease;
+  }
+
+  @keyframes customTabsReveal {
+    from { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .custom-tabs--{{ block.id }}.js-ready .custom-tab-panel.is-active {
+      animation: none;
+    }
+  }
+
+  {%- if block.settings.mobile_hidden %}
+    @media screen and (max-width: 749px) {
+      .custom-tabs--{{ block.id }} {
+        display: none;
+      }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+<custom-tabs
+  class="custom-tabs custom-tabs--{{ block.id }} custom-tabs--style-{{ tabs_style }}"
+  {% render 'animation', enable_animations: block.settings.enable_animations, animation: block.settings.animation %}
+  {{ block.shopify_attributes }}
+>
+  <div class="custom-tabs__nav" role="tablist"></div>
+  <div class="custom-tabs__panels">
+    {% content_for 'blocks' %}
+  </div>
+</custom-tabs>
+
+{%- render 'script' with 'custom-tabs', defer: true -%}
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.tabs",
+  "tag": null,
+  "class": "custom-tabs-block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.advanced_custom_section.headers.style"
+    },
+    {
+      "type": "select",
+      "id": "tabs_style",
+      "label": "t:sections.advanced_custom_section.tabs.style.label",
+      "options": [
+        { "value": "pills", "label": "t:sections.advanced_custom_section.tabs.style.options.pills" },
+        { "value": "underline", "label": "t:sections.advanced_custom_section.tabs.style.options.underline" },
+        { "value": "minimal", "label": "t:sections.advanced_custom_section.tabs.style.options.minimal" }
+      ],
+      "default": "pills"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.global.alignment.label",
+      "options": [
+        { "value": "left", "label": "t:sections.global.alignment.options.left" },
+        { "value": "center", "label": "t:sections.global.alignment.options.center" },
+        { "value": "right", "label": "t:sections.global.alignment.options.right" },
+        { "value": "stretch", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.stretch" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "t:sections.advanced_custom_section.tabs.uppercase",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.tabs.text_size",
+      "default": 13
+    },
+    {
+      "type": "checkbox",
+      "id": "bold",
+      "label": "t:sections.advanced_custom_section.heading_settings.bold",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.badge.padding_vertical",
+      "default": 10,
+      "visible_if": "{{ block.settings.tabs_style == 'pills' }}"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.badge.padding_horizontal",
+      "default": 18,
+      "visible_if": "{{ block.settings.tabs_style == 'pills' }}"
+    },
+    {
+      "type": "range",
+      "id": "button_corner_radius",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.corner_radius",
+      "default": 100,
+      "visible_if": "{{ block.settings.tabs_style == 'pills' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.tabs.border_width",
+      "default": 0,
+      "visible_if": "{{ block.settings.tabs_style == 'pills' }}"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "t:sections.advanced_custom_section.accordion.border_color",
+      "visible_if": "{{ block.settings.tabs_style == 'pills' and block.settings.border_width > 0 }}"
+    },
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.tabs.nav_gap",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "nav_spacing",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.tabs.nav_spacing",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.advanced_custom_section.tabs.colors_info"
+    },
+    {
+      "type": "color",
+      "id": "active_background",
+      "label": "t:sections.advanced_custom_section.tabs.active_background"
+    },
+    {
+      "type": "color",
+      "id": "active_text",
+      "label": "t:sections.advanced_custom_section.tabs.active_text",
+      "visible_if": "{{ block.settings.tabs_style == 'pills' }}"
+    },
+    {
+      "type": "color",
+      "id": "inactive_background",
+      "label": "t:sections.advanced_custom_section.tabs.inactive_background",
+      "visible_if": "{{ block.settings.tabs_style == 'pills' }}"
+    },
+    {
+      "type": "color",
+      "id": "inactive_text",
+      "label": "t:sections.advanced_custom_section.tabs.inactive_text"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_hidden",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "t:sections.global.animation.enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "options": [
+        { "value": "fade-up", "label": "t:sections.global.animation.options.fade_up" },
+        { "value": "fade-down", "label": "t:sections.global.animation.options.fade_down" },
+        { "value": "fade-right", "label": "t:sections.global.animation.options.fade_right" },
+        { "value": "fade-left", "label": "t:sections.global.animation.options.fade_left" },
+        { "value": "zoom-in", "label": "t:sections.global.animation.options.zoom_in" },
+        { "value": "zoom-out", "label": "t:sections.global.animation.options.zoom_out" }
+      ],
+      "default": "fade-up",
+      "label": "t:sections.global.animation.label"
+    }
+  ],
+  "blocks": [
+    { "type": "_tab" }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.tabs",
+      "category": "t:categories.layout",
+      "blocks": [
+        {
+          "type": "_tab",
+          "settings": { "title": "Tab 1" }
+        },
+        {
+          "type": "_tab",
+          "settings": { "title": "Tab 2" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

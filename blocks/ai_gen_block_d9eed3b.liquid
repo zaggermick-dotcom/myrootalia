@@ -1,0 +1,17 @@
+{% doc %}
+  @prompt
+    Keep
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+{% endstyle %}
+
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}

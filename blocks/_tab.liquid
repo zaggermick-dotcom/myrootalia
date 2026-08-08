@@ -1,0 +1,202 @@
+{%- liquid
+  assign direction = block.settings.direction | default: 'vertical'
+  assign align_horizontal = block.settings.align_horizontal | default: 'stretch'
+  assign align_vertical = block.settings.align_vertical | default: 'stretch'
+  assign gap = block.settings.gap | default: 24
+  assign gap_mobile = block.settings.gap_mobile | default: 16
+
+  case align_horizontal
+    when 'center'
+      assign align_horizontal_cross = 'center'
+      assign align_horizontal_main = 'center'
+    when 'right'
+      assign align_horizontal_cross = 'flex-end'
+      assign align_horizontal_main = 'flex-end'
+    when 'stretch'
+      assign align_horizontal_cross = 'stretch'
+      assign align_horizontal_main = 'flex-start'
+    else
+      assign align_horizontal_cross = 'flex-start'
+      assign align_horizontal_main = 'flex-start'
+  endcase
+
+  case align_vertical
+    when 'center'
+      assign align_vertical_cross = 'center'
+      assign align_vertical_main = 'center'
+    when 'bottom'
+      assign align_vertical_cross = 'flex-end'
+      assign align_vertical_main = 'flex-end'
+    when 'stretch'
+      assign align_vertical_cross = 'stretch'
+      assign align_vertical_main = 'flex-start'
+    else
+      assign align_vertical_cross = 'flex-start'
+      assign align_vertical_main = 'flex-start'
+  endcase
+
+  if direction == 'vertical'
+    assign justify_content = align_vertical_main
+    assign align_items = align_horizontal_cross
+  else
+    assign justify_content = align_horizontal_main
+    assign align_items = align_vertical_cross
+  endif
+-%}
+
+{%- style -%}
+  .custom-tab--{{ block.id }} {
+    display: flex;
+    flex-direction: {% if direction == 'vertical' %}column{% else %}row{% endif %};
+    flex-wrap: {% if direction == 'vertical' %}nowrap{% else %}wrap{% endif %};
+    justify-content: {{ justify_content }};
+    align-items: {{ align_items }};
+    --group-gap: {{ gap_mobile }}px;
+    column-gap: var(--group-gap);
+    row-gap: var(--group-gap);
+    min-width: 0;
+  }
+
+  /* Container contract: children only grow along the panel's axis. */
+  .custom-tab--{{ block.id }} > * {
+    {%- if direction == 'vertical' %}
+      --group-child-flex: 0 0 auto;
+      --group-parent-gap: 0px;
+    {%- else %}
+      --group-child-flex: 1 1 0%;
+      --group-parent-gap: {{ gap_mobile }}px;
+    {%- endif %}
+  }
+
+  @media screen and (min-width: 750px) {
+    .custom-tab--{{ block.id }} {
+      --group-gap: {{ gap }}px;
+    }
+
+    {%- if direction != 'vertical' %}
+      .custom-tab--{{ block.id }} > * {
+        --group-parent-gap: {{ gap }}px;
+      }
+    {%- endif %}
+  }
+
+  {%- if block.settings.stack_on_mobile and direction == 'horizontal' %}
+    @media screen and (max-width: 749px) {
+      .custom-tab--{{ block.id }} {
+        flex-direction: column;
+        /* The row becomes a column: axes swap. */
+        justify-content: {{ align_vertical_main }};
+        align-items: {{ align_horizontal_cross }};
+      }
+
+      .custom-tab--{{ block.id }} > * {
+        --group-child-flex: 0 0 auto;
+        --group-parent-gap: 0px;
+      }
+
+      .custom-tab--{{ block.id }} > .group {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+<div
+  class="custom-tab-panel custom-tab--{{ block.id }}"
+  id="CustomTab-{{ block.id }}"
+  data-tab-title="{{ block.settings.title | escape }}"
+  role="tabpanel"
+  {{ block.shopify_attributes }}
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.tab",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.advanced_custom_section.tabs.tab_title",
+      "default": "t:sections.advanced_custom_section.tabs.tab_title_default"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.layout"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "t:sections.advanced_custom_section.group.direction.label",
+      "options": [
+        { "value": "horizontal", "label": "t:sections.advanced_custom_section.group.direction.options.horizontal" },
+        { "value": "vertical", "label": "t:sections.advanced_custom_section.group.direction.options.vertical" }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_on_mobile",
+      "label": "t:sections.advanced_custom_section.group.stack_on_mobile",
+      "default": true,
+      "visible_if": "{{ block.settings.direction == 'horizontal' }}"
+    },
+    {
+      "type": "select",
+      "id": "align_horizontal",
+      "label": "t:sections.advanced_custom_section.group.align_horizontal.label",
+      "options": [
+        { "value": "left", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.left" },
+        { "value": "center", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.center" },
+        { "value": "right", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.right" },
+        { "value": "stretch", "label": "t:sections.advanced_custom_section.group.align_horizontal.options.stretch" }
+      ],
+      "default": "stretch"
+    },
+    {
+      "type": "select",
+      "id": "align_vertical",
+      "label": "t:sections.advanced_custom_section.group.align_vertical.label",
+      "options": [
+        { "value": "top", "label": "t:sections.advanced_custom_section.group.align_vertical.options.top" },
+        { "value": "center", "label": "t:sections.advanced_custom_section.group.align_vertical.options.center" },
+        { "value": "bottom", "label": "t:sections.advanced_custom_section.group.align_vertical.options.bottom" },
+        { "value": "stretch", "label": "t:sections.advanced_custom_section.group.align_vertical.options.stretch" }
+      ],
+      "default": "stretch"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.gap",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.gap_mobile",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.tab"
+    }
+  ]
+}
+{% endschema %}

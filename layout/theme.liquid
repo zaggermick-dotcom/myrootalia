@@ -1,0 +1,275 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <meta name="shop-url" content="{{ shop.domain }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- else -%}
+      {%- # No favicon set: declare an empty one, else the browser requests /favicon.ico and logs a 404. -%}
+      <link rel="icon" href="data:,">
+    {%- endif -%}
+
+    {%- unless settings.headings_font.system? and settings.body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %}
+        &ndash; tagged "{{ current_tags | join: ', ' }}"
+      {%- endif -%}
+      {%- if current_page != 1 %}
+        &ndash; Page {{ current_page -}}
+      {%- endif -%}
+      {%- unless page_title contains shop.name %}
+        &ndash; {{ shop.name -}}
+      {%- endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+    {%- render 'script' with 'manual-stock-urgency', defer: true -%}
+
+    {%- render 'script' with 'constants', defer: true -%}
+    {%- render 'script' with 'pubsub', defer: true -%}
+    <script src="{{ 'theme-runtime.js' | asset_url }}" defer></script>
+    {%- render 'script' with 'global', defer: true -%}
+    <script src="{{ 'section-loader.js' | asset_url }}" defer></script>
+    {%- render 'script' with 'swiper', defer: true -%}
+    {%- if settings.enable_wishlist -%}
+      {%- render 'script' with 'wishlist', defer: true -%}
+    {%- endif -%}
+
+    {%- render 'script' with 'cart', defer: true -%}
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {%- render 'script' with 'swiper-drawer-init', defer: true -%}
+
+      {%- render 'script' with 'cart-drawer', defer: true -%}
+    {%- elsif settings.cart_type == 'notification' -%}
+      {%- render 'script' with 'cart-notification', defer: true -%}
+    {%- endif -%}
+
+    {{ content_for_header }}
+
+    <link rel="preload" as="font" href="{{ settings.body_font | font_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="{{ settings.headings_font | font_url }}" type="font/woff2" crossorigin>
+    {%- render 'css-variables' -%}
+    {%- if settings.enable_animations -%}
+      {{ 'animations.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper.css' | asset_url | stylesheet_tag }}
+    {%- if settings.enable_wishlist -%}
+      {{ 'wishlist.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- if settings.cart_type == 'drawer' -%}
+      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
+      {{ 'component-price.css' | asset_url | stylesheet_tag }}
+      {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+      {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+    {%- elsif settings.cart_type == 'notification' -%}
+      {{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}
+      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
+      {{ 'component-price.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    {%- unless settings.body_font.system? -%}
+      {{ settings.body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {%- endunless -%}
+    {%- unless settings.headings_font.system? -%}
+      {{ settings.headings_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {%- endunless -%}
+
+    {%- if settings.predictive_search_enabled -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {%- endif -%}
+
+    {%- render 'animations' -%}
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+  </head>
+
+  <body
+    data-shop-locale="{{ shop.locale }}"
+    data-shop-currency="{{ cart.currency.iso_code }}"
+    {% if settings.domain_name != blank %}
+      data-domain="{{ settings.domain_name | remove: 'https://' | remove: 'www.' | remove: '/' | downcase }}"
+    {% endif %}
+    {%- if settings.disable_right_click %}
+      oncontextmenu="return false;"
+    {% endif -%}
+  >
+    {%- render 'icon-star-sprite' -%}
+    {% if settings.enable_page_transitions %}
+      {%- render 'fade-page-transitions' -%}
+    {% endif %}
+
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {%- liquid
+      sections 'header-group'
+
+      if settings.cart_type == 'drawer' and request.page_type != 'cart'
+        section 'cart-drawer'
+      endif
+
+      if settings.cart_type == 'notification' and request.page_type != 'cart'
+        render 'cart-notification'
+      endif
+
+      if template contains 'product'
+        section 'main-sticky-atc'
+      endif
+    -%}
+
+    <div class="overlay hidden"></div>
+    <div class="modal content-container hidden"></div>
+
+    <div class="page-wrapper">
+      <main
+        id="MainContent"
+        class="content-for-layout focus-none"
+        role="main"
+        tabindex="-1"
+      >
+        {{ content_for_layout }}
+      </main>
+
+      {% sections 'footer-group' %}
+
+      <ul hidden>
+        <li id="a11y-refresh-page-message">
+          {{ 'accessibility.refresh_page' | t }}
+        </li>
+        <li id="a11y-new-window-message">
+          {{ 'accessibility.link_messages.new_window' | t }}
+        </li>
+      </ul>
+
+      <script>
+        window.theme = { 
+          version: Shopify.theme.schema_version
+        };
+        window.shopUrl = '{{ request.origin }}';
+        window.routes = {
+          cart_add_url: '{{ routes.cart_add_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_update_url: '{{ routes.cart_update_url }}',
+          cart_url: '{{ routes.cart_url }}',
+          predictive_search_url: '{{ routes.predictive_search_url }}',
+        };
+
+        window.productForm = {
+          error: '{{ 'general.product_form.error' | t }}'
+        }
+
+        window.timer = {
+          type: "{{ settings.timer_type }}",
+          days: "{{ settings.timer_days }}",
+          hours: "{{ settings.timer_hours }}",
+          minutes: "{{ settings.timer_minutes }}",
+          seconds: "{{ settings.timer_seconds }}",
+          link: "{{ settings.timer_redirect_link }}",
+          day: "{{ settings.timer_day }}",
+          month: "{{ settings.timer_month }}",
+          year: "{{ settings.timer_year }}",
+        }
+
+        window.cartStrings = {
+          error: `{{ 'sections.cart.cart_error' | t }}`,
+          quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
+        };
+
+        window.variantStrings = {
+          addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+          soldOut: `{{ 'products.product.sold_out' | t }}`,
+          unavailable: `{{ 'products.product.unavailable' | t }}`,
+          unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+        };
+
+        window.accessibilityStrings = {
+          imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+          shareSuccess: `{{ 'general.share.success_message' | t }}`,
+          pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+          playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+        };
+      </script>
+
+      {%- if request.design_mode -%}
+        {%- # Editor only: instant recentring instead of a smooth glide. -%}
+        <style>
+          html,
+          body {
+            scroll-behavior: auto !important;
+          }
+        </style>
+        <script>
+          // The editor recentres the preview on every block/section click.
+          // Skip it when the target is already fully visible (or has no box).
+          (() => {
+            const native = Element.prototype.scrollIntoView;
+            Element.prototype.scrollIntoView = function (options) {
+              const rect = this.getBoundingClientRect();
+              const boxless = rect.width === 0 && rect.height === 0;
+              const visible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+              if (boxless || visible) return;
+              return native.call(this, options);
+            };
+          })();
+        </script>
+      {%- endif -%}
+      {%- if settings.enable_animations -%}
+        {%- render 'script' with 'animations', defer: true -%}
+        <script>
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => AOS.init());
+          } else {
+            AOS.init();
+          }
+        </script>
+      {%- endif -%}
+    </div>
+    {%- render 'script' with 'get-story-theme', defer: true -%}
+
+    <script>
+      document.addEventListener('submit', function (event) {
+        const form = event.target;
+
+        if (form.matches('form[action="/cart/add"]')) {
+          setTimeout(() => {
+            if (window.cartDrawerTimerInstance && typeof window.cartDrawerTimerInstance.resetTimer === 'function') {
+              window.cartDrawerTimerInstance.resetTimer(10 * 60);
+            }
+          }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>

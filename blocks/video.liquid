@@ -1,0 +1,240 @@
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign video = block.settings.video
+  assign video_url = block.settings.video_url
+  assign video_id = video.id | default: video_url.id
+  assign poster = block.settings.cover_image | default: video.preview_image
+  assign ratio = block.settings.aspect_ratio | default: 'landscape'
+
+  assign video_alt = video.alt | default: block.settings.description
+  assign alt = 'sections.video.load_video' | t: description: video_alt | escape
+
+  assign loop = ''
+  if block.settings.enable_video_looping
+    assign loop = '&loop=1&playlist=' | append: video_id
+  endif
+
+  case ratio
+    when 'square'
+      assign ratio_css = '1 / 1'
+    when 'portrait'
+      assign ratio_css = '9 / 16'
+    when 'adapt'
+      assign ratio_css = blank
+    else
+      assign ratio_css = '16 / 9'
+  endcase
+-%}
+
+{%- style -%}
+  .custom-video--{{ block.id }} {
+    flex: var(--group-child-flex, 1 1 0%);
+    min-width: 0;
+    /* Comme le bloc Image : pas de largeur intrinsèque, sinon effondrement à 0px. */
+    width: 100%;
+  }
+
+  {%- if ratio_css != blank %}
+    .custom-video--{{ block.id }} .deferred-media__poster,
+    .custom-video--{{ block.id }} .deferred-media > * {
+      aspect-ratio: {{ ratio_css }};
+    }
+
+    .custom-video--{{ block.id }} .deferred-media__poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  {%- endif %}
+
+  /* Rendu d'aperçu : <deferred-media> tire sa hauteur du JS et de
+     video-section.css, absents ici. On dessine donc un visuel autonome. */
+  .custom-video--{{ block.id }} .custom-video__preview {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: {{ ratio_css | default: '16 / 9' }};
+    background: rgba(var(--color-foreground, 18,18,18), 0.06);
+    overflow: hidden;
+  }
+
+  .custom-video--{{ block.id }} .custom-video__preview > img,
+  .custom-video--{{ block.id }} .custom-video__preview > svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  {%- if block.settings.mobile_hidden %}
+    @media screen and (max-width: 749px) {
+      .custom-video--{{ block.id }} {
+        display: none;
+      }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+<div
+  class="custom-video custom-video--{{ block.id }}"
+  {% render 'animation', enable_animations: block.settings.enable_animations, animation: block.settings.animation %}
+  {{ block.shopify_attributes }}
+>
+{%- if request.visual_preview_mode -%}
+  <div class="custom-video__preview global-media-settings">
+    {%- if poster != null -%}
+      {{ poster | image_url: width: 800 | image_tag: loading: 'lazy', alt: '' }}
+    {%- else -%}
+      {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+    {%- endif -%}
+    <span class="deferred-media__poster-button motion-reduce">
+      {%- render 'icon-play' -%}
+    </span>
+  </div>
+{%- else -%}
+  <deferred-media
+    class="custom-video__media deferred-media no-js-hidden gradient global-media-settings"
+    data-media-id="{{ video_id }}"
+    {%- if poster != null and ratio == 'adapt' %}
+      style="--ratio-percent: {{ 1 | divided_by: poster.aspect_ratio | times: 100 }}%;"
+    {%- endif %}
+  >
+    <button
+      id="Deferred-Poster-{{ block.id }}"
+      class="custom-video__poster media deferred-media__poster media--landscape"
+      type="button"
+      aria-label="{{ alt }}"
+    >
+      {%- if poster != null -%}
+        {{
+          poster
+          | image_url: width: 1920
+          | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 100vw', widths: '375, 750, 1100, 1500, 1920', alt: alt
+        }}
+      {%- else -%}
+        {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+      {%- endif -%}
+      <span class="deferred-media__poster-button motion-reduce">
+        {%- render 'icon-play' -%}
+      </span>
+    </button>
+    <template>
+      {%- if video == null and video_url != null -%}
+        {%- if video_url.type == 'youtube' -%}
+          <iframe
+            src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1{{ loop }}"
+            class="js-youtube"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="{{ block.settings.description | strip_html | escape }}"
+          ></iframe>
+        {%- else -%}
+          <iframe
+            src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1{{ loop }}"
+            class="js-vimeo"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="{{ block.settings.description | strip_html | escape }}"
+          ></iframe>
+        {%- endif -%}
+      {%- else -%}
+        {{
+          video
+          | video_tag: image_size: '1100x', autoplay: true, loop: block.settings.enable_video_looping, controls: true, muted: false
+        }}
+      {%- endif -%}
+    </template>
+  </deferred-media>
+{%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.video",
+  "tag": null,
+  "class": "custom-video-block",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:sections.video.settings.video.label"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["youtube", "vimeo"],
+      "label": "t:sections.video.settings.video_url.label",
+      "placeholder": "t:sections.video.settings.video_url.placeholder",
+      "info": "t:sections.advanced_custom_section.video.video_url_info"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "t:sections.video.settings.cover_image.label",
+      "info": "t:sections.advanced_custom_section.video.cover_image_info"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "t:sections.advanced_custom_section.video.aspect_ratio.label",
+      "options": [
+        { "value": "landscape", "label": "t:sections.video.settings.video_format_desktop.options__1.label" },
+        { "value": "square", "label": "t:sections.video.settings.video_format_desktop.options__2.label" },
+        { "value": "portrait", "label": "t:sections.video.settings.video_format_desktop.options__3.label" },
+        { "value": "adapt", "label": "t:sections.image-with-text.settings.height.options__1.label" }
+      ],
+      "default": "landscape"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "t:sections.video.settings.enable_video_looping.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "t:sections.video.settings.description.label",
+      "info": "t:sections.video.settings.description.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_hidden",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "t:sections.global.animation.enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "options": [
+        { "value": "fade-up", "label": "t:sections.global.animation.options.fade_up" },
+        { "value": "fade-down", "label": "t:sections.global.animation.options.fade_down" },
+        { "value": "fade-right", "label": "t:sections.global.animation.options.fade_right" },
+        { "value": "fade-left", "label": "t:sections.global.animation.options.fade_left" },
+        { "value": "zoom-in", "label": "t:sections.global.animation.options.zoom_in" },
+        { "value": "zoom-out", "label": "t:sections.global.animation.options.zoom_out" }
+      ],
+      "default": "fade-up",
+      "label": "t:sections.global.animation.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.video",
+      "category": "t:categories.media"
+    }
+  ]
+}
+{% endschema %}

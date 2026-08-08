@@ -1,0 +1,288 @@
+{%- liquid
+  assign height = block.settings.height | default: 'adapt'
+  assign image = block.settings.image
+  assign corner_radius = block.settings.corner_radius | default: 0
+  assign width = block.settings.width | default: 'fill'
+  assign width_custom = block.settings.width_custom | default: 120
+  assign add_margins = block.settings.add_margins | default: false
+-%}
+
+{%- style -%}
+  .custom-image--{{ block.id }} {
+    {%- if width == 'custom' %}
+      /* Largeur fixe (vignette d'avis, logo…) : ne pousse sur aucun axe. */
+      flex: 0 0 auto;
+      width: {{ width_custom }}px;
+      max-width: 100%;
+    {%- elsif width == 'fit' %}
+      flex: 0 0 auto;
+      max-width: 100%;
+    {%- else %}
+      flex: var(--group-child-flex, 1 1 0%);
+      min-width: 0;
+      /* Full width only where the container stretches its children; elsewhere the
+         image falls back to its natural size so the alignment can place it. */
+      width: var(--group-child-width, 100%);
+      max-width: 100%;
+    {%- endif %}
+  }
+
+  {%- if image != blank %}
+    {%- if height == 'adapt' %}
+      /* In flow rather than absolutely positioned (see .media > * in base.css):
+         without it the block has no intrinsic width and collapses to 0 as soon
+         as it stops stretching. The width/height attributes keep CLS at bay. */
+      .custom-image--{{ block.id }} .custom-image__media--adapt > img.media--image {
+        position: static;
+        height: auto;
+      }
+    {%- else %}
+      /* Fixed height + ratio: gives the same intrinsic width, crop preserved. */
+      .custom-image--{{ block.id }} .custom-image__media {
+        aspect-ratio: {{ image.aspect_ratio }};
+      }
+    {%- endif %}
+  {%- endif %}
+
+  {%- if block.settings.full_bleed_mobile and width == 'fill' and add_margins == false %}
+    /* Escape the section's mobile gutter and the container's side padding. */
+    @media screen and (max-width: 749px) {
+      .custom-image--{{ block.id }} {
+        margin-left: calc(-1 * max(var(--section-mobile-gutter, 0px), var(--gutter-inline, 0px)));
+        margin-right: calc(-1 * max(var(--section-mobile-gutter, 0px), var(--gutter-inline, 0px)));
+        width: calc(100% + 2 * max(var(--section-mobile-gutter, 0px), var(--gutter-inline, 0px)));
+        /* Bleeding past the gutter is the whole point here: lift the cap. */
+        max-width: none;
+      }
+    }
+  {%- endif %}
+
+  {%- if corner_radius > 0 %}
+    .custom-image--{{ block.id }} .custom-image__media {
+      border-radius: {{ corner_radius }}px;
+      overflow: hidden;
+    }
+  {%- endif %}
+
+  {%- if add_margins %}
+    .custom-image--{{ block.id }} {
+      margin: {{ block.settings.margin_vertical_mobile | default: 0 }}px {{ block.settings.margin_horizontal_mobile | default: 0 }}px;
+      {%- if width != 'custom' %}
+        /* Side margins add to the width — cap it rather than force it, so an
+           image left to its natural size is not stretched back to full width. */
+        max-width: calc(100% - {{ block.settings.margin_horizontal_mobile | default: 0 | times: 2 }}px);
+      {%- endif %}
+    }
+
+    @media screen and (min-width: 750px) {
+      .custom-image--{{ block.id }} {
+        margin: {{ block.settings.margin_vertical | default: 0 }}px {{ block.settings.margin_horizontal | default: 0 }}px;
+        {%- if width != 'custom' %}
+          max-width: calc(100% - {{ block.settings.margin_horizontal | default: 0 | times: 2 }}px);
+        {%- endif %}
+      }
+    }
+  {%- endif %}
+
+  .custom-image--{{ block.id }} .custom-image__media--small {
+    height: 19.4rem;
+  }
+
+  .custom-image--{{ block.id }} .custom-image__media--medium {
+    height: 29.6rem;
+  }
+
+  .custom-image--{{ block.id }} .custom-image__media--large {
+    height: 43.5rem;
+  }
+
+  {%- if block.settings.mobile_hidden %}
+    @media screen and (max-width: 749px) {
+      .custom-image--{{ block.id }} {
+        display: none;
+      }
+    }
+  {%- endif %}
+{%- endstyle -%}
+
+<div
+  class="custom-image custom-image--{{ block.id }}"
+  {% render 'animation', enable_animations: block.settings.enable_animations, animation: block.settings.animation %}
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="custom-image__media custom-image__media--{{ height }} global-media-settings {% if image != blank %}media{% else %}custom-image__media--placeholder placeholder{% endif %}{% if block.settings.make_square %} border-radius--null{% endif %}"
+  >
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 1500
+        | image_tag: loading: 'lazy', class: 'media--image', sizes: '(min-width: 750px) 50vw, 100vw', widths: '375, 550, 750, 1100, 1500'
+      }}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.advanced_custom_section.blocks.image",
+  "tag": null,
+  "class": "custom-image-block",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.image-with-text.settings.image.label"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.advanced_custom_section.group.width.label",
+      "options": [
+        { "value": "fill", "label": "t:sections.advanced_custom_section.group.width.options.fill" },
+        { "value": "fit", "label": "t:sections.advanced_custom_section.group.width.options.fit" },
+        { "value": "custom", "label": "t:sections.advanced_custom_section.group.width.options.custom" }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "range",
+      "id": "width_custom",
+      "min": 20,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.width_custom",
+      "default": 120,
+      "visible_if": "{{ block.settings.width == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "options": [
+        { "value": "adapt", "label": "t:sections.image-with-text.settings.height.options__1.label" },
+        { "value": "small", "label": "t:sections.image-with-text.settings.height.options__2.label" },
+        { "value": "medium", "label": "t:sections.image-with-text.settings.height.options__3.label" },
+        { "value": "large", "label": "t:sections.image-with-text.settings.height.options__4.label" }
+      ],
+      "default": "adapt",
+      "label": "t:sections.image-with-text.settings.height.label"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.group.corner_radius",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "make_square",
+      "label": "t:sections.image-with-text.settings.make_square.label",
+      "info": "t:sections.image-with-text.settings.make_square.info",
+      "default": false,
+      "visible_if": "{{ block.settings.corner_radius == 0 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed_mobile",
+      "label": "t:sections.advanced_custom_section.image.full_bleed_mobile.label",
+      "info": "t:sections.advanced_custom_section.image.full_bleed_mobile.info",
+      "default": true,
+      "visible_if": "{{ block.settings.width == 'fill' and block.settings.add_margins == false }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_margins",
+      "label": "t:sections.advanced_custom_section.image.add_margins.label",
+      "info": "t:sections.advanced_custom_section.image.add_margins.info",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "margin_horizontal",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.image.margin_horizontal",
+      "default": 0,
+      "visible_if": "{{ block.settings.add_margins }}"
+    },
+    {
+      "type": "range",
+      "id": "margin_vertical",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.image.margin_vertical",
+      "default": 0,
+      "visible_if": "{{ block.settings.add_margins }}"
+    },
+    {
+      "type": "range",
+      "id": "margin_horizontal_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.image.margin_horizontal_mobile",
+      "default": 0,
+      "visible_if": "{{ block.settings.add_margins }}"
+    },
+    {
+      "type": "range",
+      "id": "margin_vertical_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.advanced_custom_section.image.margin_vertical_mobile",
+      "default": 0,
+      "visible_if": "{{ block.settings.add_margins }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_hidden",
+      "label": "t:sections.advanced_custom_section.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.headers.animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "t:sections.global.animation.enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "options": [
+        { "value": "fade-up", "label": "t:sections.global.animation.options.fade_up" },
+        { "value": "fade-down", "label": "t:sections.global.animation.options.fade_down" },
+        { "value": "fade-right", "label": "t:sections.global.animation.options.fade_right" },
+        { "value": "fade-left", "label": "t:sections.global.animation.options.fade_left" },
+        { "value": "zoom-in", "label": "t:sections.global.animation.options.zoom_in" },
+        { "value": "zoom-out", "label": "t:sections.global.animation.options.zoom_out" }
+      ],
+      "default": "fade-up",
+      "label": "t:sections.global.animation.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.advanced_custom_section.blocks.image",
+      "category": "t:categories.media"
+    }
+  ]
+}
+{% endschema %}

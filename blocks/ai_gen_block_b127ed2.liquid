@@ -1,0 +1,484 @@
+{% doc %}
+  @prompt
+    A magazine-style editorial layout
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .editorial-layout-{{ ai_gen_id }} {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .editorial-container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .editorial-header-{{ ai_gen_id }} {
+    grid-column: 1 / -1;
+    margin-bottom: {{ block.settings.spacing }}px;
+    text-align: {{ block.settings.header_alignment }};
+  }
+
+  .editorial-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    margin-bottom: 0.5em;
+    color: {{ block.settings.title_color }};
+    line-height: 1.2;
+  }
+
+  .editorial-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: 400;
+    color: {{ block.settings.subtitle_color }};
+    margin-bottom: 1em;
+    line-height: 1.4;
+  }
+
+  .editorial-byline-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 1em;
+  }
+
+  .editorial-main-image-{{ ai_gen_id }} {
+    grid-column: 1 / {{ block.settings.image_column_span | plus: 1 }};
+    grid-row: span {{ block.settings.image_row_span }};
+    margin-bottom: {{ block.settings.spacing }}px;
+  }
+
+  .editorial-main-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .editorial-main-image-wrapper-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .editorial-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .editorial-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+  }
+
+  .editorial-content-{{ ai_gen_id }} {
+    grid-column: {{ block.settings.image_column_span | plus: 1 }} / -1;
+    grid-row: span {{ block.settings.content_row_span }};
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.spacing }}px;
+  }
+
+  .editorial-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+  }
+
+  .editorial-text-{{ ai_gen_id }} p {
+    margin-bottom: 1em;
+  }
+
+  .editorial-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .editorial-quote-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quote_size }}px;
+    font-style: italic;
+    line-height: 1.4;
+    color: {{ block.settings.quote_color }};
+    padding: 20px;
+    border-left: 4px solid {{ block.settings.quote_color }};
+    margin: {{ block.settings.spacing }}px 0;
+    background-color: {{ block.settings.quote_background }};
+  }
+
+  .editorial-secondary-image-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.spacing }}px;
+    width: 100%;
+  }
+
+  .editorial-secondary-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+  }
+
+  .editorial-secondary-image-wrapper-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .editorial-caption-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-style: italic;
+    color: {{ block.settings.text_color }};
+    margin-top: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .editorial-container-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .editorial-main-image-{{ ai_gen_id }},
+    .editorial-content-{{ ai_gen_id }} {
+      grid-column: 1 / -1;
+    }
+
+    .editorial-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .editorial-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.8 }}px;
+    }
+
+    .editorial-quote-{{ ai_gen_id }} {
+      font-size: {{ block.settings.quote_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="editorial-layout-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="editorial-container-{{ ai_gen_id }}">
+    <header class="editorial-header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="editorial-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      
+      {% if block.settings.subtitle != blank %}
+        <div class="editorial-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+      {% endif %}
+      
+      {% if block.settings.byline != blank %}
+        <div class="editorial-byline-{{ ai_gen_id }}">{{ block.settings.byline }}</div>
+      {% endif %}
+    </header>
+
+    <div class="editorial-main-image-{{ ai_gen_id }}">
+      <div class="editorial-main-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.main_image %}
+          <img 
+            src="{{ block.settings.main_image | image_url: width: 1200 }}" 
+            alt="{{ block.settings.main_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.main_image.width }}"
+            height="{{ block.settings.main_image.height }}"
+          >
+          {% if block.settings.main_image_caption != blank %}
+            <div class="editorial-caption-{{ ai_gen_id }}">{{ block.settings.main_image_caption }}</div>
+          {% endif %}
+        {% else %}
+          <div class="editorial-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="editorial-content-{{ ai_gen_id }}">
+      {% if block.settings.content != blank %}
+        <div class="editorial-text-{{ ai_gen_id }}">{{ block.settings.content }}</div>
+      {% endif %}
+      
+      {% if block.settings.quote != blank %}
+        <blockquote class="editorial-quote-{{ ai_gen_id }}">{{ block.settings.quote }}</blockquote>
+      {% endif %}
+      
+      {% if block.settings.secondary_image %}
+        <div class="editorial-secondary-image-{{ ai_gen_id }}">
+          <div class="editorial-secondary-image-wrapper-{{ ai_gen_id }}">
+            <img 
+              src="{{ block.settings.secondary_image | image_url: width: 800 }}" 
+              alt="{{ block.settings.secondary_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.secondary_image.width }}"
+              height="{{ block.settings.secondary_image.height }}"
+            >
+            {% if block.settings.secondary_image_caption != blank %}
+              <div class="editorial-caption-{{ ai_gen_id }}">{{ block.settings.secondary_image_caption }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Editorial Layout",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Art of Design"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Exploring the intersection of form and function in modern aesthetics"
+    },
+    {
+      "type": "text",
+      "id": "byline",
+      "label": "Byline",
+      "default": "By Jane Smith • September 15, 2023"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p><p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Featured quote",
+      "default": "Design is not just what it looks like and feels like. Design is how it works."
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main image"
+    },
+    {
+      "type": "text",
+      "id": "main_image_caption",
+      "label": "Main image caption"
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image",
+      "label": "Secondary image"
+    },
+    {
+      "type": "text",
+      "id": "secondary_image_caption",
+      "label": "Secondary image caption"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_column_span",
+      "min": 4,
+      "max": 8,
+      "step": 1,
+      "label": "Image width (columns)",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "image_row_span",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Image height (rows)",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "content_row_span",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Content height (rows)",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "label": "Grid gap",
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "label": "Element spacing",
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "label": "Container padding",
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "label": "Title size",
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "label": "Subtitle size",
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "label": "Body text size",
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "quote_size",
+      "min": 18,
+      "max": 36,
+      "step": 1,
+      "label": "Quote size",
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#4A4A4A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "quote_background",
+      "label": "Quote background",
+      "default": "#F9F9F9"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Layout"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

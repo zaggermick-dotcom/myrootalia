@@ -1,0 +1,44 @@
+ {%- assign collection = section.settings.cart_upsell_collection -%}
+      {%- assign uniqueswiper = section.id | remove: '-' -%}
+
+      <div
+        id="horizontal_upsell_drawer__{{ uniqueswiper }}"
+        class="swiper drawer__upsell--swiper"
+        {% render 'swiper-data-editor', numberOfSlides: 3 %}
+      >
+        <div class="swiper-wrapper theme-vertical-layout">
+          {%- for product in collection.products limit: 3 -%}
+            <div class="swiper-slide">
+              {%- render 'card-product-upsell-drawer',
+                section_id: section.id,
+                card_product: product,
+                card_style: section.settings.product_card_style,
+                button_text: section.settings.cart_upsell_button_text,
+                button_style: section.settings.cart_upsell_button_style
+              -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- assign swiperEl = "'#horizontal_upsell_drawer__" | append: uniqueswiper | append: "'" -%}
+
+      {%- capture swiperOptions -%}
+        loop: true,
+        mousewheel: { forceToAxis: true },
+        spaceBetween: {{ settings.spacing_grid_horizontal | json }},
+        slidesPerView: 1,
+        autoHeight: true,
+        autoplay: {
+          pauseOnMouseEnter: true,
+          enabled: {{ section.settings.autoplay | json }},
+          delay: {{ section.settings.speed | times: 1000 | json }}
+        },
+      {%- endcapture -%}
+
+      {% render 'swiper-theme-editor',
+        sectionId: uniqueswiper,
+        swiperVariant: 'horizontal_upsell_drawer__',
+        swiperEl: swiperEl,
+        swiperOptions: swiperOptions
+      %}

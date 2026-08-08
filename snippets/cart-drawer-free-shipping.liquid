@@ -1,0 +1,14 @@
+  <div
+              class="drawer__module text-{{ section.settings.cart_modules_alignment }} color-{{ block.settings.color_palette }} drawer__module--free_shipping"
+              data-target="{{ block.settings.min_price }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="free-shipping__bar">
+                <div class="free-shipping__drag"></div>
+              </div>
+              {%- assign left_amount = "<span class='free-shipping__amount'></span>" -%}
+              <p class="free-shipping__left-amount">
+                {{- block.settings.text_before | replace: '$amount', left_amount -}}
+              </p>
+              <p class="free-shipping__success hidden">{{- block.settings.text_after -}}</p>
+            </div>

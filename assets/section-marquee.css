@@ -1,0 +1,41 @@
+.marquee {
+  --mask-image: linear-gradient(to right, transparent 0px, black 20px, black calc(100% - 20px), transparent 100%);
+  overflow: hidden;
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
+}
+
+.marquee__wrapper {
+  min-height: 3rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.marquee__text {
+  white-space: nowrap;
+}
+
+.marquee__flex {
+  display: flex;
+  align-items: center;
+}
+
+/* Placeholder shown until the merchant picks a logo. */
+.marquee__placeholder {
+  width: 12rem;
+  height: 6rem;
+  flex: 0 0 auto;
+  margin-right: 3rem;
+  opacity: 0.4;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}

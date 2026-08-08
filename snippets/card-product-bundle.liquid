@@ -1,0 +1,154 @@
+{%- assign product_handle = product.handle | downcase | strip -%}
+<div
+class="bundle__product grid__item checked bundle__product--{{ product.id }}"
+id="{{ product.first_available_variant.id }}"
+data-price="{{ product.first_available_variant.price }}"
+data-product-handle="{{ product.handle }}"
+data-compare-at-price="{{ product.first_available_variant.compare_at_price }}"
+{%- render 'animation', enable_animations: section.settings.enable_animations, animation: section.settings.animation -%}>
+{% if section.settings.discount_type == 'single' %}
+{%- if product_handle == trigger or product_handle == trigger_handle -%}
+{%- if section.settings.badge != blank -%}
+<span class="bundle__product--badge">{{ section.settings.badge }}</span>
+{%- endif -%}
+{%- endif -%}
+{% endif %}
+<a href="{{ product.url }}" class="bundle__product-image--link">
+<div
+class="bundle__product--image global-media-settings {% if product.featured_image != blank %}media{% else %}placeholder{% endif %}"
+{% if product.featured_image != blank %}
+style="padding-bottom: {{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;"
+{% endif %}
+>
+{%- if product.featured_image != blank -%}
+{%- capture sizes -%}
+(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+{%- endcapture -%}
+{{
+product.featured_image
+| image_url: width: 1500
+| image_tag:
+loading: 'lazy',
+class: 'bundle__product--image',
+sizes: sizes,
+widths: '165, 360, 535, 750, 1070, 1500'
+}}
+{%- else -%}
+{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+{%- endif -%}
+</div>
+</a>
+
+<div class="bundle__meta--informations">
+<p class="bundle__product--title">{{ product.title }}</p>
+<div class="bundle__product--variants select{% if product.has_only_default_variant %} hidden{% endif %}">
+<select class="select__select" name="id[]" data-product-id="{{ product.id }}">
+{%- for variant in product.variants -%}
+{%- if variant.available -%}
+<option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare-at-price="{{ variant.compare_at_price }}">{{ variant.title | escape -}}</option>
+{%- endif -%}
+{%- endfor -%}
+</select>
+{% render 'icon-caret' %}
+<input
+type="number"
+id="Quantity-{{ section.id }}-{{ product.id }}"
+name="quantity"
+value="1"
+min="1"
+class="quantity-selector hidden"
+>
+</div>
+{%- assign pct = 0 -%}
+{%- if section.settings.discount_type == 'single' -%}
+{%- assign pct = section.settings.percentage_offer_trigger | divided_by: 100.0 -%}
+{%- else -%}
+{%- assign pct = section.settings.percentage_offer | divided_by: 100.0 -%}
+{%- endif -%}
+
+{%- assign product_price = product.price_min -%}
+{%- assign product_compare = product.compare_at_price_min -%}
+{%- assign product_handle_norm = product.handle | downcase | strip -%}
+{%- assign is_trigger = false -%}
+{%- if section.settings.discount_type == 'single' and product_handle_norm == trigger -%}
+{%- assign is_trigger = true -%}
+{%- endif -%}
+
+{%- assign pct = 0 -%}
+{%- if section.settings.discount_type == 'single' -%}
+{%- assign pct = section.settings.percentage_offer_trigger | divided_by: 100.0 -%}
+{%- else -%}
+{%- assign pct = section.settings.percentage_offer | divided_by: 100.0 -%}
+{%- endif -%}
+
+{%- assign product_price = product.price_min -%}
+{%- assign product_compare = product.compare_at_price_min -%}
+{%- assign product_handle_norm = product.handle | downcase | strip -%}
+{%- assign is_trigger = false -%}
+{%- if section.settings.discount_type == 'single' and product_handle_norm == trigger -%}
+{%- assign is_trigger = true -%}
+{%- endif -%}
+
+{%- if is_trigger -%}
+{%- assign discount_amount_for_product = product_price | times: pct -%}
+{%- assign discounted_price = product_price | minus: discount_amount_for_product -%}
+{%- endif -%}
+
+<p class="bundle__product--price">
+{%- if is_trigger -%}
+{%- if product_compare > product_price -%}
+<span class="price--compare">
+<del>{{ product_compare | money_without_trailing_zeros }}</del>
+</span>
+{%- else -%}
+<span class="price--compare">
+<del>{{ product_price | money_without_trailing_zeros }}</del>
+</span>
+{%- endif -%}
+
+<span class="price--regular price--sale">
+{%- if discounted_price <= 0 or discounted_price == 0.0 -%}
+{{ section.settings.free_label | default: 0 | money_without_trailing_zeros }}
+{%- else -%}
+{{ discounted_price | money_without_trailing_zeros }}
+{%- endif -%}
+</span>
+
+{%- else -%}
+{%- if product_compare > product_price -%}
+<span class="price--compare">
+<del>{{ product_compare | money_without_trailing_zeros }}</del>
+</span>
+{%- endif -%}
+<span class="price--regular{%- if product_compare > product_price %} price--sale{%- endif -%}">
+{{ product_price | money_without_trailing_zeros }}
+</span>
+{%- endif -%}
+</p>
+
+
+</div>
+
+{%- if enable_checkboxes -%}
+<div class="bundle__meta--checked">
+<input
+id="product-checkbox-{{ product.id }}"
+type="checkbox"
+autocomplete="off"
+{% unless enable_checkboxes == false %}checked{% endunless %}
+data-product-id="{{ product.id }}"
+/>
+<label for="product-checkbox-{{ product.id }}"></label>
+</div>
+{%- else -%}
+<div class="bundle__meta--checked hidden">
+<input
+id="product-checkbox-{{ product.id }}"
+type="checkbox"
+checked
+data-product-id="{{ product.id }}"
+/>
+</div>
+{%- endif -%}
+</div>

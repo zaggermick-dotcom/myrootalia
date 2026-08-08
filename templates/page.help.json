@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "9a4e19eb-ce47-431e-b8d6-6d072bf627d4": {
+      "type": "main-buttons",
+      "blocks": {
+        "template--19366454886697__9a4e19eb-ce47-431e-b8d6-6d072bf627d4-1686586997d7d21a9a-2": {
+          "type": "button",
+          "settings": {
+            "button_text": "Où est ma commande ?",
+            "button_link": "shopify://pages/suivre-votre-commande",
+            "button_style": "1"
+          }
+        },
+        "template--19366454886697__9a4e19eb-ce47-431e-b8d6-6d072bf627d4-1686586997d7d21a9a-1": {
+          "type": "button",
+          "settings": {
+            "button_text": "Foire aux questions",
+            "button_link": "shopify://pages/faq",
+            "button_style": "1"
+          }
+        },
+        "template--19366454886697__9a4e19eb-ce47-431e-b8d6-6d072bf627d4-1686586997d7d21a9a-0": {
+          "type": "button",
+          "settings": {
+            "button_text": "Autres questions ?",
+            "button_link": "shopify://pages/contact",
+            "button_style": "1"
+          }
+        }
+      },
+      "block_order": [
+        "template--19366454886697__9a4e19eb-ce47-431e-b8d6-6d072bf627d4-1686586997d7d21a9a-2",
+        "template--19366454886697__9a4e19eb-ce47-431e-b8d6-6d072bf627d4-1686586997d7d21a9a-1",
+        "template--19366454886697__9a4e19eb-ce47-431e-b8d6-6d072bf627d4-1686586997d7d21a9a-0"
+      ],
+      "settings": {
+        "section_id": "",
+        "subheading": "",
+        "heading": "<p>Comment pouvons-nous vous aider ?</p>",
+        "heading_style": "2",
+        "description": "<p>Dans le but de vous fournir le meilleur service possible, veuillez choisir la proposition qui vous convient le mieux.</p>",
+        "alignment": "center",
+        "extra_button": false,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    }
+  },
+  "order": [
+    "9a4e19eb-ce47-431e-b8d6-6d072bf627d4"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-form",
+      "settings": {
+        "section_id": "",
+        "subheading": "",
+        "heading": "<p>Contactez-nous</p>",
+        "heading_style": "1",
+        "description": "<p>Vous pouvez nous contacter ici. Un membre de notre équipe vous répondra au plus vite.</p>",
+        "order_number": "Numéro de commande",
+        "button_text": "Envoyer",
+        "button_style": "1",
+        "layout_width": "normal",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,117 @@
+    DOCUMENT 25 / 35
+
+
+
+
+ 3PL (Entrepôt Externe) — Guide
+ Ultra-Détaillé
+ Tout comprendre et tout mettre en place, étape par étape (zéro connaissance
+ requise)
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Un 3PL (Third-Party Logistics) est une entreprise qui stocke ton produit, l'emballe et l'expédie à ta
+ place. Ce guide explique simplement ce que c'est, quand y passer, comment en choisir un, et toutes les
+ procédures concrètes.
+
+
+
+
+ 1. C'est quoi un 3PL, concrètement
+ Tu envoies tout ton stock à l'entrepôt du 3PL. Quand un client commande sur ta boutique, la commande
+ part automatiquement au 3PL, qui prélève le produit, l'emballe et l'expédie. Tu ne touches plus aux colis.
+ Tu gères la marque & le marketing ; eux gèrent la logistique.
+
+  Terme                               Traduction simple
+
+  Receiving (réception)               Le 3PL reçoit ton stock & le range
+
+  Storage (stockage)                  Tu paies pour l'espace occupé/mois
+
+  Pick & pack                         Prélever + emballer chaque commande
+
+  Fulfillment                         Préparer & expédier la commande
+
+  SKU                                 Code unique par produit (ex. SERUM-30ML)
+
+
+
+ 2. Quand passer au 3PL (pas trop tôt)
+
+    Le bon moment
+    Passe au 3PL quand : tu fais ~10–20+ commandes/jour, l'emballage te prend trop de temps, ou tu veux
+    des délais courts aux USA. Avant ça, l'auto-expédition (doc 24) est moins chère.
+
+
+
+ 3. Combien ça coûte (postes de frais)
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                              Page 1 / 2
+  Frais                               Ce que c'est
+
+  Réception                           Par carton/palette reçu(e)
+
+  Stockage                            Par emplacement/volume, par mois
+
+  Pick & pack                         Par commande (+ par article supplémentaire)
+
+  Expédition                          Tarif transporteur (souvent négocié par le 3PL)
+
+  Frais divers                        Emballage spécial, retours, etc.
+
+ Demande toujours une grille tarifaire complète et simule le coût pour 100 commandes avant de signer.
+
+
+ 4. Choisir un 3PL — critères
+  Critère                       À vérifier
+
+  Localisation                  Entrepôt au Canada (+ option USA pour délais US courts)
+
+  Intégration Shopify           Synchronisation automatique des commandes
+
+  Cosmétiques                   Accepte les liquides cosmétiques ?
+
+  Délais                        Expédition en 1–2 jours ouvrés après commande
+
+  Minimums                      Pas de minimum trop élevé pour débuter
+
+  Retours                       Gèrent-ils la logistique inverse ?
+
+  Support                       Interlocuteur réactif, tableau de bord clair
+
+ Exemples connus (à comparer toi-même) : ShipBob, ShipMonk, Byrd/Huboo (selon zone). Cherche aussi « 3PL
+ fulfillment Canada » pour des acteurs locaux (douane/délais Canada plus simples).
+
+
+ 5. Procédure de mise en place (étape par étape)
+ 1. Liste tes SKU (sérum 30 ml, kit…) avec dimensions & poids de chaque colis.
+ 2. Demande des devis à 3–4 3PL (donne : nombre de SKU, commandes/mois estimées, zones
+    Canada+USA).
+ 3. Compare les grilles (réception + stockage + pick&pack + expédition) sur 100 commandes simulées.
+ 4. Vérifie l'intégration Shopify (app officielle/connecteur) et qu'ils acceptent les cosmétiques.
+ 5. Signe et crée ton compte sur leur portail.
+ 6. Connecte Shopify au 3PL (les commandes se synchronisent automatiquement).
+ 7. Crée les fiches produits chez le 3PL (SKU, code-barres, photos, instructions d'emballage + inserts).
+ 8. Envoie ton stock à l'entrepôt avec un bon de réception (ASN) : liste précise des quantités par SKU.
+ 9. Fais une commande test (achat réel) → vérifie emballage, délai, suivi.
+ 10.Bascule : tu désactives l'auto-expédition, le 3PL gère tout.
+
+ 6. Au quotidien avec un 3PL
+ • Surveille le niveau de stock chez le 3PL → déclenche les réappros (doc 18).
+ • Vérifie les délais d'expédition & le taux d'erreur.
+ • Gère les retours via leur process.
+ • Contrôle les factures mensuelles (stockage + commandes).
+
+    Conseil d'ami
+    Garde un petit stock chez toi au cas où, et ne signe pas un contrat long au début. Commence simple,
+    change si le service ne suit pas.
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                Page 2 / 2
+

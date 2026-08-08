@@ -1,0 +1,54 @@
+
+{{ 'product-statistics.css' | asset_url | stylesheet_tag }}
+
+<style>
+.product-statistics{
+margin-bottom: {{ block.settings.block_margin_bottom }}px;
+}
+</style>
+
+<div class="product-statistics style-{{ block.settings.block_style }}">
+
+  <h3>{{ block.settings.title }}</h3>
+
+  {% if block.settings.label_1 != blank and block.settings.value_1 != blank %}
+  <div class="stat-row">
+    <span>{{ block.settings.label_1 }}</span>
+    <span>{{ block.settings.value_1 }}/5</span>
+    <div class="stat-bar">
+      <div style="width: {{ block.settings.value_1 | times: 20 }}%"></div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if block.settings.label_2 != blank and block.settings.value_2 != blank %}
+  <div class="stat-row">
+    <span>{{ block.settings.label_2 }}</span>
+    <span>{{ block.settings.value_2 }}/5</span>
+    <div class="stat-bar">
+      <div style="width: {{ block.settings.value_2 | times: 20 }}%"></div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if block.settings.label_3 != blank and block.settings.value_3 != blank %}
+  <div class="stat-row">
+    <span>{{ block.settings.label_3 }}</span>
+    <span>{{ block.settings.value_3 }}/5</span>
+    <div class="stat-bar">
+      <div style="width: {{ block.settings.value_3 | times: 20 }}%"></div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if block.settings.label_4 != blank and block.settings.value_4 != blank %}
+  <div class="stat-row">
+    <span>{{ block.settings.label_4 }}</span>
+    <span>{{ block.settings.value_4 }}/5</span>
+    <div class="stat-bar">
+      <div style="width: {{ block.settings.value_4 | times: 20 }}%"></div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>

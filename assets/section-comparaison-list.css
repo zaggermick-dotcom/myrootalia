@@ -1,0 +1,259 @@
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Heading */
+.comparaison-list .heading__section {
+  margin-bottom: 3rem;
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Content */
+.comparaison-table {
+  --bleed-height: 15px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: var(--grid-template-columns);
+  padding-top: calc(var(--bleed-height) + 5px); /* account for drop shadow */
+  padding-bottom: calc(var(--bleed-height) + 5px);
+}
+.comparaison-table:not(:has(.aos-init)),
+.comparaison-table:has(.aos-init):not(:has(.aos-init:not(.aos-animate))) {
+  filter: drop-shadow(3px 3px 2px rgba(var(--color-foreground), 0.05));
+  /* we apply shadow only once animation is over or no animation */
+}
+.comparaison-table__col {
+  display: contents;
+}
+.comparaison-table__cell {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  text-align: center;
+  color: rgba(var(--color-foreground-secondary));
+  background: rgb(var(--color-background));
+}
+.comparaison-table__cell p {
+  margin: 12px 8px 12px 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.comparaison-table__cell--heading span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.comparaison-table__cell--heading :is(img, svg) {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--content-container-radius) - 5px);
+}
+.comparaison-table__value svg {
+  --size: 2rem;
+  display: block;
+  width: var(--size);
+  height: var(--size);
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Targeted cells */
+
+/* first column */
+.comparaison-table__col:first-child > .comparaison-table__cell {
+  grid-column: 1/2;
+  justify-content: flex-start;
+  text-align: left;
+}
+.comparaison-table__col:first-child > .comparaison-table__cell--heading {
+  background: none;
+  border-bottom: none;
+}
+
+/* second column (brand) */
+.comparaison-table__col--brand > .comparaison-table__cell {
+  background: rgba(var(--color-foreground), 0.2);
+  background: color-mix(in srgb, rgb(var(--color-background)) 80%, rgb(var(--color-foreground)));
+  box-shadow: 0 0 2px color-mix(in srgb, rgb(var(--color-background)) 80%, rgb(var(--color-foreground)));
+  color: rgb(var(--color-accent-1));
+  z-index: 1;
+}
+.comparaison-table .comparaison-table__col--brand > .comparaison-table__cell {
+  border: none;
+}
+
+/* last column */
+.comparaison-table__col:last-child:not(:nth-child(2)) > .comparaison-table__cell--heading {
+  border-radius: 0 var(--content-container-radius) 0 0;
+}
+.comparaison-table__col:last-child:not(:nth-child(2)) > .comparaison-table__cell:last-child {
+  border-radius: 0 0 var(--content-container-radius) 0;
+}
+
+/* headers */
+.comparaison-table__col:not(:first-child) > .comparaison-table__cell--heading {
+  padding: 15px 10px;
+  border-bottom: none;
+  font-weight: bolder;
+}
+
+/* all cells but last row */
+.comparaison-table__cell:not(:first-child, :last-child) {
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+}
+
+/* all cells but first column */
+.comparaison-table__col:not(:first-child) > .comparaison-table__cell:not(.comparaison-table__cell--heading) {
+  padding: 10px;
+}
+
+/* brand background bleed */
+.comparaison-table__col--brand > .comparaison-table__cell--heading:before,
+.comparaison-table__col--brand > .comparaison-table__cell:last-child:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: var(--bleed-height);
+  border-radius: var(--content-container-radius) var(--content-container-radius) 0 0;
+  background: rgba(var(--color-foreground), 0.2);
+  background: color-mix(in srgb, rgb(var(--color-background)) 80%, rgb(var(--color-foreground)));
+}
+.comparaison-table__col--brand > .comparaison-table__cell--heading:before {
+  bottom: 100%;
+  border-radius: var(--content-container-radius) var(--content-container-radius) 0 0;
+}
+.comparaison-table__col--brand > .comparaison-table__cell:last-child:before {
+  top: 100%;
+  border-radius: 0 0 var(--content-container-radius) var(--content-container-radius);
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Tooltip */
+.comparaison-table__cell [data-tooltip] {
+  position: relative;
+  text-decoration: underline dotted rgba(var(--color-foreground-secondary), 0.4);
+  text-underline-offset: 10%;
+  -webkit-text-decoration: underline;
+  -webkit-text-decoration-color: rgba(var(--color-foreground-secondary), 0.4);
+  cursor: help;
+}
+.comparaison-table__cell [role='tooltip'],
+.comparaison-table__cell [role='tooltip']::before {
+  position: absolute;
+  visibility: hidden;
+  transition: none;
+  transform: none;
+  z-index: 2;
+}
+.comparaison-table__cell [role='tooltip'] {
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  padding: 10px;
+  width: 200%;
+  min-width: 100px;
+  max-width: max-content;
+  font-size: 0.9em;
+  border-radius: 10px;
+  background: rgba(var(--color-foreground-secondary));
+  color: rgb(var(--color-background));
+}
+.comparaison-table__cell [role='tooltip'] a {
+  color: white;
+}
+.comparaison-table__cell [role='tooltip']::before {
+  content: '';
+  left: 50px;
+  bottom: -8px;
+  padding: 0;
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(var(--color-foreground-secondary)) rgba(var(--color-foreground-secondary));
+  background: none;
+  transform: rotate(-45deg) translateY(-50%);
+}
+.comparaison-table__cell [data-tooltip]:is(:focus-within, :hover) + [role='tooltip'],
+.comparaison-table__cell [role='tooltip']:is(:focus-within, :hover),
+.comparaison-table__cell [data-tooltip]:is(:focus-within, :hover) + [role='tooltip']::before,
+.comparaison-table__cell [role='tooltip']:is(:focus-within, :hover)::before {
+  visibility: visible;
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════ */
+/* #region(collapsed) Media Queries */
+@media (max-width: 1024px) {
+  .comparaison-table--overflow {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-right: var(--gutter-inline);
+    margin-right: calc(var(--gutter-inline) * -1);
+    scrollbar-width: none;
+  }
+  .comparaison-table--overflow::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* first column */
+  .comparaison-table__col:first-child > .comparaison-table__cell {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+  }
+  .comparaison-table--overflow .comparaison-table__col:first-child > .comparaison-table__cell:nth-child(2) {
+    border-radius: 0; /* avoid drop-shadow on the edge */
+  }
+  .comparaison-table__col:first-child > .comparaison-table__cell--heading {
+    background: rgb(var(--color-background));
+    background: var(--gradient-background);
+  }
+
+  /* second column */
+  .comparaison-table__col--brand > .comparaison-table__cell {
+    position: sticky;
+    left: 40%;
+  }
+
+  /* 3 first cells tooltip */
+  .comparaison-table__col:first-child .comparaison-table__cell:nth-child(-n + 3):hover {
+    z-index: 3;
+  }
+  .comparaison-table__col:first-child .comparaison-table__cell:nth-child(-n + 3) [role='tooltip'] {
+    top: 100%;
+    bottom: auto;
+    width: 200%;
+  }
+  .comparaison-table__col:first-child .comparaison-table__cell:nth-child(-n + 3) [role='tooltip']:before {
+    top: 0;
+    border-color: rgba(var(--color-foreground-secondary)) rgba(var(--color-foreground-secondary)) transparent
+      transparent;
+  }
+}
+
+@media (min-width: 750px) {
+  .comparaison-table__cell {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .comparaison-table {
+    --bleed-height: 23px;
+  }
+
+  /* all cells */
+  .comparaison-table__cell p {
+    margin: 15px 25px;
+  }
+
+  /* headers */
+  .comparaison-table__col:not(:first-child) > .comparaison-table__cell--heading {
+    padding: 17px 20px !important;
+  }
+}
+/* #endregion ═════════════════════════════════════════════════════════════ */

@@ -1,0 +1,63 @@
+    DOCUMENT 12 / 35
+
+
+
+
+ Domaine, Emails Pro & Infrastructure
+ Acheter le domaine, créer les emails, et arriver en boîte de réception
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Mise en place technique de base. À faire après avoir verrouillé le nom (doc 08).
+
+
+
+
+ 1. Domaine
+ 1. Achète le .com (international) + .ca si focus Canada — via Shopify ou Namecheap.
+ 2. Active protection WHOIS + renouvellement auto.
+ 3. Le plus simple : acheter dans Shopify (connexion auto).
+
+ 2. Emails professionnels
+  Solution                                    Prix indicatif       Avantage
+
+  Google Workspace                            ~7–9 $/mois          Gmail pro, fiable
+
+  Zoho Mail                                   Gratuit–faible       Économique
+
+ • Adresses : contact@ · support@ · bonjour@ (marketing).
+ • Signature pro (logo + liens réseaux).
+
+ 3. Délivrabilité (anti-spam)
+  Réglage                 Rôle
+
+  SPF                     Autorise les serveurs d'envoi
+
+  DKIM                    Signe tes emails
+
+  DMARC                   Anti-usurpation
+
+
+    Avant toute campagne
+    Authentifie ton domaine (SPF/DKIM/DMARC) dans ton outil d'emailing (doc 32). Sinon → spam + réputation
+    brûlée.
+
+
+
+ 4. Checklist
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                              Page 1 / 2
+ • ■ Domaine .com (+ .ca) + renouvellement auto + WHOIS
+ • ■ Emails pro créés
+ • ■ SPF + DKIM + DMARC configurés
+ • ■ Domaine authentifié dans l'outil d'emailing
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel   Page 2 / 2
+

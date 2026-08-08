@@ -1,0 +1,48 @@
+{{ 'product-spin-message.css' | asset_url | stylesheet_tag }}
+
+<style>
+.product-spin-message{
+margin-bottom: {{ block.settings.block_margin_bottom}}px;
+}
+
+.product-spin-message__track{
+
+animation-duration: {{block.settings.interval}}s; 
+
+}
+</style>
+
+<div class="product-spin-message" id="spin-{{block.id }}">
+  
+  <div class="product-spin-message__viewport">
+    
+    <div class="product-spin-message__track">
+      
+      <span class="product-spin-message__item">{{ block.settings.message_1 }}</span>
+      <span class="product-spin-message__item">{{ block.settings.message_2 }}</span>
+      <span class="product-spin-message__item">{{ block.settings.message_3 }}</span>
+      <span class="product-spin-message__item">{{ block.settings.message_4 }}</span>
+
+      <!-- duplicate for smooth loop -->
+      <span class="product-spin-message__item">{{ block.settings.message_1 }}</span>
+
+    </div>
+
+  </div>
+
+</div>
+<script>
+document.querySelectorAll('#spin-{{block.id }}').forEach(function(box){
+
+  let items = box.querySelectorAll('.product-spin-message__item');
+  let index = 0;
+  let speed = (box.dataset.speed || 4) * 1000;
+
+  setInterval(function(){
+    items[index].classList.remove('is-active');
+    index = (index + 1) % items.length;
+    items[index].classList.add('is-active');
+  }, speed);
+
+});
+</script>

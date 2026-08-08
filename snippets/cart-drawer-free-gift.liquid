@@ -1,0 +1,209 @@
+{{ 'cartGiftProgress.css' | asset_url | stylesheet_tag }}
+            {%- assign threshold_1_cents = block.settings.free_gift_threshold_price_1 | times: 100 | round | floor -%}
+            {%- assign threshold_2_cents = block.settings.free_gift_threshold_price_2 | times: 100 | round | floor -%}
+            {%- assign cart_total_cents = cart.total_price -%}
+
+            {%- assign has_first_gift = false -%}
+            {%- if block.settings.cart_module_free_gift_product_first != blank and threshold_1_cents > 0 -%}
+              {%- assign has_first_gift = true -%}
+            {%- endif -%}
+
+            {%- assign has_second_gift = false -%}
+            {%- if block.settings.cart_module_free_gift_product_second != blank and threshold_2_cents > 0 -%}
+              {%- assign has_second_gift = true -%}
+            {%- endif -%}
+
+            {%- comment -%}
+              Calculate progress bar and gift positions
+            {%- endcomment -%}
+            {%- assign gift_end = 85 -%}
+            {%- assign amount_needed_percentage = 0 -%}
+            {%- assign gift_1_left = 0 -%}
+            {%- assign gift_2_left = 0 -%}
+
+            {%- if has_first_gift and has_second_gift -%}
+              {%- assign gift_1_left = threshold_1_cents | times: gift_end | divided_by: threshold_2_cents -%}
+              {%- assign gift_2_left = gift_end -%}
+
+              {%- if cart_total_cents < threshold_1_cents -%}
+                {%- assign amount_needed_percentage = cart_total_cents
+                  | times: gift_1_left
+                  | divided_by: threshold_1_cents
+                -%}
+              {%- elsif cart_total_cents < threshold_2_cents -%}
+                {%- assign segment_2_cart = cart_total_cents | minus: threshold_1_cents -%}
+                {%- assign segment_2_range = threshold_2_cents | minus: threshold_1_cents -%}
+                {%- if segment_2_range <= 0 -%}
+                  {%- assign segment_2_range = 1 -%}
+                {%- endif -%}
+                {%- assign segment_2_width = gift_end | minus: gift_1_left -%}
+                {%- assign increment_percent = segment_2_cart | times: segment_2_width | divided_by: segment_2_range -%}
+                {%- assign amount_needed_percentage = gift_1_left | plus: increment_percent -%}
+              {%- else -%}
+                {%- assign amount_needed_percentage = 100 -%}
+              {%- endif -%}
+
+            {%- elsif has_first_gift -%}
+              {%- assign gift_1_left = 100 -%}
+              {%- if threshold_1_cents > 0 -%}
+                {%- assign amount_needed_percentage = cart_total_cents | times: 100 | divided_by: threshold_1_cents -%}
+              {%- else -%}
+                {%- assign amount_needed_percentage = 0 -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if amount_needed_percentage > 100 -%}
+              {%- assign amount_needed_percentage = 100 -%}
+            {%- endif -%}
+            {%- if amount_needed_percentage < 0 -%}
+              {%- assign amount_needed_percentage = 0 -%}
+            {%- endif -%}
+
+            {%- comment -%}
+              Calculate remaining amounts for gift messages
+            {%- endcomment -%}
+            {%- assign amount_left_1st = threshold_1_cents | minus: cart_total_cents -%}
+            {%- if amount_left_1st < 0 -%}
+              {%- assign amount_left_1st = 0 -%}
+            {%- endif -%}
+
+            {%- assign amount_left_2nd = threshold_2_cents | minus: cart_total_cents -%}
+            {%- if amount_left_2nd < 0 -%}
+              {%- assign amount_left_2nd = 0 -%}
+            {%- endif -%}
+
+            {%- comment -%}
+              Set gift unlock classes
+            {%- endcomment -%}
+            {%- assign gift_1_class = '' -%}
+            {%- assign gift_2_class = '' -%}
+
+            {%- if cart_total_cents >= threshold_1_cents -%}
+              {%- assign gift_1_class = 'unlocked-gift' -%}
+            {%- endif -%}
+
+            {%- if has_second_gift and cart_total_cents >= threshold_2_cents -%}
+              {%- assign gift_2_class = 'unlocked-gift' -%}
+            {%- endif -%}
+
+            {%- comment -%}
+              Select gift announcement text
+            {%- endcomment -%}
+            {%- assign gift_announcement_text = '' -%}
+            {%- if has_second_gift and cart_total_cents >= threshold_2_cents -%}
+              {%- assign gift_announcement_text = block.settings.final_message -%}
+            {%- elsif has_second_gift and cart_total_cents >= threshold_1_cents -%}
+              {%- assign amount_left_formatted = amount_left_2nd | money_without_trailing_zeros -%}
+              {%- assign gift_announcement_text = block.settings.cart_module_2nd_free_gift_text
+                | replace: '[amount]', amount_left_formatted
+              -%}
+            {%- elsif has_first_gift -%}
+              {%- assign amount_left_formatted = amount_left_1st | money_without_trailing_zeros -%}
+              {%- assign gift_announcement_text = block.settings.cart_module_1st_free_gift_text
+                | replace: '[amount]', amount_left_formatted
+              -%}
+            {%- endif -%}
+
+            {%- assign final_progress = amount_needed_percentage -%}
+
+            {% if has_first_gift or has_second_gift %}
+              {%- assign progress_color = '' -%}
+              {%- if block.settings.use_custom_progress_color and block.settings.custom_progress_color != blank -%}
+                {%- assign progress_color = block.settings.custom_progress_color -%}
+              {%- else -%}
+                {%- assign progress_color = 'rgb(var(--color-accent-1))' -%}
+              {%- endif -%}
+
+              <div
+                class="drawer__module free-gifts-container color-{{ block.settings.color_palette }}"
+                data-free-gift-module
+                data-threshold1="{{ block.settings.free_gift_threshold_price_1 }}"
+                data-threshold2="{{ block.settings.free_gift_threshold_price_2 }}"
+                data-message1="{{ block.settings.cart_module_free_gift_top_text | escape | strip_newlines }}"
+                data-message2="{{ block.settings.cart_module_free_gift_top_text | escape | strip_newlines }}"
+                data-congrats-message="{{ block.settings.final_message | escape }}"
+                data-progress-color="{{ progress_color }}"
+                data-final-progress="{{ final_progress }}"
+
+                style="--free-gift-progress-color: {{ progress_color }};"
+              >
+                <script>
+                  window.giftProgressData = {
+                    cart_1st_gift: {{ block.settings.cart_module_free_gift_product_first.variants.first.id  | json }},
+                    cart_2nd_gift: {{ block.settings.cart_module_free_gift_product_second.variants.first.id | json }},
+                    free_gift_threshold_price_1: {{ block.settings.free_gift_threshold_price_1 | json }},
+                    free_gift_threshold_price_2: {{ block.settings.free_gift_threshold_price_2 | json }}
+                  };
+                </script>
+
+                <div class="free-gift-announcement">
+                  <span class="gift-announcement-text" data-gift-message>{{ gift_announcement_text }}</span>
+                </div>
+
+                <div class="free_gift_bar">
+                  <div
+                    class="progress-bar"
+                    {% if block.settings.useBorder %}
+                      style="border: 1px solid var(--free-gift-progress-color);"
+                    {% endif %}
+                  >
+                    <span
+                      class="progress-bar-fill"
+                      data-progress-bar
+                      style="width: {{ final_progress }}%; background-color: var(--free-gift-progress-color);"
+                    ></span>
+
+                    {% if has_first_gift %}
+                      <div
+                        class="gift{% if amount_left_1st == 0 %} unlocked-gift{% endif %}"
+                        data-gift-1-icon
+                        style="left: {% if gift_1_left < 100 %}{{ gift_1_left }}%{% else %}90%{% endif %};"
+                      >
+                        <div
+                          class="gift-svg"
+                          style="border: 2px solid var(--free-gift-progress-color); color: var(--free-gift-progress-color); fill: var(--free-gift-progress-color);"
+                        >
+                          <!-- SVG for gift 1 -->
+                          <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 7h-2.2c.1-.3.2-.6.2-.9 0-1.7-1.4-3.1-3.1-3.1-1.3 0-2.4.8-2.9 1.9-.5-1.1-1.6-1.9-2.9-1.9C7.4 3 6 4.4 6 6.1c0 .3.1.6.2.9H4c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V8c0-.6-.4-1-1-1zm-5.1-2.4c.7 0 1.3.6 1.3 1.3 0 .3-.1.6-.3.9h-2c-.2-.3-.3-.6-.3-.9 0-.7.6-1.3 1.3-1.3zm-5.8 0c.7 0 1.3.6 1.3 1.3 0 .3-.1.6-.3.9h-2c-.2-.3-.3-.6-.3-.9 0-.7.6-1.3 1.3-1.3zM4 12v8c0 .6.4 1 1 1h6v-9H4zm9 9h6c.6 0 1-.4 1-1v-8h-7v9z"/>
+                          </svg>
+                        </div>
+                        <p class="gift-text">
+                          {{ block.settings.free_gift_threshold_price_1 | times: 100 | money_without_trailing_zeros }} -
+                          {{ block.settings.cart_module_free_gift_text_first }}
+                        </p>
+                      </div>
+                    {% endif %}
+
+                    {% if has_second_gift %}
+                      <div
+                        class="gift gift-2{% if amount_left_2nd == 0 %} unlocked-gift{% endif %}"
+                        data-gift-2-icon
+                        style="left: {{ gift_2_left }}%;"
+                      >
+                        <div
+                          class="gift-svg"
+                          style="border: 2px solid var(--free-gift-progress-color); color: var(--free-gift-progress-color); fill: var(--free-gift-progress-color);"
+                        >
+                          <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 7h-2.2c.1-.3.2-.6.2-.9 0-1.7-1.4-3.1-3.1-3.1-1.3 0-2.4.8-2.9 1.9-.5-1.1-1.6-1.9-2.9-1.9C7.4 3 6 4.4 6 6.1c0 .3.1.6.2.9H4c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V8c0-.6-.4-1-1-1zm-5.1-2.4c.7 0 1.3.6 1.3 1.3 0 .3-.1.6-.3.9h-2c-.2-.3-.3-.6-.3-.9 0-.7.6-1.3 1.3-1.3zm-5.8 0c.7 0 1.3.6 1.3 1.3 0 .3-.1.6-.3.9h-2c-.2-.3-.3-.6-.3-.9 0-.7.6-1.3 1.3-1.3zM4 12v8c0 .6.4 1 1 1h6v-9H4zm9 9h6c.6 0 1-.4 1-1v-8h-7v9z"/>
+                          </svg>
+                        </div>
+                        <p class="gift-text">
+                          {{ block.settings.free_gift_threshold_price_2 | times: 100 | money_without_trailing_zeros }} -
+                          {{ block.settings.cart_module_free_gift_text_second }}
+                        </p>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% comment %} End Gift Logic {% endcomment %}
+
+
+  {%- render 'script' with 'cartGiftProgres', defer: true -%}
+  <script>
+    window.isGiftProgressEnabled = true;
+  </script>

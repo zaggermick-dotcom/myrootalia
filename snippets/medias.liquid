@@ -1,0 +1,234 @@
+{%- liquid
+  if superGlue
+    assign swiperSpacing = 0
+    assign swiperSpacingDesktop = 0
+  else
+    assign swiperSpacing = 6
+    assign swiperSpacingDesktop = 12
+  endif
+  # image ratio
+  assign ratio = 1
+  if product.featured_media and media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  endif
+  
+  # Filtrer les images de variantes du carousel (si activé)
+  assign variant_media_ids = ''
+  if exclude_variant_images
+    for variant in product.variants
+      if variant.featured_media
+        assign variant_media_ids = variant_media_ids | append: variant.featured_media.id | append: ','
+      endif
+    endfor
+  endif
+  
+  # Compter les médias (filtrés ou non selon le paramètre)
+  assign non_variant_media_count = 0
+  for media in product.media
+    assign is_variant_image = false
+    if exclude_variant_images and variant_media_ids contains media.id
+      assign is_variant_image = true
+    endif
+    unless is_variant_image
+      assign non_variant_media_count = non_variant_media_count | plus: 1
+    endunless
+  endfor
+-%}
+
+<div class="product__media--inner {{ non_variant_media_count }} {% if section.settings.media_layout_desktop != 'grid' %} {%- if non_variant_media_count > 1 -%} {% if section.settings.media_thum_position == 'vertical-left' %}vertical-left{% elsif section.settings.media_thum_position == 'vertical-right' %}vertical-left vertical-right{% endif %} {% endif %} {% endif %}">
+  {%- if product != blank -%}
+    {% comment %} Main medias {% endcomment %}
+    <div class="product__main-medias{% if section.settings.media_layout_desktop == 'grid' %} product__main-medias--grid{% endif %}">
+      {%- if section.settings.media_layout_desktop == 'grid' -%}
+        <div class="product__grid-wrapper hide-on-mobile{% if non_variant_media_count == 1 %} product__grid-wrapper--single{% endif %}">
+          {%- assign rendered_index = 0 -%}
+          {%- for media in product.media -%}
+            {%- liquid
+              assign is_variant_image = false
+              if exclude_variant_images and variant_media_ids contains media.id
+                assign is_variant_image = true
+              endif
+            -%}
+            {%- unless is_variant_image -%}
+            {%- assign rendered_index = rendered_index | plus: 1 -%}
+            <div class="product__grid-item" data-popup-trigger="media_{{ section.id }}_{{ media.id }}">
+              {%- if media_aspect_ratio == 'adapt' -%}
+                {%- assign ratio = media.preview_image.aspect_ratio -%}
+              {%- endif -%}
+              {%- assign media_width = media_width | default: 1 -%}
+              {%- assign desktop_columns = desktop_columns | default: 1 -%}
+              {%- assign mobile_columns = mobile_columns | default: 1 -%}
+              {%- render 'media', media: media, ratio: ratio, enable_zoom: enable_zoom, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+              <div class="product__grid-item-zoom">
+                {%- render 'icon-zoom' -%}
+              </div>
+            </div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      
+      {%- comment -%} Mobile toujours en slider + Desktop slider si non grid {%- endcomment -%}
+      <div
+        id="{{ swiperMediaEl }}{{ unique }}"
+        class="swiper{% if thumbnails != true %} swiper_no_pagination{% endif %} product__swiper product__medias-wrapper{% if section.settings.media_layout_desktop == 'grid' %} show-on-mobile{% endif %}"
+        {% render 'swiper-data-editor', numberOfSlides: non_variant_media_count -%}
+        data-swiper-id="{{ swiperMediaEl }}{{ unique }}"
+        >
+          <div class="swiper-wrapper product__grid">
+          {%- assign rendered_index = 0 -%}
+          {%- for media in product.media -%}
+  {%- liquid
+    assign is_variant_image = false
+    if variant_media_ids contains media.id
+      assign is_variant_image = true
+    endif
+  -%}
+
+  {%- if has_variant_media -%}
+    {%- if is_variant_image -%}
+      {%- assign rendered_index = rendered_index | plus: 1 -%}
+      <div class="swiper-slide product__slide">
+        {%- if media_aspect_ratio == 'adapt' -%}
+          {%- assign ratio = media.preview_image.aspect_ratio -%}
+        {%- endif -%}
+        {%- assign media_width = media_width | default: 1 -%}
+        {%- assign desktop_columns = desktop_columns | default: 1 -%}
+        {%- assign mobile_columns = mobile_columns | default: 1 -%}
+        {%- render 'media', media: media, ratio: ratio, enable_zoom: enable_zoom, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    {%- assign rendered_index = rendered_index | plus: 1 -%}
+    <div class="swiper-slide product__slide">
+      {%- if media_aspect_ratio == 'adapt' -%}
+        {%- assign ratio = media.preview_image.aspect_ratio -%}
+      {%- endif -%}
+      {%- assign media_width = media_width | default: 1 -%}
+      {%- assign desktop_columns = desktop_columns | default: 1 -%}
+      {%- assign mobile_columns = mobile_columns | default: 1 -%}
+      {%- render 'media', media: media, ratio: ratio, enable_zoom: enable_zoom, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+    </div>
+  {%- endif -%}
+{%- endfor -%}
+
+          </div>
+        </div>
+        {%- liquid
+          if non_variant_media_count > 1
+            render 'swiper-elements', unique: unique, pagination: pagination, navigation: navigation
+          endif
+        -%}
+    </div>
+
+    {%- if non_variant_media_count > 1 -%}
+      {% comment %} Thumbnails {% endcomment %}
+      <div
+        id="{{ swiperThumbsEl }}{{ unique }}"
+        class="swiper swiper_no_pagination product__swiper product__thumbs-wrapper{% if thumbnails %} product__thumbs-only_desktop{% endif %}"
+        {% render 'swiper-data-editor', numberOfSlides: non_variant_media_count -%}
+        data-swiper-id="{{ swiperThumbsEl }}{{ unique }}"
+      >
+        <div class="swiper-wrapper product__grid test">
+         {%- assign rendered_index = 0 -%}
+         {%- for media in product.media -%}
+            {%- liquid
+              assign is_variant_image = false
+              if variant_media_ids contains media.id
+                assign is_variant_image = true
+              endif
+            -%}
+
+  {%- if exclude_variant_images -%}
+    {%- if has_variant_media -%}
+      {%- if is_variant_image -%}
+        {%- assign rendered_index = rendered_index | plus: 1 -%}
+        <div media-id="{{ media.id }}" class="swiper-slide product__slide">
+          {%- if media_aspect_ratio == 'adapt' -%}
+            {%- assign ratio = media.preview_image.aspect_ratio -%}
+          {%- endif -%}
+          {%- assign media_width = media_width | default: 1 -%}
+          {%- assign desktop_columns = desktop_columns | default: 1 -%}
+          {%- assign mobile_columns = mobile_columns | default: 1 -%}
+          {% if section.settings.media_thum_position == 'vertical-left' or section.settings.media_thum_position == 'vertical-right' %}
+          {%- render 'media', media: media, ratio: 1, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+          {% else %}
+            {%- render 'media', media: media, ratio: ratio, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+          {% endif %}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      {%- assign rendered_index = rendered_index | plus: 1 -%}
+      <div  media-id="{{ media.id }}" class="swiper-slide product__slide">
+        {%- if media_aspect_ratio == 'adapt' -%}
+          {%- assign ratio = media.preview_image.aspect_ratio -%}
+        {%- endif -%}
+        {%- assign media_width = media_width | default: 1 -%}
+        {%- assign desktop_columns = desktop_columns | default: 1 -%}
+        {%- assign mobile_columns = mobile_columns | default: 1 -%}
+         {% if section.settings.media_thum_position == 'vertical-left' or section.settings.media_thum_position == 'vertical-right' %}
+          {%- render 'media', media: media, ratio: 1, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+          {% else %}
+            {%- render 'media', media: media, ratio: ratio, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+          {% endif %}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    {%- assign rendered_index = rendered_index | plus: 1 -%}
+    <div media-id="{{ media.id }}" class="swiper-slide product__slide">
+      {%- if media_aspect_ratio == 'adapt' -%}
+        {%- assign ratio = media.preview_image.aspect_ratio -%}
+      {%- endif -%}
+      {%- assign media_width = media_width | default: 1 -%}
+      {%- assign desktop_columns = desktop_columns | default: 1 -%}
+      {%- assign mobile_columns = mobile_columns | default: 1 -%}
+       {% if section.settings.media_thum_position == 'vertical-left' or section.settings.media_thum_position == 'vertical-right' %}
+          {%- render 'media', media: media, ratio: 1, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+          {% else %}
+            {%- render 'media', media: media, ratio: ratio, forloop_index: rendered_index, media_width: media_width, desktop_columns: desktop_columns, mobile_columns: mobile_columns -%}
+          {% endif %}
+    </div>
+  {%- endif -%}
+{%- endfor -%}
+
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- liquid
+      if non_variant_media_count > 1
+        assign swiperEl = "'#" | append: swiperThumbsEl | append: unique | append: "'"
+        if section.settings.media_thum_position == 'vertical-left' or section.settings.media_thum_position == 'vertical-right'
+          assign swiperOptions ="loop:false,mousewheel:{forceToAxis:true},spaceBetween:" | append: swiperSpacing | append: ",slidesPerView:4,breakpoints:{750:{direction: 'vertical',autoHeight:false,spaceBetween:" | append: swiperSpacingDesktop | append: "}},"
+        else
+          assign swiperOptions ="loop:false,mousewheel:{forceToAxis:true},spaceBetween:" | append: swiperSpacing | append: ",slidesPerView:4,autoHeight:true,breakpoints:{750:{spaceBetween:" | append: swiperSpacingDesktop | append: "}},"
+        endif
+        render 'swiper-theme-editor', sectionId: unique, swiperVariant: swiperThumbsEl, swiperEl: swiperEl, swiperOptions: swiperOptions, numberOfBlocks: non_variant_media_count, navigation: false, pagination: false
+        assign thumbs = 'thumbs:{autoScrollOffset:1,swiper:' | append: swiperThumbsEl | append: unique | append: ',},'
+      endif
+
+      if enable_zoom
+        assign zoom = 'zoom: true,'
+      endif
+      assign swiperEl = "'#" | append: swiperMediaEl | append: unique | append: "'"
+      if preShotSwiper and non_variant_media_count > 1
+        assign slidesPerView = 1.2
+      else
+        assign slidesPerView = 1
+      endif
+      assign swiperOptions ="loop:false,mousewheel:{forceToAxis:true},spaceBetween:" | append: swiperSpacing | append: ",slidesPerView:" | append: slidesPerView | append: ",autoHeight:true," | append: thumbs | append: zoom | append: "breakpoints:{750:{spaceBetween:" | append: swiperSpacingDesktop | append: "}},"
+      render 'swiper-theme-editor', sectionId: unique, swiperVariant: swiperMediaEl, swiperEl: swiperEl, swiperOptions: swiperOptions, numberOfBlocks: non_variant_media_count, navigation: 'already', pagination: 'already'
+    -%}
+  {%- else -%}
+    <div class="global-media-settings placeholder">
+      {{ 'product-1' | placeholder_svg_tag }}
+    </div>
+  {%- endif -%}
+</div>
+
+{%- if section.settings.media_layout_desktop == 'grid' -%}
+  <media-popup>
+    {%- render 'block-media-popups', exclude_variant_images: exclude_variant_images -%}
+  </media-popup>
+  {%- render 'script' with 'media-popup', defer: true -%}
+{%- endif -%}

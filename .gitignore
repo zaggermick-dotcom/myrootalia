@@ -40,3 +40,7 @@ coverage/
 
 # OS
 Thumbs.db
+
+# Shopify CLI
+.shopify/
+

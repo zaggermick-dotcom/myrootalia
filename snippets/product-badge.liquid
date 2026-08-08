@@ -1,0 +1,57 @@
+{%- liquid
+  assign badge_text = blank
+  assign badge_type = blank
+  assign has_sale = false
+  assign custom_badge_text = blank
+
+  if product.available and product.compare_at_price > product.price and sale_badge_text != blank
+    assign has_sale = true
+  endif
+
+  for tag in product.tags
+    assign tag_prefix = tag | slice: 0, 6
+
+    if tag_prefix == 'badge-'
+      assign badge_raw_text = tag | remove_first: 'badge-' | replace: '-', ' ' | strip
+      assign badge_words = badge_raw_text | split: ' '
+
+      capture custom_badge_text
+        for word in badge_words
+          if word != blank
+            echo word | capitalize
+            unless forloop.last
+              echo ' '
+            endunless
+          endif
+        endfor
+      endcapture
+
+      assign custom_badge_text = custom_badge_text | strip
+      break
+    endif
+  endfor
+
+  if has_sale and custom_badge_text != blank
+    if badge_sale_priority == 'sale_badge'
+      assign badge_text = sale_badge_text | replace: '[amount]', savings_amount | replace: '[percent]', savings_percentage
+      assign badge_type = 'sale'
+    else
+      assign badge_text = custom_badge_text
+      assign badge_type = 'custom'
+    endif
+  elsif has_sale
+    assign badge_text = sale_badge_text | replace: '[amount]', savings_amount | replace: '[percent]', savings_percentage
+    assign badge_type = 'sale'
+  elsif custom_badge_text != blank
+    assign badge_text = custom_badge_text
+    assign badge_type = 'custom'
+  endif
+-%}
+
+{%- if badge_text != blank -%}
+  <div class="card__product-badges card__product-badges-position--{{ badge_position }} card__product-badges-style--{{ badge_style }}">
+    <span class="product-badge product-badge--{{ badge_type }}">
+      {{ badge_text }}
+    </span>
+  </div>
+{%- endif -%}

@@ -1,0 +1,69 @@
+  <div
+              class="drawer__module text-{{ section.settings.cart_modules_alignment }} color-{{ block.settings.color_palette }} drawer__module--delivery-estimation"
+              {{ block.shopify_attributes }}
+            >
+              {{ 'delivery-estimation.css' | asset_url | stylesheet_tag }}
+              <delivery-estimation
+                data-ready="{{ block.settings.ready }}"
+                data-delivered="{{ block.settings.delivered }}"
+                data-format="{{ block.settings.format }}"
+                class="delivery__wrapper delivery__wrapper-icon-color--{{ block.settings.icons_color }}"
+              >
+                <div class="delivery__step">
+                  <div class="delivery__icon">
+                    {% if block.settings.today_image != blank %}
+                      {{
+                        block.settings.today_image
+                        | image_url: width: 56
+                        | image_tag: class: 'delivery__custom-icon'
+                      }}
+                    {% else %}
+                      {%- render 'icon-cart' -%}
+                    {% endif %}
+                  </div>
+
+                  <div class="delivery__meta">
+                    <p class="delivery__date today">...</p>
+                    <p class="delivery__info">{{ block.settings.today_info }}</p>
+                  </div>
+                </div>
+
+                <div class="delivery__step">
+                  <div class="delivery__icon">
+                    {% if block.settings.ready_image != blank %}
+                      {{
+                        block.settings.ready_image
+                        | image_url: width: 56
+                        | image_tag: class: 'delivery__custom-icon'
+                      }}
+                    {% else %}
+                      {%- render 'icons', icon: 'truck' -%}
+                    {% endif %}
+                  </div>
+
+                  <div class="delivery__meta">
+                    <p class="delivery__date ready">...</p>
+                    <p class="delivery__info">{{ block.settings.ready_info }}</p>
+                  </div>
+                </div>
+
+                <div class="delivery__step">
+                  <div class="delivery__icon">
+                    {% if block.settings.delivered_image != blank %}
+                      {{
+                        block.settings.delivered_image
+                        | image_url: width: 56
+                        | image_tag: class: 'delivery__custom-icon'
+                      }}
+                    {% else %}
+                      {%- render 'icons', icon: 'box' -%}
+                    {% endif %}
+                  </div>
+
+                  <div class="delivery__meta">
+                    <p class="delivery__date delivered">...</p>
+                    <p class="delivery__info">{{ block.settings.delivered_info }}</p>
+                  </div>
+                </div>
+              </delivery-estimation>
+            </div>

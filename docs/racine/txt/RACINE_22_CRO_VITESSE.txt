@@ -1,0 +1,69 @@
+    DOCUMENT 22 / 35
+
+
+
+
+ Optimisation du Taux de Conversion (CRO)
+ & Vitesse
+ Transformer plus de visiteurs en clients, et accélérer le site
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Améliorer le taux de conversion (CRO) est souvent plus rentable que d'augmenter le budget pub. Et un site
+ rapide = plus de ventes + une pub moins chère.
+
+
+
+
+ 1. Leviers de conversion
+  Levier                                      Action
+
+  Au-dessus de la ligne de flottaison         Titre clair + offre + bouton visibles tout de suite
+
+  Preuve                                      Avis & photos haut de page
+
+  Réassurance                                 Garantie 60 j, paiement sécurisé, livraison
+
+  Urgence douce                               Stock limité, offre de lancement (honnête)
+
+  Panier/checkout                             Express pay, frais clairs, peu d'étapes
+
+
+
+ 2. Vitesse (très important)
+ • Compresse les images (WebP), lazy-load.
+ • Limite les apps (chacune ralentit).
+ • Thème léger (Dawn), polices système ou limitées.
+ • Mesure avec PageSpeed Insights (vise > 70 mobile).
+
+ 3. Mobile d'abord
+ La majorité du trafic est mobile : vérifie boutons, lisibilité, vitesse et checkout sur téléphone avant tout.
+
+
+ 4. Outils de mesure
+  Outil                                           Usage
+
+  GA4                                             Trafic & conversions
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                   Page 1 / 2
+  Outil                                           Usage
+
+  Microsoft Clarity (gratuit)                     Heatmaps + enregistrements de sessions
+
+  PageSpeed Insights                              Vitesse
+
+
+    Méthode
+    Change une chose à la fois et mesure. Vise un taux de conversion de 1,5–2,5 % pour commencer.
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                          Page 2 / 2
+

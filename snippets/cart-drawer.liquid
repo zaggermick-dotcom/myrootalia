@@ -1,0 +1,365 @@
+{% comment %}
+  Renders cart drawer
+  Usage:
+  {% render 'cart-drawer' %}
+{% endcomment %}
+
+{% comment %} Fixed cart.js?v=149968501457377904421765112164:1 Uncaught SyntaxError: Identifier 'CartRemoveButton' has already been declared (at  {% endcomment %}
+{% comment %} Fixed Console Issues {% endcomment %}
+
+{% comment %} {%- render 'script' with 'cart', defer: true -%} {% endcomment %}
+
+<style>
+  .drawer {
+    visibility: hidden;
+  }
+</style>
+{% liquid
+  assign protection_active = false
+  assign protection_index = 0
+  assign first_gift_variant_id = ''
+  assign second_gift_variant_id = ''
+  for item in cart.items
+    if item.product_id == section.settings.cart_protection_product.id
+      assign protection_active = true
+      assign protection_index = forloop.index
+    endif
+  endfor
+%}
+
+<cart-drawer class="drawer {% if cart == empty %} is-empty{% endif %} {{ protection_active }} {% if section.settings.upsell-layout == 'inside-vertical' %} inside-vertical {% elsif section.settings.upsell-layout == 'outside-vertical' %} outside-vertical {% endif %}">
+  <div
+    id="CartDrawer"
+    class="cart-drawer {% if section.settings.upsell-layout == 'outside-vertical' %} cart-drawer-outside-vertical {% endif %}"
+  >
+    {% comment %}  Desktop Upsell Outside Vertical {% endcomment %}
+    {% if section.settings['upsell-layout'] == 'outside-vertical' %}
+      {%- if section.settings.cart_upsell_enable -%}
+        {%- if section.settings.cart_upsell_collection != blank or section.settings.cart_upsell_product != blank -%}
+          {% render 'cart-upsell-outside-vertical', section: section %}
+        {%- endif -%}
+      {%- endif -%}
+    {% endif %}
+
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
+    <div
+      class="drawer__inner color-{{ section.settings.cart_general_color_palette }}"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ 'sections.cart.title' | t }}"
+      tabindex="-1"
+    >
+      {%- if cart == empty -%}
+        <div class="drawer__inner-empty">
+          <div
+            class="cart-drawer__warnings center{% if section.settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}"
+          >
+            <div class="cart-drawer__empty-content">
+              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+              <button
+                class="drawer__close"
+                type="button"
+                onclick="this.closest('cart-drawer').close()"
+                aria-label="{{ 'accessibility.close' | t }}"
+              >
+                {% render 'icon-close' %}
+              </button>
+              <a
+                href="{{ settings.cart_empty_url | default: routes.all_products_collection_url }}"
+                class="button button__style--1"
+              >
+                {{ 'general.continue_shopping' | t }}
+              </a>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="drawer__header">
+        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+        <button
+          class="drawer__close"
+          type="button"
+          onclick="this.closest('cart-drawer').close()"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'icon-close' %}
+        </button>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'timer' -%}
+            {% render 'cart-drawer-timer', block: block %}
+
+          {%- when 'free_shipping' -%}
+            {% render 'cart-drawer-free-shipping', block: block %}
+
+          {%- when 'trust' -%}
+            {% render 'cart-drawer-trust', block: block %}
+
+          {%- when 'delivery_estimation' -%}
+            {% render 'cart-drawer-deliver-estimation', block: block %}
+
+          {%- when 'free_gift' -%}
+            {% render 'cart-drawer-free-gift', block: block %}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      <div class="cart-drawer-items">
+        {% render 'cart-drawer-items', section: section %}
+
+        {%- if section.settings.cart_upsell_enable -%}
+            {%- if section.settings.cart_upsell_collection != blank or section.settings.cart_upsell_product != blank -%}
+            {%- assign mobile_upsell_layout = section.settings.outside_vertical_mobile_layout -%}
+
+          <div
+            class="
+              drawer__upsell
+              {% if section.settings.upsell-layout == 'outside-vertical' %} hide-desktop {% endif %}
+              {% if section.settings.upsell-layout == 'outside-vertical' and  mobile_upsell_layout == 'horizontal' %} outside-vertical-mobile {% endif %}
+
+              {% if section.settings.upsell-layout == 'horizontal' %} horizontal-upsell-layout {% endif %}
+              color-{{ section.settings.cart_module_upsell_palette }}
+              drawer__upsell--{{ section.settings.cart_upsell_style }}
+            "
+          >
+            {%- if section.settings.cart_upsell_title -%}
+              {%- if section.settings.cart_upsell_collection != blank
+                or section.settings.cart_upsell_product != blank
+              -%}
+                <p class="drawer__upsell--title">
+                  {{ section.settings.cart_upsell_title }}
+                </p>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if section.settings.cart_upsell_style == 'collection'
+              and section.settings.cart_upsell_collection != blank
+              and section.settings['upsell-layout'] == 'outside-vertical'
+            -%}
+
+
+            <div class="hide-desktop">
+              {%- if mobile_upsell_layout == 'horizontal' -%}
+                {% render 'cart-upsell-horizontal', section: section %}
+              {%- else -%}
+                {% render 'cart-upsell-inner-vertical', section: section %}
+              {%- endif -%}
+            </div>
+
+            {%- elsif section.settings.cart_upsell_style == 'collection'
+              and section.settings.cart_upsell_collection != blank
+              and section.settings['upsell-layout'] == 'inside-vertical'
+            -%}
+              {% render 'cart-upsell-inner-vertical', section: section %}
+
+            {%- elsif section.settings.cart_upsell_style == 'collection'
+              and section.settings.cart_upsell_collection != blank
+              and section.settings['upsell-layout'] == 'horizontal'
+            -%}
+              {% render 'cart-upsell-horizontal', section: section %}
+
+            {%- elsif section.settings.cart_upsell_style == 'product'
+              and section.settings.cart_upsell_product != blank
+            -%}
+              {% render 'cart-upsell-single-product', section: section %}
+            {%- endif -%}
+          </div>
+            {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      <div class="drawer__footer">
+        {%- if section.settings.cart_protection_product != blank -%}
+          <div class="drawer__protection drawer__upsell color-{{ section.settings.cart_module_protection_palette }}">
+            {%- render 'card-product-protection-drawer',
+              section_id: section.id,
+              card_product: section.settings.cart_protection_product,
+              card_style: section.settings.product_card_style,
+              active: protection_active,
+              protection_index: protection_index
+            -%}
+          </div>
+        {%- endif -%}
+        {%- if settings.show_cart_note -%}
+          <details id="Details-CartDrawer" class="drawer__module drawer__module--note">
+            <summary>
+              <span class="summary__title">
+                {{ 'sections.cart.note' | t }}
+                {% render 'icon-caret', behavior: settings.collapsible_icon %}
+              </span>
+            </summary>
+            <cart-note class="cart__note field">
+              <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
+              <textarea
+                id="CartDrawer-Note"
+                class="text-area text-area--resize-vertical field__input"
+                name="note"
+                placeholder="{{ 'sections.cart.note' | t }}"
+              >{{ cart.note }}</textarea>
+            </cart-note>
+          </details>
+        {%- endif -%}
+
+        {%- if section.settings.cart_module_code -%}
+          <div
+            class="drawer__module text-{{ section.settings.cart_modules_alignment }} color-{{ section.settings.cart_module_code_palette }} cart__discount-code drawer__module--code"
+          >
+            <input
+              type="text"
+              id="cartDrawerDiscountCode"
+              placeholder="{{ section.settings.cart_module_code_placeholder }}"
+            >
+            <div
+              class="button button__style--{{ section.settings.cart_module_code_button_style }} cartDiscountCodeButton"
+              data-input="cartDrawerDiscountCode"
+            >
+              {{ section.settings.cart_module_code_button_text | escape }}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- Start blocks -->
+        <!-- Subtotals -->
+
+        <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
+          {%- if section.settings.cart_subtotal_text != blank -%}
+            <div class="totals subtotal" role="status">
+              <p class="totals__subtotal">{{ section.settings.cart_subtotal_text }}</p>
+              <p class="totals__subtotal-value drawer__subtotal--amount">...</p>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.cart_savings_text != blank -%}
+            <div class="totals savings" role="status">
+              <p class="totals__subtotal">{{ section.settings.cart_savings_text }}</p>
+              <p class="totals__subtotal-value drawer__savings--amount">...</p>
+            </div>
+          {%- endif -%}
+          <div class="totals" role="status">
+            <p class="totals__subtotal">{{ section.settings.cart_total_text | default: 'Total' }}</p>
+            <p class="totals__subtotal-value drawer__total--amount">{{ cart.total_price | money }}</p>
+          </div>
+
+          {%- if cart.cart_level_discount_applications.size > 0 -%}
+            <div>
+              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                {%- for discount in cart.cart_level_discount_applications -%}
+                  <li class="discounts__discount discounts__discount--end">
+                    {%- render 'icon-discount' -%}
+                    {{ discount.title }}
+                    (-{{ discount.total_allocated_amount | money }})
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- CTAs -->
+
+        <div class="cart__ctas" {{ block.shopify_attributes }}>
+          <button
+            type="submit"
+            id="CartDrawer-Checkout"
+            class="cart__checkout-button button button__style--{{ section.settings.cart_button_style }}"
+            name="checkout"
+            form="CartDrawer-Form"
+            {% if cart == empty %}
+              disabled
+            {% endif %}
+          >
+            {{ section.settings.cart_button_text | default: 'Check out' }}
+          </button>
+        </div>
+
+        {%- if section.settings.cart_footer_text != blank
+          or section.settings.cart_footer_image
+          or section.settings.cart_footer_payment_badges
+        -%}
+          <div class="tax-note caption-large rte text-{{ section.settings.cart_modules_alignment }}">
+            {%- if section.settings.cart_footer_payment_badges -%}
+              <div class="tax-note__payment-badges">
+                {% for type in shop.enabled_payment_types -%}
+                  {{ type | payment_type_svg_tag }}
+                {% endfor %}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.cart_footer_text != blank -%}
+              <p>{{ section.settings.cart_footer_text }}</p>
+            {%- endif -%}
+            {%- if section.settings.cart_footer_image -%}
+              <img
+                class="tax-note__image"
+                src="{{ section.settings.cart_footer_image | image_url: width: 400 }}"
+                alt="{{ section.settings.cart_footer_image.alt | escape }}"
+                loading="lazy"
+                width="200"
+                height="{{ 200 | divided_by: section.settings.cart_footer_image.aspect_ratio | ceil }}"
+              >
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</cart-drawer>
+
+{% javascript %}
+  class CartDrawer extends HTMLElement {
+    constructor() {
+      super();
+
+      this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
+      this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
+      this.setHeaderCartIconAccessibility();
+    }
+
+    setHeaderCartIconAccessibility() {
+      const cartLink = document.querySelector('#cart-icon-bubble');
+      cartLink.setAttribute('role', 'button');
+      cartLink.setAttribute('aria-haspopup', 'dialog');
+    }
+
+    open() {
+      this.classList.add('animate', 'active');
+
+      this.addEventListener(
+        'transitionend',
+        () => {
+          this.querySelector('input[type="search"]')?.focus();
+        },
+        { once: true }
+      );
+
+      document.body.classList.add('overflow-hidden');
+    }
+
+    close() {
+      this.classList.remove('active');
+      document.body.classList.remove('overflow-hidden');
+    }
+  }
+
+  if (!customElements.get('cart-drawer')) {
+    customElements.define('cart-drawer', CartDrawer);
+  }
+  class CartDrawerItems extends CartItems {
+    getSectionsToRender() {
+      return [
+        {
+          id: 'CartDrawer',
+          section: 'cart-drawer',
+          selector: '.drawer__contents',
+        },
+        {
+          id: 'cart-icon-bubble',
+          section: 'cart-icon-bubble',
+          selector: '.shopify-section',
+        },
+      ];
+    }
+  }
+
+  if (!customElements.get('cart-drawer-items')) {
+    customElements.define('cart-drawer-items', CartDrawerItems);
+  }
+{% endjavascript %}

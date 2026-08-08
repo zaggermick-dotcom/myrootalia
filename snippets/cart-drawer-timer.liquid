@@ -1,0 +1,14 @@
+{%- assign timer_text = block.settings.text | default: '' -%}
+{%- if timer_text != blank -%}
+  <div
+    class="drawer__module text-{{ section.settings.cart_modules_alignment }} color-{{ block.settings.color_palette }} drawer__module--timer"
+    data-duration="{{ block.settings.delay }}"
+    data-reset-on-add="{{ block.settings.reset_cart }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- assign timer = "<span class='drawer__module--timer-time' aria-hidden='true'></span>" -%}
+    <p class="timer__text">
+      {{- timer_text | replace: '$time', timer -}}
+    </p>
+  </div>
+{%- endif -%}

@@ -1,0 +1,501 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "padding_top_sm": 32,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "separator_top": "none",
+        "separator_bottom": "none",
+        "separator_animated": false
+      }
+    },
+    "banner_fwnDy4": {
+      "type": "banner",
+      "blocks": {
+        "heading_MBqBwz": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Details",
+            "heading": "<p>Hear from our lovely customers</p>",
+            "heading_style": "2",
+            "heading_font_size": 100,
+            "heading_font_size_mobile": 100,
+            "enable_slides": true,
+            "slides": "Natural, Beautiful, Made in France, Vegan"
+          }
+        },
+        "text_BRcFzT": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "description_font_size": 100,
+            "description_font_size_mobile": 100
+          }
+        },
+        "button_cangQV": {
+          "type": "button",
+          "settings": {
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2",
+            "button_text_secondary": "Discover",
+            "button_link_secondary": "",
+            "button_style_secondary": "2",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_MBqBwz",
+        "text_BRcFzT",
+        "button_cangQV"
+      ],
+      "settings": {
+        "section_id": "",
+        "image_overlay_opacity": 0,
+        "height": "adapt",
+        "layout": "full",
+        "layout_orientation": "right",
+        "gutterless_mobile": true,
+        "media_type": "image",
+        "image": "shopify://shop_images/Banniere_d873098a-91d9-4f03-816b-4899fcb6d13b.jpg",
+        "media_type_mobile": "image",
+        "image_mobile": "shopify://shop_images/Banniere_d873098a-91d9-4f03-816b-4899fcb6d13b.jpg",
+        "lazy": true,
+        "content_container_width": 540,
+        "text_color": "text",
+        "desktop_content_position": "middle",
+        "mobile_content_position": "middle",
+        "content_background_behavior": "blur",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    },
+    "timeline_qYnepf": {
+      "type": "timeline",
+      "blocks": {
+        "timeline_event_AtxWax": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2017",
+            "heading": "Lancement de la marque",
+            "text": "C'est avec plaisir qu'on a enfin lancé Sylys !"
+          }
+        },
+        "timeline_event_ViXTWy": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2020",
+            "heading": "Expansion de la marque",
+            "text": "Notre travail acharné nous a permis de touché beaucoup plus de clients à travers la France !"
+          }
+        },
+        "timeline_event_p7b36P": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2022",
+            "heading": "Sylys découvre le monde !",
+            "text": "Nos objectifs ont évolué, on vise maintenant le monde entier !"
+          }
+        },
+        "timeline_event_wGChAr": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2024",
+            "heading": "Levée de fond",
+            "text": "Grâce à tout ce qu'on a accompli depuis plusieurs années, on a enfin réussi a lever des fond pour progresser encore plus vite !"
+          }
+        },
+        "timeline_event_EYEfbk": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "2025",
+            "heading": "Développement",
+            "text": "With all our teams, we decided to create a brand new laboratory where we can experiment new products for our lovely customers."
+          }
+        }
+      },
+      "block_order": [
+        "timeline_event_AtxWax",
+        "timeline_event_ViXTWy",
+        "timeline_event_p7b36P",
+        "timeline_event_wGChAr",
+        "timeline_event_EYEfbk"
+      ],
+      "settings": {
+        "section_id": "",
+        "subheading": "",
+        "heading": "<p>Notre histoire</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "left",
+        "switch": true,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 36,
+        "padding_bottom": 64,
+        "padding_top_sm": 32,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    },
+    "marquee_MtmDaC": {
+      "type": "marquee",
+      "blocks": {
+        "marquee_cPmant": {
+          "type": "marquee",
+          "settings": {
+            "description": "maquillage de qualité • produits vegan • made in france • recommandé par +47516 clients  "
+          }
+        }
+      },
+      "block_order": [
+        "marquee_cPmant"
+      ],
+      "settings": {
+        "section_id": "",
+        "uppercase": true,
+        "bolder": true,
+        "font_family": "heading",
+        "delay": 16,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    },
+    "stories_4DzbVT": {
+      "type": "stories",
+      "blocks": {
+        "story_i7A6Ag": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/pexels-vinicius-wiesehofer-1130626.jpg",
+            "name": "@emrata",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "story_peWexf": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Capture_d_ecran_2020-10-20_012218.jpg",
+            "name": "@zendaya",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "story_UJTfVd": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/pexels-andrea-piacquadio-733872.jpg",
+            "name": "@kimkardashian",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "story_U7EiVU": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/pexels-pixabay-38554.jpg",
+            "name": "@sommerray",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "story_T8j494": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Mob.jpg",
+            "name": "@selenagomez",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "story_hCVhHc": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/eye-makeup-close-up.jpg",
+            "name": "@emrata",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        }
+      },
+      "block_order": [
+        "story_i7A6Ag",
+        "story_peWexf",
+        "story_UJTfVd",
+        "story_U7EiVU",
+        "story_T8j494",
+        "story_hCVhHc"
+      ],
+      "settings": {
+        "section_id": "",
+        "subheading": "",
+        "heading": "<p>Elles sont fans de Sylys !</p>",
+        "heading_style": "2",
+        "description": "<p>Toutes ces stars d'Instagram ont testé et approuvé Sylys.</p>",
+        "alignment": "center",
+        "type__video": "177.78%",
+        "accent__gradient": false,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    },
+    "image_with_text_kTrVJN": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_xiTBKd": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Conçu pour et avec vous</p>",
+            "heading_style": "2",
+            "icon": "heart"
+          }
+        },
+        "text_QnGCN3": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Les produits SYLYS ont été conçus grâce aux études menées directement auprès de vous. Nous savons ce que vous voulez ou pas.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "icons_gcUz6g": {
+          "type": "icons",
+          "settings": {
+            "icons_style": "bullets_half",
+            "fill_color": "accent",
+            "fill_fade_background": false,
+            "bg_color_icons": true,
+            "icon_1_icon_type": "check_mark",
+            "icon_1_text": "Produits vegan de qualité",
+            "icon_1_description": "Put here a description of the benefit or the feature.",
+            "icon_1_url": "",
+            "icon_2_icon_type": "check_mark",
+            "icon_2_text": "Se transporte facilement",
+            "icon_2_description": "Put here a description of the benefit or the feature.",
+            "icon_2_url": "",
+            "icon_3_icon_type": "check_mark",
+            "icon_3_text": "Adapté à toutes les peaux",
+            "icon_3_description": "Put here a description of the benefit or the feature.",
+            "icon_3_url": "",
+            "icon_4_icon_type": "check_mark",
+            "icon_4_text": "Recommandé par les stars",
+            "icon_4_description": "Put here a description of the benefit or the feature.",
+            "icon_4_url": ""
+          }
+        },
+        "button_YVE98k": {
+          "type": "button",
+          "settings": {
+            "button_text": "Découvrir",
+            "button_link": "",
+            "button_style": "1",
+            "button_text_secondary": "Découvrir",
+            "button_link_secondary": "",
+            "button_style_secondary": "1",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_xiTBKd",
+        "text_QnGCN3",
+        "icons_gcUz6g",
+        "button_YVE98k"
+      ],
+      "settings": {
+        "section_id": "",
+        "media_type": "image",
+        "image": "shopify://shop_images/mascara-makeup-application.jpg",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "layout_style": "normal",
+        "remove_gap": false,
+        "make_square": false,
+        "text_container_max_width": 700,
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 44,
+        "padding_bottom": 48,
+        "padding_top_sm": 32,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": true,
+        "cut_bg_color": "#e7e5d4",
+        "cut_bg_color_vertical": 18,
+        "cut_bg_color_vertical_mobile": 18,
+        "cut_bg_color_horizontal": 36,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    },
+    "image_with_text_wR7UaY": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_CCxRTh": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Conçu pour et avec vous</p>",
+            "heading_style": "2",
+            "icon": "none"
+          }
+        },
+        "text_eHpJ7F": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Les produits SYLYS ont été conçus grâce aux études menées directement auprès de vous. Nous savons ce que vous voulez ou pas.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "button_tm7nk6": {
+          "type": "button",
+          "settings": {
+            "button_text": "Découvrir",
+            "button_link": "",
+            "button_style": "1",
+            "button_text_secondary": "Discover",
+            "button_link_secondary": "",
+            "button_style_secondary": "2",
+            "extra_button": false
+          }
+        },
+        "more_image_nq6QNb": {
+          "type": "more_image",
+          "settings": {
+            "image": "shopify://shop_images/eye-makeup-close-up.jpg"
+          }
+        },
+        "more_image_H3xX4Q": {
+          "type": "more_image",
+          "settings": {
+            "image": "shopify://shop_images/Minia_bureau_80b00df8-c575-433a-94a7-8cf56f6427aa.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "heading_CCxRTh",
+        "text_eHpJ7F",
+        "button_tm7nk6",
+        "more_image_nq6QNb",
+        "more_image_H3xX4Q"
+      ],
+      "settings": {
+        "section_id": "",
+        "media_type": "image",
+        "image": "shopify://shop_images/mascara-makeup-application.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "layout_style": "normal",
+        "remove_gap": false,
+        "make_square": false,
+        "text_container_max_width": 700,
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 60,
+        "padding_bottom": 64,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "banner_fwnDy4",
+    "timeline_qYnepf",
+    "marquee_MtmDaC",
+    "stories_4DzbVT",
+    "image_with_text_kTrVJN",
+    "image_with_text_wR7UaY"
+  ]
+}

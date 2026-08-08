@@ -1,0 +1,75 @@
+{%- comment -%}
+  Nav + panels behaviour shared by the "sidebar" and "stacked" tab layouts.
+  Driven by data attributes so the same code serves both class prefixes.
+{%- endcomment -%}
+<script>
+  if (!customElements.get('theme-tabs')) {
+    customElements.define(
+      'theme-tabs',
+      class ThemeTabs extends HTMLElement {
+        connectedCallback() {
+          this.activeClass = this.dataset.activeClass;
+          this.panelActiveClass = this.dataset.panelActiveClass;
+          this.tabs = Array.from(this.querySelectorAll('[data-tabs-nav-item]'));
+          this.panels = Array.from(this.querySelectorAll('[data-tabs-panel]'));
+
+          this.tabs.forEach((tab) => {
+            tab.addEventListener('click', () => this.switchTab(tab));
+            tab.addEventListener('keydown', (event) => this.handleKeydown(event, tab));
+          });
+        }
+
+        switchTab(activeTab) {
+          const targetPanel = this.querySelector(`#${activeTab.getAttribute('aria-controls')}`);
+          if (!targetPanel) return;
+
+          this.tabs.forEach((tab) => {
+            tab.classList.remove(this.activeClass);
+            tab.setAttribute('aria-selected', 'false');
+          });
+          activeTab.classList.add(this.activeClass);
+          activeTab.setAttribute('aria-selected', 'true');
+
+          this.panels.forEach((panel) => {
+            panel.classList.remove(this.panelActiveClass);
+            panel.setAttribute('hidden', '');
+          });
+          targetPanel.classList.add(this.panelActiveClass);
+          targetPanel.removeAttribute('hidden');
+        }
+
+        handleKeydown(event, tab) {
+          const currentIndex = this.tabs.indexOf(tab);
+          let targetIndex;
+
+          switch (event.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+              targetIndex = (currentIndex + 1) % this.tabs.length;
+              break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+              targetIndex = currentIndex === 0 ? this.tabs.length - 1 : currentIndex - 1;
+              break;
+            case 'Home':
+              targetIndex = 0;
+              break;
+            case 'End':
+              targetIndex = this.tabs.length - 1;
+              break;
+            case 'Enter':
+            case ' ':
+              event.preventDefault();
+              this.switchTab(tab);
+              return;
+            default:
+              return;
+          }
+
+          event.preventDefault();
+          this.tabs[targetIndex].focus();
+        }
+      }
+    );
+  }
+</script>

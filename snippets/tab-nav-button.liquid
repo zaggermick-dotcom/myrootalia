@@ -1,0 +1,28 @@
+{%- comment -%}
+  Tab button for the "sidebar" and "stacked" layouts of sections/tabs.liquid.
+  Accepts: block, section, prefix, first, with_icon
+{%- endcomment -%}
+<button
+  class="{{ prefix }}__nav-item{% if first %} {{ prefix }}__nav-item--active{% endif %}"
+  role="tab"
+  aria-selected="{% if first %}true{% else %}false{% endif %}"
+  aria-controls="{{ prefix }}-panel-{{ block.id }}"
+  id="{{ prefix }}-tab-{{ block.id }}"
+  data-tabs-nav-item
+  {{ block.shopify_attributes }}
+  {%- render 'animation',
+    enable_animations: section.settings.enable_animations,
+    animation: section.settings.animation
+  -%}
+>
+  {%- if with_icon and block.settings.icon_image != blank -%}
+    <div class="{{ prefix }}__nav-icon">
+      {{
+        block.settings.icon_image
+        | image_url: width: 40
+        | image_tag: loading: 'lazy', alt: block.settings.heading | strip_html
+      }}
+    </div>
+  {%- endif -%}
+  <span class="{{ prefix }}__nav-text">{{ block.settings.heading }}</span>
+</button>

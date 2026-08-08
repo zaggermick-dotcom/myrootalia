@@ -1,0 +1,168 @@
+.reviews-two {
+  background-color: rgb(var(--color-background));
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.reviews-two__title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.reviews-two__trustpilot {
+  margin-bottom: 4rem;
+}
+
+.reviews-two__trustpilot-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: rgb(var(--color-foreground));
+}
+
+.reviews-two__stars {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.reviews-two__star {
+  color: #00b67a;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.reviews-two__trustpilot-count{
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  text-align: center;
+}
+
+.reviews-two__slider {
+  position: relative;
+  padding: 0;
+  overflow: visible;
+  margin: 0 -30px;
+  width: calc(100% + 60px);
+}
+
+.reviews-two__slide {
+  height: auto;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.reviews-two__slide.swiper-slide-active,
+.reviews-two__slide.swiper-slide-next,
+.reviews-two__slide.swiper-slide-prev {
+  opacity: 1;
+}
+
+.reviews-two__content {
+  background: rgb(var(--color-background-secondary));
+  padding: 2rem;
+  border-radius: var(--content-container-radius);
+  border: var(--content-container-border);
+  box-shadow: var(--content-container-shadow);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.reviews-two__subtitle {
+  margin: 0;
+  font-size: calc(var(--font-heading-scale) * 1.6rem);
+  font-weight: 600;
+}
+
+.reviews-two__text {
+  flex-grow: 1;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+.reviews-two__author {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.reviews-two .swiper-button-next,
+.reviews-two .swiper-button-prev {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.reviews-two .swiper-button-next {
+  right: calc(15% - 50px);
+}
+
+.reviews-two .swiper-button-prev {
+  left: calc(15% - 50px);
+}
+
+.reviews-two__swiper-container {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+.reviews-two__slider {
+  position: relative;
+}
+
+.reviews-two__pagination.swiper-pagination {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+}
+
+.reviews-two__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+}
+
+.reviews-two__star .icon-trustpilot {
+  width: 20px;
+  height: 20px;
+}
+
+.reviews-two__trustpilot .reviews-two__star .icon-trustpilot {
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (max-width: 749px) {
+  .reviews-two .swiper-button-next {
+    right: calc(25% - 50px);
+  }
+  
+  .reviews-two .swiper-button-prev {
+    left: calc(25% - 50px);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .reviews-two__slider {
+    padding: 0 3rem;
+  }
+
+  .reviews-two__trustpilot-logo {
+    font-size: 1.6rem;
+  }
+
+  .reviews-two__star {
+    font-size: 1.3rem;
+  }
+}

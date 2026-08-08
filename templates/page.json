@@ -1,0 +1,420 @@
+{
+  "sections": {
+    "banner_btYNzY": {
+      "type": "banner",
+      "blocks": {
+        "heading_hkywAK": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Conseils",
+            "heading": "<p>Nos conseils pour sublimer votre regard</p>",
+            "heading_style": "1",
+            "heading_font_size": 140,
+            "heading_font_size_mobile": 100,
+            "enable_slides": false,
+            "slides": "d'être soi-même, de se maquiller, de se faire belle",
+            "margin_bottom": 16
+          }
+        },
+        "text_cCbKeb": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Découvrez nos guides, astuces et tutoriels pour maîtriser chaque geste et révéler la beauté naturelle de vos sourcils au quotidien</p>",
+            "description_font_size": 100,
+            "description_font_size_mobile": 100,
+            "margin_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "heading_hkywAK",
+        "text_cCbKeb"
+      ],
+      "settings": {
+        "section_id": "",
+        "image_overlay_opacity": 0,
+        "image_overlay_color": "foreground",
+        "height": "two_thirds",
+        "layout": "full",
+        "layout_orientation": "right",
+        "gutterless_mobile": true,
+        "media_type": "image",
+        "image": "shopify://shop_images/Banniere_conseils.webp",
+        "media_type_mobile": "image",
+        "image_mobile": "shopify://shop_images/Hero_notre_histoire_mobile.webp",
+        "lazy": false,
+        "content_container_width": 500,
+        "text_color": "text",
+        "desktop_content_position": "middle_left",
+        "mobile_content_position": "top",
+        "content_background_behavior": "transparent",
+        "enable_animations": false,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "icons_hAwep9": {
+      "type": "icons",
+      "blocks": {
+        "icon_DzndED": {
+          "type": "icon",
+          "settings": {
+            "icon": "heart",
+            "heading": "Guides complets",
+            "description": "Des articles détaillés pour comprendre et sublimer vos sourcils",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "icon_L8wyaH": {
+          "type": "icon",
+          "settings": {
+            "icon": "lipstick",
+            "heading": "Tutoriels vidéos",
+            "description": "Des vidéos pas à pas pour maitriser chaque geste facilement",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "icon_ChJWAR": {
+          "type": "icon",
+          "settings": {
+            "icon": "lightning_bolt",
+            "heading": "Astuces & conseils",
+            "description": "Nos meilleures astuces pour un résultat naturel et durable",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "icon_bz7GF3": {
+          "type": "icon",
+          "settings": {
+            "icon": "chat_bubble",
+            "heading": "FAQ",
+            "description": "Toutes les réponses à vos questions les plus fréquentes.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
+          }
+        }
+      },
+      "block_order": [
+        "icon_DzndED",
+        "icon_L8wyaH",
+        "icon_ChJWAR",
+        "icon_bz7GF3"
+      ],
+      "name": "t:sections.icons.name",
+      "settings": {
+        "section_id": "",
+        "layout": "swiper",
+        "layout_style": "normal",
+        "icon__type": "complete",
+        "icon_width_desktop": 50,
+        "icon_width_mobile": 40,
+        "center_icons": true,
+        "slides_on_desktop": 4,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": 1,
+        "preshot_swiper": false,
+        "loop": false,
+        "navigation": false,
+        "pagination": false,
+        "autoplay": false,
+        "speed": 4,
+        "subheading": "",
+        "heading": "",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 28,
+        "padding_bottom": 32,
+        "padding_top_sm": 32,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "featured_blog_jUMR3y": {
+      "type": "featured-blog",
+      "name": "t:sections.blog.name",
+      "settings": {
+        "section_id": "",
+        "blog": "sylys",
+        "limit": 4,
+        "media_aspect_ratio": "landscape",
+        "show_image": true,
+        "show_author": false,
+        "show_date": false,
+        "show_excerpt": false,
+        "layout": "swiper",
+        "slides_on_desktop": 4,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": "1",
+        "preshot_swiper": true,
+        "loop": true,
+        "navigation": true,
+        "pagination": true,
+        "autoplay": true,
+        "speed": 4,
+        "subheading": "",
+        "heading": "<p>Nos derniers conseils</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 36,
+        "padding_bottom": 44,
+        "padding_top_sm": 32,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "image_with_text_eQewCt": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_VzB8hT": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h2>Sylys, l'art du regard au naturel</h2>",
+            "heading_level": "2",
+            "heading_style": "2",
+            "icon": "none"
+          }
+        },
+        "text_8Yz4C9": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Chaque conseil Sylys est conçu pour vous accompagner au quotidien avec simplicité et précision. Des gestes faciles à adopter, des produits performants et des résultats naturels pour révéler le meilleur de votre regard.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "button_kLcLdm": {
+          "type": "button",
+          "settings": {
+            "button_text": "Découvrir notre philosophie",
+            "button_link": "shopify://pages/notre-histoire",
+            "button_style": "1",
+            "button_text_secondary": "Discover",
+            "button_link_secondary": "",
+            "button_style_secondary": "2",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_VzB8hT",
+        "text_8Yz4C9",
+        "button_kLcLdm"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_id": "",
+        "media_type": "image",
+        "image": "shopify://shop_images/Page_conseils.webp",
+        "height": "small",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "layout_style": "normal",
+        "remove_gap": false,
+        "make_square": false,
+        "text_container_max_width": 700,
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "scheme-3fe3c0d8-e894-45a2-8536-47eb834686e3",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "collapsible_content_akWFaf": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_MGdpEG": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quel produit Sylys choisir pour débuter ?",
+            "icon": "check_mark",
+            "row_content": "<p>Pour commencer, nous recommandons le <strong>Crayon Définition Sourcils</strong>. Il permet de structurer, combler et redessiner les sourcils facilement, tout en gardant un rendu naturel.</p><p>Pour une routine plus complète, vous pouvez l’associer au <strong>Gel Fixateur Sourcils</strong>, afin de maintenir la ligne en place toute la journée.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_nGbNbL": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Comment trouver la bonne teinte pour mes sourcils ?",
+            "icon": "check_mark",
+            "row_content": "<p>Choisissez une teinte proche de votre couleur naturelle, ou légèrement plus claire si vous hésitez entre deux nuances.</p><p>Une teinte trop foncée peut durcir le regard, tandis qu’une teinte plus douce permet d’obtenir un résultat plus naturel et facile à estomper.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_hywLbf": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Comment faire tenir mes sourcils toute la journée ?",
+            "icon": "check_mark",
+            "row_content": "<p>Après avoir structuré vos sourcils avec un crayon ou une poudre, appliquez une fine couche de <strong>Gel Fixateur Sourcils</strong>.</p><p>Il permet de discipliner les poils, de maintenir la forme et de garder un résultat net plus longtemps, sans effet figé.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_FFCbPP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Les produits Sylys conviennent-ils aux peaux sensibles ?",
+            "icon": "check_mark",
+            "row_content": "<p>Les essentiels Sylys sont pensés pour une utilisation quotidienne, avec des textures douces et confortables.</p><p>Si votre peau est particulièrement réactive, nous vous conseillons d’effectuer un petit test sur une zone discrète avant la première utilisation.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_MGdpEG",
+        "collapsible_row_nGbNbL",
+        "collapsible_row_hywLbf",
+        "collapsible_row_FFCbPP"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "section_id": "",
+        "subheading": "",
+        "heading": "<p>Questions fréquentes</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "left",
+        "desktop_content_position": "top",
+        "enable_image": false,
+        "height": "adapt",
+        "layout": "image_first",
+        "open_first_collapsible_row": false,
+        "accordions_style": "2",
+        "secondary_bg_accordions": true,
+        "remove_gap": false,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 64,
+        "padding_top_sm": 32,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 32,
+        "color_palette": "",
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    }
+  },
+  "order": [
+    "banner_btYNzY",
+    "icons_hAwep9",
+    "featured_blog_jUMR3y",
+    "image_with_text_eQewCt",
+    "collapsible_content_akWFaf",
+    "main"
+  ]
+}

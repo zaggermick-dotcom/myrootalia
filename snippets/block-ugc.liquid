@@ -1,0 +1,160 @@
+{{ 'component-ugc-product.css' | asset_url | stylesheet_tag }}
+
+{% assign sectionId = section.id | remove: '-' %}
+
+{%- render 'block-ugc-popups', block: block -%}
+
+{%- assign numberOfBlocks = 0 -%}
+{%- if block.settings.video1 != blank -%}{%- assign numberOfBlocks = numberOfBlocks | plus: 1 -%}{%- endif -%}
+{%- if block.settings.video2 != blank -%}{%- assign numberOfBlocks = numberOfBlocks | plus: 1 -%}{%- endif -%}
+{%- if block.settings.video3 != blank -%}{%- assign numberOfBlocks = numberOfBlocks | plus: 1 -%}{%- endif -%}
+{%- if block.settings.video4 != blank -%}{%- assign numberOfBlocks = numberOfBlocks | plus: 1 -%}{%- endif -%}
+
+{%- if block.settings.title != blank -%}
+  <h2 class="h2" style="text-align: {{ section.settings.desktop_content_alignment }}; margin-bottom: 32px;">
+    {{- block.settings.title -}}
+  </h2>
+{%- endif -%}
+
+<div
+  id="ugc__{{ sectionId }}"
+  class="swiper ugc__swiper"
+  style="--ugc-text-size: {{ block.settings.text_size }}"
+  {% render 'swiper-data-editor' %}
+>
+  <div class="swiper-wrapper" style="justify-content: {{ block.settings.video_alignment }}" data-number-of-blocks="{{ numberOfBlocks }}">
+    {%- if block.settings.video1 != blank -%}
+      <div class="swiper-slide ugc__slide" {% render 'animation', enable_animations: enable_animations, animation: animation -%}>
+        <div class="ugc__item">
+          <popup-video class="ugc__button" data-text-align="{{ block.settings.text_alignment }}">
+            <div class="popup-video__opener" data-popup="1ugc_{{ block.id }}_{{ section.id }}" data-player="1player_{{ block.id }}_{{ section.id }}">
+              {%- render 'icon-play' -%}
+              {%- if block.settings.preview_type == 'image' and block.settings.video1.preview_image != blank -%}
+                {{ block.settings.video1.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'media--image ', sizes: "150px" }}
+              {%- elsif block.settings.video1 != blank -%}
+                {{
+                  block.settings.video1
+                  | video_tag:
+                    class: 'media--preview-video',
+                    image_size: '300x',
+                    controls: false,
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    playsinline: true
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <p class="ugc__name" style="text-align: {{ block.settings.text_alignment }}">{{ block.settings.name1 }}</p>
+          </popup-video>
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if block.settings.video2 != blank -%}
+      <div class="swiper-slide ugc__slide" {% render 'animation', enable_animations: enable_animations, animation: animation -%}>
+        <div class="ugc__item">
+          <popup-video class="ugc__button" data-text-align="{{ block.settings.text_alignment }}">
+            <div class="popup-video__opener" data-popup="2ugc_{{ block.id }}_{{ section.id }}" data-player="2player_{{ block.id }}_{{ section.id }}">
+              {%- render 'icon-play' -%}
+              {%- if block.settings.preview_type == 'image' and block.settings.video2.preview_image != blank -%}
+                {{ block.settings.video2.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'media--image', sizes: "150px" }}
+              {%- elsif block.settings.video2 != blank -%}
+                {{
+                  block.settings.video2
+                  | video_tag:
+                    class: 'media--preview-video',
+                    image_size: '300x',
+                    controls: false,
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    playsinline: true
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <p class="ugc__name" style="text-align: {{ block.settings.text_alignment }}">{{ block.settings.name2 }}</p>
+          </popup-video>
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if block.settings.video3 != blank -%}
+      <div class="swiper-slide ugc__slide" {% render 'animation', enable_animations: enable_animations, animation: animation -%}>
+        <div class="ugc__item">
+          <popup-video class="ugc__button" data-text-align="{{ block.settings.text_alignment }}">
+            <div class="popup-video__opener" data-popup="3ugc_{{ block.id }}_{{ section.id }}" data-player="3player_{{ block.id }}_{{ section.id }}">
+              {%- render 'icon-play' -%}
+              {%- if block.settings.preview_type == 'image' and block.settings.video3.preview_image != blank -%}
+                {{ block.settings.video3.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'media--image', sizes: "150px" }}
+              {%- elsif block.settings.video3 != blank -%}
+                {{
+                  block.settings.video3
+                  | video_tag:
+                    class: 'media--preview-video',
+                    image_size: '300x',
+                    controls: false,
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    playsinline: true
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <p class="ugc__name" style="text-align: {{ block.settings.text_alignment }}">{{ block.settings.name3 }}</p>
+          </popup-video>
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if block.settings.video4 != blank -%}
+      <div class="swiper-slide ugc__slide" {% render 'animation', enable_animations: enable_animations, animation: animation -%}>
+        <div class="ugc__item">
+          <popup-video class="ugc__button" data-text-align="{{ block.settings.text_alignment }}">
+            <div class="popup-video__opener" data-popup="4ugc_{{ block.id }}_{{ section.id }}" data-player="4player_{{ block.id }}_{{ section.id }}">
+              {%- render 'icon-play' -%}
+              {%- if block.settings.preview_type == 'image' and block.settings.video4.preview_image != blank -%}
+                {{ block.settings.video4.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'media--image', sizes: "150px" }}
+              {%- elsif block.settings.video4 != blank -%}
+                {{
+                  block.settings.video4
+                  | video_tag:
+                    class: 'media--preview-video',
+                    image_size: '300x',
+                    controls: false,
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    playsinline: true
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <p class="ugc__name" style="text-align: {{ block.settings.text_alignment }}">{{ block.settings.name4 }}</p>
+          </popup-video>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+  {%- assign swiperEl = "'#ugc__" | append: sectionId | append: "'" -%}
+
+
+  {%- capture swiperOptions -%}
+    mousewheel: {forceToAxis: true},
+    spaceBetween: 20,
+    slidesPerView: 2,
+    breakpoints: {
+      990: {
+        slidesPerView: 3
+      },
+      750: {
+        slidesPerView: 2
+      }
+    },
+  {%- endcapture -%}
+  {% render 'swiper-theme-editor', sectionId: sectionId, swiperVariant: 'ugc__', swiperEl: swiperEl, swiperOptions: swiperOptions, pagination: true, navigation: false, numberOfBlocks: numberOfBlocks %}
+</div>

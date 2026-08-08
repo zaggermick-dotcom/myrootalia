@@ -1,0 +1,89 @@
+    DOCUMENT 33 / 35
+
+
+
+
+ Enregistrement de l'Entreprise (Québec) —
+ Guide Ultra-Détaillé
+ Créer ta nouvelle entreprise, étape par étape (zéro connaissance requise)
+
+
+
+   Marque RACINE (nom de travail, voir doc 08) — soins naturels | Lancement : sérum de croissance capillaire
+   (kit + sérum) | À venir : visage & corps | Marchés : Canada puis USA | Cible : femmes 25–45
+
+
+ Comment créer légalement ta nouvelle entreprise au Québec et vendre en règle. Document informatif (pas
+ un avis juridique) : fais valider par un comptable. Suis les étapes dans l'ordre.
+
+
+
+
+ 1. Choisir la structure (démarrage)
+  Structure                           Avantages                              Inconvénients
+
+  Entreprise individuelle             Simple, peu chère, rapide              Responsabilité personnelle
+
+  Société (Inc.)                      Responsabilité limitée, crédibilité    Plus chère, compta lourde
+
+
+    Recommandation
+    Démarre en entreprise individuelle (ou enregistre un nom). Incorpore (Inc.) quand les profits le justifient.
+    Valide avec un comptable.
+
+
+
+ 2. Étapes détaillées (Québec)
+ 1. Choisis & vérifie le nom (une fois ton nom de marque finalisé — doc 08) au Registraire des entreprises
+    du Québec (REQ).
+ 2. Immatricule l'entreprise au REQ (en ligne) → tu obtiens un NEQ (numéro d'entreprise du Québec).
+ 3. Obtiens le numéro d'entreprise (NE) auprès de l'ARC (Agence du revenu du Canada) si requis (pour
+    taxes/import).
+ 4. Inscris-toi aux taxes : TPS (5 %) et TVQ (9,975 %) auprès de Revenu Québec (souvent dès le départ).
+ 5. Ouvre un compte bancaire d'entreprise séparé (ne mélange jamais perso & pro).
+ 6. Mets en place une comptabilité dès le jour 1 (Wave gratuit ou QuickBooks).
+
+ 3. Les taxes de vente — qui collecte quoi
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                                   Page 1 / 2
+  Vente vers…                                     Taxes à appliquer
+
+  Québec                                          TPS 5 % + TVQ 9,975 %
+
+  Autres provinces (TVH)                          TVH (ex. 13 % Ontario)
+
+  États-Unis                                      Sales tax selon « nexus » par État
+
+ Une fois tes numéros configurés, Shopify calcule & applique les taxes automatiquement selon la
+ destination.
+
+
+ 4. Vendre aux USA (depuis le Canada)
+ • Possible sans entité américaine au début.
+ • Avec le volume : une LLC (ex. Wyoming/Delaware) + EIN + compte bancaire US (ex. Mercury) facilitent
+     paiements & logistique.
+ •   Sales tax US : obligation selon « nexus » (seuils par État) → Shopify Tax aide. Consulte un comptable.
+
+
+ 5. Obligations courantes
+ • Déclarer/remettre TPS/TVQ aux échéances.
+ • Conserver factures fournisseurs & preuves d'import.
+ • Mettre l'argent des taxes de côté (ne le dépense pas).
+ • Tenir la comptabilité à jour (revenus, dépenses, pub).
+
+ 6. Checklist
+ • ■ Structure choisie ■ Nom vérifié + immatriculation REQ (NEQ)
+ • ■ Numéro d'entreprise ARC (NE) ■ Inscription TPS/TVQ
+ • ■ Compte bancaire pro ■ Comptabilité en place
+ • ■ (Plus tard) LLC + EIN + banque US
+ Avertissement : informatif. Un comptable québécois confirmera ta situation exacte (c'est peu coûteux et ça
+ évite des erreurs).
+
+
+
+
+RACINE (nom de travail) — Plan de lancement | Confidentiel                                             Page 2 / 2
+

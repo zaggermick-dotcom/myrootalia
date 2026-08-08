@@ -1,0 +1,15 @@
+{%- doc -%}
+  Serves the .min.js build of an asset on merchant domains (see CLAUDE.md:
+  every script rendered through this snippet must have an up-to-date .min.js).
+
+  @param {string} [script] - asset base name, bound via `with`
+  @param {boolean} [defer] - add the defer attribute (pass it unless the script must block)
+
+  @example
+  {%- render 'script' with 'asset-name', defer: true -%}
+{%- enddoc -%}
+
+{% # defer is conditional, so theme-check cannot prove this tag is non-blocking %}
+{% # theme-check-disable ParserBlockingScript %}
+<script src="{% capture asset %}{{ script }}{% if request.host != shop.permanent_domain and settings.minify_scripts %}.min{% endif %}.js{% endcapture %}{{ asset | asset_url }}" {% if defer %}defer{% endif %}></script>
+{% # theme-check-enable ParserBlockingScript %}

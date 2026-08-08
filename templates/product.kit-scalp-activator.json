@@ -182,7 +182,7 @@
       ],
       "settings": {
         "subheading": "Les bénéfices",
-        "heading": "Trois choses que change une vraie routine cuir chevelu",
+        "heading": "<p>Trois choses que change une vraie routine cuir chevelu</p>",
         "heading_style": "2",
         "slides_on_desktop": 3,
         "slides_on_tablet": 3,
@@ -199,7 +199,7 @@
           "type": "heading",
           "settings": {
             "subheading": "Le problème",
-            "heading": "Cuir chevelu ignoré, cheveux qui fatiguent ?",
+            "heading": "<p>Cuir chevelu ignoré, cheveux qui fatiguent ?</p>",
             "heading_style": "2"
           }
         },
@@ -227,7 +227,7 @@
         "h_fbe546a1ef": {
           "type": "heading",
           "settings": {
-            "heading": "La routine 2 min qui fait la différence",
+            "heading": "<p>La routine 2 min qui fait la différence</p>",
             "heading_level": "2",
             "heading_style": "2"
           }
@@ -297,7 +297,7 @@
       ],
       "settings": {
         "subheading": "Dans la boîte",
-        "heading": "Trois pièces, une routine",
+        "heading": "<p>Trois pièces, une routine</p>",
         "heading_style": "2",
         "slides_on_desktop": 3,
         "slides_on_tablet": 3,
@@ -314,7 +314,7 @@
           "type": "heading",
           "settings": {
             "subheading": "Sécurité derma roller",
-            "heading": "À lire avant la première utilisation",
+            "heading": "<p>À lire avant la première utilisation</p>",
             "heading_style": "2"
           }
         },
@@ -377,7 +377,7 @@
       ],
       "settings": {
         "subheading": "Avis testeuses",
-        "heading": "Ce que les premières testeuses en disent",
+        "heading": "<p>Ce que les premières testeuses en disent</p>",
         "heading_style": "2",
         "description": "<p>Avis vérifiés — à remplacer par de vrais avis via ton app d'avis avant lancement.</p>",
         "alignment": "center",
@@ -396,7 +396,7 @@
           "settings": {
             "subheading": "Semaine 1",
             "heading": "Masseur seul, tous les jours (60 s).",
-            "text": "<p>Sensation de détente, cuir chevelu plus « éveillé ».</p>"
+            "text": "Sensation de détente, cuir chevelu plus « éveillé »."
           }
         },
         "tle_8f33f83386": {
@@ -404,7 +404,7 @@
           "settings": {
             "subheading": "Semaine 2",
             "heading": "Ajouter le derma roller 3×/sem (30 s).",
-            "text": "<p>Le geste devient un réflexe.</p>"
+            "text": "Le geste devient un réflexe."
           }
         },
         "tle_74b16947ad": {
@@ -412,7 +412,7 @@
           "settings": {
             "subheading": "Semaine 3",
             "heading": "Routine complète, 4×/sem.",
-            "text": "<p>Cuir chevelu moins tendu, plus confortable.</p>"
+            "text": "Cuir chevelu moins tendu, plus confortable."
           }
         },
         "tle_9f1dbaef82": {
@@ -420,7 +420,7 @@
           "settings": {
             "subheading": "Semaine 4",
             "heading": "Continuer + ajouter le sérum si tu veux.",
-            "text": "<p>Ta routine est en place.</p>"
+            "text": "Ta routine est en place."
           }
         }
       },
@@ -432,7 +432,7 @@
       ],
       "settings": {
         "subheading": "Ta progression",
-        "heading": "À quoi t'attendre, semaine par semaine",
+        "heading": "<p>À quoi t'attendre, semaine par semaine</p>",
         "heading_style": "2",
         "alignment": "center",
         "padding_top": 48,
@@ -502,7 +502,7 @@
       ],
       "settings": {
         "subheading": "FAQ",
-        "heading": "Questions fréquentes",
+        "heading": "<p>Questions fréquentes</p>",
         "heading_style": "2",
         "alignment": "center",
         "open_first_collapsible_row": true,
@@ -559,7 +559,7 @@
       ],
       "settings": {
         "subheading": "Nos garanties",
-        "heading": "On te couvre à chaque étape",
+        "heading": "<p>On te couvre à chaque étape</p>",
         "heading_style": "2",
         "slides_on_desktop": 4,
         "slides_on_tablet": 3,

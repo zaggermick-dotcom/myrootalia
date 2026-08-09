@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -15,7 +24,7 @@
           "settings": {
             "stars_style": "stars",
             "rating": 5,
-            "rating_text": " / 5 — à remplacer par tes vrais avis",
+            "rating_text": "/ 5 — à remplacer par tes vrais avis",
             "block_margin_bottom": 8
           }
         },
@@ -44,7 +53,16 @@
           "settings": {
             "text": "<strong>Le rituel de 2 minutes</strong> qui prend soin de la base : ton cuir chevelu.",
             "text_size": 17,
+            "text_style": "text",
             "text_alignment": "left",
+            "color": "rgba(0,0,0,0)",
+            "bg_color": "rgba(0,0,0,0)",
+            "border_check": false,
+            "border-position": "inside",
+            "border_select": "normal",
+            "border-weight": 1,
+            "border_radius": 0,
+            "border_color": "#000000",
             "block_margin_bottom": 16
           }
         },
@@ -52,14 +70,19 @@
           "type": "stock",
           "settings": {
             "stock_type": "shopify",
+            "stock_manual": 23,
             "limit": 100,
             "disable_bar": false,
             "enable_manual_urgency": false,
-            "text": "Plus que $quantity en stock",
-            "alignment": "left",
+            "decrement_amount": 1,
+            "decrement_interval": 10,
+            "min_stock": 10,
             "fill_color": "accent",
+            "color_bg_secondary": false,
             "border": "border--none",
             "shadow": "shadow--none",
+            "text": "Plus que $quantity en stock",
+            "alignment": "left",
             "block_margin_bottom": 16
           }
         },
@@ -71,8 +94,13 @@
             "icon": "none",
             "extra_button": false,
             "show_qty": true,
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
+            "text_above": "",
+            "text_alignment": "left",
             "button_width": "all",
+            "color_text": "",
+            "color_bg": "",
+            "color_bg_hover": "",
             "block_margin_bottom": 16
           }
         },
@@ -126,29 +154,39 @@
             "icon_4_text": "Support humain",
             "icon_4_description": "Réponse en 24 h.",
             "icon_4_url": "",
+            "show_shipping_delay": true,
+            "ship_weekend": false,
+            "format": "dd/MM",
+            "ship_min": 2,
+            "ship_max": 5,
             "block_margin_bottom": 20
           }
         },
         "accordions": {
           "type": "description",
+          "disabled": true,
           "settings": {
-            "show_description": true,
-            "tabs_background": "secondary",
             "icon1": "box",
             "heading1": "Ce qu'il y a dans la boîte",
             "text1": "<ul><li><strong>Masseur silicone</strong> — picots souples, ergonomique, à sec ou sous la douche.</li><li><strong>Derma roller 540 aiguilles titane</strong> — 0,25 mm, spécial cuir chevelu, capuchon inclus.</li><li><strong>Carte routine 4 semaines</strong> — programme jour par jour + QR vers les tutos.</li></ul>",
+            "show_description": true,
             "icon2": "clipboard",
             "heading2": "Comment l'utiliser",
             "text2": "<ul><li><strong>30 s</strong> — masse à sec, mouvements circulaires, du front à la nuque.</li><li><strong>1 min</strong> — passe le derma roller délicatement (1×/semaine).</li><li><strong>30 s</strong> — massage doux pour finir.</li></ul><p>Idéalement le soir. La régularité fait la différence.</p>",
             "icon3": "heart",
             "heading3": "Sécurité & entretien",
             "text3": "<ul><li>Nettoie le derma roller avant et après chaque usage (alcool 70°).</li><li>Ne le partage jamais — c'est un outil personnel.</li><li>1 fois par semaine maximum, jamais deux jours de suite.</li><li>Pas sur peau irritée, blessée ou colorée récemment.</li><li>Range-le avec son capuchon.</li></ul><p>Notice complète fournie dans la boîte.</p>",
+            "tabs_background": "secondary",
             "block_margin_bottom": 20
           }
         },
         "share": {
           "type": "share",
-          "settings": {}
+          "disabled": true,
+          "settings": {
+            "share_label": "Share",
+            "block_margin_bottom": 16
+          }
         }
       },
       "block_order": [
@@ -168,13 +206,17 @@
       "settings": {
         "section_id": "",
         "product_style": "medium",
+        "media_layout_desktop": "slider",
+        "media_thum_position": "bottom",
         "image_ratio": "adapt",
+        "price_first": false,
         "thumbnails_style": true,
         "preshot": true,
         "navigation": true,
         "pagination": true,
         "super_glue": true,
         "enable_zoom": true,
+        "exclude_variant_images": true,
         "desktop_content_alignment": "left",
         "enable_animations": false,
         "animation": "fade-up",
@@ -183,7 +225,19 @@
         "padding_bottom": 48,
         "padding_top_sm": 12,
         "padding_bottom_sm": 24,
-        "color_palette": "background-1"
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "trust_strip": {
@@ -228,18 +282,33 @@
         "m4"
       ],
       "settings": {
+        "section_id": "",
         "uppercase": true,
         "bolder": false,
         "font_family": "body",
         "font_size_desktop": 14,
         "font_size_mobile": 12,
         "delay": 30,
+        "enable_animations": true,
+        "animation": "fade-up",
         "layout_width": "full",
-        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
         "padding_top": 16,
         "padding_bottom": 16,
         "padding_top_sm": 12,
-        "padding_bottom_sm": 12
+        "padding_bottom_sm": 12,
+        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "benefits": {
@@ -249,27 +318,42 @@
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "🌱",
             "heading": "Cuir chevelu apaisé",
-            "description": "Le masseur relâche les tensions et stimule la circulation. Sans arracher."
+            "subheading": "🌱",
+            "description": "Le masseur relâche les tensions et stimule la circulation. Sans arracher.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         },
         "i1": {
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "✨",
             "heading": "Terrain préparé",
-            "description": "Le derma roller réveille le cuir chevelu et l'ouvre à tes soins."
+            "subheading": "✨",
+            "description": "Le derma roller réveille le cuir chevelu et l'ouvre à tes soins.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         },
         "i2": {
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "⏱️",
             "heading": "Deux minutes par jour",
-            "description": "Un geste simple, tenable dans le temps. La constance bat l'intensité."
+            "subheading": "⏱️",
+            "description": "Un geste simple, tenable dans le temps. La constance bat l'intensité.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         }
       },
@@ -279,23 +363,47 @@
         "i2"
       ],
       "settings": {
-        "subheading": "Les bénéfices",
-        "heading": "<p>Trois choses que change une vraie routine cuir chevelu</p>",
-        "heading_style": "2",
-        "alignment": "center",
+        "section_id": "",
+        "layout": "swiper",
+        "layout_style": "normal",
+        "icon__type": "complete",
+        "icon_width_desktop": 50,
+        "icon_width_mobile": 40,
+        "center_icons": false,
         "slides_on_desktop": 3,
         "slides_on_tablet": 2,
         "slides_on_mobile": 1,
-        "pagination": true,
+        "preshot_swiper": true,
+        "loop": true,
         "navigation": false,
+        "pagination": true,
         "autoplay": true,
         "speed": 5,
-        "loop": true,
-        "color_palette": "background-1",
+        "subheading": "Les bénéfices",
+        "heading": "<p>Trois choses que change une vraie routine cuir chevelu</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "problem": {
@@ -312,7 +420,8 @@
         "t": {
           "type": "text",
           "settings": {
-            "description": "<p>On brosse, on lave, on stylise. Mais le cuir chevelu, lui, on n'y touche jamais.</p><p>Tendu, mal irrigué, encombré de résidus — c'est pourtant là que tout commence.</p><p><strong>Le kit prend le contrepied :</strong> un geste mécanique, quotidien, sur la base.</p>"
+            "description": "<p>On brosse, on lave, on stylise. Mais le cuir chevelu, lui, on n'y touche jamais.</p><p>Tendu, mal irrigué, encombré de résidus — c'est pourtant là que tout commence.</p><p><strong>Le kit prend le contrepied :</strong> un geste mécanique, quotidien, sur la base.</p>",
+            "color_bold_words": "text"
           }
         }
       },
@@ -321,12 +430,28 @@
         "t"
       ],
       "settings": {
+        "section_id": "",
         "alignment": "center",
-        "color_palette": "background-2",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "solution": {
@@ -337,13 +462,15 @@
           "settings": {
             "heading": "<p>La routine de 2 minutes</p>",
             "heading_level": "2",
-            "heading_style": "2"
+            "heading_style": "2",
+            "icon": "none"
           }
         },
         "t": {
           "type": "text",
           "settings": {
-            "description": "<p><strong>30 s — le masseur.</strong> À sec, mouvements circulaires, du front à la nuque.</p><p><strong>1 min — le derma roller.</strong> Passages doux, une fois par semaine, jamais d'insistance.</p><p><strong>30 s — on termine au masseur.</strong> Pour finaliser la stimulation.</p><p>C'est tout. Pas de promesse magique — juste un rituel qui devient un réflexe du soir.</p>"
+            "description": "<p><strong>30 s — le masseur.</strong> À sec, mouvements circulaires, du front à la nuque.</p><p><strong>1 min — le derma roller.</strong> Passages doux, une fois par semaine, jamais d'insistance.</p><p><strong>30 s — on termine au masseur.</strong> Pour finaliser la stimulation.</p><p>C'est tout. Pas de promesse magique — juste un rituel qui devient un réflexe du soir.</p>",
+            "color_bold_words": "text"
           }
         },
         "ic": {
@@ -351,6 +478,8 @@
           "settings": {
             "icons_style": "bullets",
             "fill_color": "accent",
+            "fill_fade_background": false,
+            "bg_color_icons": false,
             "icon_1_icon_type": "check_mark",
             "icon_1_text": "Aucun produit à appliquer",
             "icon_1_description": "",
@@ -362,7 +491,11 @@
             "icon_3_icon_type": "chat_bubble",
             "icon_3_text": "QR vers les tutos vidéo",
             "icon_3_description": "",
-            "icon_3_url": ""
+            "icon_3_url": "",
+            "icon_4_icon_type": "check_mark",
+            "icon_4_text": "Recommended by professionals",
+            "icon_4_description": "Put here a description of the benefit or the feature.",
+            "icon_4_url": ""
           }
         },
         "b": {
@@ -371,6 +504,9 @@
             "button_text": "Commencer ma routine",
             "button_link": "",
             "button_style": "1",
+            "button_text_secondary": "Discover",
+            "button_link_secondary": "",
+            "button_style_secondary": "2",
             "extra_button": false
           }
         }
@@ -382,19 +518,40 @@
         "b"
       ],
       "settings": {
+        "section_id": "",
         "media_type": "image",
-        "layout": "image_first",
         "height": "medium",
         "desktop_image_width": "medium",
+        "layout": "image_first",
+        "layout_style": "normal",
+        "remove_gap": false,
         "make_square": false,
+        "text_container_max_width": 700,
+        "desktop_content_position": "middle",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
         "layout_width": "normal",
-        "color_palette": "background-1",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "in_the_box": {
@@ -431,17 +588,37 @@
         "s2"
       ],
       "settings": {
+        "section_id": "",
+        "arrow": "curve",
         "subheading": "Dans la boîte",
         "heading": "<p>Trois pièces, une routine</p>",
+        "heading_style": "2",
         "description": "<p>Sélectionné et contrôlé par nous. Expédié du Québec.</p>",
         "alignment": "center",
-        "arrow": "curve",
+        "button_text": "Discover",
+        "button_link": "",
+        "button_style": "1",
+        "extra_button": false,
+        "enable_animations": true,
+        "animation": "fade-up",
         "layout_width": "normal",
-        "color_palette": "background-2",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "comparison": {
@@ -451,57 +628,90 @@
           "type": "bullet",
           "settings": {
             "title": "Agit sur le cuir chevelu, pas juste la longueur",
+            "tooltip": "",
             "col_1": "check",
+            "text_1": "👌",
             "col_2": "cross",
-            "col_3": "check"
+            "text_2": "€€€",
+            "col_3": "check",
+            "text_3": "€€€",
+            "col_4": "cross",
+            "text_4": "€€€"
           }
         },
         "c1": {
           "type": "bullet",
           "settings": {
             "title": "Utilisable chez toi, quand tu veux",
+            "tooltip": "",
             "col_1": "check",
+            "text_1": "👌",
             "col_2": "check",
-            "col_3": "cross"
+            "text_2": "€€€",
+            "col_3": "cross",
+            "text_3": "€€€",
+            "col_4": "cross",
+            "text_4": "€€€"
           }
         },
         "c2": {
           "type": "bullet",
           "settings": {
             "title": "Aucun produit chimique",
+            "tooltip": "",
             "col_1": "check",
+            "text_1": "👌",
             "col_2": "cross",
-            "col_3": "cross"
+            "text_2": "€€€",
+            "col_3": "cross",
+            "text_3": "€€€",
+            "col_4": "cross",
+            "text_4": "€€€"
           }
         },
         "c3": {
           "type": "bullet",
           "settings": {
             "title": "2 minutes par jour",
+            "tooltip": "",
             "col_1": "check",
+            "text_1": "👌",
             "col_2": "cross",
-            "col_3": "cross"
+            "text_2": "€€€",
+            "col_3": "cross",
+            "text_3": "€€€",
+            "col_4": "cross",
+            "text_4": "€€€"
           }
         },
         "c4": {
           "type": "bullet",
           "settings": {
             "title": "Coût sur 1 an",
+            "tooltip": "",
             "col_1": "custom",
-            "col_2": "custom",
-            "col_3": "custom",
             "text_1": "34,99 $ une fois",
+            "col_2": "custom",
             "text_2": "~200 $ de produits",
-            "text_3": "~600 $ de séances"
+            "col_3": "custom",
+            "text_3": "~600 $ de séances",
+            "col_4": "cross",
+            "text_4": "€€€"
           }
         },
         "c5": {
           "type": "bullet",
           "settings": {
             "title": "Essai 60 nuits, remboursé",
+            "tooltip": "",
             "col_1": "check",
+            "text_1": "👌",
             "col_2": "cross",
-            "col_3": "cross"
+            "text_2": "€€€",
+            "col_3": "cross",
+            "text_3": "€€€",
+            "col_4": "cross",
+            "text_4": "€€€"
           }
         }
       },
@@ -514,9 +724,11 @@
         "c5"
       ],
       "settings": {
+        "section_id": "",
         "subheading": "Comparaison",
         "heading": "<p>Pourquoi ce kit plutôt qu'autre chose</p>",
         "heading_style": "2",
+        "description": "<p>Show to your customers a video presenting your brand and your products.</p>",
         "alignment": "center",
         "brand_display_1": "text",
         "brand_heading_1": "Kit Scalp Activator",
@@ -527,12 +739,28 @@
         "brand_display_3": "text",
         "brand_heading_3": "Séances en salon",
         "col_enable_4": false,
+        "brand_display_4": "img",
+        "brand_heading_4": "",
+        "enable_animations": true,
+        "animation": "fade-up",
         "layout_width": "normal",
-        "color_palette": "background-1",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "safety": {
@@ -549,7 +777,8 @@
         "t": {
           "type": "text",
           "settings": {
-            "description": "<ul><li><strong>Nettoie</strong> l'appareil avant et après chaque usage — alcool à 70°.</li><li><strong>Ne le partage pas.</strong> C'est un outil personnel.</li><li><strong>Une fois par semaine maximum</strong>, jamais deux jours de suite.</li><li><strong>Pas sur peau irritée</strong>, blessée ou colorée récemment.</li><li><strong>Range-le avec son capuchon</strong> pour préserver les aiguilles.</li></ul><p>Une notice complète est fournie dans la boîte. Accessoire de bien-être capillaire : ne traite ni ne prévient aucune maladie.</p>"
+            "description": "<ul><li><strong>Nettoie</strong> l'appareil avant et après chaque usage — alcool à 70°.</li><li><strong>Ne le partage pas.</strong> C'est un outil personnel.</li><li><strong>Une fois par semaine maximum</strong>, jamais deux jours de suite.</li><li><strong>Pas sur peau irritée</strong>, blessée ou colorée récemment.</li><li><strong>Range-le avec son capuchon</strong> pour préserver les aiguilles.</li></ul><p>Une notice complète est fournie dans la boîte. Accessoire de bien-être capillaire : ne traite ni ne prévient aucune maladie.</p>",
+            "color_bold_words": "text"
           }
         }
       },
@@ -558,56 +787,71 @@
         "t"
       ],
       "settings": {
+        "section_id": "",
         "alignment": "center",
-        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "testimonials": {
       "type": "scrolling-testimonials",
-      "disabled": true,
       "blocks": {
         "t0": {
           "type": "testimonial",
           "settings": {
+            "text": "J'ai commencé sans grand espoir. Après 3 semaines, mon cuir chevelu me démange moins. Le geste est devenu un moment pour moi.",
             "name": "Léa, 34 ans — Montréal",
             "role": "Cliente",
-            "stars_rating": 5,
             "verified": true,
-            "text": "J'ai commencé sans grand espoir. Après 3 semaines, mon cuir chevelu me démange moins. Le geste est devenu un moment pour moi."
+            "stars_rating": 5
           }
         },
         "t1": {
           "type": "testimonial",
           "settings": {
+            "text": "Le masseur est super agréable. Le derma roller pique un peu au début, ensuite on s'habitue. Je l'utilise le soir.",
             "name": "Sophie, 28 ans — Québec",
             "role": "Cliente",
-            "stars_rating": 4,
             "verified": true,
-            "text": "Le masseur est super agréable. Le derma roller pique un peu au début, ensuite on s'habitue. Je l'utilise le soir."
+            "stars_rating": 4
           }
         },
         "t2": {
           "type": "testimonial",
           "settings": {
+            "text": "Cuir chevelu sensible. Je passe doucement, jamais deux jours de suite comme conseillé. La carte routine aide beaucoup.",
             "name": "Karim, 41 ans — Longueuil",
             "role": "Client",
-            "stars_rating": 5,
             "verified": true,
-            "text": "Cuir chevelu sensible. Je passe doucement, jamais deux jours de suite comme conseillé. La carte routine aide beaucoup."
+            "stars_rating": 5
           }
         },
         "t3": {
           "type": "testimonial",
           "settings": {
+            "text": "Ce que j'aime, c'est que ça ne promet pas la lune. C'est un rituel, point. Et je le tiens depuis 2 mois.",
             "name": "Amélie, 31 ans — Laval",
             "role": "Cliente",
-            "stars_rating": 5,
             "verified": true,
-            "text": "Ce que j'aime, c'est que ça ne promet pas la lune. C'est un rituel, point. Et je le tiens depuis 2 mois."
+            "stars_rating": 5
           }
         }
       },
@@ -617,23 +861,45 @@
         "t2",
         "t3"
       ],
+      "disabled": true,
       "settings": {
-        "subheading": "Avis clients",
-        "heading": "<p>Ce que disent les premières testeuses</p>",
-        "heading_style": "2",
-        "alignment": "center",
-        "description": "<p>Section désactivée — active-la quand tu as de vrais avis.</p>",
+        "section_id": "",
         "scroll_direction": "left",
         "scroll_speed": 24,
         "pause_on_hover": true,
         "enable_rating": true,
         "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
         "equalize_review_heights": true,
-        "color_palette": "background-2",
+        "review_content_position": "flex-start",
+        "subheading": "Avis clients",
+        "heading": "<p>Ce que disent les premières testeuses</p>",
+        "heading_style": "2",
+        "description": "<p>Section désactivée — active-la quand tu as de vrais avis.</p>",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "progression": {
@@ -679,16 +945,33 @@
         "w3"
       ],
       "settings": {
+        "section_id": "",
         "subheading": "Ta progression",
         "heading": "<p>À quoi t'attendre, semaine par semaine</p>",
         "heading_style": "2",
-        "alignment": "center",
         "description": "<p>Chaque cuir chevelu réagit à son rythme. Voici le déroulé habituel.</p>",
-        "color_palette": "background-1",
+        "alignment": "center",
+        "switch": true,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "faq": {
@@ -699,7 +982,8 @@
           "settings": {
             "heading": "Est-ce que ça fait repousser les cheveux ?",
             "icon": "none",
-            "row_content": "<p>Non, et on ne le prétendra jamais. Le kit stimule et détend le cuir chevelu — c'est un rituel bien-être, pas un traitement médical. En cas de chute soudaine ou importante, consulte un professionnel de santé.</p>"
+            "row_content": "<p>Non, et on ne le prétendra jamais. Le kit stimule et détend le cuir chevelu — c'est un rituel bien-être, pas un traitement médical. En cas de chute soudaine ou importante, consulte un professionnel de santé.</p>",
+            "page": ""
           }
         },
         "q1": {
@@ -707,7 +991,8 @@
           "settings": {
             "heading": "Le derma roller, ce n'est pas dangereux ?",
             "icon": "none",
-            "row_content": "<p>À 0,25 mm, il stimule en douceur sans percer profondément. Nettoie-le avant et après chaque usage, ne le partage pas, et respecte la fréquence d'une fois par semaine. Une notice complète est fournie.</p>"
+            "row_content": "<p>À 0,25 mm, il stimule en douceur sans percer profondément. Nettoie-le avant et après chaque usage, ne le partage pas, et respecte la fréquence d'une fois par semaine. Une notice complète est fournie.</p>",
+            "page": ""
           }
         },
         "q2": {
@@ -715,7 +1000,8 @@
           "settings": {
             "heading": "Ça fait mal ?",
             "icon": "none",
-            "row_content": "<p>Le masseur est très doux. Le derma roller peut picoter légèrement les premières fois — c'est normal. Si tu ressens une vraie douleur, allège la pression.</p>"
+            "row_content": "<p>Le masseur est très doux. Le derma roller peut picoter légèrement les premières fois — c'est normal. Si tu ressens une vraie douleur, allège la pression.</p>",
+            "page": ""
           }
         },
         "q3": {
@@ -723,7 +1009,8 @@
           "settings": {
             "heading": "À quelle fréquence l'utiliser ?",
             "icon": "none",
-            "row_content": "<p>Masseur : tous les jours si tu veux, matin ou soir. Derma roller : une fois par semaine maximum, pour laisser le cuir chevelu récupérer.</p>"
+            "row_content": "<p>Masseur : tous les jours si tu veux, matin ou soir. Derma roller : une fois par semaine maximum, pour laisser le cuir chevelu récupérer.</p>",
+            "page": ""
           }
         },
         "q4": {
@@ -731,7 +1018,8 @@
           "settings": {
             "heading": "Ça convient aux cheveux colorés ou traités ?",
             "icon": "none",
-            "row_content": "<p>Oui. Les deux outils agissent sur le cuir chevelu, pas sur la fibre. Évite simplement le roller dans les jours qui suivent une coloration.</p>"
+            "row_content": "<p>Oui. Les deux outils agissent sur le cuir chevelu, pas sur la fibre. Évite simplement le roller dans les jours qui suivent une coloration.</p>",
+            "page": ""
           }
         },
         "q5": {
@@ -739,7 +1027,8 @@
           "settings": {
             "heading": "Ça marche pour les hommes ?",
             "icon": "none",
-            "row_content": "<p>Oui. Beaucoup l'utilisent sur les tempes et le sommet du crâne. Le kit convient à tous les types de cheveux, dès 18 ans.</p>"
+            "row_content": "<p>Oui. Beaucoup l'utilisent sur les tempes et le sommet du crâne. Le kit convient à tous les types de cheveux, dès 18 ans.</p>",
+            "page": ""
           }
         },
         "q6": {
@@ -747,7 +1036,8 @@
           "settings": {
             "heading": "En combien de temps je vois quelque chose ?",
             "icon": "none",
-            "row_content": "<p>Le confort du cuir chevelu se ressent souvent dès les premières semaines. Pour le reste, c'est la régularité sur plusieurs mois qui compte — et les résultats varient d'une personne à l'autre.</p>"
+            "row_content": "<p>Le confort du cuir chevelu se ressent souvent dès les premières semaines. Pour le reste, c'est la régularité sur plusieurs mois qui compte — et les résultats varient d'une personne à l'autre.</p>",
+            "page": ""
           }
         },
         "q7": {
@@ -755,7 +1045,8 @@
           "settings": {
             "heading": "Et si ça ne me convient pas ?",
             "icon": "none",
-            "row_content": "<p>Essai 60 nuits. Tu écris, on rembourse, on ne discute pas.</p>"
+            "row_content": "<p>Essai 60 nuits. Tu écris, on rembourse, on ne discute pas.</p>",
+            "page": ""
           }
         },
         "q8": {
@@ -763,7 +1054,8 @@
           "settings": {
             "heading": "Livraison et délais ?",
             "icon": "none",
-            "row_content": "<p>Gratuite au Canada dès 50 $, sinon 6,99 $. Expédié du Québec sous 24 h ouvrées, livré en 3 à 8 jours.</p>"
+            "row_content": "<p>Gratuite au Canada dès 50 $, sinon 6,99 $. Expédié du Québec sous 24 h ouvrées, livré en 3 à 8 jours.</p>",
+            "page": ""
           }
         }
       },
@@ -779,18 +1071,40 @@
         "q8"
       ],
       "settings": {
+        "section_id": "",
         "subheading": "FAQ",
         "heading": "<p>Les questions qu'on nous pose</p>",
         "heading_style": "2",
+        "description": "<p>Show to your customers a video presenting your brand and your products.</p>",
         "alignment": "center",
-        "open_first_collapsible_row": true,
+        "desktop_content_position": "top",
         "enable_image": false,
+        "height": "adapt",
+        "layout": "image_first",
+        "open_first_collapsible_row": true,
         "accordions_style": "1",
-        "color_palette": "background-2",
+        "secondary_bg_accordions": true,
+        "remove_gap": false,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "guarantees": {
@@ -800,36 +1114,56 @@
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "🌿",
             "heading": "Essai 60 nuits",
-            "description": "Remboursé, sans justification."
+            "subheading": "🌿",
+            "description": "Remboursé, sans justification.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         },
         "i1": {
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "🚚",
             "heading": "Livraison offerte dès 50 $",
-            "description": "Expédié du Québec sous 24 h."
+            "subheading": "🚚",
+            "description": "Expédié du Québec sous 24 h.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         },
         "i2": {
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "💌",
             "heading": "Support humain",
-            "description": "On répond en moins de 24 h."
+            "subheading": "💌",
+            "description": "On répond en moins de 24 h.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         },
         "i3": {
           "type": "counter",
           "settings": {
             "icon": "none",
-            "subheading": "🔒",
             "heading": "Paiement sécurisé",
-            "description": "Visa · Mastercard · Amex · Shop Pay."
+            "subheading": "🔒",
+            "description": "Visa · Mastercard · Amex · Shop Pay.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "Discover",
+            "button_link": "",
+            "button_style": "2"
           }
         }
       },
@@ -840,23 +1174,47 @@
         "i3"
       ],
       "settings": {
-        "subheading": "Nos engagements",
-        "heading": "<p>On te couvre à chaque étape</p>",
-        "heading_style": "2",
-        "alignment": "center",
+        "section_id": "",
+        "layout": "swiper",
+        "layout_style": "normal",
+        "icon__type": "complete",
+        "icon_width_desktop": 50,
+        "icon_width_mobile": 40,
+        "center_icons": false,
         "slides_on_desktop": 4,
         "slides_on_tablet": 2,
         "slides_on_mobile": 2,
-        "pagination": true,
+        "preshot_swiper": true,
+        "loop": true,
         "navigation": false,
+        "pagination": true,
         "autoplay": true,
         "speed": 5,
-        "loop": true,
-        "color_palette": "background-2",
+        "subheading": "Nos engagements",
+        "heading": "<p>On te couvre à chaque étape</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "final_cta": {
@@ -873,7 +1231,8 @@
         "t": {
           "type": "text",
           "settings": {
-            "description": "<p>Deux minutes par jour. De vrais gestes, un vrai rituel — et 60 nuits pour te décider.</p>"
+            "description": "<p>Deux minutes par jour. De vrais gestes, un vrai rituel — et 60 nuits pour te décider.</p>",
+            "color_bold_words": "text"
           }
         }
       },
@@ -882,12 +1241,28 @@
         "t"
       ],
       "settings": {
+        "section_id": "",
         "alignment": "center",
-        "color_palette": "background-1",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     }
   },

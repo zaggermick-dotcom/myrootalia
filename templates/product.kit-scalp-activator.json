@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -72,7 +63,51 @@
             "block_margin_bottom": 16
           }
         },
+        "pack": {
+          "type": "pack",
+          "settings": {
+            "pack_style": "tight",
+            "label": "Ta quantité",
+            "text_above": "15 % appliqué automatiquement dès 2 kits",
+            "text_alignment": "left",
+            "add_lines": true,
+            "quantity0": 1,
+            "title0": "1 kit",
+            "price0": "34,99 $",
+            "price_before0": "",
+            "additional_text0": "",
+            "disclaimer0": "",
+            "quantity1": 2,
+            "title1": "2 kits",
+            "price1": "59,48 $",
+            "price_before1": "69,98 $",
+            "additional_text1": "Tu économises 10,50 $",
+            "disclaimer1": "<strong>Un pour toi, un à offrir</strong>",
+            "quantity2": 3,
+            "title2": "3 kits",
+            "price2": "89,22 $",
+            "price_before2": "104,97 $",
+            "additional_text2": "Tu économises 15,75 $",
+            "disclaimer2": "<strong>Meilleure économie</strong>",
+            "color_selected": "#283618",
+            "color_selected_background": "#FEFAE0",
+            "color_background": "#FFFFFF",
+            "color_title": "#151C0D",
+            "color_price": "#283618",
+            "color_discount_price": "#8A8770",
+            "color_texts": "#6E6A4F",
+            "color_variants_title": "#283618",
+            "color_disclaimer": "#BC6C25",
+            "pack_accordions_shadow": "1",
+            "button_text": "Commencer ma routine",
+            "button_style": "1",
+            "icon": "none",
+            "extra_button": false,
+            "enable_free_gifts": false
+          }
+        },
         "buy_buttons": {
+          "disabled": true,
           "type": "buy_buttons",
           "settings": {
             "button_text": "Commencer ma routine",
@@ -167,6 +202,7 @@
         "price",
         "pitch",
         "stock",
+        "pack",
         "buy_buttons",
         "spin",
         "delivery",

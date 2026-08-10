@@ -735,7 +735,7 @@
         "col_enable_2": true,
         "brand_display_2": "text",
         "brand_heading_2": "Produits anti-chute",
-        "col_enable_3": true,
+        "col_enable_3": false,
         "brand_display_3": "text",
         "brand_heading_3": "Séances en salon",
         "col_enable_4": false,

@@ -1,18 +1,281 @@
-/*
- * myrootelia — page d'accueil (huile de Batana)
- * Section sur-mesure "home-myrootelia" (charte myrootelia, photos de marque)
- */
 {
   "sections": {
-    "home_myrootelia": {
-      "type": "home-myrootelia",
+    "hero": {
+      "type": "hero-banner-vip",
       "settings": {
-        "cta_url": "/products/huile-de-batana-100-pure-du-honduras",
-        "about_url": "/pages/story",
+        "badge_text": "🌿 100 % HUILE DE BATANA PURE",
+        "title": "L'or ancestral du peuple Miskito, pour vos cheveux",
+        "subtitle": "100 % huile de Batana pure du Honduras, pressée à froid. Un seul ingrédient, une vraie tradition — pour des cheveux visiblement plus sains, souples et nourris.",
+        "show_pricing": true,
         "price": "39,99 $",
-        "compare_price": "59,99 $"
+        "price_old": "59,99 $",
+        "discount_text": "-33 %",
+        "includes_text": "Flacon 50 ml · Livraison suivie",
+        "show_benefits": true,
+        "benefit_1": "Nourrit intensément la fibre",
+        "benefit_2": "Apaise le cuir chevelu sec",
+        "benefit_3": "Idéale cheveux secs, frisés, crépus",
+        "show_timer": false,
+        "cta_text": "Découvrir l'huile de Batana",
+        "cta_link": "/products/huile-de-batana-100-pure-du-honduras",
+        "show_guarantees": true,
+        "guarantee_1": "Satisfait ou remboursé 30 jours",
+        "guarantee_2": "Paiement 100 % sécurisé",
+        "show_social": false,
+        "show_image": true,
+        "image": "shopify://shop_images/myrootelia-hero-palme.png",
+        "bg_gradient_start": "#2F5233",
+        "bg_gradient_end": "#24402a",
+        "gradient_angle": 135,
+        "glow_color": "#B07A3B",
+        "badge_bg": "#B07A3B",
+        "badge_color": "#ffffff",
+        "title_color": "#ffffff",
+        "subtitle_color": "#eae4d8",
+        "price_color": "#ffffff",
+        "price_old_color": "#cbb892",
+        "discount_bg": "#B07A3B",
+        "discount_color": "#ffffff",
+        "includes_color": "#d9d3c6",
+        "benefit_color": "#f3efe6",
+        "benefit_icon_color": "#cbb892",
+        "cta_bg": "#B07A3B",
+        "cta_hover_bg": "#9a6a31",
+        "cta_color": "#ffffff",
+        "guarantees_color": "#d9d3c6"
+      }
+    },
+    "trust_bar": {
+      "type": "marquee",
+      "blocks": {
+        "m1": { "type": "marquee", "settings": { "description": "100 % naturelle" } },
+        "m2": { "type": "marquee", "settings": { "description": "Récoltée à la main" } },
+        "m3": { "type": "marquee", "settings": { "description": "Pressée à froid" } },
+        "m4": { "type": "marquee", "settings": { "description": "Sans additifs" } },
+        "m5": { "type": "marquee", "settings": { "description": "Origine Honduras tracée" } },
+        "m6": { "type": "marquee", "settings": { "description": "Méthode ancestrale Miskito" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4", "m5", "m6"],
+      "settings": {
+        "uppercase": true,
+        "bolder": true,
+        "font_size_desktop": 18,
+        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
+        "padding_top": 18,
+        "padding_bottom": 18
+      }
+    },
+    "benefits": {
+      "type": "benefices-produit",
+      "blocks": {
+        "b1": { "type": "benefice", "settings": { "icon": "💧", "title": "Nourrit intensément", "description": "Une huile riche qui gaine la fibre et nourrit le cuir chevelu en profondeur." } },
+        "b2": { "type": "benefice", "settings": { "icon": "🌿", "title": "Apparence plus dense", "description": "Favorise l'apparence de cheveux visiblement plus sains et plus denses." } },
+        "b3": { "type": "benefice", "settings": { "icon": "✨", "title": "Souplesse & éclat", "description": "Discipline les longueurs et ravive la brillance naturelle des cheveux ternes." } },
+        "b4": { "type": "benefice", "settings": { "icon": "🛡️", "title": "Cuir chevelu apaisé", "description": "Réconforte les cuirs chevelus secs et inconfortables, soir après soir." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": {
+        "title": "Ce que le Batana apporte à vos cheveux",
+        "subtitle": "Nourrit · Répare · Fortifie"
+      }
+    },
+    "ingredient": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": { "type": "subheading", "settings": { "subheading": "Un seul ingrédient" } },
+        "head": { "type": "heading", "settings": { "heading": "<p>100 % Batana pur. Rien d'autre.</p>" } },
+        "txt": { "type": "text", "settings": { "description": "<p>Pas de remplissage, pas de dilution. Juste l'huile épaisse et sombre extraite du fruit du palmier <em>Elaeis oleifera</em>, pressée à froid pour préserver ses nutriments. Naturellement riche en acides gras (oléique, linoléique) et en vitamine E.</p>" } },
+        "inci": { "type": "text", "settings": { "description": "<p><strong>INCI :</strong> Elaeis Oleifera (Palm) Oil · Sans additifs, parfum de synthèse ni conservateurs.</p>" } },
+        "btn": { "type": "button", "settings": { "button_text": "Découvrir le produit", "button_link": "/products/huile-de-batana-100-pure-du-honduras" } }
+      },
+      "block_order": ["sub", "head", "txt", "inci", "btn"],
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/myrootelia-goutte.png",
+        "layout": "image_first",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "color_palette": "background-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "ritual": {
+      "type": "how-to-use",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "step_label": "Étape 01", "title": "Déposez", "description": "Quelques gouttes sur le cuir chevelu et les longueurs, mèche par mèche.", "image": "shopify://shop_images/myrootelia-goutte.png" } },
+        "s2": { "type": "step", "settings": { "step_label": "Étape 02", "title": "Massez", "description": "2 minutes du bout des doigts, pour stimuler et détendre le cuir chevelu.", "image": "shopify://shop_images/myrootelia-application.png" } },
+        "s3": { "type": "step", "settings": { "step_label": "Étape 03", "title": "Laissez poser", "description": "Idéalement toute la nuit. Rincez ou laissez selon la texture de vos cheveux.", "image": "shopify://shop_images/myrootelia-produit.png" } }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {
+        "subtitle": "Le rituel du soir",
+        "title": "Simple. 2 minutes. Chaque soir.",
+        "description": "Un geste simple, chaque soir, pour des cheveux qu'on a envie de toucher.",
+        "bg_color": "#F5F1EA",
+        "primary_color": "#B07A3B",
+        "title_color": "#2F5233",
+        "text_color": "#4a463f",
+        "card_bg": "#ffffff",
+        "number_bg": "#2F5233",
+        "number_text": "#ffffff",
+        "show_connector_line": true
+      }
+    },
+    "origine": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": { "type": "subheading", "settings": { "subheading": "L'origine" } },
+        "head": { "type": "heading", "settings": { "heading": "<p>Un trésor venu du nord-est du Honduras</p>" } },
+        "txt": { "type": "text", "settings": { "description": "<p>Dans la Mosquitia, le peuple Miskito extrait depuis des générations une huile épaisse et sombre du fruit du palmier <em>Elaeis oleifera</em>. myrootelia rend cet héritage accessible : pur, tracé et transparent.</p>" } },
+        "btn": { "type": "button", "settings": { "button_text": "Notre histoire", "button_link": "/pages/story", "button_style": "secondary" } }
+      },
+      "block_order": ["sub", "head", "txt", "btn"],
+      "settings": {
+        "media_type": "image",
+        "image": "shopify://shop_images/myrootelia-origine-honduras.png",
+        "layout": "text_first",
+        "height": "large",
+        "desktop_image_width": "large",
+        "color_palette": "background-2",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "comparison": {
+      "type": "liste-comparaison",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "100 % Batana pur (non dilué)", "col_1": "check", "col_2": "custom", "text_2": "Souvent mélangée" } },
+        "f2": { "type": "feature", "settings": { "title": "Origine tracée (Honduras)", "col_1": "check", "col_2": "custom", "text_2": "Rarement" } },
+        "f3": { "type": "feature", "settings": { "title": "Pressée à froid", "col_1": "check", "col_2": "custom", "text_2": "Variable" } },
+        "f4": { "type": "feature", "settings": { "title": "Sans additifs ni conservateurs", "col_1": "check", "col_2": "custom", "text_2": "Variable" } },
+        "f5": { "type": "feature", "settings": { "title": "Récoltée à la main", "col_1": "check", "col_2": "cross" } },
+        "f6": { "type": "feature", "settings": { "title": "Discours honnête, sans promesse miracle", "col_1": "check", "col_2": "cross" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6"],
+      "settings": {
+        "title": "Toutes les huiles de Batana ne se valent pas",
+        "subheading": "Pourquoi myrootelia",
+        "alignment": "center",
+        "show_badge": false,
+        "brand_heading_1": "myrootelia",
+        "brand_heading_2": "Huiles génériques",
+        "col_enable_3": false,
+        "show_testimonial": false,
+        "show_testimonial_stats": false,
+        "show_cta": false,
+        "col_1_check": "#2F5233",
+        "heading_color": "#2F5233",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "heritage": {
+      "type": "timeline",
+      "blocks": {
+        "t1": { "type": "timeline_event", "settings": { "subheading": "Depuis des générations", "heading": "La tradition Miskito", "text": "Dans la Mosquitia hondurienne, le Batana est extrait à la main du fruit du palmier, selon un savoir-faire transmis oralement." } },
+        "t2": { "type": "timeline_event", "settings": { "subheading": "Le procédé", "heading": "Pressée à froid", "text": "Le fruit est transformé lentement pour livrer une huile épaisse, sombre et intacte, riche de ses nutriments." } },
+        "t3": { "type": "timeline_event", "settings": { "subheading": "Notre rôle", "heading": "Rendre l'héritage accessible", "text": "myrootelia sélectionne, trace et embouteille cette huile pure, sans rien y ajouter." } },
+        "t4": { "type": "timeline_event", "settings": { "subheading": "Notre promesse", "heading": "Transparence totale", "text": "Un seul ingrédient, une composition affichée, aucune promesse miracle." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {
+        "subheading": "Les Tawira — le peuple aux beaux cheveux",
+        "heading": "<p>Un héritage que l'on protège, pas que l'on exploite</p>",
+        "alignment": "center",
+        "color_palette": "inverse",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "guarantee": {
+      "type": "badge-verifie",
+      "settings": {
+        "section_title": "",
+        "text": "Satisfait ou remboursé — 30 jours",
+        "subtext": "Essayez le rituel Batana sans risque. Si vous n'êtes pas convaincu·e, on vous rembourse.",
+        "style": "seal",
+        "size": "large",
+        "icon": "shield",
+        "alignment": "center",
+        "animated": true,
+        "section_bg_color": "#F5F1EA",
+        "color_bg": "#2F5233",
+        "color_icon": "#ffffff",
+        "color_text": "#2F5233",
+        "card_bg_color": "#ffffff",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "reviews": {
+      "type": "scrolling-testimonials",
+      "blocks": {
+        "r1": { "type": "testimonial", "settings": { "text": "Exemple d'avis — à remplacer par un vrai témoignage client avant publication.", "name": "Client·e (exemple)", "role": "Avis à venir", "verified": false, "stars_rating": 5 } },
+        "r2": { "type": "testimonial", "settings": { "text": "Exemple d'avis — à remplacer par un vrai témoignage client avant publication.", "name": "Client·e (exemple)", "role": "Avis à venir", "verified": false, "stars_rating": 5 } },
+        "r3": { "type": "testimonial", "settings": { "text": "Exemple d'avis — à remplacer par un vrai témoignage client avant publication.", "name": "Client·e (exemple)", "role": "Avis à venir", "verified": false, "stars_rating": 5 } }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "subheading": "Avis",
+        "heading": "<p>Ce qu'en pensent nos client·e·s</p>",
+        "description": "<p>Emplacement prêt pour vos vrais avis — remplacez ces exemples avant la mise en ligne.</p>",
+        "enable_rating": true,
+        "alignment": "center",
+        "color_palette": "background-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "q1": { "type": "collapsible_row", "settings": { "heading": "Pour quels types de cheveux ?", "row_content": "<p>Pour tous les types de cheveux, et particulièrement les cheveux secs, épais, frisés ou crépus qui recherchent une nutrition intense. Sa texture riche convient aussi au soin de la barbe et des sourcils.</p>" } },
+        "q2": { "type": "collapsible_row", "settings": { "heading": "Est-ce que l'huile graisse les cheveux ?", "row_content": "<p>Le Batana est une huile riche : quelques gouttes suffisent. Appliquée en petite quantité sur les longueurs, ou en masque avant le lavage, elle nourrit sans alourdir. Ajustez la dose à la porosité de vos cheveux.</p>" } },
+        "q3": { "type": "collapsible_row", "settings": { "heading": "Au bout de combien de temps voit-on une différence ?", "row_content": "<p>Dès les premières applications, les cheveux paraissent plus souples et plus faciles à coiffer. Pour l'aspect général de la chevelure, la régularité est la clé : intégrez le rituel plusieurs fois par semaine sur la durée.</p>" } },
+        "q4": { "type": "collapsible_row", "settings": { "heading": "Quelle est l'origine de l'huile ?", "row_content": "<p>Notre Batana provient du Honduras, extrait selon la méthode ancestrale du peuple Miskito à partir du fruit du palmier <em>Elaeis oleifera</em>. Elle est pressée à froid et 100 % pure, sans dilution.</p>" } },
+        "q5": { "type": "collapsible_row", "settings": { "heading": "Comment se conserve-t-elle ?", "row_content": "<p>À température ambiante, à l'abri de la lumière directe. Le Batana peut se figer au froid : réchauffez le flacon entre vos mains pour lui rendre sa texture fluide.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5"],
+      "settings": {
+        "subheading": "FAQ",
+        "heading": "<p>Questions fréquentes</p>",
+        "alignment": "center",
+        "open_first_collapsible_row": true,
+        "enable_image": false,
+        "color_palette": "background-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "nh": { "type": "heading", "settings": { "subheading": "La lettre myrootelia", "heading": "<p>Rituels, traditions & offres</p>" } },
+        "np": { "type": "paragraph", "settings": { "description": "<p>Conseils d'utilisation du Batana, histoires du peuple Miskito et accès prioritaire à nos offres. Pas de spam, désabonnement en un clic.</p>" } },
+        "nf": { "type": "email_form", "settings": {} }
+      },
+      "block_order": ["nh", "np", "nf"],
+      "settings": {
+        "desktop_content_alignment": "center",
+        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
+        "padding_top": 72,
+        "padding_bottom": 72
       }
     }
   },
-  "order": ["home_myrootelia"]
+  "order": [
+    "hero",
+    "trust_bar",
+    "benefits",
+    "ingredient",
+    "ritual",
+    "origine",
+    "comparison",
+    "heritage",
+    "guarantee",
+    "reviews",
+    "faq",
+    "newsletter"
+  ]
 }

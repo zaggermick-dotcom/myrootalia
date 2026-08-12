@@ -1,0 +1,288 @@
+{%- comment -%}
+  ════════════════════════════════════════════════════════════════
+  myrootelia — Page d'accueil sur-mesure (Huile de Batana)
+  Charte : Vert forêt #2F5233 · Or/terre #B07A3B · Crème #F5F1EA · Noir #2B2B2B
+  Conformité : allégations cosmétiques uniquement (apparence, soin, rituel).
+  ════════════════════════════════════════════════════════════════
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id
+-%}
+
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  #mr-{{ uid }} {
+    --mr-green: {{ s.color_green | default: '#2F5233' }};
+    --mr-gold: {{ s.color_gold | default: '#B07A3B' }};
+    --mr-cream: {{ s.color_cream | default: '#F5F1EA' }};
+    --mr-ink: {{ s.color_ink | default: '#2B2B2B' }};
+    --mr-serif: 'Playfair Display', Georgia, serif;
+    --mr-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--mr-sans);
+    color: var(--mr-ink);
+    background: var(--mr-cream);
+    overflow: hidden;
+  }
+  #mr-{{ uid }} * { box-sizing: border-box; }
+  #mr-{{ uid }} img { display: block; max-width: 100%; }
+  #mr-{{ uid }} .mr-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  #mr-{{ uid }} .mr-eyebrow {
+    font-family: var(--mr-sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase; color: var(--mr-gold);
+    margin: 0 0 14px;
+  }
+  #mr-{{ uid }} h2.mr-h { font-family: var(--mr-serif); font-weight: 600; color: var(--mr-green);
+    font-size: clamp(28px, 4vw, 44px); line-height: 1.15; margin: 0 0 18px; letter-spacing: .3px; }
+  #mr-{{ uid }} .mr-lead { font-size: clamp(15px, 1.6vw, 18px); line-height: 1.75; color: #4a463f; }
+  #mr-{{ uid }} .mr-btn {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    font-family: var(--mr-sans); font-weight: 600; font-size: 14px; letter-spacing: .5px;
+    padding: 15px 32px; border-radius: 50px; text-decoration: none; transition: all .3s ease; border: 1.5px solid transparent;
+  }
+  #mr-{{ uid }} .mr-btn--primary { background: var(--mr-green); color: #fff; }
+  #mr-{{ uid }} .mr-btn--primary:hover { background: #24402a; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(47,82,51,.25); }
+  #mr-{{ uid }} .mr-btn--ghost { background: transparent; color: var(--mr-green); border-color: rgba(47,82,51,.35); }
+  #mr-{{ uid }} .mr-btn--ghost:hover { border-color: var(--mr-green); background: rgba(47,82,51,.05); }
+  #mr-{{ uid }} .mr-btn--gold { background: var(--mr-gold); color: #fff; }
+  #mr-{{ uid }} .mr-btn--gold:hover { background: #9a6a31; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(176,122,59,.3); }
+
+  /* HERO */
+  #mr-{{ uid }} .mr-hero { position: relative; min-height: 640px; display: flex; align-items: center;
+    background: var(--mr-cream) url('{{ 'myrootelia-hero-palme.png' | asset_url }}') no-repeat center right / cover; }
+  #mr-{{ uid }} .mr-hero::before { content:''; position:absolute; inset:0;
+    background: linear-gradient(90deg, var(--mr-cream) 12%, rgba(245,241,234,.85) 38%, rgba(245,241,234,0) 62%); }
+  #mr-{{ uid }} .mr-hero__inner { position: relative; z-index: 2; max-width: 560px; padding: 60px 0; }
+  #mr-{{ uid }} .mr-hero h1 { font-family: var(--mr-serif); font-weight: 600; color: var(--mr-green);
+    font-size: clamp(36px, 5.5vw, 62px); line-height: 1.08; margin: 0 0 20px; letter-spacing: .3px; }
+  #mr-{{ uid }} .mr-hero h1 em { font-style: italic; color: var(--mr-gold); }
+  #mr-{{ uid }} .mr-hero .mr-lead { max-width: 440px; margin-bottom: 30px; }
+  #mr-{{ uid }} .mr-hero__cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* TRUST STRIP */
+  #mr-{{ uid }} .mr-trust { background: var(--mr-green); color: #fff; }
+  #mr-{{ uid }} .mr-trust__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 22px 24px; text-align: center; }
+  #mr-{{ uid }} .mr-trust__item { display: flex; align-items: center; justify-content: center; gap: 9px;
+    font-size: 13px; font-weight: 500; letter-spacing: .4px; }
+  #mr-{{ uid }} .mr-trust__item svg { width: 20px; height: 20px; color: #cbb892; flex-shrink: 0; }
+  #mr-{{ uid }} .mr-trust__sep { width: 1px; background: rgba(255,255,255,.15); }
+
+  /* PROMISE */
+  #mr-{{ uid }} .mr-promise { padding: 90px 0; }
+  #mr-{{ uid }} .mr-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  #mr-{{ uid }} .mr-media { border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px rgba(43,43,43,.14); }
+  #mr-{{ uid }} .mr-media img { width: 100%; height: 100%; object-fit: cover; }
+  #mr-{{ uid }} .mr-promise__words { display: flex; gap: 10px; align-items: center; font-family: var(--mr-serif);
+    color: var(--mr-green); font-size: clamp(22px, 3vw, 30px); margin: 0 0 18px; }
+  #mr-{{ uid }} .mr-promise__words span { color: var(--mr-gold); }
+  #mr-{{ uid }} .mr-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  #mr-{{ uid }} .mr-pill { background: #fff; border: 1px solid rgba(47,82,51,.12); border-radius: 40px;
+    padding: 9px 18px; font-size: 13px; font-weight: 500; color: var(--mr-green); }
+
+  /* ORIGINE (image dédiée pleine largeur) */
+  #mr-{{ uid }} .mr-origine img { width: 100%; }
+
+  /* RITUEL */
+  #mr-{{ uid }} .mr-ritual { padding: 90px 0; background: #fff; }
+  #mr-{{ uid }} .mr-steps { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 20px; }
+  #mr-{{ uid }} .mr-step { display: flex; gap: 16px; align-items: flex-start; }
+  #mr-{{ uid }} .mr-step__n { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--mr-cream);
+    color: var(--mr-green); font-family: var(--mr-serif); font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center; border: 1px solid rgba(176,122,59,.3); }
+  #mr-{{ uid }} .mr-step__t { font-weight: 600; color: var(--mr-green); margin: 4px 0 4px; }
+  #mr-{{ uid }} .mr-step__d { font-size: 14px; color: #6a655c; line-height: 1.6; }
+
+  /* PRODUIT CTA */
+  #mr-{{ uid }} .mr-product { padding: 90px 0; }
+  #mr-{{ uid }} .mr-pcard { background: #fff; border-radius: 24px; padding: 12px; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; box-shadow: 0 30px 80px rgba(43,43,43,.12); overflow: hidden; }
+  #mr-{{ uid }} .mr-pcard__media { border-radius: 18px; overflow: hidden; }
+  #mr-{{ uid }} .mr-pcard__body { padding: 30px 40px 30px 10px; }
+  #mr-{{ uid }} .mr-price-row { display: flex; align-items: baseline; gap: 12px; margin: 14px 0 6px; }
+  #mr-{{ uid }} .mr-price { font-family: var(--mr-serif); font-size: 34px; font-weight: 700; color: var(--mr-green); }
+  #mr-{{ uid }} .mr-price-old { font-size: 18px; color: #a89f92; text-decoration: line-through; }
+  #mr-{{ uid }} .mr-price-badge { background: var(--mr-gold); color: #fff; font-size: 11px; font-weight: 700;
+    letter-spacing: .5px; padding: 4px 10px; border-radius: 20px; }
+  #mr-{{ uid }} .mr-note { font-size: 13px; color: #8a8377; margin-top: 6px; }
+
+  /* HERITAGE */
+  #mr-{{ uid }} .mr-heritage { padding: 90px 0; background: var(--mr-green); color: #f3efe6; }
+  #mr-{{ uid }} .mr-heritage h2.mr-h { color: #fff; }
+  #mr-{{ uid }} .mr-heritage .mr-eyebrow { color: #cbb892; }
+  #mr-{{ uid }} .mr-heritage .mr-lead { color: #d9d3c6; }
+  #mr-{{ uid }} .mr-heritage .mr-media { box-shadow: 0 30px 70px rgba(0,0,0,.3); }
+
+  /* FINAL CTA */
+  #mr-{{ uid }} .mr-final { padding: 84px 24px; text-align: center; background: var(--mr-cream); }
+  #mr-{{ uid }} .mr-final h2 { font-family: var(--mr-serif); color: var(--mr-green); font-size: clamp(26px,3.4vw,40px); margin: 0 0 12px; }
+  #mr-{{ uid }} .mr-final p { color: #6a655c; margin: 0 0 26px; }
+
+  @media screen and (max-width: 860px) {
+    #mr-{{ uid }} .mr-split, #mr-{{ uid }} .mr-pcard { grid-template-columns: 1fr; gap: 28px; }
+    #mr-{{ uid }} .mr-trust__grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    #mr-{{ uid }} .mr-trust__sep { display: none; }
+    #mr-{{ uid }} .mr-hero { background-position: 70% center; min-height: 560px; }
+    #mr-{{ uid }} .mr-hero::before { background: linear-gradient(180deg, rgba(245,241,234,.92) 40%, rgba(245,241,234,.6) 100%); }
+    #mr-{{ uid }} .mr-pcard__body { padding: 6px 22px 26px; }
+    #mr-{{ uid }} .mr-split--reverse .mr-media { order: -1; }
+  }
+{%- endstyle -%}
+
+<div id="mr-{{ uid }}">
+
+  <!-- HERO -->
+  <section class="mr-hero">
+    <div class="mr-wrap">
+      <div class="mr-hero__inner">
+        <p class="mr-eyebrow">L'huile ancestrale du peuple Miskito</p>
+        <h1>Prenez soin de vos racines,<br><em>nourrissez votre nature.</em></h1>
+        <p class="mr-lead">100 % huile de Batana pure du Honduras, pressée à froid. Un seul ingrédient, une vraie tradition — pour des cheveux visiblement plus sains, souples et denses en apparence.</p>
+        <div class="mr-hero__cta">
+          <a href="{{ s.cta_url | default: '/collections/all' }}" class="mr-btn mr-btn--primary">Découvrir l'huile de Batana</a>
+          <a href="{{ s.about_url | default: '/pages/notre-histoire' }}" class="mr-btn mr-btn--ghost">Notre histoire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="mr-trust">
+    <div class="mr-trust__grid">
+      <div class="mr-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 20A7 7 0 0 1 4 13c0-4 3-8 7-11 4 3 7 7 7 11a7 7 0 0 1-7 7Z"/><path d="M11 20V9"/></svg>
+        100 % naturelle
+      </div>
+      <div class="mr-trust__sep"></div>
+      <div class="mr-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13s3-3 6-3 4 2 6 2 6-3 8-3v6s-4 3-8 3-3-2-6-2-6 3-6 3Z"/></svg>
+        Récoltée à la main
+      </div>
+      <div class="mr-trust__sep"></div>
+      <div class="mr-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>
+        Pressée à froid
+      </div>
+      <div class="mr-trust__sep"></div>
+      <div class="mr-trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m20 6-11 11-5-5"/></svg>
+        Sans additifs
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMISE -->
+  <section class="mr-promise">
+    <div class="mr-wrap">
+      <div class="mr-split">
+        <div class="mr-media"><img src="{{ 'myrootelia-goutte.png' | asset_url }}" alt="Goutte d'huile de Batana"></div>
+        <div>
+          <p class="mr-eyebrow">Un seul ingrédient</p>
+          <div class="mr-promise__words">Nourrit <span>·</span> Répare <span>·</span> Fortifie</div>
+          <p class="mr-lead">Riche et sombre, l'huile de Batana gaine la fibre et nourrit intensément le cuir chevelu. Zéro remplissage, zéro promesse exagérée — juste l'huile que les Miskito utilisent depuis des générations.</p>
+          <div class="mr-pills">
+            <span class="mr-pill">Cuir chevelu sec apaisé</span>
+            <span class="mr-pill">Fibre nourrie</span>
+            <span class="mr-pill">Cheveux secs, frisés, crépus</span>
+            <span class="mr-pill">100 % Batana pur</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGINE -->
+  <section class="mr-origine">
+    <img src="{{ 'myrootelia-origine-honduras.png' | asset_url }}" alt="Le trésor naturel du Honduras — huile de Batana pressée à froid" loading="lazy">
+  </section>
+
+  <!-- RITUEL -->
+  <section class="mr-ritual">
+    <div class="mr-wrap">
+      <div class="mr-split mr-split--reverse">
+        <div>
+          <p class="mr-eyebrow">Le rituel du soir</p>
+          <h2 class="mr-h">2 minutes par soir, des cheveux qu'on a envie de toucher.</h2>
+          <ol class="mr-steps">
+            <li class="mr-step"><div class="mr-step__n">1</div><div><div class="mr-step__t">Déposez quelques gouttes</div><div class="mr-step__d">Sur le cuir chevelu et les longueurs, mèche par mèche.</div></div></li>
+            <li class="mr-step"><div class="mr-step__n">2</div><div><div class="mr-step__t">Massez 2 minutes</div><div class="mr-step__d">Du bout des doigts, pour stimuler et détendre le cuir chevelu.</div></div></li>
+            <li class="mr-step"><div class="mr-step__n">3</div><div><div class="mr-step__t">Laissez poser</div><div class="mr-step__d">Idéalement toute la nuit. Rincez ou laissez selon la texture de vos cheveux.</div></div></li>
+          </ol>
+        </div>
+        <div class="mr-media"><img src="{{ 'myrootelia-application.png' | asset_url }}" alt="Application de l'huile de Batana"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUIT CTA -->
+  <section class="mr-product">
+    <div class="mr-wrap">
+      <div class="mr-pcard">
+        <div class="mr-pcard__media"><img src="{{ 'myrootelia-produit.png' | asset_url }}" alt="Huile de Batana myrootelia 50 ml"></div>
+        <div class="mr-pcard__body">
+          <p class="mr-eyebrow">Le héros de la maison</p>
+          <h2 class="mr-h" style="margin-bottom:6px;">Huile de Batana</h2>
+          <p class="mr-lead" style="margin:0;">Nourrit · Répare · Fortifie — 50 ml · 100 % naturelle &amp; pure.</p>
+          <div class="mr-price-row">
+            <span class="mr-price">{{ s.price | default: '39,99 $' }}</span>
+            <span class="mr-price-old">{{ s.compare_price | default: '59,99 $' }}</span>
+            <span class="mr-price-badge">-33 %</span>
+          </div>
+          <p class="mr-note">Ou -15 % avec l'abonnement · Livraison suivie</p>
+          <div style="margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="{{ s.cta_url | default: '/collections/all' }}" class="mr-btn mr-btn--gold">Ajouter à ma routine</a>
+            <a href="{{ s.cta_url | default: '/collections/all' }}" class="mr-btn mr-btn--ghost">Voir le produit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERITAGE -->
+  <section class="mr-heritage">
+    <div class="mr-wrap">
+      <div class="mr-split">
+        <div class="mr-media"><img src="{{ 'myrootelia-coffret.png' | asset_url }}" alt="Coffret rituel capillaire naturel myrootelia"></div>
+        <div>
+          <p class="mr-eyebrow">Les Tawira — le peuple aux beaux cheveux</p>
+          <h2 class="mr-h">Un héritage venu du nord-est du Honduras.</h2>
+          <p class="mr-lead">Dans la Mosquitia, le peuple Miskito extrait depuis des générations une huile épaisse et sombre du fruit du palmier <em>Elaeis oleifera</em>. myrootelia rend cet héritage accessible : pur, tracé, et transparent. Un seul ingrédient. Une vraie tradition. La transparence comme règle.</p>
+          <div style="margin-top:26px;">
+            <a href="{{ s.about_url | default: '/pages/notre-histoire' }}" class="mr-btn mr-btn--gold">Découvrir notre histoire</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="mr-final">
+    <p class="mr-eyebrow">Prenez soin de vos racines</p>
+    <h2>Commencez votre rituel Batana.</h2>
+    <p>Des cheveux nourris à la source, comme le veut la tradition Miskito.</p>
+    <a href="{{ s.cta_url | default: '/collections/all' }}" class="mr-btn mr-btn--primary">Découvrir l'huile de Batana</a>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Accueil myrootelia",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Liens" },
+    { "type": "url", "id": "cta_url", "label": "Lien produit / CTA principal" },
+    { "type": "url", "id": "about_url", "label": "Lien page histoire" },
+    { "type": "header", "content": "Prix affiché" },
+    { "type": "text", "id": "price", "label": "Prix", "default": "39,99 $" },
+    { "type": "text", "id": "compare_price", "label": "Prix barré", "default": "59,99 $" },
+    { "type": "header", "content": "Couleurs (charte)" },
+    { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#2F5233" },
+    { "type": "color", "id": "color_gold", "label": "Or / terre", "default": "#B07A3B" },
+    { "type": "color", "id": "color_cream", "label": "Crème", "default": "#F5F1EA" },
+    { "type": "color", "id": "color_ink", "label": "Noir doux", "default": "#2B2B2B" }
+  ],
+  "presets": [{ "name": "Accueil myrootelia" }]
+}
+{% endschema %}

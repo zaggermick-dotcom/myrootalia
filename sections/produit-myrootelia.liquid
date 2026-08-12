@@ -77,10 +77,33 @@
   #mrp-{{ uid }} .mrp-tc b { display:block; color:var(--g); font-family:var(--serif); font-size:16px; margin-bottom:4px; }
   #mrp-{{ uid }} .mrp-tc span { font-size:13px; color:#6a655c; }
 
+  /* Free-from (Sans) */
+  #mrp-{{ uid }} .mrp-free { padding: 46px 0; border-bottom:1px solid rgba(47,82,51,.08); }
+  #mrp-{{ uid }} .mrp-pills { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:22px; }
+  #mrp-{{ uid }} .mrp-pill { display:inline-flex; align-items:center; gap:8px; background:var(--c); color:var(--g); border:1px solid rgba(47,82,51,.12); border-radius:999px; padding:10px 18px; font-size:14px; font-weight:500; }
+  #mrp-{{ uid }} .mrp-pill svg { width:16px; height:16px; color:var(--o); flex:none; }
+
+  /* Façons d'utiliser */
+  #mrp-{{ uid }} .mrp-uses { margin-top: 40px; display:grid; grid-template-columns: repeat(3,1fr); gap:18px; text-align:left; }
+  #mrp-{{ uid }} .mrp-use { background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:22px; }
+  #mrp-{{ uid }} .mrp-use b { display:block; font-family:var(--serif); font-size:16px; color:#fff; margin-bottom:6px; }
+  #mrp-{{ uid }} .mrp-use span { font-size:13.5px; color:#d9d3c6; line-height:1.6; }
+  #mrp-{{ uid }} .mrp-use em { color:#cbb892; font-style:normal; font-weight:600; }
+
+  /* FAQ */
+  #mrp-{{ uid }} .mrp-faq { padding: 80px 0; background:#fff; }
+  #mrp-{{ uid }} .mrp-faq .mrp-wrap { max-width: 780px; }
+  #mrp-{{ uid }} .mrp-q { border-bottom:1px solid rgba(47,82,51,.12); }
+  #mrp-{{ uid }} .mrp-q summary { list-style:none; cursor:pointer; padding:20px 4px; font-family:var(--serif); font-size:18px; color:var(--g); display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  #mrp-{{ uid }} .mrp-q summary::-webkit-details-marker { display:none; }
+  #mrp-{{ uid }} .mrp-q summary::after { content:"+"; font-size:24px; color:var(--o); font-family:var(--sans); line-height:1; transition:transform .2s; }
+  #mrp-{{ uid }} .mrp-q[open] summary::after { transform:rotate(45deg); }
+  #mrp-{{ uid }} .mrp-q p { margin:0 4px; padding:0 0 22px; font-size:15px; line-height:1.75; color:#4a463f; }
+
   @media (max-width: 860px) {
     #mrp-{{ uid }} .mrp-bgrid { grid-template-columns: 1fr 1fr; }
     #mrp-{{ uid }} .mrp-split { grid-template-columns: 1fr; gap: 30px; }
-    #mrp-{{ uid }} .mrp-steps, #mrp-{{ uid }} .mrp-tgrid { grid-template-columns: 1fr; }
+    #mrp-{{ uid }} .mrp-steps, #mrp-{{ uid }} .mrp-tgrid, #mrp-{{ uid }} .mrp-uses { grid-template-columns: 1fr; }
     #mrp-{{ uid }} .mrp-row { grid-template-columns: 1.3fr .85fr .85fr; }
     #mrp-{{ uid }} .mrp-ingr .mrp-media { order:-1; }
   }
@@ -125,10 +148,26 @@
         <div>
           <p class="mrp-eyebrow">Un seul ingrédient</p>
           <h2 class="mrp-h">100 % Batana pur. Rien d'autre.</h2>
-          <p class="mrp-lead">Pas de remplissage, pas de dilution. Juste l'huile épaisse et sombre extraite du fruit du palmier <em>Elaeis oleifera</em>, pressée à froid pour préserver ses nutriments. Un émollient naturel qui gaine et nourrit.</p>
+          <p class="mrp-lead">Pas de remplissage, pas de dilution. Juste l'huile épaisse et sombre extraite du fruit du palmier <em>Elaeis oleifera</em>, pressée à froid pour préserver ses nutriments. Naturellement riche en acides gras (oléique, linoléique) et en vitamine E, c'est un émollient qui gaine et nourrit la fibre.</p>
           <div class="mrp-inci"><strong>INCI :</strong> Elaeis Oleifera (Palm) Oil · <strong>Sans</strong> additifs, parfum de synthèse ni conservateurs.</div>
         </div>
         <div class="mrp-media"><img src="{{ 'myrootelia-goutte.png' | asset_url }}" alt="Goutte d'huile de Batana pure"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE-FROM / SANS -->
+  <section class="mrp-free">
+    <div class="mrp-wrap" style="text-align:center;">
+      <p class="mrp-eyebrow">Une formule minimaliste</p>
+      <h2 class="mrp-h">Ce qu'il n'y a pas dedans</h2>
+      <div class="mrp-pills">
+        <span class="mrp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sans additifs</span>
+        <span class="mrp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sans parfum de synthèse</span>
+        <span class="mrp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sans silicones</span>
+        <span class="mrp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sans conservateurs</span>
+        <span class="mrp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Sans colorant</span>
+        <span class="mrp-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Non testée sur les animaux</span>
       </div>
     </div>
   </section>
@@ -142,6 +181,11 @@
         <div class="mrp-step"><div class="mrp-step__n">01</div><div class="mrp-step__t">Déposez</div><div class="mrp-step__d">Quelques gouttes sur le cuir chevelu et les longueurs, mèche par mèche.</div></div>
         <div class="mrp-step"><div class="mrp-step__n">02</div><div class="mrp-step__t">Massez</div><div class="mrp-step__d">2 minutes du bout des doigts, pour stimuler et détendre le cuir chevelu.</div></div>
         <div class="mrp-step"><div class="mrp-step__n">03</div><div class="mrp-step__t">Laissez poser</div><div class="mrp-step__d">Idéalement toute la nuit. Rincez ou laissez selon la texture de vos cheveux.</div></div>
+      </div>
+      <div class="mrp-uses">
+        <div class="mrp-use"><b>Cure cuir chevelu</b><span>Sur cuir chevelu sec, <em>3 à 4 fois / semaine</em>, pour une chevelure d'apparence plus dense.</span></div>
+        <div class="mrp-use"><b>Soin des longueurs</b><span>Quelques gouttes sur cheveux secs ou humides, <em>2 à 3 fois / semaine</em>, pour nourrir et discipliner.</span></div>
+        <div class="mrp-use"><b>Masque de nuit</b><span>En couche généreuse le soir, <em>1 fois / semaine</em>, puis lavez au matin pour un soin profond.</span></div>
       </div>
     </div>
   </section>
@@ -163,6 +207,36 @@
         <div class="mrp-row"><div class="mrp-lbl">Sans additifs ni conservateurs</div><div class="mrp-us"><span class="mrp-tick">✓</span></div><div class="mrp-them">Variable</div></div>
         <div class="mrp-row"><div class="mrp-lbl">Discours honnête, sans promesse miracle</div><div class="mrp-us"><span class="mrp-tick">✓</span></div><div class="mrp-them">Allégations exagérées</div></div>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mrp-faq">
+    <div class="mrp-wrap" style="text-align:center;">
+      <p class="mrp-eyebrow">Questions fréquentes</p>
+      <h2 class="mrp-h" style="margin-bottom:28px;">Tout ce qu'il faut savoir</h2>
+    </div>
+    <div class="mrp-wrap" style="text-align:left;">
+      <details class="mrp-q">
+        <summary>Pour quels types de cheveux ?</summary>
+        <p>Pour tous les types de cheveux, et particulièrement les cheveux secs, épais, frisés ou crépus qui recherchent une nutrition intense. Sa texture riche convient aussi au soin de la barbe et des sourcils.</p>
+      </details>
+      <details class="mrp-q">
+        <summary>Est-ce que l'huile graisse les cheveux ?</summary>
+        <p>Le Batana est une huile riche : quelques gouttes suffisent. Appliquée en petite quantité sur les longueurs, ou en masque avant le lavage, elle nourrit sans alourdir. Ajustez la dose à la porosité de vos cheveux.</p>
+      </details>
+      <details class="mrp-q">
+        <summary>Au bout de combien de temps voit-on une différence ?</summary>
+        <p>Dès les premières applications, les cheveux paraissent plus souples et plus faciles à coiffer. Pour l'aspect général de la chevelure, la régularité est la clé : intégrez le rituel plusieurs fois par semaine sur la durée.</p>
+      </details>
+      <details class="mrp-q">
+        <summary>Quelle est l'origine de l'huile ?</summary>
+        <p>Notre Batana provient du Honduras, extrait selon la méthode ancestrale du peuple Miskito à partir du fruit du palmier <em>Elaeis oleifera</em>. Elle est pressée à froid et 100 % pure, sans dilution.</p>
+      </details>
+      <details class="mrp-q">
+        <summary>Comment se conserve-t-elle ?</summary>
+        <p>À température ambiante, à l'abri de la lumière directe. Le Batana peut se figer au froid : réchauffez le flacon entre vos mains ou dans un peu d'eau tiède pour lui rendre sa texture fluide.</p>
+      </details>
     </div>
   </section>
 

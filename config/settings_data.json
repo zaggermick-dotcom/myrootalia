@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "minify_scripts": false,
+    "minify_scripts": true,
     "disable_right_click": true,
     "disable_selection_text": true,
     "domain_name": "myrootelia.com",

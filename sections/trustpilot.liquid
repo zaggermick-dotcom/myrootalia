@@ -1,0 +1,444 @@
+{%- comment -%}
+  ═══════════════════════════════════════════════════════════════════════════
+  SECTION TRUSTPILOT WIDGET
+  Disponible comme SECTION et comme BLOC dans d'autres sections
+  ═══════════════════════════════════════════════════════════════════════════
+{%- endcomment -%}
+
+{%- liquid
+  assign rating = section.settings.rating
+  assign reviews_count = section.settings.reviews_count
+  assign style = section.settings.style
+  assign size = section.settings.size
+  assign show_logo = section.settings.show_logo
+  assign show_count = section.settings.show_count
+  assign show_label = section.settings.show_label
+  assign show_rating_text = section.settings.show_rating_text
+  assign color_stars = section.settings.color_stars
+  assign color_empty = section.settings.color_empty
+  assign color_text = section.settings.color_text
+  assign color_bg_widget = section.settings.color_bg_widget
+  assign alignment = section.settings.alignment
+  assign link_url = section.settings.link_url
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  
+  case size
+    when 'small'
+      assign star_size = 18
+      assign star_gap = 2
+      assign font_size_rating = 14
+      assign font_size_count = 11
+      assign font_size_label = 9
+      assign logo_width = 75
+      assign widget_gap = 8
+      assign padding_box = '12px 16px'
+    when 'large'
+      assign star_size = 30
+      assign star_gap = 4
+      assign font_size_rating = 20
+      assign font_size_count = 15
+      assign font_size_label = 11
+      assign logo_width = 120
+      assign widget_gap = 14
+      assign padding_box = '24px 32px'
+    else
+      assign star_size = 24
+      assign star_gap = 3
+      assign font_size_rating = 17
+      assign font_size_count = 13
+      assign font_size_label = 10
+      assign logo_width = 100
+      assign widget_gap = 10
+      assign padding_box = '18px 24px'
+  endcase
+  
+  assign full_stars = rating | floor
+  assign decimal = rating | modulo: 1
+  assign has_half = false
+  if decimal >= 0.25 and decimal < 0.75
+    assign has_half = true
+  elsif decimal >= 0.75
+    assign full_stars = full_stars | plus: 1
+  endif
+  assign empty_stars = 5 | minus: full_stars
+  if has_half
+    assign empty_stars = empty_stars | minus: 1
+  endif
+  assign half_star_position = full_stars | plus: 1
+-%}
+
+<style>
+  .tps-section-{{ section.id }} {
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+  .tps-container-{{ section.id }} {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    {% case alignment %}
+      {% when 'left' %}align-items: flex-start;
+      {% when 'right' %}align-items: flex-end;
+      {% else %}align-items: center;
+    {% endcase %}
+  }
+  .tps-widget-{{ section.id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: {{ widget_gap }}px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: inherit;
+    {% if style == 'box' or style == 'detailed' %}
+      flex-direction: column;
+      text-align: center;
+    {% endif %}
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  {% if link_url != blank %}
+  .tps-widget-{{ section.id }}:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  {% endif %}
+  .tps-widget-{{ section.id }}.tps--detailed {
+    background: {{ color_bg_widget }};
+    padding: {{ padding_box }};
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .tps-widget-{{ section.id }}.tps--box {
+    background: {{ color_bg_widget }};
+    padding: {{ padding_box }};
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .tps-widget-{{ section.id }}.tps--compact { gap: {{ widget_gap | divided_by: 2 }}px; }
+  .tps-widget-{{ section.id }}.tps--minimal { gap: 6px; }
+  .tps-widget-{{ section.id }}.tps--inline { flex-wrap: wrap; }
+  .tps-widget-{{ section.id }} .tps-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .tps-widget-{{ section.id }} .tps-logo svg {
+    width: {{ logo_width }}px;
+    height: auto;
+  }
+  .tps-widget-{{ section.id }} .tps-stars {
+    display: flex;
+    align-items: center;
+    gap: {{ star_gap }}px;
+  }
+  .tps-widget-{{ section.id }} .tps-star {
+    width: {{ star_size }}px;
+    height: {{ star_size }}px;
+    background: {{ color_stars }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+  .tps-widget-{{ section.id }}.tps--minimal .tps-star { background: transparent; }
+  .tps-widget-{{ section.id }} .tps-star svg {
+    width: {{ star_size | times: 0.6 }}px;
+    height: {{ star_size | times: 0.6 }}px;
+    fill: #ffffff;
+  }
+  .tps-widget-{{ section.id }}.tps--minimal .tps-star svg {
+    fill: {{ color_stars }};
+    width: {{ star_size | times: 0.9 }}px;
+    height: {{ star_size | times: 0.9 }}px;
+  }
+  .tps-widget-{{ section.id }} .tps-star--half {
+    background: linear-gradient(90deg, {{ color_stars }} 50%, {{ color_empty }} 50%);
+  }
+  .tps-widget-{{ section.id }}.tps--minimal .tps-star--half svg { fill: {{ color_empty }}; }
+  .tps-widget-{{ section.id }} .tps-star--empty { background: {{ color_empty }}; }
+  .tps-widget-{{ section.id }}.tps--minimal .tps-star--empty { background: transparent; }
+  .tps-widget-{{ section.id }}.tps--minimal .tps-star--empty svg { fill: {{ color_empty }}; }
+  .tps-widget-{{ section.id }} .tps-info {
+    display: flex;
+    flex-direction: column;
+    {% if style == 'box' or style == 'detailed' %}align-items: center;{% else %}align-items: flex-start;{% endif %}
+    gap: 2px;
+    line-height: 1.3;
+  }
+  .tps-widget-{{ section.id }}.tps--minimal .tps-info,
+  .tps-widget-{{ section.id }}.tps--inline .tps-info {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  .tps-widget-{{ section.id }} .tps-rating {
+    font-size: {{ font_size_rating }}px;
+    font-weight: 700;
+    color: {{ color_text }};
+  }
+  .tps-widget-{{ section.id }} .tps-count {
+    font-size: {{ font_size_count }}px;
+    color: {{ color_text }};
+    opacity: 0.7;
+  }
+  .tps-widget-{{ section.id }} .tps-label {
+    font-size: {{ font_size_label }}px;
+    color: {{ color_text }};
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .tps-widget-{{ section.id }} .tps-separator {
+    color: {{ color_text }};
+    opacity: 0.3;
+  }
+  .tps-section-{{ section.id }} .tps-section-title {
+    text-align: {{ alignment }};
+    margin-bottom: 20px;
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ color_text }};
+  }
+  @media screen and (max-width: 749px) {
+    .tps-section-{{ section.id }} {
+      padding-top: {{ padding_top | times: 0.7 | round }}px;
+      padding-bottom: {{ padding_bottom | times: 0.7 | round }}px;
+    }
+    .tps-widget-{{ section.id }} .tps-logo svg { width: {{ logo_width | times: 0.8 }}px; }
+    .tps-widget-{{ section.id }} .tps-star {
+      width: {{ star_size | times: 0.85 | round }}px;
+      height: {{ star_size | times: 0.85 | round }}px;
+    }
+    .tps-widget-{{ section.id }} .tps-star svg {
+      width: {{ star_size | times: 0.5 | round }}px;
+      height: {{ star_size | times: 0.5 | round }}px;
+    }
+  }
+</style>
+
+<section class="tps-section-{{ section.id }}">
+  <div class="tps-container-{{ section.id }}">
+    {%- if section.settings.section_title != blank -%}
+      <h2 class="tps-section-title">{{ section.settings.section_title }}</h2>
+    {%- endif -%}
+
+    {% if link_url != blank %}<a href="{{ link_url }}" target="_blank" rel="noopener noreferrer" {% else %}<div {% endif %}
+      class="tps-widget-{{ section.id }} tps--{{ style }}"
+      {% if link_url != blank %}aria-label="Voir nos avis sur Trustpilot"{% endif %}
+    >
+      {%- if show_logo and style != 'minimal' and style != 'compact' and style != 'inline' -%}
+        <div class="tps-logo">
+          <svg viewBox="0 0 126 31" xmlns="http://www.w3.org/2000/svg" aria-label="Trustpilot">
+            <path fill="#00B67A" d="M36.54 11.42h5.78l-4.68 3.32 1.79 5.38-4.68-3.4-4.68 3.4 1.79-5.38-4.68-3.32h5.78l1.79-5.38 1.79 5.38z"/>
+            <path fill="#005128" d="M40.53 17.07l-1.06-3.24-4.68 3.4z"/>
+            <path fill="#191919" d="M48.87 6.1h10.88v2.72h-3.9v12.04h-3.08V8.82h-3.9V6.1zm11.02 0h5.23c1.49 0 2.68.37 3.56 1.1.88.74 1.33 1.8 1.33 3.18 0 .9-.19 1.67-.58 2.3-.38.64-.94 1.13-1.66 1.5l2.73 6.68h-3.36l-2.25-5.95h-1.88v5.95H60V6.1h-.1zm5.03 6.25c.6 0 1.07-.17 1.42-.5.35-.34.52-.8.52-1.4 0-.6-.17-1.05-.52-1.38-.35-.33-.82-.5-1.42-.5h-1.95v3.78h1.95zm6.38-6.25h3.08v11.88h5.63v2.88H71.3V6.1zm9.79 0h3.08v14.76h-3.08V6.1zm4.74 7.38c0-1.05.2-2.02.61-2.91.41-.89.96-1.66 1.67-2.32.71-.65 1.54-1.17 2.49-1.54a8.21 8.21 0 013.06-.55c1.05 0 2.06.18 3.04.55.98.37 1.83.89 2.54 1.56.72.67 1.28 1.46 1.7 2.37.42.92.63 1.92.63 3.01v.12c0 1.08-.2 2.07-.61 2.97-.41.9-.97 1.68-1.68 2.34-.71.66-1.53 1.17-2.47 1.54-.94.37-1.96.55-3.05.55-1.08 0-2.1-.18-3.05-.55-.95-.37-1.78-.89-2.48-1.56-.71-.67-1.26-1.46-1.68-2.37-.41-.91-.62-1.9-.62-2.98v-.12l-.1-.11zm3.18.1c0 .65.1 1.26.32 1.82.22.57.52 1.06.91 1.49.39.43.86.77 1.41 1.01.55.25 1.15.37 1.81.37.66 0 1.26-.12 1.81-.36.55-.24 1.02-.58 1.41-1 .39-.43.7-.93.92-1.5.22-.57.33-1.18.33-1.83v-.13c0-.65-.11-1.26-.33-1.82-.22-.57-.52-1.06-.91-1.49-.39-.43-.86-.77-1.41-1.01-.55-.25-1.16-.37-1.82-.37-.66 0-1.26.12-1.81.37-.55.24-1.02.58-1.41 1.01-.39.43-.7.93-.92 1.5-.22.57-.33 1.18-.33 1.83v.13l.02-.02zm13.47-7.48h5.55c.82 0 1.6.12 2.35.35.75.24 1.41.59 2 1.07.58.48 1.05 1.08 1.39 1.81.34.73.51 1.58.51 2.55 0 .97-.17 1.82-.51 2.55-.34.73-.8 1.34-1.39 1.82-.58.48-1.25.84-2 1.07-.75.24-1.53.35-2.35.35h-2.47v5.19h-3.08V6.1zm5.34 8.85c.83 0 1.5-.23 2.02-.7.52-.47.78-1.11.78-1.94 0-.83-.26-1.47-.78-1.94-.52-.47-1.2-.7-2.02-.7h-2.26v5.28h2.26zm7.23-8.85h3.08v14.76h-3.08V6.1zm5.55 0h3.08v11.88h5.63v2.88h-8.71V6.1z"/>
+          </svg>
+        </div>
+      {%- endif -%}
+      
+      <div class="tps-stars" role="img" aria-label="Note: {{ rating }} sur 5 etoiles">
+        {%- for i in (1..5) -%}
+          {%- if i <= full_stars -%}
+            <span class="tps-star" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          {%- elsif has_half and i == half_star_position -%}
+            <span class="tps-star tps-star--half" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          {%- else -%}
+            <span class="tps-star tps-star--empty" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      
+      {%- if show_rating_text or show_count or show_label -%}
+        <div class="tps-info">
+          {%- if show_rating_text -%}<span class="tps-rating">{{ rating }}/5</span>{%- endif -%}
+          {%- if style == 'inline' or style == 'minimal' -%}
+            {%- if show_rating_text and show_count -%}<span class="tps-separator">•</span>{%- endif -%}
+          {%- endif -%}
+          {%- if show_count -%}<span class="tps-count">{{ reviews_count }}+ avis</span>{%- endif -%}
+          {%- if show_label -%}<span class="tps-label">Base sur Trustpilot</span>{%- endif -%}
+        </div>
+      {%- endif -%}
+    {% if link_url != blank %}</a>{% else %}</div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trustpilot",
+  "tag": "section",
+  "class": "section-trustpilot",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Titre (optionnel)"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille titre",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "label": "Note",
+      "default": 4.9
+    },
+    {
+      "type": "number",
+      "id": "reviews_count",
+      "label": "Nombre avis",
+      "default": 2500
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Lien Trustpilot"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        { "value": "default", "label": "Defaut" },
+        { "value": "compact", "label": "Compact" },
+        { "value": "minimal", "label": "Minimal" },
+        { "value": "detailed", "label": "Detaille" },
+        { "value": "box", "label": "Boite" },
+        { "value": "inline", "label": "En ligne" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Taille",
+      "options": [
+        { "value": "small", "label": "Petit" },
+        { "value": "medium", "label": "Moyen" },
+        { "value": "large", "label": "Grand" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignement",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Droite" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Afficher logo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating_text",
+      "label": "Afficher note",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Afficher nombre",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "Afficher label",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Fond section",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "color_bg_widget",
+      "label": "Fond widget",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "color",
+      "id": "color_stars",
+      "label": "Couleur etoiles",
+      "default": "#00B67A"
+    },
+    {
+      "type": "color",
+      "id": "color_empty",
+      "label": "Etoiles vides",
+      "default": "#DCDCE6"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Couleur texte",
+      "default": "#191919"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Largeur max",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace haut",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace bas",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trustpilot"
+    }
+  ]
+}
+{% endschema %}

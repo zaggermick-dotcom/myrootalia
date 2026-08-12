@@ -1,0 +1,1148 @@
+{% comment %}
+  Section: Routine Horizontale Élégante
+  Description: Version optimisée avec calligraphies premium
+  Compatible: Shopify 2.0
+{% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+{% assign safe_id = section.id | replace: '-', '_' %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --primary-color: {{ section.settings.primary_color }};
+    --primary-dark: {{ section.settings.primary_color | color_darken: 10 }};
+    --accent-color: {{ section.settings.title_color }};
+    --text-color: {{ section.settings.text_color }};
+    --bg-section: {{ section.settings.bg_color }};
+    --content-card-bg: {{ section.settings.card_bg }};
+    --content-card-border: {{ section.settings.card_border_color }};
+    --content-card-border-width: {{ section.settings.card_border_width }}px;
+    --number-bg: {{ section.settings.number_bg }};
+    --number-text: {{ section.settings.number_text }};
+    --card-width: {{ section.settings.card_width_desktop }}px;
+    --card-radius: {{ section.settings.card_radius }}px;
+    --grid-gap: {{ section.settings.grid_gap_desktop }}px;
+    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --modal-bg: #ffffff;
+  }
+
+  .luxe-section-wrapper-{{ section.id }} {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--bg-section);
+    padding: {{ section.settings.padding_top_desktop }}px 0 {{ section.settings.padding_bottom_desktop }}px;
+    overflow-x: hidden;
+  }
+
+  .luxe-container-{{ section.id }} {
+    width: {{ section.settings.container_width_desktop }}%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+
+  /* HEADER ÉLÉGANT */
+  .section-header-{{ section.id }} {
+    text-align: center;
+    margin-bottom: {{ section.settings.header_margin_bottom_desktop }}px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-subtitle-{{ section.id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .section-title-{{ section.id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: {{ section.settings.title_size_desktop }}px;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 0 0 12px;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+  }
+
+  .section-description-{{ section.id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* GRID OPTIMISÉ */
+  .icons-grid-{{ section.id }} {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--grid-gap);
+    flex-wrap: wrap;
+  }
+
+  .card-wrapper-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 0 1 var(--card-width);
+    max-width: var(--card-width);
+  }
+
+  /* Ligne de connexion élégante */
+  {% if section.settings.show_connector_line %}
+  .card-wrapper-{{ section.id }}:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: {{ section.settings.number_size | divided_by: 2 | plus: section.settings.number_margin_bottom | divided_by: 2 }}px;
+    right: calc(-1 * var(--grid-gap) / 2 - 15px);
+    width: calc(var(--grid-gap) + 10px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--content-card-border) 0%, transparent 100%);
+    z-index: 1;
+    opacity: 0.5;
+  }
+  {% endif %}
+
+  /* NUMÉRO ÉLÉGANT */
+  .icon-number-{{ section.id }} {
+    width: {{ section.settings.number_size }}px;
+    height: {{ section.settings.number_size }}px;
+    background: var(--number-bg);
+    color: var(--number-text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: {{ section.settings.number_font_size }}px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+    position: relative;
+    margin-bottom: {{ section.settings.number_margin_bottom }}px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-wrapper-{{ section.id }}:hover .icon-number-{{ section.id }} {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* CARTE ÉLÉGANTE */
+  .icon-card-{{ section.id }} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .icon-card-{{ section.id }}:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* IMAGE OPTIMISÉE */
+  .icon-image-wrapper-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    padding-top: {{ section.settings.image_ratio }}%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+
+  .icon-image-wrapper-{{ section.id }} img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .icon-image-wrapper-{{ section.id }} svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    fill: rgba(0,0,0,0.1);
+  }
+
+  .icon-card-{{ section.id }}:hover .icon-image-wrapper-{{ section.id }} img {
+    transform: scale(1.08);
+  }
+
+  /* CONTENU CALLIGRAPHIQUE */
+  .icon-content-{{ section.id }} {
+    padding: {{ section.settings.content_padding_desktop }}px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--content-card-bg);
+    border: var(--content-card-border-width) solid var(--content-card-border);
+    border-top: none;
+  }
+
+  .icon-step-label-{{ section.id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  .icon-title-{{ section.id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: {{ section.settings.card_title_size_desktop }}px;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 0 0 8px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+  }
+
+  .icon-description-{{ section.id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ section.settings.card_text_size_desktop }}px;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 12px;
+    flex-grow: 1;
+    font-style: italic;
+  }
+
+  .icon-description-{{ section.id }} p {
+    margin: 0;
+  }
+
+  /* BOUTON ÉLÉGANT */
+  .icon-action-{{ section.id }} {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 25px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    letter-spacing: 0.5px;
+  }
+
+  .icon-action-{{ section.id }}:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.18);
+  }
+
+  /* MODAL ÉLÉGANTE */
+  .modal-overlay-{{ section.id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .modal-overlay-{{ section.id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content-{{ section.id }} {
+    background: var(--modal-bg);
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--content-card-border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .modal-overlay-{{ section.id }}.active .modal-content-{{ section.id }} {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close-{{ section.id }} {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close-{{ section.id }}:hover {
+    background: rgba(0,0,0,0.1);
+    color: #333;
+    transform: rotate(90deg);
+  }
+
+  .modal-icon-{{ section.id }} {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+
+  .modal-title-{{ section.id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    letter-spacing: 0.5px;
+  }
+
+  .modal-text-{{ section.id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  /* ========== RESPONSIVE TABLETTE ========== */
+  @media (max-width: 1024px) {
+    .luxe-container-{{ section.id }} {
+      width: {{ section.settings.container_width_tablet }}%;
+    }
+
+    .icons-grid-{{ section.id }} {
+      gap: {{ section.settings.grid_gap_tablet }}px;
+    }
+
+    .card-wrapper-{{ section.id }} {
+      flex: 0 0 calc(50% - {{ section.settings.grid_gap_tablet | divided_by: 2 }}px);
+      max-width: calc(50% - {{ section.settings.grid_gap_tablet | divided_by: 2 }}px);
+    }
+
+    .card-wrapper-{{ section.id }}:not(:last-child)::after {
+      display: none;
+    }
+
+    .section-header-{{ section.id }} {
+      margin-bottom: {{ section.settings.header_margin_bottom_tablet }}px;
+    }
+
+    .section-title-{{ section.id }} {
+      font-size: {{ section.settings.title_size_tablet }}px;
+    }
+  }
+
+  /* ========== RESPONSIVE MOBILE ========== */
+  @media (max-width: 768px) {
+    .luxe-section-wrapper-{{ section.id }} {
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    .luxe-container-{{ section.id }} {
+      width: {{ section.settings.container_width_mobile }}%;
+      padding: 0 8px;
+    }
+
+    .section-header-{{ section.id }} {
+      margin-bottom: {{ section.settings.header_margin_bottom_mobile }}px;
+    }
+
+    .section-subtitle-{{ section.id }} {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      margin-bottom: 5px;
+    }
+
+    .section-title-{{ section.id }} {
+      font-size: {{ section.settings.title_size_mobile }}px;
+      margin-bottom: 8px;
+    }
+
+    .section-description-{{ section.id }} {
+      font-size: 14px;
+    }
+
+    .icons-grid-{{ section.id }} {
+      flex-direction: column;
+      align-items: center;
+      gap: {{ section.settings.grid_gap_mobile }}px;
+    }
+
+    .card-wrapper-{{ section.id }} {
+      flex: 1;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .icon-number-{{ section.id }} {
+      width: {{ section.settings.number_size_mobile }}px;
+      height: {{ section.settings.number_size_mobile }}px;
+      font-size: {{ section.settings.number_font_size_mobile }}px;
+      margin-bottom: {{ section.settings.number_margin_bottom_mobile }}px;
+    }
+
+    .icon-image-wrapper-{{ section.id }} {
+      padding-top: {{ section.settings.image_ratio_mobile }}%;
+    }
+
+    .icon-content-{{ section.id }} {
+      padding: {{ section.settings.content_padding_mobile }}px;
+    }
+
+    .icon-step-label-{{ section.id }} {
+      font-size: 9px;
+      margin-bottom: 4px;
+    }
+
+    .icon-title-{{ section.id }} {
+      font-size: {{ section.settings.card_title_size_mobile }}px;
+      margin-bottom: 6px;
+    }
+
+    .icon-description-{{ section.id }} {
+      font-size: {{ section.settings.card_text_size_mobile }}px;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .icon-action-{{ section.id }} {
+      padding: 7px 16px;
+      font-size: 11px;
+    }
+
+    .modal-content-{{ section.id }} {
+      padding: 25px 18px;
+      max-width: 95%;
+    }
+
+    .modal-icon-{{ section.id }} {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .modal-title-{{ section.id }} {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .modal-text-{{ section.id }} {
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+  }
+
+  /* ========== TRÈS PETIT MOBILE ========== */
+  @media (max-width: 380px) {
+    .luxe-container-{{ section.id }} {
+      width: 100%;
+      padding: 0 5px;
+    }
+
+    .icon-content-{{ section.id }} {
+      padding: {{ section.settings.content_padding_mobile | minus: 2 }}px;
+    }
+
+    .section-title-{{ section.id }} {
+      font-size: {{ section.settings.title_size_mobile | minus: 2 }}px;
+    }
+  }
+</style>
+
+<div id="shopify-section-{{ section.id }}" class="luxe-section-wrapper-{{ section.id }}">
+  <div class="luxe-container-{{ section.id }}">
+
+    <!-- Header -->
+    <div class="section-header-{{ section.id }}" data-aos="fade-up">
+      {% if section.settings.subtitle != blank %}
+        <span class="section-subtitle-{{ section.id }}">{{ section.settings.subtitle }}</span>
+      {% endif %}
+      {% if section.settings.title != blank %}
+        <h2 class="section-title-{{ section.id }}">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="section-description-{{ section.id }}">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Grid -->
+    <div class="icons-grid-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="card-wrapper-{{ section.id }}" data-aos="fade-up" data-aos-delay="{{ forloop.index | times: 100 }}" {{ block.shopify_attributes }}>
+
+          <!-- Numéro -->
+          <div class="icon-number-{{ section.id }}">{{ forloop.index }}</div>
+
+          <!-- Carte -->
+          <div class="icon-card-{{ section.id }}">
+
+            <!-- Image -->
+            <div class="icon-image-wrapper-{{ section.id }}">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+
+            <!-- Contenu -->
+            <div class="icon-content-{{ section.id }}">
+              {% if block.settings.step_label != blank %}
+                <div class="icon-step-label-{{ section.id }}">{{ block.settings.step_label }} {{ forloop.index }}</div>
+              {% endif %}
+
+              <h3 class="icon-title-{{ section.id }}">{{ block.settings.title }}</h3>
+
+              <div class="icon-description-{{ section.id }}">{{ block.settings.description }}</div>
+
+              {% if block.settings.modal_content != blank %}
+                <button class="icon-action-{{ section.id }}"
+                  data-modal-title="{{ block.settings.modal_title | escape }}"
+                  data-modal-content="{{ block.settings.modal_content | escape }}"
+                  onclick="openModal_{{ safe_id }}(this.getAttribute('data-modal-title'), this.getAttribute('data-modal-content'))">
+                  {{ block.settings.button_label | default: "En savoir +" }}
+                </button>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay-{{ section.id }}" id="modal-{{ section.id }}">
+  <div class="modal-content-{{ section.id }}">
+    <button class="modal-close-{{ section.id }}" onclick="closeModal_{{ safe_id }}()">&times;</button>
+    <div class="modal-icon-{{ section.id }}">✨</div>
+    <h3 class="modal-title-{{ section.id }}" id="modal-title-{{ section.id }}"></h3>
+    <div class="modal-text-{{ section.id }}" id="modal-desc-{{ section.id }}"></div>
+    <button class="icon-action-{{ section.id }}" onclick="closeModal_{{ safe_id }}()">
+      {{ section.settings.modal_close_text | default: "Fermer" }}
+    </button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+(function() {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({ 
+      duration: 700, 
+      offset: 80, 
+      easing: 'ease-out-cubic', 
+      once: true,
+      disable: 'mobile'
+    });
+  }
+
+  const sectionId = "{{ section.id }}";
+  const safeId = "{{ safe_id }}";
+  const modal = document.getElementById(`modal-${sectionId}`);
+  const modalTitle = document.getElementById(`modal-title-${sectionId}`);
+  const modalDesc = document.getElementById(`modal-desc-${sectionId}`);
+
+  window[`openModal_${safeId}`] = function(title, desc) {
+    if (!modal) return;
+    modalTitle.innerText = title;
+    modalDesc.innerText = desc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window[`closeModal_${safeId}`] = function() {
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  };
+
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) window[`closeModal_${safeId}`]();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) window[`closeModal_${safeId}`]();
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Routine Élégante",
+  "settings": [
+    {
+      "type": "header",
+      "content": "📝 En-tête"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Une routine si simple"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre Principal",
+      "default": "Comment l'utiliser ?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "que vous ne vous en passerez plus !"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de section",
+      "default": "#fdfbfb"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Couleur Primaire",
+      "default": "#2e7d32"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Couleur Titres",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur Textes",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "🎴 Cartes"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond carte",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Bordure carte",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Épaisseur bordure",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Arrondi des cartes",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "🔢 Numéros"
+    },
+    {
+      "type": "color",
+      "id": "number_bg",
+      "label": "Fond numéro",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "number_text",
+      "label": "Texte numéro",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_connector_line",
+      "label": "Afficher ligne de connexion",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "🖥️ Desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Marge haute",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Marge basse",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "container_width_desktop",
+      "min": 70,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Largeur conteneur",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_desktop",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace sous header",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille titre section",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_width_desktop",
+      "min": 180,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "label": "Largeur carte",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Espacement cartes",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Taille numéro",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "number_font_size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Police numéro",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "number_margin_bottom",
+      "min": 5,
+      "max": 25,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace sous numéro",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "image_ratio",
+      "min": 50,
+      "max": 120,
+      "step": 5,
+      "unit": "%",
+      "label": "Ratio image (hauteur)",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "content_padding_desktop",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding contenu",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_title_size_desktop",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille titre carte",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_desktop",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille texte carte",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "📱 Tablette"
+    },
+    {
+      "type": "range",
+      "id": "container_width_tablet",
+      "min": 80,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Largeur conteneur",
+      "default": 95
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_tablet",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Espacement cartes",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_tablet",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace sous header",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "title_size_tablet",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille titre section",
+      "default": 26
+    },
+    {
+      "type": "header",
+      "content": "📲 Mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Marge haute",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Marge basse",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "container_width_mobile",
+      "min": 90,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Largeur conteneur",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace sous header",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille titre section",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Espacement cartes",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "number_size_mobile",
+      "min": 25,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Taille numéro",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "number_font_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Police numéro",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "number_margin_bottom_mobile",
+      "min": 2,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Espace sous numéro",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_ratio_mobile",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Ratio image (hauteur)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "content_padding_mobile",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding contenu",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_title_size_mobile",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille titre carte",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_mobile",
+      "min": 9,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille texte carte",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "⚙️ Modal"
+    },
+    {
+      "type": "text",
+      "id": "modal_close_text",
+      "label": "Texte bouton fermer",
+      "default": "Fermer"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "step_label",
+          "label": "Label étape",
+          "default": "Étape"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Nettoyez votre peau"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "pour éliminer toute trace de maquillage."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texte bouton",
+          "default": "En savoir +"
+        },
+        {
+          "type": "header",
+          "content": "Pop-up"
+        },
+        {
+          "type": "text",
+          "id": "modal_title",
+          "label": "Titre pop-up",
+          "default": "Détails"
+        },
+        {
+          "type": "textarea",
+          "id": "modal_content",
+          "label": "Contenu pop-up",
+          "default": "Explication détaillée..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Routine Premium",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Nettoyez",
+            "description": "Éliminez maquillage et impuretés"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Appliquez",
+            "description": "Le sérum sur peau propre"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Massez",
+            "description": "5 min pour activer les actifs"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,2572 @@
+{% comment %}
+  ══════════════════════════════════════════════════════════════════════════════
+  LATIF SKIN - DIAGNOSTIC EXPERT INTELLIGENT
+  Version: 12.3 - EMAIL OPTIONNEL
+  
+  MODIFICATIONS V12.3:
+  ✅ Résultats visibles SANS email obligatoire
+  ✅ Case à cocher optionnelle pour recevoir les résultats par email
+  ✅ Ajout au panier fonctionnel
+  ✅ Ouverture du cart drawer automatique
+  ══════════════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+{%- liquid
+  assign s_id = section.id
+  
+  assign col_prim = section.settings.color_accent | default: '#E5E5E5'
+  assign col_acc = section.settings.color_accent_light | default: '#000000'
+  assign col_bg_page = section.settings.color_bg_page | default: '#D7DAC9'
+  assign col_bg_card_overlay = section.settings.color_bg_card | default: '#19191E'
+  assign col_bg_card_center = section.settings.color_bg_card_center | default: '#1E1E23'
+  
+  assign col_text_title = section.settings.color_text_title | default: '#FFFFFF'
+  assign col_text_body = section.settings.color_text_body | default: '#FDF8F0'
+  
+  assign col_btn_text = section.settings.color_btn_text | default: '#000000'
+  assign col_input_bg = section.settings.color_input_bg | default: '#EBEBEB'
+  assign col_input_text = section.settings.color_input_text | default: '#000000'
+  assign col_option_bg = section.settings.color_option_bg | default: '#D7DAC9'
+  
+  assign glass_blur = section.settings.glass_blur | default: 25
+  
+  assign nexus_image_id = 'diag-main-img-' | append: s_id
+  
+  assign visitors_initial = section.settings.visitors_count | default: 47
+  
+  assign avatar_size = section.settings.avatar_size | default: 320
+  assign pt_desk = section.settings.padding_top | default: 80
+  assign pb_desk = section.settings.padding_bottom | default: 80
+  assign px_desk = section.settings.padding_horizontal | default: 40
+  assign pt_mob = section.settings.padding_top_mobile | default: 20
+  assign pb_mob = section.settings.padding_bottom_mobile | default: 20
+  assign px_mob = section.settings.padding_horizontal_mobile | default: 20
+  
+  assign social_proof_count = section.settings.social_proof_count | default: '847'
+  assign social_proof_text = section.settings.social_proof_text | default: 'clientes ont trouvé leur routine ce mois-ci'
+  assign benefit_1 = section.settings.benefit_1 | default: 'Votre type de peau analysé'
+  assign benefit_2 = section.settings.benefit_2 | default: 'Les deux sérums parfaits pour vous'
+  assign benefit_3 = section.settings.benefit_3 | default: 'Votre routine matin et soir complète'
+  assign bottom_trust_text = section.settings.bottom_trust_text | default: '🔒 100% gratuit • Résultat immédiat • Sans engagement'
+-%}
+
+<section 
+  id="latif-diagnostic-{{ s_id }}" 
+  class="latif-ultimate-wrapper"
+  style="
+    --l-prim: {{ col_prim }};
+    --l-acc: {{ col_acc }};
+    --l-bg-page: {{ col_bg_page }};
+    --l-card-center: {{ col_bg_card_center }};
+    --l-bg-card-overlay: {{ col_bg_card_overlay }};
+    
+    --l-text-title: {{ col_text_title }};
+    --l-text-body: {{ col_text_body }};
+    --l-btn-text: {{ col_btn_text }};
+    
+    --l-input-bg: {{ col_input_bg }};
+    --l-input-border: {{ col_text_body | color_modify: 'alpha', 0.1 }};
+    --l-input-text: {{ col_input_text }};
+    
+    --l-option-bg: {{ col_option_bg }};
+    --l-option-border: {{ col_prim | color_modify: 'alpha', 0.2 }};
+    --l-option-hover: {{ col_prim | color_modify: 'alpha', 0.1 }};
+    
+    --l-glass-blur: {{ glass_blur }}px;
+    
+    --l-pt-mob: {{ pt_mob }}px;
+    --l-pb-mob: {{ pb_mob }}px;
+    --l-px-mob: {{ px_mob }}px;
+    
+    --l-pt-desk: {{ pt_desk }}px;
+    --l-pb-desk: {{ pb_desk }}px;
+    --l-px-desk: {{ px_desk }}px;
+    
+    --l-avatar-size: {{ avatar_size }}px;
+  "
+>
+  <!-- SOCIAL PROOF FLOATING -->
+  <div class="latif-social-proof" id="social-proof-{{ s_id }}">
+    <div class="proof-avatar">👤</div>
+    <div class="proof-text">
+      <span class="proof-name">Marie L.</span> vient de terminer son diagnostic
+      <span class="proof-time">il y a 2 min</span>
+    </div>
+  </div>
+
+  <div class="latif-diag-container">
+    <div class="latif-diag-card latif-glass-effect">
+      
+      {% if section.settings.enable_aura %}
+        <div class="latif-aura aura-1"></div>
+        <div class="latif-aura aura-2"></div>
+      {% endif %}
+
+      <!-- ZONE VISUELLE (AVATAR À GAUCHE) -->
+      <div class="latif-diag-visual">
+        <div class="latif-circle-nexus">
+          <div class="nexus-orbit"></div>
+          <div class="nexus-orbit orbit--reverse"></div>
+          <div class="nexus-glow"></div>
+          <div class="nexus-image-container">
+            {% if section.settings.main_image != blank %}
+              {{ section.settings.main_image | image_url: width: 800 | image_tag: id: nexus_image_id, loading: 'lazy', alt: 'Diagnostic Peau' }}
+            {% else %}
+               <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800" id="{{ nexus_image_id }}" alt="Avatar Diagnostic">
+            {% endif %}
+          </div>
+        </div>
+        
+        <!-- MÉTRIQUES VISUELLES -->
+        <div class="metrics-preview is-hidden" id="metrics-preview-{{ s_id }}">
+          <div class="metric-item" data-metric="hydration">
+            <div class="metric-icon">💧</div>
+            <div class="metric-bar"><div class="metric-fill" data-value="0"></div></div>
+            <div class="metric-label">Hydratation</div>
+          </div>
+          <div class="metric-item" data-metric="firmness">
+            <div class="metric-icon">🌸</div>
+            <div class="metric-bar"><div class="metric-fill" data-value="0"></div></div>
+            <div class="metric-label">Fermeté</div>
+          </div>
+          <div class="metric-item" data-metric="sensitivity">
+            <div class="metric-icon">🛡️</div>
+            <div class="metric-bar"><div class="metric-fill" data-value="0"></div></div>
+            <div class="metric-label">Sensibilité</div>
+          </div>
+          <div class="metric-item" data-metric="radiance">
+            <div class="metric-icon">✨</div>
+            <div class="metric-bar"><div class="metric-fill" data-value="0"></div></div>
+            <div class="metric-label">Éclat</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ZONE CONTENU INTERACTIF -->
+      <div class="latif-diag-content">
+        
+        <!-- ÉTAPE 1: INTRO -->
+        <div class="latif-screen" data-screen="intro">
+          <div class="latif-badge">✦ Diagnostic Expert Latif Skin ✦</div>
+         
+          <!-- SOCIAL PROOF AVEC AVATARS -->
+          <div class="social-proof-avatars">
+            <div class="avatars-stack">
+              <div class="avatar-circle">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80" alt="Cliente">
+              </div>
+              <div class="avatar-circle">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80" alt="Cliente">
+              </div>
+              <div class="avatar-circle">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80" alt="Cliente">
+              </div>
+              <div class="avatar-circle">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80" alt="Cliente">
+              </div>
+            </div>
+            <div class="social-proof-text">
+              <span class="proof-count">{{ social_proof_count }}</span> {{ social_proof_text }}
+            </div>
+          </div>
+
+          <div class="urgency-banner">
+            <span class="pulse-dot"></span>
+            <span class="urgency-text"><strong id="visitor-count-{{ s_id }}">{{ visitors_initial }}</strong> personnes consultent ce diagnostic</span>
+          </div>
+          
+          <h2 class="latif-title">{{ section.settings.intro_title | default: "Découvrez votre profil de peau" }}</h2>
+          <p class="latif-subtitle">{{ section.settings.intro_subtitle | default: "En 7 questions, identifiez précisément les besoins de votre peau et recevez une recommandation personnalisée." }}</p>
+          
+          <!-- BÉNÉFICES AVEC ✓ -->
+          <div class="benefits-checklist">
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span class="benefit-text">{{ benefit_1 }}</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span class="benefit-text">{{ benefit_2 }}</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-check">✓</span>
+              <span class="benefit-text">{{ benefit_3 }}</span>
+            </div>
+          </div>
+          
+          {% if section.settings.trust_badge_1 != blank or section.settings.trust_badge_2 != blank or section.settings.trust_badge_3 != blank %}
+          <div class="trust-badges">
+            {% if section.settings.trust_badge_1 != blank %}
+            <div class="trust-item">
+              <span class="trust-icon">{{ section.settings.trust_badge_1_icon }}</span>
+              <span class="trust-text">{{ section.settings.trust_badge_1 }}</span>
+            </div>
+            {% endif %}
+            {% if section.settings.trust_badge_2 != blank %}
+            <div class="trust-item">
+              <span class="trust-icon">{{ section.settings.trust_badge_2_icon }}</span>
+              <span class="trust-text">{{ section.settings.trust_badge_2 }}</span>
+            </div>
+            {% endif %}
+            {% if section.settings.trust_badge_3 != blank %}
+            <div class="trust-item">
+              <span class="trust-icon">{{ section.settings.trust_badge_3_icon }}</span>
+              <span class="trust-text">{{ section.settings.trust_badge_3 }}</span>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <button type="button" class="latif-btn-shimmer" data-action="start">
+            <span class="btn-text">{{ section.settings.intro_btn_label | default: "Démarrer mon diagnostic" }}</span>
+            <span class="btn-glare"></span>
+          </button>
+          
+          <!-- TEXTE DE CONFIANCE EN BAS -->
+          <p class="bottom-trust-text">{{ bottom_trust_text }}</p>
+        </div>
+
+        <!-- ÉTAPE 2: QUIZ -->
+        <div class="latif-screen is-hidden" data-screen="quiz">
+          <div class="latif-progress-wrapper">
+            <div class="progress-info">
+              <span class="progress-label">ANALYSE EN COURS</span>
+              <span class="progress-count"><span class="js-current-idx">1</span>/7</span>
+            </div>
+            <div class="progress-track">
+              <div class="js-progress-fill"></div>
+              <div class="progress-milestone" style="left: 28%">🔓</div>
+              <div class="progress-milestone" style="left: 57%">🎯</div>
+              <div class="progress-milestone" style="left: 85%">💎</div>
+              <div class="progress-milestone" style="left: 100%">✨</div>
+            </div>
+            <div class="progress-reward is-hidden" id="progress-reward-{{ s_id }}">
+              <span class="reward-icon">🎁</span>
+              <span class="reward-text">Profil de peau en cours d'analyse...</span>
+            </div>
+          </div>
+          
+          <div class="question-story is-hidden" id="question-story-{{ s_id }}"></div>
+          
+          <div class="js-questions-mount"></div>
+          <button type="button" class="latif-nav-back is-hidden" id="nav-back-{{ s_id }}" data-action="prev">← Retour</button>
+        </div>
+
+        <!-- ÉTAPE 4: RÉSULTATS (DIRECT - PLUS DE FORMULAIRE OBLIGATOIRE) -->
+        <div class="latif-screen is-hidden" data-screen="results">
+          <div class="latif-badge success-badge">✨ Analyse Terminée</div>
+          
+          <!-- PROFIL DE PEAU -->
+          <div class="result-card-glass">
+            <div class="result-header">
+              <h4 class="js-skin-profile-title"></h4>
+              <div class="result-confidence">
+                <span class="confidence-label">Fiabilité :</span>
+                <span class="confidence-value">96%</span>
+              </div>
+            </div>
+            
+            <div class="expert-analysis">
+              <h5>📋 VOTRE PROFIL DE PEAU</h5>
+              <p class="js-skin-profile-desc"></p>
+            </div>
+            
+            <div class="analysis-reason">
+              <h5>🔍 CE QUE CELA SIGNIFIE</h5>
+              <p class="js-skin-analysis"></p>
+            </div>
+          </div>
+          
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+          <!-- CASE À COCHER OPTIONNELLE POUR EMAIL -->
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+          <div class="email-optional-section" id="email-optional-{{ s_id }}">
+            <div class="email-optional-container">
+              <label class="email-checkbox-wrapper">
+                <input type="checkbox" id="want-email-{{ s_id }}" class="email-checkbox">
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-label">📧 Recevoir mes résultats par email</span>
+              </label>
+              
+              <div class="email-fields is-hidden" id="email-fields-{{ s_id }}">
+                <input type="text" id="diag-name-{{ s_id }}" placeholder="Votre prénom" class="email-input">
+                <input type="email" id="diag-email-{{ s_id }}" placeholder="votre@email.com" class="email-input">
+                <button type="button" class="send-email-btn" id="send-email-btn-{{ s_id }}">
+                  <span class="btn-text">Envoyer mes résultats</span>
+                </button>
+                <p class="email-success is-hidden" id="email-success-{{ s_id }}">✅ Email envoyé avec succès !</p>
+              </div>
+              
+              <p class="email-note">Facultatif — Vos résultats sont déjà visibles ci-dessous</p>
+            </div>
+          </div>
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+          
+          <!-- PRODUITS RECOMMANDÉS -->
+          <div class="recommended-products-section">
+            <h5 class="products-section-title">💎 VOTRE PROTOCOLE SUR MESURE</h5>
+            <p class="products-intro js-products-intro"></p>
+            
+            <!-- BOUTON AJOUTER TOUT AU PANIER -->
+            <div class="add-all-container">
+              <button type="button" class="add-all-btn" id="add-all-btn-{{ s_id }}">
+                <span class="add-all-icon">🛒</span>
+                <span class="add-all-text">AJOUTER MA ROUTINE AU PANIER</span>
+                <span class="add-all-price js-total-price"></span>
+              </button>
+              <p class="add-all-note">Ajoutez tous vos sérums recommandés en un clic</p>
+            </div>
+            
+            <div class="products-list js-products-list"></div>
+            
+            <div class="routine-summary">
+              <h6>📅 VOTRE ROUTINE</h6>
+              <div class="js-routine-details"></div>
+            </div>
+          </div>
+          
+          <!-- URGENCE POST-DIAGNOSTIC -->
+          <div class="post-urgency">
+            <div class="urgency-icon">⏰</div>
+            <div class="urgency-content">
+              <strong>Offre spéciale diagnostic</strong>
+              <p class="urgency-desc">-15% sur votre commande avec le code <span class="code-highlight">DIAG15</span></p>
+              <p class="urgency-timer">Expire dans <span id="countdown-timer-{{ s_id }}">14:59</span></p>
+            </div>
+          </div>
+          
+          <!-- STOCK LIMITÉ -->
+          <div class="stock-warning" id="stock-warning-{{ s_id }}">
+            <span class="stock-icon">📦</span>
+            <span class="stock-text">Stock limité : <strong class="js-stock-count">7</strong> sérums disponibles</span>
+          </div>
+          
+          <!-- BOUTONS CTA -->
+          <div class="btn-stack">
+            <button type="button" class="latif-btn-text" data-action="restart">Recommencer l'analyse</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #latif-diagnostic-{{ s_id }} {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--l-pt-mob);
+    padding-bottom: var(--l-pb-mob);
+    background: var(--l-bg-page);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  @media screen and (min-width: 750px) {
+    #latif-diagnostic-{{ s_id }} {
+      padding-top: var(--l-pt-desk);
+      padding-bottom: var(--l-pb-desk);
+      padding-left: var(--l-px-desk);
+      padding-right: var(--l-px-desk);
+    }
+  }
+  
+  @media screen and (max-width: 749px) {
+    #latif-diagnostic-{{ s_id }} {
+      padding-left: var(--l-px-mob);
+      padding-right: var(--l-px-mob);
+    }
+  }
+
+  .latif-social-proof {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--l-card-center);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transform: translateX(-120%);
+    transition: transform 0.5s var(--ease-out);
+    max-width: 280px;
+  }
+  .latif-social-proof.show { transform: translateX(0); }
+  .proof-avatar { font-size: 24px; }
+  .proof-text { font-size: 13px; color: var(--l-text-body); line-height: 1.4; }
+  .proof-name { font-weight: 700; color: var(--l-text-title); }
+  .proof-time { display: block; font-size: 11px; opacity: 0.6; margin-top: 2px; }
+
+  .social-proof-avatars {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(76, 175, 80, 0.15);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 50px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .avatars-stack {
+    display: flex;
+    align-items: center;
+  }
+  .avatar-circle {
+    width: 36px;
+    height: 36px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .avatar-circle:first-child {
+    margin-left: 0;
+  }
+  .avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+  .social-proof-text {
+    font-size: 14px;
+    color: var(--l-text-body);
+    font-weight: 500;
+  }
+  .social-proof-text .proof-count {
+    font-weight: 800;
+    color: #4CAF50;
+    font-size: 16px;
+  }
+
+  .benefits-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 25px 0;
+    text-align: left;
+    max-width: 400px;
+  }
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .benefit-check {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+  }
+  .benefit-text {
+    font-size: 15px;
+    color: var(--l-text-body);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .bottom-trust-text {
+    font-size: 12px;
+    color: var(--l-text-body);
+    opacity: 0.5;
+    margin-top: 20px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 600px) {
+    .social-proof-avatars {
+      padding: 8px 14px;
+      gap: 8px;
+    }
+    .avatar-circle {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin-left: -8px;
+    }
+    .social-proof-text {
+      font-size: 12px;
+    }
+    .social-proof-text .proof-count {
+      font-size: 14px;
+    }
+    .benefits-checklist {
+      gap: 10px;
+      margin: 20px auto;
+    }
+    .benefit-check {
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+    }
+    .benefit-text {
+      font-size: 13px;
+    }
+    .bottom-trust-text {
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .social-proof-avatars {
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px 12px;
+    }
+    .social-proof-text {
+      text-align: center;
+    }
+    .avatar-circle {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .latif-diag-container { 
+    position: relative; z-index: 10; width: 100%; max-width: 1200px;
+    box-sizing: border-box; 
+  }
+  
+  .latif-diag-card {
+    background: radial-gradient(circle at center, var(--l-card-center) 0%, var(--l-bg-card-overlay) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 50px;
+    padding: 60px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden; 
+    align-items: center;
+    backdrop-filter: blur(var(--l-glass-blur));
+    -webkit-backdrop-filter: blur(var(--l-glass-blur));
+  }
+
+  .latif-aura {
+    position: absolute; width: 90%; height: 90%;
+    border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(80px); opacity: 0.4;
+    animation: auraBreath 12s ease-in-out infinite alternate;
+  }
+  .aura-1 { top: -20%; left: -20%; background: radial-gradient(circle, var(--l-prim) 0%, transparent 70%); }
+  .aura-2 { bottom: -20%; right: -20%; background: radial-gradient(circle, var(--l-acc) 0%, transparent 70%); animation-delay: -6s; }
+  @keyframes auraBreath { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.1); opacity: 0.5; } }
+
+  .latif-diag-visual, .latif-diag-content { position: relative; z-index: 2; }
+
+  .latif-diag-visual { 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  .latif-circle-nexus { 
+    position: relative; 
+    width: var(--l-avatar-size); 
+    height: var(--l-avatar-size); 
+    transition: all 0.5s ease;
+    flex-shrink: 0;
+  }
+  
+  .nexus-image-container { 
+    position: absolute; 
+    inset: 12px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 2px solid var(--l-prim); 
+    background: #000; 
+    z-index: 5;
+    box-shadow: 0 0 30px rgba(229, 229, 229, 0.2);
+  }
+  .nexus-image-container img { width: 100%; height: 100%; object-fit: cover; }
+  .nexus-orbit { position: absolute; inset: 0; border: 1px solid rgba(229, 229, 229, 0.2); border-radius: 50%; border-top-color: var(--l-prim); animation: rotate 15s linear infinite; z-index: 2; }
+  .orbit--reverse { inset: -15px; border-top-color: var(--l-acc); animation-direction: reverse; animation-duration: 20s; }
+  .nexus-glow { position: absolute; inset: -20px; background: radial-gradient(circle, var(--l-prim) 0%, transparent 60%); opacity: 0.3; filter: blur(30px); z-index: 1; animation: glowPulse 4s infinite alternate; }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes glowPulse { 0% { opacity: 0.2; transform: scale(1); } 100% { opacity: 0.5; transform: scale(1.1); } }
+
+  .metrics-preview {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: var(--l-avatar-size);
+  }
+  .metric-item {
+    background: #1a1a1a;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 16px;
+    padding: 18px 15px;
+    text-align: center;
+  }
+  .metric-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .metric-bar { 
+    height: 10px; 
+    background: rgba(255,255,255,0.2); 
+    border-radius: 5px; 
+    overflow: hidden;
+    margin: 12px 0;
+  }
+  .metric-fill { 
+    height: 100%; 
+    background: linear-gradient(90deg, #4CAF50, #8BC34A); 
+    width: 0%; 
+    transition: width 1s var(--ease-out);
+    border-radius: 5px;
+  }
+  .metric-label { 
+    font-size: 14px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: #FFFFFF; 
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .urgency-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--l-text-body);
+  }
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #4CAF50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 20px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--l-text-body);
+  }
+  .trust-icon { font-size: 18px; }
+
+  .latif-badge { 
+    display: inline-block; 
+    padding: 8px 18px; 
+    background: rgba(255, 255, 255, 0.1); 
+    color: var(--l-prim); 
+    border-radius: 30px; 
+    font-size: 11px; 
+    font-weight: 800; 
+    letter-spacing: 2px; 
+    margin-bottom: 25px; 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .success-badge { background: rgba(76, 175, 80, 0.1); border-color: rgba(76, 175, 80, 0.3); color: #4CAF50; }
+  
+  .latif-title { 
+    font-size: clamp(2rem, 4vw, 3.2rem); 
+    line-height: 1.1; 
+    margin: 0 0 20px; 
+    color: var(--l-text-title); 
+    font-weight: 600; 
+    letter-spacing: -0.02em;
+  }
+  .latif-title.small { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 20px; }
+  .latif-subtitle { 
+    font-size: 1.1rem; 
+    color: var(--l-text-body); 
+    opacity: 0.85; 
+    margin: 0 0 30px; 
+    line-height: 1.6; 
+    font-weight: 400; 
+  }
+  
+  .micro-text { font-size: 12px; color: var(--l-text-body); opacity: 0.6; margin-top: 15px; }
+
+  .latif-btn-shimmer {
+    position: relative; 
+    background: var(--l-prim); 
+    color: var(--l-btn-text); 
+    border: none; 
+    padding: 18px 40px;
+    border-radius: 100px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    cursor: pointer;
+    overflow: hidden; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s; 
+    font-size: 12px; 
+    letter-spacing: 1px;
+    text-decoration: none; 
+    width: fit-content;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .latif-btn-shimmer.full-width { width: 100%; margin-top: 20px; font-size: 14px; padding: 22px 40px; box-sizing: border-box; }
+  .latif-btn-shimmer:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+  .latif-btn-shimmer.loading { opacity: 0.7; pointer-events: none; }
+  .latif-btn-shimmer.success { background: #4CAF50; }
+  .btn-glare { position: absolute; top: 0; left: -150%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 4s infinite; pointer-events: none; }
+  @keyframes shimmer { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
+  
+  .latif-nav-back { 
+    background: none; 
+    border: none; 
+    color: var(--l-text-body); 
+    opacity: 0.5; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    font-size: 12px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    padding: 10px;
+    transition: all 0.3s;
+  }
+  .latif-nav-back:hover { color: var(--l-prim); opacity: 1; }
+
+  .latif-progress-wrapper { margin-bottom: 30px; }
+  .progress-info { display: flex; justify-content: space-between; font-size: 10px; font-weight: 800; color: var(--l-prim); letter-spacing: 1px; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; }
+  .progress-track { 
+    height: 8px; 
+    background: rgba(0,0,0,0.1); 
+    border-radius: 4px; 
+    overflow: visible; 
+    position: relative;
+  }
+  .js-progress-fill { 
+    height: 100%; 
+    background: linear-gradient(90deg, var(--l-prim), var(--l-acc)); 
+    width: 0%; 
+    transition: width 0.6s var(--ease-out);
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .progress-milestone {
+    position: absolute;
+    top: -8px;
+    transform: translateX(-50%);
+    font-size: 16px;
+    opacity: 0.3;
+    transition: all 0.3s;
+    z-index: 2;
+  }
+  .progress-milestone.unlocked { opacity: 1; transform: translateX(-50%) scale(1.2); }
+  
+  .progress-reward {
+    background: linear-gradient(135deg, var(--l-prim), var(--l-acc));
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    animation: rewardPop 0.5s var(--ease-out);
+  }
+  @keyframes rewardPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .question-story {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--l-prim);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: var(--l-text-body);
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .latif-options-nexus { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 30px 0; }
+  .latif-option-card {
+    background: var(--l-option-bg); 
+    border: 1px solid var(--l-option-border);
+    padding: 25px 15px; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    transition: all 0.2s var(--ease-out);
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+    text-align: center;
+  }
+  .latif-option-card:hover { 
+    background: var(--l-option-hover); 
+    border-color: var(--l-prim); 
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .latif-option-card:active { transform: scale(0.98); }
+  .latif-option-card.selected {
+    background: rgba(0,0,0,0.05);
+    border-color: var(--l-prim);
+    box-shadow: 0 0 0 3px rgba(229, 229, 229, 0.3);
+  }
+  .opt-emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
+  .opt-text { font-size: 13px; font-weight: 600; color: var(--l-text-body); line-height: 1.3; }
+
+  /* ═══════════════════════════════════════════════════════════════ */
+  /* STYLES POUR LA SECTION EMAIL OPTIONNELLE */
+  /* ═══════════════════════════════════════════════════════════════ */
+  .email-optional-section {
+    margin: 30px 0;
+  }
+  
+  .email-optional-container {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+  }
+  
+  .email-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .email-checkbox-wrapper:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .email-checkbox {
+    display: none;
+  }
+  
+  .checkbox-custom {
+    width: 26px;
+    height: 26px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .email-checkbox:checked + .checkbox-custom {
+    background: #4CAF50;
+    border-color: #4CAF50;
+  }
+  
+  .email-checkbox:checked + .checkbox-custom::after {
+    content: "✓";
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .checkbox-label {
+    font-size: 16px;
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+  
+  .email-fields {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .email-input {
+    background: var(--l-input-bg);
+    border: 1px solid var(--l-input-border);
+    color: var(--l-input-text);
+    padding: 14px 20px;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s;
+    font-size: 15px;
+  }
+  
+  .email-input:focus {
+    border-color: var(--l-prim);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(229, 229, 229, 0.3);
+  }
+  
+  .email-input::placeholder {
+    color: #888888;
+  }
+  
+  .send-email-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .send-email-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+  }
+  
+  .send-email-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  .send-email-btn.success {
+    background: linear-gradient(135deg, #2E7D32, #1B5E20);
+  }
+  
+  .email-success {
+    color: #4CAF50;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  
+  .email-note {
+    margin-top: 15px;
+    font-size: 12px;
+    color: var(--l-text-body);
+    opacity: 0.6;
+  }
+  /* ═══════════════════════════════════════════════════════════════ */
+
+  .result-card-glass { 
+    background: #1a1a1a; 
+    border: 2px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 24px; 
+    padding: 35px; 
+    margin: 30px 0; 
+    text-align: left; 
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .result-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 25px; flex-wrap: wrap; gap: 15px;
+  }
+  .js-skin-profile-title { 
+    color: #FFFFFF; 
+    font-size: 1.7rem; 
+    font-weight: 700; 
+    margin: 0; 
+    line-height: 1.3; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .result-confidence {
+    background: rgba(76, 175, 80, 0.25); 
+    padding: 12px 20px; 
+    border-radius: 25px; 
+    font-size: 15px;
+    border: 2px solid rgba(76, 175, 80, 0.5);
+  }
+  .confidence-label { color: #FFFFFF; font-weight: 600; }
+  .confidence-value { color: #4CAF50; font-weight: 800; margin-left: 5px; font-size: 17px; }
+  
+  .expert-analysis, .analysis-reason {
+    margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .expert-analysis h5, .analysis-reason h5 { 
+    font-size: 14px; 
+    letter-spacing: 2px; 
+    color: #FFFFFF; 
+    margin: 0 0 18px; 
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+  .js-skin-profile-desc, .js-skin-analysis { 
+    font-size: 1.1rem; 
+    line-height: 1.8; 
+    color: #E0E0E0; 
+    margin: 0;
+  }
+
+  .recommended-products-section {
+    background: #1a1a1a;
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 24px;
+    padding: 35px;
+    margin: 30px 0;
+  }
+  .products-section-title {
+    font-size: 14px; 
+    letter-spacing: 2px; 
+    color: #FFFFFF; 
+    margin: 0 0 18px; 
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .products-intro {
+    font-size: 1.05rem;
+    color: #E0E0E0;
+    margin-bottom: 25px;
+    line-height: 1.7;
+  }
+  
+  .add-all-container {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
+    border: 2px solid rgba(76, 175, 80, 0.5);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  
+  .add-all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .add-all-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
+  }
+  .add-all-btn.loading { opacity: 0.7; pointer-events: none; }
+  .add-all-btn.success { background: linear-gradient(135deg, #2E7D32, #1B5E20); }
+  
+  .add-all-icon { font-size: 22px; }
+  .add-all-text { flex: 1; }
+  .add-all-price {
+    background: rgba(255,255,255,0.25);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  
+  .add-all-note {
+    margin: 15px 0 0;
+    font-size: 13px;
+    color: #E0E0E0;
+  }
+  
+  .products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .product-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .product-card:hover {
+    border-color: var(--l-prim);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .product-card.main-product {
+    border: 3px solid var(--l-prim);
+    background: linear-gradient(135deg, rgba(229,229,229,0.15), rgba(255,255,255,0.05));
+  }
+  .product-card.main-product::before {
+    content: "RECOMMANDÉ";
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--l-prim);
+    color: black;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .product-card.added {
+    border-color: #4CAF50;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.08));
+  }
+  
+  .product-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 14px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  .product-info { flex: 1; min-width: 0; }
+  .product-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 6px;
+  }
+  .product-target {
+    font-size: 0.85rem;
+    color: #CCCCCC;
+    margin: 0 0 8px;
+  }
+  .product-reason {
+    font-size: 0.9rem;
+    color: #E0E0E0;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .product-price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #FFFFFF;
+  }
+  
+  .product-add-btn {
+    background: var(--l-prim);
+    color: var(--l-btn-text);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+  }
+  .product-add-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  .product-add-btn.loading { opacity: 0.6; pointer-events: none; }
+  .product-add-btn.added { background: #4CAF50; color: white; }
+  
+  .post-urgency {
+    background: #FFF8E1;
+    border: 3px solid #FFC107;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+  }
+  .urgency-icon { font-size: 40px; }
+  .urgency-content strong { 
+    display: block; 
+    color: #1a1a1a; 
+    margin-bottom: 8px; 
+    font-size: 18px;
+    font-weight: 800;
+  }
+  .urgency-desc { 
+    margin: 0 0 8px 0; 
+    font-size: 16px; 
+    color: #333333;
+    font-weight: 600;
+  }
+  .code-highlight {
+    background: #1a1a1a; 
+    color: #FFFFFF; 
+    padding: 4px 12px; 
+    border-radius: 6px; 
+    font-weight: 800; 
+    font-family: monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+  .urgency-timer { 
+    color: #D32F2F !important; 
+    font-weight: 800 !important; 
+    margin: 0 !important;
+    font-size: 17px !important;
+  }
+
+  .stock-warning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #1a1a1a;
+    border: 3px solid #FF5722;
+    border-radius: 16px;
+    padding: 18px 25px;
+    margin-bottom: 20px;
+    animation: stockPulse 2s infinite;
+  }
+  @keyframes stockPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 87, 34, 0); }
+  }
+  .stock-icon { font-size: 28px; }
+  .stock-text { 
+    font-size: 16px; 
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+  .stock-text strong {
+    color: #FF5722;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .routine-summary {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .routine-summary h6 {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    margin: 0 0 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+  .routine-step {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .routine-step:last-child { border-bottom: none; }
+  .routine-time {
+    background: rgba(255,255,255,0.15);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+    min-width: 70px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .routine-action {
+    font-size: 1rem;
+    color: #E0E0E0;
+    line-height: 1.5;
+  }
+
+  .is-hidden { display: none !important; }
+  .btn-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
+  .latif-btn-text { 
+    background: none; border: none; color: #E0E0E0; cursor: pointer; 
+    text-transform: uppercase; font-size: 11px; letter-spacing: 1px; margin-top: 15px; transition: all 0.3s;
+  }
+  .latif-btn-text:hover { color: var(--l-prim); }
+
+  @media (max-width: 900px) {
+    .latif-diag-card { 
+      grid-template-columns: 1fr; 
+      border-radius: 30px; 
+      padding: 40px 25px; 
+      gap: 30px; 
+      text-align: center; 
+    }
+    .latif-diag-visual { order: -1; margin-bottom: 10px; }
+    .latif-circle-nexus { 
+      width: calc(var(--l-avatar-size) * 0.7); 
+      height: calc(var(--l-avatar-size) * 0.7); 
+      margin: 0 auto; 
+    }
+    .metrics-preview { max-width: calc(var(--l-avatar-size) * 0.7); margin: 20px auto 0; }
+    .latif-badge { margin: 0 auto 20px; display: table; }
+    .result-card-glass { text-align: left; padding: 25px; }
+    .latif-btn-shimmer { margin-left: auto; margin-right: auto; }
+    .latif-options-nexus { gap: 10px; }
+    .latif-option-card { padding: 15px 10px; }
+    .trust-badges { justify-content: center; }
+    .urgency-banner { margin-left: auto; margin-right: auto; }
+    .latif-social-proof { display: none; }
+    .post-urgency { flex-direction: column; text-align: center; padding: 20px; }
+    .urgency-icon { font-size: 35px; }
+    .benefits-checklist { margin: 20px auto; }
+  }
+
+  @media (max-width: 600px) {
+    .product-card { 
+      flex-direction: column; 
+      text-align: center; 
+      padding: 25px 20px;
+    }
+    .product-image { 
+      width: 110px; 
+      height: 110px; 
+      margin-bottom: 10px;
+    }
+    .product-actions { 
+      align-items: center; 
+      margin-top: 15px;
+      width: 100%;
+    }
+    .product-add-btn {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 12px;
+    }
+    .product-reason { -webkit-line-clamp: 3; }
+    .add-all-btn {
+      flex-direction: column;
+      gap: 10px;
+      padding: 22px;
+      font-size: 14px;
+    }
+    .add-all-price { margin-top: 5px; }
+    .js-skin-profile-title { font-size: 1.4rem; }
+    .js-skin-profile-desc, .js-skin-analysis { font-size: 1rem; }
+    .metric-item { padding: 15px 10px; }
+    .metric-label { font-size: 12px; }
+    .email-optional-container { padding: 20px 15px; }
+    .checkbox-label { font-size: 14px; }
+  }
+
+  @media (max-width: 480px) {
+    .latif-diag-card { padding: 30px 20px; }
+    .latif-options-nexus { grid-template-columns: 1fr; }
+    .latif-option-card { 
+      flex-direction: row; 
+      padding: 15px 25px; 
+      justify-content: flex-start; 
+      text-align: left; 
+    }
+    .opt-emoji { margin-bottom: 0; margin-right: 15px; font-size: 1.5rem; }
+    .result-header { flex-direction: column; }
+    .recommended-products-section { padding: 25px 20px; }
+    .result-card-glass { padding: 25px 20px; }
+  }
+</style>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script>
+(function() {
+  // ═══════════════════════════════════════════════════════════════
+  // CONFIGURATION EMAILJS - LATIF SKIN
+  // ═══════════════════════════════════════════════════════════════
+  const EMAILJS_CONFIG = {
+    publicKey: 'yvCGCkv9239U2Psvy',
+    serviceId: 'service_swoiujg',
+    templateIdClient: 'template_sj0dauh',
+    templateIdAdmin: 'template_sj0dauh',
+    adminEmail: 'contact@latifskin.com'
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // FONCTION D'ENVOI EMAIL - DOUBLE ENVOI (CLIENT + ADMIN)
+  // ═══════════════════════════════════════════════════════════════
+  function sendDiagnosticEmails(clientData) {
+    if (typeof emailjs === 'undefined') {
+      console.error('EmailJS non chargé');
+      return Promise.reject('EmailJS non chargé');
+    }
+
+    const baseParams = {
+      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      skin_profile: clientData.skinProfile,
+      diagnostic_title: clientData.skinProfile,
+      diagnostic_summary: clientData.profileDescription,
+      analysis: clientData.analysis,
+      recommended_products: clientData.products,
+      routine_steps: clientData.routine
+    };
+
+    const clientParams = {
+      ...baseParams,
+      to_name: clientData.name,
+      to_email: clientData.email,
+      reply_to: EMAILJS_CONFIG.adminEmail
+    };
+
+    const clientEmailPromise = emailjs.send(
+      EMAILJS_CONFIG.serviceId,
+      EMAILJS_CONFIG.templateIdClient,
+      clientParams
+    ).then(() => {
+      console.log('✅ Email envoyé au client:', clientData.email);
+    }).catch(err => {
+      console.error('❌ Erreur envoi client:', err);
+    });
+
+    const adminParams = {
+      ...baseParams,
+      to_name: 'Admin LATIF',
+      to_email: EMAILJS_CONFIG.adminEmail,
+      reply_to: clientData.email,
+      client_name: clientData.name,
+      client_email: clientData.email,
+      diagnostic_date: new Date().toLocaleString('fr-FR')
+    };
+
+    const adminEmailPromise = emailjs.send(
+      EMAILJS_CONFIG.serviceId,
+      EMAILJS_CONFIG.templateIdAdmin,
+      adminParams
+    ).then(() => {
+      console.log('✅ Copie envoyée à admin:', EMAILJS_CONFIG.adminEmail);
+    }).catch(err => {
+      console.error('❌ Erreur envoi admin:', err);
+    });
+
+    return Promise.all([clientEmailPromise, adminEmailPromise]);
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CONFIGURATION PRODUITS LATIF SKIN
+  // ═══════════════════════════════════════════════════════════════
+  const PRODUCTS = {
+    ROSE: {
+      id: 'rose',
+      emoji: '🌸',
+      name: 'Sérum NAD+ Peptides',
+      shortName: 'ROSE',
+      target: 'Fermeté • Lift • Rides profondes',
+      price: '$35.99',
+      priceNum: 3599,
+      url: '/products/rose-s-rum-nad-peptides-fermet-lift-ridesserum-equalyberry-nad-peptides-fermete-elasticite-amp-peau-rebondie',
+      image: 'https://cdn.shopify.com/s/files/1/0711/3274/1771/files/rose-serum-nad-peptides-fermete-lift-rideslatif-6752840.jpg?v=1768027747',
+      color: '#FFB6C1'
+    },
+    BLEU: {
+      id: 'bleu',
+      emoji: '🔵',
+      name: 'Sérum Hyaltoin',
+      shortName: 'BLEU',
+      target: 'Hydratation intense • Confort • Peau repulpée',
+      price: '$29.99',
+      priceNum: 2999,
+      url: '/products/bleu-s-rum-hyaltoin-hydratation-flood-cooling%F0%9F%94%B5-bleu-serum-hyaltoin-hydratation-flood-cooling',
+      image: 'https://cdn.shopify.com/s/files/1/0711/3274/1771/files/bleu-serum-hyaltoin-hydratation-flood-coolinglatif-9654669.jpg?v=1768027748',
+      color: '#87CEEB'
+    },
+    JAUNE: {
+      id: 'jaune',
+      emoji: '🟡',
+      name: 'Sérum Vitamine Éclat',
+      shortName: 'JAUNE',
+      target: 'Anti-taches • Éclat • Teint lumineux',
+      price: '$33.99',
+      priceNum: 3399,
+      url: '/products/jaune-serum-vitamine-illuminating-taches-eclat',
+      image: 'https://cdn.shopify.com/s/files/1/0711/3274/1771/files/jaune-serum-vitamine-illuminating-taches-eclatlatif-4251372.jpg?v=1768027748',
+      color: '#FFD700'
+    },
+    VERT: {
+      id: 'vert',
+      emoji: '🟢',
+      name: 'Sérum Aloe PDRN',
+      shortName: 'VERT',
+      target: 'Apaisant • Rougeurs • Peaux sensibles',
+      price: '$32.99',
+      priceNum: 3299,
+      url: '/products/serum-equallyberry-au-bakuchiol-copie-copie-copie',
+      image: 'https://cdn.shopify.com/s/files/1/0711/3274/1771/files/vert-serum-aloe-pdrn-apaisant-rougeurs-barrierelatif-5555291.jpg?v=1768027748',
+      color: '#90EE90'
+    },
+    STAR: {
+      id: 'star',
+      emoji: '⭐',
+      name: 'Sérum Bakuchiol Plumping',
+      shortName: 'ORIGINAL',
+      target: 'Multi-actions • Boutons • Texture • Anti-âge',
+      price: '$34.99',
+      priceNum: 3499,
+      url: '/products/serum-equallyberry-au-bakuchiol',
+      image: 'https://cdn.shopify.com/s/files/1/0711/3274/1771/files/Bienfaits_serum_2_160b1290-b45c-43f2-aa1f-4c3b452b6639.webp?v=1768101450',
+      color: '#E5E5E5'
+    }
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // PROFILS DE PEAU
+  // ═══════════════════════════════════════════════════════════════
+  const SKIN_PROFILES = {
+    ROSE: {
+      title: "Peau Mature en Quête de Fermeté",
+      description: "Votre peau montre des signes de relâchement et de perte de densité. Les rides se creusent progressivement et l'ovale du visage perd de sa netteté. La production naturelle de collagène diminue, ce qui affecte la fermeté et l'élasticité de votre peau.",
+      analysis: "Votre barrière cutanée a besoin d'un boost de régénération cellulaire. Les peptides et le NAD+ sont les actifs les plus efficaces pour stimuler la production de collagène et redonner de la densité à votre peau. Une action ciblée anti-âge est recommandée."
+    },
+    BLEU: {
+      title: "Peau Assoiffée & Inconfortable",
+      description: "Votre peau manque cruellement d'hydratation. Elle tiraille, absorbe tout sans jamais être rassasiée. Des ridules de déshydratation peuvent apparaître, surtout autour des yeux et de la bouche. Votre peau a constamment besoin d'être nourrie.",
+      analysis: "Votre barrière cutanée est affaiblie et ne retient plus l'eau efficacement. L'acide hyaluronique multi-poids moléculaires et les céramides sont essentiels pour restaurer l'hydratation en profondeur et créer un effet 'réservoir' qui dure toute la journée."
+    },
+    JAUNE: {
+      title: "Peau Terne en Manque d'Éclat",
+      description: "Votre teint a perdu sa luminosité naturelle. Des taches pigmentaires, des marques post-inflammatoires ou un voile grisâtre perturbent l'uniformité de votre peau. Vous avez l'impression d'avoir une 'mine fatiguée' même après une bonne nuit de sommeil.",
+      analysis: "L'accumulation de cellules mortes et une production excessive de mélanine sont responsables de ce manque d'éclat. La vitamine C et les actifs anti-taches vont aider à inhiber la production de mélanine et à révéler un teint plus frais et lumineux."
+    },
+    VERT: {
+      title: "Peau Sensible & Réactive",
+      description: "Votre peau réagit au moindre stimulus : rougeurs diffuses, picotements, sensation de chaleur ou d'inconfort. Vous avez du mal à trouver des produits qui ne provoquent pas de réaction. Votre peau est souvent rouge, surtout sur les joues et le nez.",
+      analysis: "Votre barrière cutanée est fragilisée et perméable aux agressions extérieures. Il est essentiel de l'apaiser et de la renforcer avec des actifs calmants comme l'Aloe PDRN et le complexe CICA avant d'envisager tout traitement actif."
+    },
+    STAR: {
+      title: "Peau Mixte à Imperfections",
+      description: "Votre peau oscille entre zones grasses (front, nez, menton) et zones plus sèches (joues). Des imperfections apparaissent régulièrement : boutons, points noirs, pores dilatés. Vous observez peut-être aussi les premiers signes de l'âge.",
+      analysis: "Votre peau a besoin d'un actif polyvalent qui régule le sébum, affine le grain de peau et prévient les imperfections, tout en offrant une action anti-âge douce. Le Bakuchiol est l'alternative naturelle idéale au rétinol, sans irritation."
+    },
+    MULTI: {
+      title: "Peau aux Besoins Multiples",
+      description: "Votre peau présente plusieurs problématiques simultanées qui nécessitent une approche combinée. Chaque zone ou chaque préoccupation demande une attention particulière avec des actifs ciblés.",
+      analysis: "Pour des résultats optimaux, nous vous recommandons un protocole multi-sérums. Chaque produit ciblera un besoin spécifique, et utilisés ensemble, ils créeront une synergie pour transformer votre peau en profondeur."
+    }
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // QUESTIONS DU QUIZ
+  // ═══════════════════════════════════════════════════════════════
+  const QUESTIONS = [
+    {
+      id: 'skin_type',
+      question: "Comment décririez-vous votre peau au quotidien ?",
+      story: "Commençons par comprendre la nature de votre peau. Cette première information est essentielle pour personnaliser votre diagnostic.",
+      options: [
+        { emoji: "✨", text: "Normale, équilibrée", scores: { ROSE: 0, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 2 } },
+        { emoji: "🌵", text: "Sèche, qui tiraille", scores: { ROSE: 1, BLEU: 4, JAUNE: 0, VERT: 1, STAR: 0 } },
+        { emoji: "💡", text: "Grasse, brillante", scores: { ROSE: 0, BLEU: 0, JAUNE: 1, VERT: 0, STAR: 4 } },
+        { emoji: "⚖️", text: "Mixte (zone T grasse)", scores: { ROSE: 0, BLEU: 1, JAUNE: 1, VERT: 0, STAR: 3 } }
+      ]
+    },
+    {
+      id: 'sensitivity',
+      question: "Votre peau réagit-elle facilement ?",
+      story: "La sensibilité cutanée révèle l'état de votre barrière protectrice. Une peau réactive nécessite des soins adaptés.",
+      options: [
+        { emoji: "🔴", text: "Oui, rougeurs fréquentes", scores: { ROSE: 0, BLEU: 1, JAUNE: 0, VERT: 5, STAR: 0 } },
+        { emoji: "🌬️", text: "Oui, surtout au froid/vent", scores: { ROSE: 0, BLEU: 2, JAUNE: 0, VERT: 3, STAR: 0 } },
+        { emoji: "🔥", text: "Oui, picotements avec certains produits", scores: { ROSE: 0, BLEU: 1, JAUNE: 0, VERT: 4, STAR: 0 } },
+        { emoji: "🆗", text: "Non, ma peau tolère bien les produits", scores: { ROSE: 1, BLEU: 0, JAUNE: 1, VERT: 0, STAR: 1 } }
+      ]
+    },
+    {
+      id: 'hydration',
+      question: "Comment se comporte votre peau niveau hydratation ?",
+      story: "L'hydratation est la base d'une peau saine. Évaluons ensemble si votre peau retient suffisamment l'eau.",
+      options: [
+        { emoji: "💧", text: "Elle boit tout ! Les crèmes ne suffisent jamais", scores: { ROSE: 0, BLEU: 5, JAUNE: 0, VERT: 1, STAR: 0 } },
+        { emoji: "😐", text: "Confortable avec une crème classique", scores: { ROSE: 1, BLEU: 0, JAUNE: 1, VERT: 0, STAR: 1 } },
+        { emoji: "🏜️", text: "Tiraillements après le nettoyage", scores: { ROSE: 0, BLEU: 4, JAUNE: 0, VERT: 2, STAR: 0 } },
+        { emoji: "💦", text: "Plutôt grasse, peu besoin d'hydrater", scores: { ROSE: 0, BLEU: 0, JAUNE: 1, VERT: 0, STAR: 3 } }
+      ]
+    },
+    {
+      id: 'imperfections',
+      question: "Avez-vous des imperfections ?",
+      story: "Les imperfections nous guident vers le déséquilibre à corriger. Soyez précis(e) pour un diagnostic optimal.",
+      options: [
+        { emoji: "🌋", text: "Boutons réguliers (front, menton, joues)", scores: { ROSE: 0, BLEU: 0, JAUNE: 1, VERT: 1, STAR: 5 } },
+        { emoji: "⚫", text: "Points noirs et pores visibles", scores: { ROSE: 0, BLEU: 0, JAUNE: 1, VERT: 0, STAR: 4 } },
+        { emoji: "🔵", text: "Marques/traces après les boutons", scores: { ROSE: 0, BLEU: 0, JAUNE: 4, VERT: 0, STAR: 2 } },
+        { emoji: "🚫", text: "Rarement ou jamais", scores: { ROSE: 2, BLEU: 1, JAUNE: 1, VERT: 1, STAR: 0 } }
+      ]
+    },
+    {
+      id: 'radiance',
+      question: "Comment décririez-vous votre teint ?",
+      story: "L'éclat du teint reflète la santé de votre peau. Un teint lumineux est signe d'une peau bien nourrie.",
+      options: [
+        { emoji: "😶", text: "Terne, grisâtre, fatigué", scores: { ROSE: 1, BLEU: 1, JAUNE: 5, VERT: 0, STAR: 0 } },
+        { emoji: "🎨", text: "Taches brunes ou pigmentaires", scores: { ROSE: 0, BLEU: 0, JAUNE: 5, VERT: 0, STAR: 1 } },
+        { emoji: "🌅", text: "Irrégulier, pas homogène", scores: { ROSE: 0, BLEU: 0, JAUNE: 4, VERT: 1, STAR: 1 } },
+        { emoji: "✨", text: "Lumineux et uniforme", scores: { ROSE: 1, BLEU: 1, JAUNE: 0, VERT: 1, STAR: 1 } }
+      ]
+    },
+    {
+      id: 'aging',
+      question: "Observez-vous des signes de l'âge ?",
+      story: "Le temps laisse des traces que nous pouvons atténuer. Identifions ensemble vos préoccupations anti-âge.",
+      options: [
+        { emoji: "📝", text: "Ridules légères (yeux, front)", scores: { ROSE: 3, BLEU: 2, JAUNE: 0, VERT: 0, STAR: 2 } },
+        { emoji: "📜", text: "Rides installées, marquées", scores: { ROSE: 5, BLEU: 1, JAUNE: 0, VERT: 0, STAR: 1 } },
+        { emoji: "📉", text: "Perte de fermeté, ovale moins net", scores: { ROSE: 5, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 0 } },
+        { emoji: "👶", text: "Aucun signe visible", scores: { ROSE: 0, BLEU: 1, JAUNE: 1, VERT: 1, STAR: 2 } }
+      ]
+    },
+    {
+      id: 'priority',
+      question: "Si vous pouviez régler UN SEUL problème, ce serait...",
+      story: "Cette dernière question est décisive. Elle nous permet de comprendre votre priorité absolue.",
+      options: [
+        { emoji: "🧱", text: "Raffermir et lifter ma peau", scores: { ROSE: 6, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 0 } },
+        { emoji: "💧", text: "Hydrater en profondeur", scores: { ROSE: 0, BLEU: 6, JAUNE: 0, VERT: 0, STAR: 0 } },
+        { emoji: "✨", text: "Retrouver de l'éclat, estomper les taches", scores: { ROSE: 0, BLEU: 0, JAUNE: 6, VERT: 0, STAR: 0 } },
+        { emoji: "🛡️", text: "Calmer les rougeurs et la sensibilité", scores: { ROSE: 0, BLEU: 0, JAUNE: 0, VERT: 6, STAR: 0 } },
+        { emoji: "💎", text: "Avoir une peau nette, sans boutons", scores: { ROSE: 0, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 6 } }
+      ]
+    }
+  ];
+
+  // ═══════════════════════════════════════════════════════════════
+  // FONCTIONS PANIER
+  // ═══════════════════════════════════════════════════════════════
+  
+  async function updateCartCount() {
+    try {
+      const response = await fetch('/cart.js');
+      const cart = await response.json();
+      
+      const countSelectors = [
+        '.cart-count', '.cart-count-bubble', '.cart-item-count',
+        '[data-cart-count]', '.js-cart-count', '.header__cart-count',
+        '.cart-link__count', '#cart-icon-bubble span', '.site-header__cart-count'
+      ];
+      
+      countSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => {
+          el.textContent = cart.item_count;
+          if (cart.item_count > 0) {
+            el.style.display = '';
+            el.classList.remove('hidden', 'is-hidden');
+          }
+        });
+      });
+      
+      document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+      return cart;
+    } catch (error) {
+      console.error('Erreur updateCartCount:', error);
+    }
+  }
+
+  function openCart() {
+    console.log('🛒 Ouverture du panier...');
+    
+    const cartDrawerDawn = document.querySelector('cart-drawer');
+    if (cartDrawerDawn && typeof cartDrawerDawn.open === 'function') {
+      cartDrawerDawn.open();
+      return;
+    }
+    
+    if (typeof window.openCartDrawer === 'function') {
+      window.openCartDrawer();
+      return;
+    }
+    
+    const cartDrawerPremium = document.querySelector('.cart-drawer-premium');
+    if (cartDrawerPremium) {
+      cartDrawerPremium.classList.add('is-open', 'active', 'open');
+      const overlay = document.querySelector('.cdp-overlay, .cart-overlay, .drawer-overlay');
+      if (overlay) overlay.classList.add('is-visible', 'active');
+      document.body.classList.add('overflow-hidden', 'cart-open');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+    
+    const drawerSelectors = [
+      '#CartDrawer', '#cart-drawer', '.cart-drawer', '[data-cart-drawer]',
+      '.drawer--cart', '.side-cart', '.mini-cart', '.ajax-cart',
+      '#mini-cart', '#shopify-section-cart-drawer', '.cart-slide-out'
+    ];
+    
+    for (const selector of drawerSelectors) {
+      const drawer = document.querySelector(selector);
+      if (drawer) {
+        drawer.classList.add('is-open', 'active', 'open', 'is-active', 'drawer--is-open');
+        drawer.removeAttribute('hidden');
+        drawer.style.transform = 'translateX(0)';
+        drawer.style.visibility = 'visible';
+        
+        const overlay = document.querySelector('.drawer-overlay, .cart-overlay, .page-overlay, [data-drawer-overlay]');
+        if (overlay) {
+          overlay.classList.add('is-visible', 'active');
+          overlay.style.opacity = '1';
+          overlay.style.visibility = 'visible';
+        }
+        
+        document.body.classList.add('overflow-hidden', 'drawer-open', 'cart-open');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+    }
+    
+    document.dispatchEvent(new CustomEvent('cart:open'));
+    document.dispatchEvent(new CustomEvent('theme:cart:open'));
+    document.dispatchEvent(new CustomEvent('ajaxCart:open'));
+    
+    const cartButtonSelectors = [
+      '[data-cart-trigger]', '.cart-icon-bubble', '.header__cart',
+      '.site-header__cart', '.cart-link', 'a[href="/cart"]',
+      '.js-cart-trigger', '#cart-icon', '.cart-toggle'
+    ];
+    
+    for (const selector of cartButtonSelectors) {
+      const btn = document.querySelector(selector);
+      if (btn) {
+        btn.click();
+        return;
+      }
+    }
+    
+    window.location.href = '/cart';
+  }
+
+  async function getVariantId(productUrl) {
+    try {
+      let cleanUrl = productUrl;
+      if (cleanUrl.includes('?')) cleanUrl = cleanUrl.split('?')[0];
+      if (cleanUrl.endsWith('/')) cleanUrl = cleanUrl.slice(0, -1);
+      if (!cleanUrl.startsWith('/products/')) {
+        if (cleanUrl.includes('/products/')) {
+          cleanUrl = '/products/' + cleanUrl.split('/products/')[1];
+        }
+      }
+      
+      const response = await fetch(cleanUrl + '.js');
+      if (!response.ok) return null;
+      
+      const product = await response.json();
+      if (product.variants && product.variants.length > 0) {
+        const availableVariant = product.variants.find(v => v.available);
+        return availableVariant ? availableVariant.id : product.variants[0].id;
+      }
+      return null;
+    } catch (error) {
+      console.error('Erreur getVariantId:', error);
+      return null;
+    }
+  }
+
+  async function addToCart(variantId, quantity = 1) {
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] })
+      });
+
+      if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Erreur addToCart:', error);
+      return null;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // INITIALISATION
+  // ═══════════════════════════════════════════════════════════════
+  function initLatifDiagnostic() {
+    const container = document.getElementById('latif-diagnostic-{{ s_id }}');
+    if (!container) return;
+
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init(EMAILJS_CONFIG.publicKey);
+      console.log('EmailJS initialisé');
+    }
+
+    let currentIdx = 0;
+    let scores = { ROSE: 0, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 0 };
+    let answers = [];
+    let currentRecommendedProducts = [];
+    let currentAnalysis = null;
+
+    const mount = container.querySelector('.js-questions-mount');
+    const progress = container.querySelector('.js-progress-fill');
+    const counter = container.querySelector('.js-current-idx');
+    const mainImg = document.getElementById('{{ nexus_image_id }}');
+    const navBack = document.getElementById('nav-back-{{ s_id }}');
+    const storyBox = document.getElementById('question-story-{{ s_id }}');
+    const rewardBox = document.getElementById('progress-reward-{{ s_id }}');
+    const metricsPreview = document.getElementById('metrics-preview-{{ s_id }}');
+    const socialProof = document.getElementById('social-proof-{{ s_id }}');
+
+    // Checkbox email optionnel
+    const wantEmailCheckbox = document.getElementById('want-email-{{ s_id }}');
+    const emailFields = document.getElementById('email-fields-{{ s_id }}');
+    const sendEmailBtn = document.getElementById('send-email-btn-{{ s_id }}');
+    const emailSuccess = document.getElementById('email-success-{{ s_id }}');
+
+    // Visiteurs
+    const visitorCount = document.getElementById('visitor-count-{{ s_id }}');
+    if (visitorCount) {
+      setInterval(() => {
+        const current = parseInt(visitorCount.textContent);
+        const change = Math.random() > 0.5 ? 1 : -1;
+        visitorCount.textContent = Math.max(32, Math.min(62, current + change));
+      }, 5000);
+    }
+
+    // Social Proof
+    const names = ['Marie L.', 'Sophie B.', 'Julie M.', 'Emma R.', 'Léa D.', 'Chloé P.', 'Camille T.', 'Sarah K.', 'Inès M.', 'Manon D.'];
+    function showSocialProof() {
+      if (!socialProof || window.innerWidth < 900) return;
+      socialProof.querySelector('.proof-name').textContent = names[Math.floor(Math.random() * names.length)];
+      socialProof.querySelector('.proof-time').textContent = `il y a ${Math.floor(Math.random() * 5) + 1} min`;
+      socialProof.classList.add('show');
+      setTimeout(() => socialProof.classList.remove('show'), 4000);
+    }
+    setTimeout(showSocialProof, 8000);
+    setInterval(showSocialProof, 25000);
+
+    function showScreen(id) {
+      container.querySelectorAll('.latif-screen').forEach(s => s.classList.add('is-hidden'));
+      container.querySelector(`[data-screen="${id}"]`).classList.remove('is-hidden');
+      if (window.innerWidth < 750) container.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[currentIdx];
+      counter.textContent = currentIdx + 1;
+      progress.style.width = ((currentIdx + 1) / QUESTIONS.length * 100) + '%';
+
+      container.querySelectorAll('.progress-milestone').forEach((m, i) => {
+        if (((currentIdx + 1) / QUESTIONS.length * 100) >= [28, 57, 85, 100][i]) m.classList.add('unlocked');
+      });
+
+      if (currentIdx === 4 && rewardBox) {
+        rewardBox.classList.remove('is-hidden');
+        setTimeout(() => rewardBox.classList.add('is-hidden'), 3000);
+      }
+
+      if (storyBox && q.story) {
+        storyBox.textContent = q.story;
+        storyBox.classList.remove('is-hidden');
+      }
+
+      if (navBack) navBack.classList.toggle('is-hidden', currentIdx === 0);
+
+      let html = `<h3 class="latif-title small">${q.question}</h3><div class="latif-options-nexus">`;
+      q.options.forEach((opt, idx) => {
+        html += `<div class="latif-option-card" data-idx="${idx}"><span class="opt-emoji">${opt.emoji}</span><span class="opt-text">${opt.text}</span></div>`;
+      });
+      html += `</div>`;
+      mount.innerHTML = html;
+
+      if (mainImg) {
+        mainImg.style.transform = 'scale(1.05)';
+        setTimeout(() => mainImg.style.transform = 'scale(1)', 300);
+      }
+    }
+
+    function analyzeResults() {
+      const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      let recommendedProducts = [];
+      let mainProfile = sortedScores[0][0];
+
+      if (sortedScores[0]) {
+        recommendedProducts.push({ 
+          ...PRODUCTS[sortedScores[0][0]], 
+          isMain: true, 
+          score: sortedScores[0][1] 
+        });
+      }
+      
+      if (sortedScores[1] && sortedScores[1][1] >= 5) {
+        recommendedProducts.push({ 
+          ...PRODUCTS[sortedScores[1][0]], 
+          isMain: false, 
+          score: sortedScores[1][1] 
+        });
+      }
+
+      const skinProfile = recommendedProducts.length === 2 ? SKIN_PROFILES.MULTI : SKIN_PROFILES[mainProfile];
+      const maxScore = Math.max(...Object.values(scores)) || 1;
+
+      return {
+        products: recommendedProducts,
+        profile: skinProfile,
+        profileKey: recommendedProducts.length === 2 ? 'MULTI' : mainProfile,
+        metrics: {
+          hydration: Math.round(100 - (scores.BLEU / maxScore * 100)),
+          firmness: Math.round(100 - (scores.ROSE / maxScore * 100)),
+          sensitivity: Math.round(100 - (scores.VERT / maxScore * 100)),
+          radiance: Math.round(100 - (scores.JAUNE / maxScore * 100))
+        },
+        scores
+      };
+    }
+
+    function generateRoutine(products) {
+      let routine = [];
+      
+      if (products.length === 1) {
+        routine.push({ time: 'MATIN', action: `Appliquez 2-3 gouttes de ${products[0].emoji} ${products[0].name} sur peau propre, puis votre crème hydratante.` });
+        routine.push({ time: 'SOIR', action: `Renouvelez l'application de ${products[0].emoji} ${products[0].name} après le nettoyage.` });
+      } else if (products.length === 2) {
+        routine.push({ time: 'MATIN', action: `${products[1].emoji} ${products[1].name} — Protection et préparation de la peau` });
+        routine.push({ time: 'SOIR', action: `${products[0].emoji} ${products[0].name} — Traitement principal nocturne` });
+        routine.push({ time: 'ASTUCE', action: `Vous pouvez alterner ou superposer les deux sérums selon les besoins de votre peau.` });
+      }
+      
+      return routine;
+    }
+
+    function getProductReason(product, isMain) {
+      const reasons = {
+        rose: isMain ? "Le NAD+ et les peptides vont stimuler la production de collagène pour raffermir visiblement votre visage." : "En complément, ce sérum renforcera la fermeté de votre peau.",
+        bleu: isMain ? "L'acide hyaluronique va créer un réservoir d'hydratation pour une peau repulpée." : "Ce sérum apportera l'hydratation nécessaire pour votre routine.",
+        jaune: isMain ? "La vitamine C et les actifs anti-taches vont révéler votre luminosité naturelle." : "Ce sérum unifiera votre teint et apportera un boost d'éclat.",
+        vert: isMain ? "L'Aloe PDRN et le complexe CICA vont apaiser les rougeurs et renforcer votre barrière cutanée." : "Ce sérum calmera les irritations.",
+        star: isMain ? "Le Bakuchiol régule, lisse et prévient le vieillissement, sans aucune irritation." : "Ce sérum multi-actions optimisera les résultats de votre routine."
+      };
+      return reasons[product.id] || reasons.star;
+    }
+
+    async function addSingleProduct(productId, btn) {
+      const product = currentRecommendedProducts.find(p => p.id === productId);
+      if (!product) return;
+      
+      btn.classList.add('loading');
+      const originalText = btn.textContent;
+      btn.textContent = 'Ajout...';
+      btn.disabled = true;
+      
+      try {
+        const variantId = await getVariantId(product.url);
+        if (!variantId) throw new Error('Variant non trouvé');
+        
+        const result = await addToCart(variantId, 1);
+        
+        if (result) {
+          btn.classList.remove('loading');
+          btn.classList.add('added');
+          btn.textContent = '✓ Ajouté !';
+          btn.style.background = '#4CAF50';
+          btn.style.color = 'white';
+          
+          const card = btn.closest('.product-card');
+          if (card) card.classList.add('added');
+          
+          setTimeout(() => openCart(), 500);
+        } else {
+          throw new Error('Échec ajout panier');
+        }
+      } catch (error) {
+        console.error('Erreur addSingleProduct:', error);
+        btn.classList.remove('loading');
+        btn.textContent = 'Erreur ❌';
+        btn.style.background = '#f44336';
+        
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 2000);
+      }
+    }
+
+    async function addAllProducts(btn) {
+      if (!btn || btn.classList.contains('loading')) return;
+      
+      btn.classList.add('loading');
+      btn.disabled = true;
+      
+      const textEl = btn.querySelector('.add-all-text');
+      if (textEl) textEl.textContent = 'Ajout en cours...';
+      
+      let addedCount = 0;
+      
+      for (const product of currentRecommendedProducts) {
+        try {
+          const variantId = await getVariantId(product.url);
+          if (variantId) {
+            await addToCart(variantId);
+            addedCount++;
+            
+            const productBtn = container.querySelector(`[data-product-id="${product.id}"]`);
+            if (productBtn) {
+              productBtn.classList.add('added');
+              productBtn.textContent = '✓ Ajouté';
+              productBtn.style.background = '#4CAF50';
+              productBtn.style.color = 'white';
+              productBtn.disabled = true;
+              const card = productBtn.closest('.product-card');
+              if (card) card.classList.add('added');
+            }
+          }
+        } catch (error) {
+          console.error('Erreur ajout produit:', product.name, error);
+        }
+      }
+      
+      await updateCartCount();
+      
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      
+      if (addedCount > 0) {
+        btn.classList.add('success');
+        if (textEl) textEl.textContent = `✓ ${addedCount} produit${addedCount > 1 ? 's' : ''} ajouté${addedCount > 1 ? 's' : ''} !`;
+        btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
+        setTimeout(() => openCart(), 800);
+      } else {
+        if (textEl) textEl.textContent = 'Erreur - Réessayez';
+        btn.style.background = '#f44336';
+        setTimeout(() => {
+          if (textEl) textEl.textContent = 'AJOUTER MA ROUTINE AU PANIER';
+          btn.style.background = '';
+          btn.classList.remove('success');
+          btn.disabled = false;
+        }, 3000);
+      }
+    }
+
+    function displayResults(analysis) {
+      const { products, profile, metrics } = analysis;
+      currentRecommendedProducts = products;
+      currentAnalysis = analysis;
+
+      container.querySelector('.js-skin-profile-title').textContent = profile.title;
+      container.querySelector('.js-skin-profile-desc').textContent = profile.description;
+      container.querySelector('.js-skin-analysis').textContent = profile.analysis;
+
+      container.querySelector('.js-products-intro').textContent = products.length === 1
+        ? "D'après votre profil, nous vous recommandons ce sérum idéal pour vous :"
+        : "D'après votre profil, nous vous recommandons ces 2 sérums complémentaires pour une routine complète :";
+
+      const totalPrice = '$' + products.reduce((sum, p) => sum + parseFloat(p.price.replace('$', '')), 0).toFixed(2);
+      const totalPriceEl = container.querySelector('.js-total-price');
+      if (totalPriceEl) totalPriceEl.textContent = totalPrice;
+
+      container.querySelector('.js-products-list').innerHTML = products.map(p => `
+        <div class="product-card ${p.isMain ? 'main-product' : ''}">
+          <img src="${p.image}" alt="${p.name}" class="product-image" onerror="this.style.display='none'">
+          <div class="product-info">
+            <h4 class="product-name">${p.emoji} ${p.name}</h4>
+            <p class="product-target">${p.target}</p>
+            <p class="product-reason">${getProductReason(p, p.isMain)}</p>
+          </div>
+          <div class="product-actions">
+            <span class="product-price">${p.price}</span>
+            <button type="button" class="product-add-btn" data-product-id="${p.id}">Ajouter 🛒</button>
+          </div>
+        </div>
+      `).join('');
+
+      const stockCount = container.querySelector('.js-stock-count');
+      if (stockCount) stockCount.textContent = Math.floor(Math.random() * 5) + 3;
+
+      const routine = generateRoutine(products);
+      container.querySelector('.js-routine-details').innerHTML = routine.map(step => `
+        <div class="routine-step">
+          <span class="routine-time">${step.time}</span>
+          <span class="routine-action">${step.action}</span>
+        </div>
+      `).join('');
+
+      if (metricsPreview) {
+        metricsPreview.classList.remove('is-hidden');
+        setTimeout(() => {
+          metricsPreview.querySelector('[data-metric="hydration"] .metric-fill').style.width = metrics.hydration + '%';
+          metricsPreview.querySelector('[data-metric="firmness"] .metric-fill').style.width = metrics.firmness + '%';
+          metricsPreview.querySelector('[data-metric="sensitivity"] .metric-fill').style.width = metrics.sensitivity + '%';
+          metricsPreview.querySelector('[data-metric="radiance"] .metric-fill').style.width = metrics.radiance + '%';
+        }, 300);
+      }
+    }
+
+    function startCountdown() {
+      const timerEl = document.getElementById('countdown-timer-{{ s_id }}');
+      if (!timerEl) return;
+      let minutes = 14, seconds = 59;
+      const interval = setInterval(() => {
+        seconds--;
+        if (seconds < 0) { seconds = 59; minutes--; }
+        if (minutes < 0) { clearInterval(interval); return; }
+        timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTION CHECKBOX EMAIL OPTIONNEL
+    // ═══════════════════════════════════════════════════════════════
+    if (wantEmailCheckbox && emailFields) {
+      wantEmailCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          emailFields.classList.remove('is-hidden');
+        } else {
+          emailFields.classList.add('is-hidden');
+        }
+      });
+    }
+
+    // Envoi email optionnel
+    if (sendEmailBtn) {
+      sendEmailBtn.addEventListener('click', async function() {
+        const nameInput = document.getElementById('diag-name-{{ s_id }}');
+        const emailInput = document.getElementById('diag-email-{{ s_id }}');
+        
+        if (!nameInput.value || !emailInput.value) {
+          alert('Veuillez remplir votre prénom et email.');
+          return;
+        }
+        
+        if (!emailInput.value.includes('@')) {
+          alert('Veuillez entrer un email valide.');
+          return;
+        }
+        
+        sendEmailBtn.classList.add('loading');
+        sendEmailBtn.querySelector('.btn-text').textContent = 'Envoi en cours...';
+        
+        const productsForEmail = currentRecommendedProducts.map(p => `${p.emoji} ${p.name} (${p.price})`).join('\n');
+        const routine = generateRoutine(currentRecommendedProducts);
+        const routineForEmail = routine.map(r => `${r.time}: ${r.action}`).join('\n');
+        
+        try {
+          await sendDiagnosticEmails({
+            name: nameInput.value,
+            email: emailInput.value,
+            skinProfile: currentAnalysis.profile.title,
+            profileDescription: currentAnalysis.profile.description,
+            analysis: currentAnalysis.profile.analysis,
+            products: productsForEmail,
+            routine: routineForEmail
+          });
+          
+          sendEmailBtn.classList.remove('loading');
+          sendEmailBtn.classList.add('success');
+          sendEmailBtn.querySelector('.btn-text').textContent = '✓ Envoyé !';
+          
+          if (emailSuccess) emailSuccess.classList.remove('is-hidden');
+          
+        } catch (error) {
+          console.error('Erreur envoi email:', error);
+          sendEmailBtn.classList.remove('loading');
+          sendEmailBtn.querySelector('.btn-text').textContent = 'Erreur - Réessayer';
+          
+          setTimeout(() => {
+            sendEmailBtn.querySelector('.btn-text').textContent = 'Envoyer mes résultats';
+          }, 3000);
+        }
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTIONNAIRE D'ÉVÉNEMENTS
+    // ═══════════════════════════════════════════════════════════════
+    container.addEventListener('click', function(e) {
+      const target = e.target.closest('[data-action], .latif-option-card, .product-add-btn, #add-all-btn-{{ s_id }}');
+      if (!target) return;
+      const action = target.dataset.action;
+
+      if (action === 'start') {
+        currentIdx = 0;
+        scores = { ROSE: 0, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 0 };
+        answers = [];
+        showScreen('quiz');
+        renderQuestion();
+      }
+
+      if (target.classList.contains('latif-option-card')) {
+        target.classList.add('selected');
+        setTimeout(() => {
+          const q = QUESTIONS[currentIdx];
+          const opt = q.options[parseInt(target.dataset.idx)];
+          Object.entries(opt.scores).forEach(([product, score]) => scores[product] += score);
+          answers.push({ question: q.question, answer: opt.text });
+          
+          if (currentIdx < QUESTIONS.length - 1) { 
+            currentIdx++; 
+            renderQuestion(); 
+          } else {
+            // QUIZ TERMINÉ → AFFICHER DIRECTEMENT LES RÉSULTATS
+            const analysis = analyzeResults();
+            displayResults(analysis);
+            showScreen('results');
+            startCountdown();
+          }
+        }, 200);
+      }
+
+      if (action === 'prev') {
+        if (currentIdx > 0) { currentIdx--; renderQuestion(); }
+        else showScreen('intro');
+      }
+
+      if (target.classList.contains('product-add-btn') && !target.classList.contains('added')) {
+        addSingleProduct(target.dataset.productId, target);
+      }
+
+      if (target.id === 'add-all-btn-{{ s_id }}' || action === 'add-all') {
+        const btn = target.id === 'add-all-btn-{{ s_id }}' ? target : document.getElementById('add-all-btn-{{ s_id }}');
+        if (btn && !btn.classList.contains('loading') && !btn.classList.contains('success')) {
+          addAllProducts(btn);
+        }
+      }
+
+      if (action === 'restart') {
+        if (metricsPreview) metricsPreview.classList.add('is-hidden');
+        if (wantEmailCheckbox) wantEmailCheckbox.checked = false;
+        if (emailFields) emailFields.classList.add('is-hidden');
+        if (emailSuccess) emailSuccess.classList.add('is-hidden');
+        if (sendEmailBtn) {
+          sendEmailBtn.classList.remove('loading', 'success');
+          sendEmailBtn.querySelector('.btn-text').textContent = 'Envoyer mes résultats';
+        }
+        currentIdx = 0;
+        scores = { ROSE: 0, BLEU: 0, JAUNE: 0, VERT: 0, STAR: 0 };
+        answers = [];
+        currentRecommendedProducts = [];
+        currentAnalysis = null;
+        showScreen('intro');
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLatifDiagnostic);
+  else initLatifDiagnostic();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Diagnostic V12.3",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🆕 DIAGNOSTIC V12.3 - Email Optionnel"
+    },
+    {
+      "type": "color",
+      "id": "color_bg_page",
+      "label": "Couleur Fond de Page",
+      "default": "#D7DAC9"
+    },
+    {
+      "type": "range",
+      "id": "visitors_count",
+      "min": 10,
+      "max": 200,
+      "step": 2,
+      "label": "Visiteurs en Ligne",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "━━━ SOCIAL PROOF & BÉNÉFICES ━━━"
+    },
+    {
+      "type": "text",
+      "id": "social_proof_count",
+      "label": "Nombre de clientes (Social Proof)",
+      "default": "847"
+    },
+    {
+      "type": "text",
+      "id": "social_proof_text",
+      "label": "Texte Social Proof",
+      "default": "clientes ont trouvé leur routine ce mois-ci"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Bénéfice 1",
+      "default": "Votre type de peau analysé"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Bénéfice 2",
+      "default": "Les deux sérums parfaits pour vous"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Bénéfice 3",
+      "default": "Votre routine matin et soir complète"
+    },
+    {
+      "type": "text",
+      "id": "bottom_trust_text",
+      "label": "Texte de confiance (bas)",
+      "default": "🔒 100% gratuit • Résultat immédiat • Sans engagement"
+    },
+    {
+      "type": "header",
+      "content": "━━━ COULEURS ━━━"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent Primaire",
+      "default": "#E5E5E5"
+    },
+    {
+      "type": "color",
+      "id": "color_accent_light",
+      "label": "Accent Secondaire",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_bg_card",
+      "label": "Couleur Overlay Carte",
+      "default": "#19191E"
+    },
+    {
+      "type": "color",
+      "id": "color_bg_card_center",
+      "label": "Centre Dégradé Carte",
+      "default": "#1E1E23"
+    },
+    {
+      "type": "color",
+      "id": "color_text_title",
+      "label": "Couleur Titres",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_text_body",
+      "label": "Couleur Texte",
+      "default": "#FDF8F0"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_text",
+      "label": "Couleur Texte Bouton",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_input_bg",
+      "label": "Fond Champs",
+      "default": "#EBEBEB"
+    },
+    {
+      "type": "color",
+      "id": "color_input_text",
+      "label": "Texte Champs",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_option_bg",
+      "label": "Fond Options Quiz",
+      "default": "#D7DAC9"
+    },
+    {
+      "type": "header",
+      "content": "━━━ EFFET GLASS ━━━"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_aura",
+      "label": "Activer l'Aura",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "glass_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Opacité du Verre",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "glass_blur",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "label": "Intensité du Flou",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "━━━ CONTENU INTRO ━━━"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Image Principale"
+    },
+    {
+      "type": "text",
+      "id": "intro_title",
+      "label": "Titre Intro",
+      "default": "Découvrez votre profil de peau"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_subtitle",
+      "label": "Sous-titre Intro",
+      "default": "En 7 questions, identifiez précisément les besoins de votre peau et recevez une recommandation personnalisée."
+    },
+    {
+      "type": "text",
+      "id": "intro_btn_label",
+      "label": "Texte Bouton",
+      "default": "Démarrer mon diagnostic"
+    },
+    {
+      "type": "header",
+      "content": "━━━ ESPACEMENT ━━━"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace Haut (PC)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace Bas (PC)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace Latéral (PC)",
+        "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace Haut (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace Bas (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace Latéral (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "━━━ AVATAR ━━━"
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Taille de l'Avatar",
+      "default": 320
+    }
+  ],
+  "presets": [
+    {
+      "name": "Diagnostic V12.3"
+    }
+  ]
+}
+{% endschema %}

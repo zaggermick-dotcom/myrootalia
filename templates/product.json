@@ -1,3 +1,7 @@
+/*
+ * myrootelia — page produit (Huile de Batana)
+ * Fiche standard + contenu sur-mesure myrootelia + produits liés
+ */
 {
   "sections": {
     "main": {
@@ -189,61 +193,9 @@
         "color_palette": "background-1"
       }
     },
-    "trust_strip": {
-      "type": "marquee",
-      "blocks": {
-        "m0": {
-          "type": "marquee",
-          "settings": {
-            "description": "Essai 60 nuits"
-          }
-        },
-        "m1": {
-          "type": "marquee",
-          "settings": {
-            "description": "Livraison gratuite dès 50 $"
-          }
-        },
-        "m2": {
-          "type": "marquee",
-          "settings": {
-            "description": "Expédié du Québec"
-          }
-        },
-        "m3": {
-          "type": "marquee",
-          "settings": {
-            "description": "Support humain sous 24 h"
-          }
-        },
-        "m4": {
-          "type": "marquee",
-          "settings": {
-            "description": "Actifs naturels"
-          }
-        }
-      },
-      "block_order": [
-        "m0",
-        "m1",
-        "m2",
-        "m3",
-        "m4"
-      ],
-      "settings": {
-        "uppercase": true,
-        "bolder": false,
-        "font_family": "body",
-        "font_size_desktop": 14,
-        "font_size_mobile": 12,
-        "delay": 30,
-        "layout_width": "full",
-        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
-        "padding_top": 16,
-        "padding_bottom": 16,
-        "padding_top_sm": 12,
-        "padding_bottom_sm": 12
-      }
+    "produit_myrootelia": {
+      "type": "produit-myrootelia",
+      "settings": {}
     },
     "related": {
       "type": "related-products",
@@ -267,145 +219,11 @@
         "padding_top_sm": 28,
         "padding_bottom_sm": 28
       }
-    },
-    "faq": {
-      "type": "collapsible-content",
-      "blocks": {
-        "q0": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Combien coûte la livraison ?",
-            "icon": "none",
-            "row_content": "<p>Gratuite au Canada dès 50 $ d'achat, sinon 6,99 $. Expédié du Québec.</p>"
-          }
-        },
-        "q1": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "En combien de temps je reçois ma commande ?",
-            "icon": "none",
-            "row_content": "<p>Expédiée sous 24 à 48 h ouvrées, livrée en 3 à 8 jours ouvrables.</p>"
-          }
-        },
-        "q2": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Et si le produit ne me convient pas ?",
-            "icon": "none",
-            "row_content": "<p>Essai 60 nuits. Tu nous écris, on te rembourse, on ne discute pas.</p>"
-          }
-        },
-        "q3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Comment vous joindre ?",
-            "icon": "none",
-            "row_content": "<p>Par courriel — on répond en moins de 24 h, par un humain.</p>"
-          }
-        },
-        "q4": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Le paiement est-il sécurisé ?",
-            "icon": "none",
-            "row_content": "<p>Oui. Visa, Mastercard, Amex et Shop Pay, via le paiement chiffré de Shopify.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "q0",
-        "q1",
-        "q2",
-        "q3",
-        "q4"
-      ],
-      "settings": {
-        "subheading": "FAQ",
-        "heading": "<p>Avant de commander</p>",
-        "heading_style": "2",
-        "alignment": "center",
-        "open_first_collapsible_row": false,
-        "enable_image": false,
-        "accordions_style": "1",
-        "color_palette": "background-2",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
-      }
-    },
-    "guarantees": {
-      "type": "icons",
-      "blocks": {
-        "g0": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "🌿",
-            "heading": "Essai 60 nuits",
-            "description": "Remboursé si tu n'aimes pas."
-          }
-        },
-        "g1": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "🚚",
-            "heading": "Livraison offerte dès 50 $",
-            "description": "Expédié du Québec sous 24 h."
-          }
-        },
-        "g2": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "💌",
-            "heading": "Support humain",
-            "description": "On répond en moins de 24 h."
-          }
-        },
-        "g3": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "🔒",
-            "heading": "Paiement sécurisé",
-            "description": "Visa · Mastercard · Amex · Shop Pay."
-          }
-        }
-      },
-      "block_order": [
-        "g0",
-        "g1",
-        "g2",
-        "g3"
-      ],
-      "settings": {
-        "subheading": "Nos engagements",
-        "heading": "<p>On te couvre à chaque étape</p>",
-        "heading_style": "2",
-        "alignment": "center",
-        "slides_on_desktop": 4,
-        "slides_on_tablet": 2,
-        "slides_on_mobile": 2,
-        "pagination": true,
-        "navigation": false,
-        "autoplay": true,
-        "speed": 5,
-        "loop": true,
-        "color_palette": "background-2",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
-      }
     }
   },
   "order": [
     "main",
-    "trust_strip",
-    "related",
-    "faq",
-    "guarantees"
+    "produit_myrootelia",
+    "related"
   ]
 }

@@ -114,6 +114,20 @@
   #mr-{{ uid }} .mr-heritage .mr-lead { color: #d9d3c6; }
   #mr-{{ uid }} .mr-heritage .mr-media { box-shadow: 0 30px 70px rgba(0,0,0,.3); }
 
+  /* VALEURS / ENGAGEMENT */
+  #mr-{{ uid }} .mr-values { padding: 90px 0; background: var(--mr-cream); }
+  #mr-{{ uid }} .mr-values__head { max-width: 680px; margin: 0 auto 46px; text-align: center; }
+  #mr-{{ uid }} .mr-vgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  #mr-{{ uid }} .mr-vcard { background: #fff; border-radius: 18px; padding: 32px 24px; text-align: center;
+    box-shadow: 0 12px 30px rgba(43,43,43,.05); }
+  #mr-{{ uid }} .mr-vicon { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%;
+    background: var(--mr-cream); display: flex; align-items: center; justify-content: center; color: var(--mr-green); }
+  #mr-{{ uid }} .mr-vicon svg { width: 28px; height: 28px; }
+  #mr-{{ uid }} .mr-vcard b { display: block; font-family: var(--mr-serif); font-size: 18px; color: var(--mr-green); margin-bottom: 8px; }
+  #mr-{{ uid }} .mr-vcard p { font-size: 13.5px; color: #6a655c; line-height: 1.6; margin: 0; }
+  #mr-{{ uid }} .mr-manifesto { text-align: center; max-width: 780px; margin: 52px auto 0;
+    font-family: var(--mr-serif); font-style: italic; font-size: clamp(19px, 2.4vw, 26px); color: var(--mr-green); line-height: 1.5; }
+
   /* NEWSLETTER */
   #mr-{{ uid }} .mr-news { padding: 84px 24px; background: #fff; }
   #mr-{{ uid }} .mr-news__card { max-width: 720px; margin: 0 auto; text-align: center; }
@@ -131,6 +145,7 @@
   @media screen and (max-width: 860px) {
     #mr-{{ uid }} .mr-split, #mr-{{ uid }} .mr-pcard { grid-template-columns: 1fr; gap: 28px; }
     #mr-{{ uid }} .mr-trust__grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    #mr-{{ uid }} .mr-vgrid { grid-template-columns: 1fr 1fr; }
     #mr-{{ uid }} .mr-trust__sep { display: none; }
     #mr-{{ uid }} .mr-hero { background-position: 70% center; min-height: 560px; }
     #mr-{{ uid }} .mr-hero::before { background: linear-gradient(180deg, rgba(245,241,234,.92) 40%, rgba(245,241,234,.6) 100%); }
@@ -262,6 +277,40 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- VALEURS / ENGAGEMENT -->
+  <section class="mr-values">
+    <div class="mr-wrap">
+      <div class="mr-values__head">
+        <p class="mr-eyebrow">Notre engagement</p>
+        <h2 class="mr-h">Un héritage que l'on protège, pas que l'on exploite.</h2>
+        <p class="mr-lead">Le Batana n'est pas un ingrédient de laboratoire : c'est le fruit d'un savoir-faire vivant. Notre rôle est simple — le respecter à chaque étape, de la palme jusqu'à votre flacon.</p>
+      </div>
+      <div class="mr-vgrid">
+        <div class="mr-vcard">
+          <div class="mr-vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M12 22v-9"/></svg></div>
+          <b>Récolté à la main</b>
+          <p>Cueilli et transformé par les communautés Miskito, selon un savoir-faire transmis de génération en génération.</p>
+        </div>
+        <div class="mr-vcard">
+          <div class="mr-vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <b>Origine unique &amp; tracée</b>
+          <p>Une seule provenance : la Mosquitia, au nord-est du Honduras. Aucun mélange, aucun intermédiaire opaque.</p>
+        </div>
+        <div class="mr-vcard">
+          <div class="mr-vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2s3 3 3 6a3 3 0 0 1-6 0c0-3 3-6 3-6Z"/><path d="M5 14c0 4 3 7 7 7s7-3 7-7c0-2-1-3.5-2.5-5"/></svg></div>
+          <b>Méthode ancestrale</b>
+          <p>Le fruit du palmier <em>Elaeis oleifera</em> est pressé à froid selon le procédé traditionnel, sans industrialisation.</p>
+        </div>
+        <div class="mr-vcard">
+          <div class="mr-vicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <b>Transparence totale</b>
+          <p>Un seul ingrédient, une composition affichée, aucune promesse miracle. Ce que vous lisez est ce que vous appliquez.</p>
+        </div>
+      </div>
+      <p class="mr-manifesto">« Prendre soin de ses cheveux, c'est aussi honorer ceux qui, depuis toujours, savent en prendre soin. »</p>
     </div>
   </section>
 

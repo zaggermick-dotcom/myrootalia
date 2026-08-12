@@ -114,6 +114,15 @@
   #mr-{{ uid }} .mr-heritage .mr-lead { color: #d9d3c6; }
   #mr-{{ uid }} .mr-heritage .mr-media { box-shadow: 0 30px 70px rgba(0,0,0,.3); }
 
+  /* NEWSLETTER */
+  #mr-{{ uid }} .mr-news { padding: 84px 24px; background: #fff; }
+  #mr-{{ uid }} .mr-news__card { max-width: 720px; margin: 0 auto; text-align: center; }
+  #mr-{{ uid }} .mr-news form { display: flex; gap: 10px; max-width: 480px; margin: 26px auto 0; flex-wrap: wrap; justify-content: center; }
+  #mr-{{ uid }} .mr-news input[type=email] { flex: 1 1 260px; padding: 14px 18px; border-radius: 50px;
+    border: 1.5px solid rgba(47,82,51,.2); font-family: var(--mr-sans); font-size: 14px; color: var(--mr-ink); background: var(--mr-cream); }
+  #mr-{{ uid }} .mr-news input[type=email]:focus { outline: none; border-color: var(--mr-green); }
+  #mr-{{ uid }} .mr-news__ok { flex-basis: 100%; color: var(--mr-green); font-weight: 600; margin-top: 6px; }
+
   /* FINAL CTA */
   #mr-{{ uid }} .mr-final { padding: 84px 24px; text-align: center; background: var(--mr-cream); }
   #mr-{{ uid }} .mr-final h2 { font-family: var(--mr-serif); color: var(--mr-green); font-size: clamp(26px,3.4vw,40px); margin: 0 0 12px; }
@@ -253,6 +262,23 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="mr-news">
+    <div class="mr-news__card">
+      <p class="mr-eyebrow">La lettre myrootelia</p>
+      <h2 class="mr-h">Rituels, traditions &amp; offres, dans votre boîte mail.</h2>
+      <p class="mr-lead">Conseils d'utilisation du Batana, histoires du peuple Miskito et accès prioritaire à nos offres. Pas de spam, désabonnement en un clic.</p>
+      {%- form 'customer' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="Votre adresse e-mail" required aria-label="Adresse e-mail">
+        <button type="submit" class="mr-btn mr-btn--primary">Je m'inscris</button>
+        {%- if form.posted_successfully? -%}
+          <div class="mr-news__ok">Merci ! Votre inscription est confirmée. 🌿</div>
+        {%- endif -%}
+      {%- endform -%}
     </div>
   </section>
 

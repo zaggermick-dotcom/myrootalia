@@ -62,7 +62,7 @@
     "buttons_space_horizontal": 20,
     "buttons_radius_range": 0,
     "buttons_font_weight": false,
-    "button_1_palette": "text",
+    "button_1_palette": "accent-1",
     "button_1_border": "none",
     "button_1_shadow": "none",
     "button_2_palette": "text-outline",

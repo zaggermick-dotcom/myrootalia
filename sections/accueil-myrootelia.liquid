@@ -120,6 +120,19 @@
   #acc-{{ uid }} .acc-origin h2 { font-family:var(--serif); font-size:clamp(22px,3.8vw,44px); color:#fff; line-height:1.15; margin:0 0 18px; max-width:620px; }
   #acc-{{ uid }} .acc-origin p { font-size:16px; line-height:1.8; color:#e2dccf; max-width:540px; margin:0 0 26px; }
 
+  /* VIDÉO (intégrée) */
+  #acc-{{ uid }} .acc-videosec { padding:88px 0; background:var(--c); text-align:center; }
+  #acc-{{ uid }} .acc-videosec .acc-h { font-size:clamp(21px,3.4vw,38px); margin-bottom:12px; }
+  #acc-{{ uid }} .acc-vsub { color:var(--muted); font-size:15px; max-width:540px; margin:0 auto 36px; }
+  #acc-{{ uid }} .acc-vframe { position:relative; aspect-ratio:16/9; max-width:920px; margin:0 auto; border-radius:24px; overflow:hidden; box-shadow:0 40px 90px rgba(38,51,44,.22); background:#000; }
+  #acc-{{ uid }} .acc-vframe video, #acc-{{ uid }} .acc-vframe iframe { position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; }
+  #acc-{{ uid }} .acc-vph { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:linear-gradient(135deg,var(--g-dark),var(--g) 65%,#2c4c3f); color:#f3efe6; padding:24px; }
+  #acc-{{ uid }} .acc-vplay { width:78px; height:78px; border-radius:50%; background:var(--o); display:flex; align-items:center; justify-content:center; box-shadow:0 16px 40px rgba(194,90,52,.5); transition:transform .3s ease; }
+  #acc-{{ uid }} .acc-vframe:hover .acc-vplay { transform:scale(1.08); }
+  #acc-{{ uid }} .acc-vplay svg { width:32px; height:32px; color:#fff; margin-left:4px; }
+  #acc-{{ uid }} .acc-vph b { font-family:var(--serif); font-size:21px; font-weight:600; }
+  #acc-{{ uid }} .acc-vph span { font-size:13px; color:#cbb892; }
+
   /* RITUEL timeline horizontale */
   #acc-{{ uid }} .acc-ritual { padding:90px 0; background:#fff; text-align:center; }
   #acc-{{ uid }} .acc-ritual .acc-h { font-size:clamp(21px,3.4vw,38px); margin-bottom:52px; }
@@ -300,6 +313,32 @@
     </div>
   </section>
 
+  <!-- VIDÉO -->
+  <section class="acc-videosec">
+    <div class="acc-wrap">
+      <p class="acc-eyebrow" style="text-align:center;">En vidéo</p>
+      <h2 class="acc-h">Le rituel Batana en mouvement</h2>
+      <p class="acc-vsub">Découvrez le geste, la texture et l'origine de notre huile — en une minute.</p>
+      <div class="acc-vframe">
+        {%- if s.home_video != blank -%}
+          {{ s.home_video | video_tag: image_size: '1100x', controls: true, playsinline: true, preload: 'metadata' }}
+        {%- elsif s.home_video_url != blank -%}
+          {%- if s.home_video_url.type == 'youtube' -%}
+            <iframe src="https://www.youtube.com/embed/{{ s.home_video_url.id }}" title="Vidéo myrootelia" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          {%- elsif s.home_video_url.type == 'vimeo' -%}
+            <iframe src="https://player.vimeo.com/video/{{ s.home_video_url.id }}" title="Vidéo myrootelia" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          {%- endif -%}
+        {%- else -%}
+          <div class="acc-vph">
+            <div class="acc-vplay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+            <b>Votre vidéo ici</b>
+            <span>Ajoutez une vidéo Shopify ou un lien YouTube / Vimeo dans les réglages de la section.</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
   <!-- RITUEL -->
   <section class="acc-ritual">
     <div class="acc-wrap">
@@ -361,6 +400,9 @@
     { "type": "header", "content": "Images (générées via IA)" },
     { "type": "image_picker", "id": "hero_image", "label": "Image hero (produit)" },
     { "type": "image_picker", "id": "origine_image", "label": "Image origine (paysage Honduras)" },
+    { "type": "header", "content": "Vidéo (section intégrée)" },
+    { "type": "video", "id": "home_video", "label": "Vidéo Shopify (recommandé)" },
+    { "type": "video_url", "id": "home_video_url", "label": "…ou lien YouTube / Vimeo", "accept": ["youtube", "vimeo"] },
     { "type": "header", "content": "Couleurs (charte)" },
     { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#1E3F33" },
     { "type": "color", "id": "color_gold", "label": "Or / terre", "default": "#C25A34" },

@@ -17,20 +17,7 @@
         "color_cream": "#F7F2E9",
         "color_ink": "#26332C"
       }
-    },
-    "video": {
-      "type": "video-myrootelia",
-      "settings": {
-        "eyebrow": "En vidéo",
-        "heading": "Le rituel Batana en mouvement",
-        "subheading": "Découvrez le geste, la texture et l'origine de notre huile — en une minute.",
-        "dark": false,
-        "color_green": "#1E3F33",
-        "color_gold": "#C25A34",
-        "color_cream": "#F7F2E9",
-        "color_ink": "#26332C"
-      }
     }
   },
-  "order": ["accueil", "video"]
+  "order": ["accueil"]
 }

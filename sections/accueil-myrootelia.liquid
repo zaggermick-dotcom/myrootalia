@@ -1,0 +1,345 @@
+{%- comment -%}
+  myrootelia — PAGE D'ACCUEIL v2 (machine de conversion, épurée, premium)
+  Structure VOLONTAIREMENT différente de la page produit :
+  hero fractionné · bandeau · OFFRE pack inline · problème→solution · 3 piliers ·
+  origine pleine largeur · rituel timeline horizontale · avis · newsletter.
+  Images = slots (image_picker) avec repli dégradé. Conforme (aucun faux avis/%).
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id
+  assign p = all_products[s.product_handle]
+-%}
+
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  #acc-{{ uid }} {
+    --g: {{ s.color_green | default: '#2F5233' }};
+    --g-dark: #223d27;
+    --o: {{ s.color_gold | default: '#B07A3B' }};
+    --o-dark: #946530;
+    --c: {{ s.color_cream | default: '#F5F1EA' }};
+    --ink: {{ s.color_ink | default: '#2B2B2B' }};
+    --muted: #6a655c;
+    --line: rgba(47,82,51,.12);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased;
+  }
+  #acc-{{ uid }} * { box-sizing: border-box; }
+  #acc-{{ uid }} img { display:block; max-width:100%; }
+  #acc-{{ uid }} .acc-wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  #acc-{{ uid }} .acc-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--o); margin: 0 0 16px; }
+  #acc-{{ uid }} .acc-h { font-family: var(--serif); font-weight: 600; color: var(--g); line-height: 1.1; margin: 0; }
+  #acc-{{ uid }} .acc-h em { font-style: italic; color: var(--o); }
+  #acc-{{ uid }} .acc-btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; cursor:pointer; font-weight:600; font-size:15px; letter-spacing:.3px; padding:16px 34px; border-radius:50px; text-decoration:none; border:1.5px solid transparent; transition: all .25s ease; }
+  #acc-{{ uid }} .acc-btn--gold { background:var(--o); color:#fff; box-shadow:0 10px 26px rgba(176,122,59,.3); }
+  #acc-{{ uid }} .acc-btn--gold:hover { background:var(--o-dark); transform:translateY(-2px); box-shadow:0 16px 34px rgba(176,122,59,.4); }
+  #acc-{{ uid }} .acc-btn--ghost { background:transparent; color:var(--g); border-color:rgba(47,82,51,.35); }
+  #acc-{{ uid }} .acc-btn--ghost:hover { border-color:var(--g); background:rgba(47,82,51,.05); }
+  #acc-{{ uid }} .acc-btn--light { background:#fff; color:var(--g); }
+  #acc-{{ uid }} .acc-btn--light:hover { transform:translateY(-2px); box-shadow:0 14px 30px rgba(0,0,0,.18); }
+
+  /* HERO (fractionné) */
+  #acc-{{ uid }} .acc-hero { background: var(--c); }
+  #acc-{{ uid }} .acc-hero__grid { display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center; padding: 84px 24px; max-width:1180px; margin:0 auto; }
+  #acc-{{ uid }} .acc-hero h1 { font-family:var(--serif); font-weight:600; color:var(--g); font-size:clamp(38px,5.2vw,64px); line-height:1.05; margin:0 0 22px; letter-spacing:.2px; }
+  #acc-{{ uid }} .acc-hero h1 em { font-style:italic; color:var(--o); }
+  #acc-{{ uid }} .acc-hero__lead { font-size:clamp(16px,1.6vw,18px); line-height:1.75; color:#4a463f; max-width:460px; margin:0 0 26px; }
+  #acc-{{ uid }} .acc-hero__price { display:flex; align-items:baseline; gap:12px; margin-bottom:22px; }
+  #acc-{{ uid }} .acc-hero__price b { font-family:var(--serif); font-size:30px; color:var(--g); }
+  #acc-{{ uid }} .acc-hero__price s { color:#a89f92; font-size:18px; }
+  #acc-{{ uid }} .acc-hero__price span { background:var(--o); color:#fff; font-size:12px; font-weight:700; padding:4px 10px; border-radius:20px; }
+  #acc-{{ uid }} .acc-hero__cta { display:flex; gap:14px; flex-wrap:wrap; }
+  #acc-{{ uid }} .acc-chips { display:flex; flex-wrap:wrap; gap:10px 20px; margin-top:26px; }
+  #acc-{{ uid }} .acc-chip { display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); }
+  #acc-{{ uid }} .acc-chip svg { width:16px; height:16px; color:var(--g); }
+  #acc-{{ uid }} .acc-hero__media { aspect-ratio: 4/5; border-radius:24px; overflow:hidden; position:relative;
+    background: linear-gradient(150deg, #e9e0d2, var(--c) 55%, #dfe6dc); box-shadow:0 40px 90px rgba(43,43,43,.16); }
+  #acc-{{ uid }} .acc-hero__media img { width:100%; height:100%; object-fit:cover; }
+  #acc-{{ uid }} .acc-hero__media .acc-ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; color:var(--g); }
+  #acc-{{ uid }} .acc-hero__media .acc-ph svg { width:64px; height:64px; opacity:.4; }
+
+  /* BANDEAU */
+  #acc-{{ uid }} .acc-strip { background:var(--g); color:#eee7d8; }
+  #acc-{{ uid }} .acc-strip__row { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 40px; padding:18px 24px; }
+  #acc-{{ uid }} .acc-strip__item { display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:500; letter-spacing:.4px; }
+  #acc-{{ uid }} .acc-strip__item svg { width:18px; height:18px; color:#cbb892; }
+
+  /* OFFRE PACK inline */
+  #acc-{{ uid }} .acc-offer { background:#fff; padding:88px 0; }
+  #acc-{{ uid }} .acc-offer__head { text-align:center; max-width:600px; margin:0 auto 44px; }
+  #acc-{{ uid }} .acc-offer__head .acc-h { font-size:clamp(26px,3.4vw,38px); margin-bottom:12px; }
+  #acc-{{ uid }} .acc-offer__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  #acc-{{ uid }} .acc-pk { position:relative; border:1px solid var(--line); border-radius:20px; padding:32px 24px; text-align:center; background:#fff; display:flex; flex-direction:column; transition:transform .3s ease, box-shadow .3s ease; }
+  #acc-{{ uid }} .acc-pk:hover { transform:translateY(-6px); box-shadow:0 24px 50px rgba(43,43,43,.1); }
+  #acc-{{ uid }} .acc-pk--hot { border-color:var(--o); box-shadow:0 24px 56px rgba(176,122,59,.16); }
+  #acc-{{ uid }} .acc-pk__tag { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--o); color:#fff; font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; padding:6px 15px; border-radius:40px; white-space:nowrap; }
+  #acc-{{ uid }} .acc-pk__name { font-family:var(--serif); font-size:22px; color:var(--g); margin:4px 0 12px; }
+  #acc-{{ uid }} .acc-pk__price { font-family:var(--serif); font-size:32px; font-weight:700; color:var(--ink); }
+  #acc-{{ uid }} .acc-pk__price s { font-size:15px; color:#a89f92; margin-left:6px; }
+  #acc-{{ uid }} .acc-pk__unit { font-size:12.5px; color:var(--muted); margin:4px 0 18px; }
+  #acc-{{ uid }} .acc-pk__btn { margin-top:auto; }
+  #acc-{{ uid }} .acc-pk form { margin:0; margin-top:auto; }
+
+  /* PROBLÈME → SOLUTION */
+  #acc-{{ uid }} .acc-ps { background:var(--c); padding:90px 0; }
+  #acc-{{ uid }} .acc-ps__grid { display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; }
+  #acc-{{ uid }} .acc-ps__title { font-family:var(--serif); font-size:clamp(26px,3.4vw,40px); color:var(--g); line-height:1.15; margin:0 0 16px; }
+  #acc-{{ uid }} .acc-ps__list { list-style:none; margin:22px 0 0; padding:0; display:grid; gap:14px; }
+  #acc-{{ uid }} .acc-ps__list li { display:flex; gap:12px; font-size:15px; color:#4a463f; line-height:1.5; }
+  #acc-{{ uid }} .acc-ps__list svg { width:22px; height:22px; color:var(--o); flex:none; margin-top:1px; }
+
+  /* 3 PILIERS */
+  #acc-{{ uid }} .acc-pillars { padding:88px 0; text-align:center; }
+  #acc-{{ uid }} .acc-pillars .acc-h { font-size:clamp(26px,3.4vw,38px); margin-bottom:48px; }
+  #acc-{{ uid }} .acc-pgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
+  #acc-{{ uid }} .acc-pill__n { font-family:var(--serif); font-size:44px; color:var(--o); opacity:.4; line-height:1; margin-bottom:14px; }
+  #acc-{{ uid }} .acc-pill__t { font-family:var(--serif); font-size:21px; color:var(--g); margin:0 0 8px; }
+  #acc-{{ uid }} .acc-pill__d { font-size:14px; color:var(--muted); line-height:1.65; max-width:300px; margin:0 auto; }
+
+  /* ORIGINE pleine largeur */
+  #acc-{{ uid }} .acc-origin { position:relative; min-height:460px; display:flex; align-items:center; overflow:hidden;
+    background: linear-gradient(120deg, var(--g-dark), var(--g) 60%, #3c5a3f); }
+  #acc-{{ uid }} .acc-origin img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.42; }
+  #acc-{{ uid }} .acc-origin__inner { position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:70px 24px; color:#f3efe6; }
+  #acc-{{ uid }} .acc-origin__inner .acc-eyebrow { color:#cbb892; }
+  #acc-{{ uid }} .acc-origin h2 { font-family:var(--serif); font-size:clamp(28px,3.8vw,44px); color:#fff; line-height:1.15; margin:0 0 18px; max-width:620px; }
+  #acc-{{ uid }} .acc-origin p { font-size:16px; line-height:1.8; color:#e2dccf; max-width:540px; margin:0 0 26px; }
+
+  /* RITUEL timeline horizontale */
+  #acc-{{ uid }} .acc-ritual { padding:90px 0; background:#fff; text-align:center; }
+  #acc-{{ uid }} .acc-ritual .acc-h { font-size:clamp(26px,3.4vw,38px); margin-bottom:52px; }
+  #acc-{{ uid }} .acc-timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative; max-width:900px; margin:0 auto; }
+  #acc-{{ uid }} .acc-tl { position:relative; padding:0 22px; }
+  #acc-{{ uid }} .acc-tl::before { content:""; position:absolute; top:26px; left:50%; width:100%; height:2px; background:repeating-linear-gradient(90deg,var(--o) 0 8px,transparent 8px 16px); opacity:.4; z-index:0; }
+  #acc-{{ uid }} .acc-tl:last-child::before { display:none; }
+  #acc-{{ uid }} .acc-tl__n { position:relative; z-index:1; width:54px; height:54px; margin:0 auto 20px; border-radius:50%; background:var(--g); color:#fff; font-family:var(--serif); font-size:22px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  #acc-{{ uid }} .acc-tl__t { font-family:var(--serif); font-size:19px; color:var(--g); margin:0 0 8px; }
+  #acc-{{ uid }} .acc-tl__d { font-size:13.5px; color:var(--muted); line-height:1.6; }
+
+  /* AVIS placeholder */
+  #acc-{{ uid }} .acc-reviews { padding:84px 0; background:var(--c); text-align:center; }
+  #acc-{{ uid }} .acc-reviews .acc-h { font-size:clamp(24px,3vw,34px); margin-bottom:10px; }
+  #acc-{{ uid }} .acc-reviews__note { font-size:14px; color:var(--muted); max-width:520px; margin:0 auto 36px; }
+  #acc-{{ uid }} .acc-rgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  #acc-{{ uid }} .acc-rc { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px; text-align:left; }
+  #acc-{{ uid }} .acc-rc__stars { color:var(--o); letter-spacing:2px; margin-bottom:12px; }
+  #acc-{{ uid }} .acc-rc__txt { font-size:14px; color:#4a463f; line-height:1.6; font-style:italic; }
+  #acc-{{ uid }} .acc-rc__by { font-size:12.5px; color:var(--muted); margin-top:14px; }
+
+  /* NEWSLETTER */
+  #acc-{{ uid }} .acc-news { padding:90px 24px; text-align:center; background:var(--g); color:#eee7d8; }
+  #acc-{{ uid }} .acc-news h2 { font-family:var(--serif); font-size:clamp(26px,3.4vw,40px); color:#fff; margin:0 0 12px; }
+  #acc-{{ uid }} .acc-news p { color:#d7d0c1; max-width:480px; margin:0 auto 26px; }
+  #acc-{{ uid }} .acc-news form { display:flex; gap:10px; max-width:460px; margin:0 auto; flex-wrap:wrap; justify-content:center; }
+  #acc-{{ uid }} .acc-news input { flex:1 1 250px; padding:15px 20px; border-radius:50px; border:none; font-family:var(--sans); font-size:14px; }
+  #acc-{{ uid }} .acc-news__ok { flex-basis:100%; color:#cbb892; font-weight:600; margin-top:8px; }
+
+  @media (max-width:880px){
+    #acc-{{ uid }} .acc-hero__grid { grid-template-columns:1fr; gap:36px; padding:56px 24px; }
+    #acc-{{ uid }} .acc-hero__media { order:-1; aspect-ratio:16/12; }
+    #acc-{{ uid }} .acc-offer__grid, #acc-{{ uid }} .acc-ps__grid, #acc-{{ uid }} .acc-pgrid,
+    #acc-{{ uid }} .acc-timeline, #acc-{{ uid }} .acc-rgrid { grid-template-columns:1fr; gap:22px; }
+    #acc-{{ uid }} .acc-tl::before { display:none; }
+    #acc-{{ uid }} .acc-offer__grid { max-width:420px; margin:0 auto; }
+  }
+{%- endstyle -%}
+
+<div id="acc-{{ uid }}">
+
+  <!-- HERO -->
+  <section class="acc-hero">
+    <div class="acc-hero__grid">
+      <div>
+        <p class="acc-eyebrow">{{ s.eyebrow | default: "L'huile ancestrale du peuple Miskito" }}</p>
+        <h1>{{ s.title | default: "Vos racines méritent<br>le <em>vrai</em> Batana." }}</h1>
+        <p class="acc-hero__lead">{{ s.subtitle | default: "100 % huile de Batana pure du Honduras, pressée à froid. Un seul ingrédient, une vraie tradition — pour des cheveux nourris, souples et visiblement plus sains." }}</p>
+        <div class="acc-hero__price">
+          <b>{{ s.price | default: '39,99 $' }}</b>
+          <s>{{ s.compare_price | default: '59,99 $' }}</s>
+          <span>{{ s.discount | default: '-33 %' }}</span>
+        </div>
+        <div class="acc-hero__cta">
+          <a href="{{ s.cta_url | default: '/products/huile-de-batana-100-pure-du-honduras' }}" class="acc-btn acc-btn--gold">{{ s.cta_text | default: "Découvrir l'huile" }}</a>
+          <a href="#acc-offre-{{ uid }}" class="acc-btn acc-btn--ghost">Voir les formats</a>
+        </div>
+        <div class="acc-chips">
+          <span class="acc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m20 6-11 11-5-5"/></svg>100 % naturelle</span>
+          <span class="acc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>Satisfait ou remboursé</span>
+          <span class="acc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 7h14l-1 13H6L5 7Z"/></svg>Livraison suivie</span>
+        </div>
+      </div>
+      <div class="acc-hero__media">
+        {%- if s.hero_image != blank -%}
+          {{ s.hero_image | image_url: width: 1000 | image_tag: loading: 'eager', alt: 'Huile de Batana myrootelia' }}
+        {%- else -%}
+          <div class="acc-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDEAU -->
+  <section class="acc-strip">
+    <div class="acc-strip__row">
+      <span class="acc-strip__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>100 % Batana pur</span>
+      <span class="acc-strip__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 13s3-3 6-3 4 2 6 2 6-3 8-3"/></svg>Récoltée à la main</span>
+      <span class="acc-strip__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M5 9l7-7 7 7"/></svg>Pressée à froid</span>
+      <span class="acc-strip__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Origine Honduras tracée</span>
+    </div>
+  </section>
+
+  <!-- OFFRE PACK -->
+  <section class="acc-offer" id="acc-offre-{{ uid }}">
+    <div class="acc-wrap">
+      <div class="acc-offer__head">
+        <p class="acc-eyebrow" style="text-align:center;">L'offre myrootelia</p>
+        <h2 class="acc-h">Choisissez votre format</h2>
+        <p style="color:var(--muted);font-size:15px;">Plus la cure est longue, plus le prix au flacon baisse. Livraison offerte dès 2 flacons.</p>
+      </div>
+      {%- if p != blank -%}
+        <div class="acc-offer__grid">
+          {%- for variant in p.variants -%}
+            {%- liquid
+              assign hot = false
+              if forloop.index == 2
+                assign hot = true
+              endif
+              assign unit = variant.price | divided_by: forloop.index
+            -%}
+            <div class="acc-pk{% if hot %} acc-pk--hot{% endif %}">
+              {%- if hot -%}<span class="acc-pk__tag">Le plus choisi</span>{%- elsif forloop.last -%}<span class="acc-pk__tag" style="background:var(--g);">Meilleure valeur</span>{%- endif -%}
+              <p class="acc-pk__name">{{ variant.title }}</p>
+              <div class="acc-pk__price">{{ variant.price | money }}{% if variant.compare_at_price > variant.price %}<s>{{ variant.compare_at_price | money }}</s>{% endif %}</div>
+              <p class="acc-pk__unit">{% if forloop.index > 1 %}soit {{ unit | money }} / flacon{% else %}le flacon{% endif %}</p>
+              <form method="post" action="/cart/add" accept-charset="UTF-8">
+                <input type="hidden" name="form_type" value="product">
+                <input type="hidden" name="id" value="{{ variant.id }}">
+                <button type="submit" name="add" class="acc-btn {% if hot %}acc-btn--gold{% else %}acc-btn--ghost{% endif %} acc-pk__btn" style="width:100%;">{% if hot %}Je choisis ce pack{% else %}Ajouter{% endif %}</button>
+              </form>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <!-- PROBLÈME → SOLUTION -->
+  <section class="acc-ps">
+    <div class="acc-wrap">
+      <div class="acc-ps__grid">
+        <div>
+          <p class="acc-eyebrow">Le constat</p>
+          <h2 class="acc-ps__title">Vos cheveux méritent mieux que des formules chargées.</h2>
+          <p style="color:#4a463f;line-height:1.75;font-size:15.5px;">Silicones qui étouffent, parfums de synthèse, listes d'ingrédients à rallonge… La plupart des soins masquent au lieu de nourrir. Le Batana prend le contre-pied : un seul ingrédient, brut et honnête.</p>
+        </div>
+        <div>
+          <p class="acc-eyebrow">La réponse</p>
+          <h2 class="acc-ps__title">Une huile. Rien d'autre.</h2>
+          <ul class="acc-ps__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m20 6-11 11-5-5"/></svg>Nourrit la fibre et le cuir chevelu en profondeur</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m20 6-11 11-5-5"/></svg>Idéale pour cheveux secs, frisés et crépus</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m20 6-11 11-5-5"/></svg>Sans additifs, sans parfum de synthèse, sans silicones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 PILIERS -->
+  <section class="acc-pillars">
+    <div class="acc-wrap">
+      <p class="acc-eyebrow" style="text-align:center;">Pourquoi myrootelia</p>
+      <h2 class="acc-h">Un héritage que l'on protège</h2>
+      <div class="acc-pgrid">
+        <div><div class="acc-pill__n">01</div><h3 class="acc-pill__t">Pur & tracé</h3><p class="acc-pill__d">100 % Batana du Honduras, non dilué, d'origine unique et traçable.</p></div>
+        <div><div class="acc-pill__n">02</div><h3 class="acc-pill__t">Ancestral</h3><p class="acc-pill__d">Récolté et pressé à froid selon le savoir-faire du peuple Miskito.</p></div>
+        <div><div class="acc-pill__n">03</div><h3 class="acc-pill__t">Transparent</h3><p class="acc-pill__d">Composition affichée, aucune promesse miracle. Ce que vous lisez est ce que vous appliquez.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGINE -->
+  <section class="acc-origin">
+    {%- if s.origine_image != blank -%}{{ s.origine_image | image_url: width: 1800 | image_tag: loading: 'lazy', alt: 'La Mosquitia, Honduras' }}{%- endif -%}
+    <div class="acc-origin__inner">
+      <p class="acc-eyebrow">Les Tawira — le peuple aux beaux cheveux</p>
+      <h2>Un trésor venu du nord-est du Honduras.</h2>
+      <p>Dans la Mosquitia, le Batana est extrait à la main du fruit du palmier <em>Elaeis oleifera</em>, selon une tradition transmise oralement depuis des générations. myrootelia rend cet héritage accessible — pur et transparent.</p>
+      <a href="{{ s.about_url | default: '/pages/story' }}" class="acc-btn acc-btn--light">Notre histoire</a>
+    </div>
+  </section>
+
+  <!-- RITUEL -->
+  <section class="acc-ritual">
+    <div class="acc-wrap">
+      <p class="acc-eyebrow" style="text-align:center;">Le rituel du soir</p>
+      <h2 class="acc-h">2 minutes, chaque soir.</h2>
+      <div class="acc-timeline">
+        <div class="acc-tl"><div class="acc-tl__n">1</div><h3 class="acc-tl__t">Déposez</h3><p class="acc-tl__d">Quelques gouttes sur le cuir chevelu et les longueurs.</p></div>
+        <div class="acc-tl"><div class="acc-tl__n">2</div><h3 class="acc-tl__t">Massez</h3><p class="acc-tl__d">2 minutes du bout des doigts pour stimuler et détendre.</p></div>
+        <div class="acc-tl"><div class="acc-tl__n">3</div><h3 class="acc-tl__t">Laissez poser</h3><p class="acc-tl__d">Idéalement toute la nuit, puis rincez selon vos cheveux.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS (placeholder honnête) -->
+  <section class="acc-reviews">
+    <div class="acc-wrap">
+      <p class="acc-eyebrow" style="text-align:center;">Avis</p>
+      <h2 class="acc-h">Ce qu'en pensent nos client·e·s</h2>
+      <p class="acc-reviews__note">Emplacement prêt pour vos vrais avis — remplacez ces exemples avant la mise en ligne (ou branchez une app d'avis).</p>
+      <div class="acc-rgrid">
+        <div class="acc-rc"><div class="acc-rc__stars">★★★★★</div><p class="acc-rc__txt">« Exemple d'avis — à remplacer par un vrai témoignage client. »</p><p class="acc-rc__by">Client·e (exemple)</p></div>
+        <div class="acc-rc"><div class="acc-rc__stars">★★★★★</div><p class="acc-rc__txt">« Exemple d'avis — à remplacer par un vrai témoignage client. »</p><p class="acc-rc__by">Client·e (exemple)</p></div>
+        <div class="acc-rc"><div class="acc-rc__stars">★★★★★</div><p class="acc-rc__txt">« Exemple d'avis — à remplacer par un vrai témoignage client. »</p><p class="acc-rc__by">Client·e (exemple)</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="acc-news">
+    <h2>-10 % sur votre première commande</h2>
+    <p>Rejoignez la lettre myrootelia : rituels, tradition Miskito et offres en avant-première. Pas de spam.</p>
+    {%- form 'customer' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter,accueil">
+      <input type="email" name="contact[email]" placeholder="Votre adresse e-mail" required aria-label="E-mail">
+      <button type="submit" class="acc-btn acc-btn--gold">Je m'inscris</button>
+      {%- if form.posted_successfully? -%}<div class="acc-news__ok">Merci ! Votre code arrive par e-mail. 🌿</div>{%- endif -%}
+    {%- endform -%}
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Accueil myrootelia",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Produit lié (offre pack)" },
+    { "type": "text", "id": "product_handle", "label": "Handle du produit", "default": "huile-de-batana-100-pure-du-honduras" },
+    { "type": "url", "id": "cta_url", "label": "Lien CTA principal" },
+    { "type": "url", "id": "about_url", "label": "Lien page histoire" },
+    { "type": "header", "content": "Hero — textes" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "L'huile ancestrale du peuple Miskito" },
+    { "type": "text", "id": "title", "label": "Titre (H1) — HTML autorisé (<em>, <br>)" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "100 % huile de Batana pure du Honduras, pressée à froid." },
+    { "type": "text", "id": "cta_text", "label": "Texte CTA", "default": "Découvrir l'huile" },
+    { "type": "text", "id": "price", "label": "Prix", "default": "39,99 $" },
+    { "type": "text", "id": "compare_price", "label": "Prix barré", "default": "59,99 $" },
+    { "type": "text", "id": "discount", "label": "Badge remise", "default": "-33 %" },
+    { "type": "header", "content": "Images (générées via IA)" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image hero (produit)" },
+    { "type": "image_picker", "id": "origine_image", "label": "Image origine (paysage Honduras)" },
+    { "type": "header", "content": "Couleurs (charte)" },
+    { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#2F5233" },
+    { "type": "color", "id": "color_gold", "label": "Or / terre", "default": "#B07A3B" },
+    { "type": "color", "id": "color_cream", "label": "Crème", "default": "#F5F1EA" },
+    { "type": "color", "id": "color_ink", "label": "Noir doux", "default": "#2B2B2B" }
+  ],
+  "presets": [{ "name": "Accueil myrootelia" }]
+}
+{% endschema %}

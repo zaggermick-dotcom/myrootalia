@@ -195,7 +195,12 @@
     },
     "produit_myrootelia": {
       "type": "produit-myrootelia",
-      "settings": {}
+      "settings": {
+        "ingredient_image": "shopify://shop_images/myrootelia-produit.png",
+        "ritual_image_1": "shopify://shop_images/myrootelia-goutte.png",
+        "ritual_image_2": "shopify://shop_images/myrootelia-application.png",
+        "ritual_image_3": "shopify://shop_images/myrootelia-coffret.png"
+      }
     },
     "related": {
       "type": "related-products",

@@ -71,6 +71,10 @@
   #mrp-{{ uid }} .mrp-split { display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; }
   #mrp-{{ uid }} .mrp-media { position: relative; }
   #mrp-{{ uid }} .mrp-media img { border-radius: 22px; box-shadow: 0 34px 80px rgba(43,43,43,.18); position: relative; z-index: 2; }
+  #mrp-{{ uid }} .mrp-ph { width: 100%; background: linear-gradient(150deg,#e9e0d2,var(--c) 55%,#dfe6dc); display: flex; align-items: center; justify-content: center; color: var(--g); position: relative; z-index: 2; }
+  #mrp-{{ uid }} .mrp-ph svg { width: 56px; height: 56px; opacity: .32; }
+  #mrp-{{ uid }} .mrp-media .mrp-ph { aspect-ratio: 4/5; border-radius: 22px; box-shadow: 0 34px 80px rgba(43,43,43,.14); }
+  #mrp-{{ uid }} .mrp-step__img .mrp-ph { height: 100%; }
   #mrp-{{ uid }} .mrp-media::after { content: ""; position: absolute; inset: 22px -22px -22px 22px; border: 1.5px solid var(--o); border-radius: 22px; z-index: 1; opacity: .55; }
   #mrp-{{ uid }} .mrp-badge-pur { position: absolute; z-index: 3; top: 18px; left: 18px; background: var(--g); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .5px; padding: 10px 16px; border-radius: 50px; box-shadow: 0 8px 20px rgba(47,82,51,.3); }
   #mrp-{{ uid }} .mrp-compo { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
@@ -217,7 +221,11 @@
       <div class="mrp-split">
         <div class="mrp-media mrp-rv">
           <span class="mrp-badge-pur">100 % pur</span>
-          <img src="{{ 'myrootelia-goutte.png' | asset_url }}" alt="Goutte d'huile de Batana pure" loading="lazy">
+          {%- if s.ingredient_image != blank -%}
+            {{ s.ingredient_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: "Goutte d'huile de Batana pure" }}
+          {%- else -%}
+            <div class="mrp-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></div>
+          {%- endif -%}
         </div>
         <div class="mrp-rv">
           <p class="mrp-eyebrow">Un seul ingrédient</p>
@@ -259,15 +267,15 @@
       </div>
       <div class="mrp-steps">
         <div class="mrp-step mrp-rv">
-          <div class="mrp-step__img"><img src="{{ 'myrootelia-goutte.png' | asset_url }}" alt="Déposer l'huile de Batana" loading="lazy"></div>
+          <div class="mrp-step__img">{%- if s.ritual_image_1 != blank -%}{{ s.ritual_image_1 | image_url: width: 700 | image_tag: loading: 'lazy', alt: "Déposer l'huile de Batana" }}{%- else -%}<div class="mrp-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></div>{%- endif -%}</div>
           <div class="mrp-step__body"><div class="mrp-step__n">01</div><div class="mrp-step__t">Déposez</div><div class="mrp-step__d">Quelques gouttes sur le cuir chevelu et les longueurs, mèche par mèche.</div></div>
         </div>
         <div class="mrp-step mrp-rv">
-          <div class="mrp-step__img"><img src="{{ 'myrootelia-application.png' | asset_url }}" alt="Masser le cuir chevelu" loading="lazy"></div>
+          <div class="mrp-step__img">{%- if s.ritual_image_2 != blank -%}{{ s.ritual_image_2 | image_url: width: 700 | image_tag: loading: 'lazy', alt: "Masser le cuir chevelu" }}{%- else -%}<div class="mrp-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 13c0-3 2-5 4-5s4 2 4 5M6 20h12"/><path d="M12 3v3"/></svg></div>{%- endif -%}</div>
           <div class="mrp-step__body"><div class="mrp-step__n">02</div><div class="mrp-step__t">Massez</div><div class="mrp-step__d">2 minutes du bout des doigts, pour stimuler et détendre le cuir chevelu.</div></div>
         </div>
         <div class="mrp-step mrp-rv">
-          <div class="mrp-step__img"><img src="{{ 'myrootelia-produit.png' | asset_url }}" alt="Laisser poser toute la nuit" loading="lazy"></div>
+          <div class="mrp-step__img">{%- if s.ritual_image_3 != blank -%}{{ s.ritual_image_3 | image_url: width: 700 | image_tag: loading: 'lazy', alt: "Laisser poser toute la nuit" }}{%- else -%}<div class="mrp-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></div>{%- endif -%}</div>
           <div class="mrp-step__body"><div class="mrp-step__n">03</div><div class="mrp-step__t">Laissez poser</div><div class="mrp-step__d">Idéalement toute la nuit. Rincez ou laissez selon la texture de vos cheveux.</div></div>
         </div>
       </div>
@@ -402,6 +410,11 @@
   "name": "Produit myrootelia",
   "tag": "section",
   "settings": [
+    { "type": "header", "content": "Images (générées via IA — repli élégant si vide)" },
+    { "type": "image_picker", "id": "ingredient_image", "label": "Ingrédient (goutte / flacon)" },
+    { "type": "image_picker", "id": "ritual_image_1", "label": "Rituel étape 1 — Déposez" },
+    { "type": "image_picker", "id": "ritual_image_2", "label": "Rituel étape 2 — Massez" },
+    { "type": "image_picker", "id": "ritual_image_3", "label": "Rituel étape 3 — Laissez poser" },
     { "type": "header", "content": "Couleurs (charte)" },
     { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#2F5233" },
     { "type": "color", "id": "color_gold", "label": "Or / terre", "default": "#B07A3B" },

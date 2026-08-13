@@ -1,0 +1,491 @@
+{% render 'subscription-widget' %}
+
+{% schema %}
+{
+  "name": "💎 Widget Abonnement",
+  "tag": "section",
+  "class": "lcw-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "═══ ⚙️ GÉNÉRAL ═══"
+    },
+    {
+      "type": "select",
+      "id": "design_preset",
+      "label": "Design",
+      "options": [
+        {"value": "elegant_violet", "label": "💜 Violet"},
+        {"value": "premium_gold", "label": "👑 Gold"},
+        {"value": "fresh_green", "label": "🌿 Vert"},
+        {"value": "ocean_blue", "label": "🌊 Bleu"},
+        {"value": "sunset_orange", "label": "🌅 Orange"},
+        {"value": "minimal_white", "label": "⚪ Blanc"},
+        {"value": "dark_neon", "label": "🌙 Dark"},
+        {"value": "rose_pink", "label": "🌸 Rose"}
+      ],
+      "default": "elegant_violet"
+    },
+    {
+      "type": "header",
+      "content": "═══ 🎨 COULEURS ═══"
+    },
+    {
+      "type": "color",
+      "id": "color_primary",
+      "label": "Principale"
+    },
+    {
+      "type": "color",
+      "id": "color_primary_light",
+      "label": "Principale claire"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secondaire"
+    },
+    {
+      "type": "color",
+      "id": "color_success",
+      "label": "Succès"
+    },
+    {
+      "type": "color",
+      "id": "color_error",
+      "label": "Erreur"
+    },
+    {
+      "type": "color",
+      "id": "color_text_dark",
+      "label": "Texte foncé"
+    },
+    {
+      "type": "color",
+      "id": "color_text_muted",
+      "label": "Texte gris"
+    },
+    {
+      "type": "color",
+      "id": "color_bg_primary",
+      "label": "Fond principal"
+    },
+    {
+      "type": "color",
+      "id": "color_bg_secondary",
+      "label": "Fond secondaire"
+    },
+    {
+      "type": "color",
+      "id": "color_border",
+      "label": "Bordures"
+    },
+    {
+      "type": "color",
+      "id": "color_border_active",
+      "label": "Bordure active"
+    },
+    {
+      "type": "header",
+      "content": "═══ ✏️ TEXTES ═══"
+    },
+    {
+      "type": "text",
+      "id": "header_icon",
+      "label": "Icône header",
+      "default": "💧"
+    },
+    {
+      "type": "text",
+      "id": "txt_title",
+      "label": "Titre",
+      "default": "L'Abonnement Qui Change Tout"
+    },
+    {
+      "type": "text",
+      "id": "txt_subtitle",
+      "label": "Sous-titre",
+      "default": "Rejoignez 1500+ membres • Économisez jusqu'à"
+    },
+    {
+      "type": "text",
+      "id": "max_discount",
+      "label": "Remise max",
+      "default": "-40%"
+    },
+    {
+      "type": "text",
+      "id": "txt_formula",
+      "label": "Texte formule",
+      "default": "VOTRE FORMULE"
+    },
+    {
+      "type": "text",
+      "id": "txt_economy",
+      "label": "Texte économie",
+      "default": "Économie"
+    },
+    {
+      "type": "text",
+      "id": "txt_popular",
+      "label": "Badge populaire",
+      "default": "👑 POPULAIRE"
+    },
+    {
+      "type": "text",
+      "id": "cta_icon",
+      "label": "Icône CTA",
+      "default": "→"
+    },
+    {
+      "type": "text",
+      "id": "txt_cta",
+      "label": "Texte CTA",
+      "default": "OUI, JE M'ABONNE"
+    },
+    {
+      "type": "checkbox",
+      "id": "redirect_to_cart",
+      "label": "Rediriger vers panier",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "redirect_url",
+      "label": "URL redirection",
+      "default": "/cart"
+    },
+    {
+      "type": "text",
+      "id": "variant_id",
+      "label": "ID Variant (optionnel)"
+    },
+    {
+      "type": "header",
+      "content": "═══ 🔥 URGENCE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency_bar",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Texte",
+      "default": "Offre limitée !"
+    },
+    {
+      "type": "range",
+      "id": "stock_count",
+      "label": "Stock",
+      "min": 5,
+      "max": 50,
+      "default": 23
+    },
+    {
+      "type": "header",
+      "content": "═══ 👥 SOCIAL ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "viewer_count",
+      "label": "Viewers",
+      "min": 10,
+      "max": 100,
+      "default": 34
+    },
+    {
+      "type": "text",
+      "id": "viewer_text",
+      "label": "Texte",
+      "default": "regardent"
+    },
+    {
+      "type": "header",
+      "content": "═══ ⏰ COUNTDOWN ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "countdown_text",
+      "label": "Texte",
+      "default": "Expire dans"
+    },
+    {
+      "type": "range",
+      "id": "countdown_hours",
+      "label": "Heures",
+      "min": 0,
+      "max": 23,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "countdown_mins",
+      "label": "Minutes",
+      "min": 0,
+      "max": 59,
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "countdown_secs",
+      "label": "Secondes",
+      "min": 0,
+      "max": 59,
+      "default": 56
+    },
+    {
+      "type": "header",
+      "content": "═══ 📊 SAVINGS ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_savings_bar",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "savings_label",
+      "label": "Label",
+      "default": "Économies annuelles"
+    },
+    {
+      "type": "header",
+      "content": "═══ ✨ FEATURES ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1_icon",
+      "label": "Icône 1",
+      "default": "🚚"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_text",
+      "label": "Texte 1",
+      "default": "Livraison gratuite"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_icon",
+      "label": "Icône 2",
+      "default": "↩️"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_text",
+      "label": "Texte 2",
+      "default": "Annulez quand vous voulez"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_icon",
+      "label": "Icône 3",
+      "default": "🔒"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_text",
+      "label": "Texte 3",
+      "default": "Paiement sécurisé"
+    },
+    {
+      "type": "header",
+      "content": "═══ 🛡️ GARANTIE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_icon",
+      "label": "Icône",
+      "default": "🛡️"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Texte",
+      "default": "Garantie satisfait ou remboursé 30 jours"
+    },
+    {
+      "type": "header",
+      "content": "═══ 🔒 SÉCURITÉ ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secure_badges",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "═══ ⭐ AVIS ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Note",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "reviews_count",
+      "label": "Nombre",
+      "default": "1523"
+    },
+    {
+      "type": "header",
+      "content": "═══ ✅ TRUST ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Afficher",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust 1",
+      "default": "Paiement sécurisé"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust 2",
+      "default": "Satisfait ou remboursé"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust 3",
+      "default": "1523+ abonnés"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "📁 Groupe",
+      "settings": [
+        {
+          "type": "text",
+          "id": "group_name",
+          "label": "Nom",
+          "default": "VIP — Meilleur Prix"
+        },
+        {
+          "type": "text",
+          "id": "group_subtitle",
+          "label": "Sous-titre",
+          "default": "Engagement 3 mois"
+        },
+        {
+          "type": "text",
+          "id": "group_badge",
+          "label": "Badge",
+          "default": "-40%"
+        }
+      ]
+    },
+    {
+      "type": "plan",
+      "name": "📦 Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "plan_group",
+          "label": "Groupe parent",
+          "info": "Nom exact du groupe",
+          "default": "VIP — Meilleur Prix"
+        },
+        {
+          "type": "text",
+          "id": "plan_selling_id",
+          "label": "ID Selling Plan",
+          "info": "ID Shopify (optionnel)"
+        },
+        {
+          "type": "range",
+          "id": "plan_qty",
+          "label": "Quantité",
+          "min": 1,
+          "max": 10,
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "plan_label",
+          "label": "Label",
+          "default": "SÉRUM/MOIS"
+        },
+        {
+          "type": "text",
+          "id": "plan_price",
+          "label": "Prix",
+          "default": "24.49"
+        },
+        {
+          "type": "text",
+          "id": "plan_compare",
+          "label": "Prix barré",
+          "default": "34.99"
+        },
+        {
+          "type": "text",
+          "id": "plan_discount",
+          "label": "Badge remise",
+          "default": "-30%"
+        },
+        {
+          "type": "text",
+          "id": "plan_economy",
+          "label": "Économie",
+          "default": "10.50"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_popular",
+          "label": "POPULAIRE",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "💎 Widget Abonnement"
+    }
+  ]
+}
+{% endschema %}

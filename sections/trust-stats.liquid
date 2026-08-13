@@ -1,0 +1,1026 @@
+{%- style -%}
+  /* Import des polices calligraphiques */
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700;800&family=Crimson+Text:wght@400;600;700&family=Cinzel:wght@400;600;700&display=swap');
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* --- COULEURS DYNAMIQUES --- */
+  #Section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  
+  #Section-{{ section.id }} .clinical-title {
+    color: {{ section.settings.heading_color }};
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  #Section-{{ section.id }} .clinical-desc {
+    color: {{ section.settings.text_color }};
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  /* Badge Header */
+  #Section-{{ section.id }} .clinical-badge {
+    background-color: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_text_color }};
+    border-color: {{ section.settings.badge_border }};
+  }
+
+  #Section-{{ section.id }} .clinical-badge-text {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* Cartes */
+  #Section-{{ section.id }} .clinical-card {
+    background-color: {{ section.settings.card_bg_color }};
+    border: 1px solid {{ section.settings.card_border_color }};
+    border-radius: {{ section.settings.card_radius }}px;
+    box-shadow: 0 4px 20px rgba(0,0,0, {{ section.settings.shadow_opacity | divided_by: 100.0 }});
+    padding: {{ section.settings.card_padding_top }}px {{ section.settings.card_padding_horizontal }}px {{ section.settings.card_padding_bottom }}px {{ section.settings.card_padding_horizontal }}px;
+  }
+
+  #Section-{{ section.id }} .card-title {
+    color: {{ section.settings.card_title_color }};
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  #Section-{{ section.id }} .card-text {
+    color: {{ section.settings.card_text_color }};
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+  }
+
+  /* Cercle */
+  #Section-{{ section.id }} .clinical-circle-container {
+    width: {{ section.settings.circle_size }}px;
+    height: {{ section.settings.circle_size }}px;
+  }
+
+  #Section-{{ section.id }} .circle-inner-bg {
+    background-color: {{ section.settings.circle_bg_color }};
+    width: calc(100% - {{ section.settings.circle_inner_margin }}px);
+    height: calc(100% - {{ section.settings.circle_inner_margin }}px);
+  }
+  
+  #Section-{{ section.id }} .circle-percent-text {
+    color: {{ section.settings.percent_color }};
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: {{ section.settings.percent_font_size }}px;
+  }
+
+  /* Espacement entre cartes */
+  #Section-{{ section.id }} .clinical-grid {
+    gap: {{ section.settings.cards_gap }}px;
+  }
+
+  /* Pagination */
+  #Section-{{ section.id }} .clinical-dot.is-active {
+    background-color: {{ section.settings.heading_color }};
+  }
+
+  /* Animation d'entrée des cartes */
+  #Section-{{ section.id }} .clinical-card-wrapper {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  #Section-{{ section.id }} .clinical-card-wrapper.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+{%- endstyle -%}
+
+<div id="Section-{{ section.id }}" class="clinical-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    
+    <!-- EN-TÊTE -->
+    <div class="clinical-header">
+      {%- if section.settings.show_badge -%}
+        <div class="clinical-badge-wrapper">
+          <div class="clinical-badge">
+            <div class="clinical-avatars">
+              {%- if section.settings.avatar_1 != blank -%}
+                {{ section.settings.avatar_1 | image_url: width: 80 | image_tag: loading: 'lazy', class: 'c-avatar', alt: 'Expert 1' }}
+              {%- endif -%}
+              {%- if section.settings.avatar_2 != blank -%}
+                {{ section.settings.avatar_2 | image_url: width: 80 | image_tag: loading: 'lazy', class: 'c-avatar', alt: 'Expert 2' }}
+              {%- endif -%}
+              {%- if section.settings.avatar_3 != blank -%}
+                {{ section.settings.avatar_3 | image_url: width: 80 | image_tag: loading: 'lazy', class: 'c-avatar', alt: 'Expert 3' }}
+              {%- endif -%}
+            </div>
+            {%- if section.settings.badge_text != blank -%}
+              <span class="clinical-badge-text">{{ section.settings.badge_text }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="clinical-title {{ section.settings.heading_size }}">
+          {{ section.settings.title | escape }}
+        </h2>
+      {%- endif -%}
+      
+      {%- if section.settings.description != blank -%}
+        <div class="clinical-desc rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- GRID / SLIDER -->
+    <div class="clinical-grid-wrapper">
+      <div class="clinical-grid js-clinical-slider clinical-layout-{{ section.settings.mobile_layout }}">
+        {%- for block in section.blocks -%}
+          <div class="clinical-card-wrapper" data-animation-delay="{{ forloop.index0 | times: section.settings.animation_stagger }}">
+            <!-- LE CERCLE FLOTTANT -->
+            <div class="clinical-circle-container">
+              <!-- Fond uni (rose) -->
+              <div class="circle-inner-bg"></div>
+              
+              <!-- SVG pour les traits radiaux (ticks) -->
+              <svg class="circle-ticks-svg" viewBox="0 0 100 100">
+                <!-- Traits de fond (gris clair) -->
+                <g class="ticks-background">
+                  {% for i in (1..60) %}
+                    <line 
+                      x1="50" 
+                      y1="4" 
+                      x2="50" 
+                      y2="{{ section.settings.ticks_length | plus: 4 }}"
+                      stroke="{{ section.settings.ticks_bg_color }}"
+                      stroke-width="{{ section.settings.ticks_width }}"
+                      stroke-linecap="round"
+                      transform="rotate({{ i | minus: 1 | times: 6 }} 50 50)"
+                    />
+                  {% endfor %}
+                </g>
+                
+                <!-- Traits actifs (progression) - seront animés via JS -->
+                <g class="ticks-progress js-ticks-progress" 
+                   data-percentage="{{ block.settings.percentage }}"
+                   data-direction="{{ section.settings.animation_direction }}"
+                   data-ticks-color="{{ section.settings.ticks_color }}"
+                   data-ticks-length="{{ section.settings.ticks_length }}"
+                   data-ticks-width="{{ section.settings.ticks_width }}">
+                  <!-- Les traits actifs seront générés par JavaScript -->
+                </g>
+              </svg>
+
+              <!-- Pourcentage -->
+              <div class="circle-percent-text">
+                <span class="js-counter" data-target="{{ block.settings.percentage }}">0</span>%
+              </div>
+            </div>
+
+            <!-- CONTENU CARTE -->
+            <div class="clinical-card" {{ block.shopify_attributes }}>
+              <div class="clinical-card-content">
+                <h3 class="card-title">{{ block.settings.title }}</h3>
+                <div class="card-text rte">{{ block.settings.text }}</div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- PAGINATION MOBILE (Seulement si Slider) -->
+    {%- if section.settings.show_dots and section.settings.mobile_layout == 'slider' -%}
+      <div class="clinical-pagination js-pagination">
+        {%- for block in section.blocks -%}
+          <button class="clinical-dot{% if forloop.first %} is-active{% endif %}" 
+                  data-index="{{ forloop.index0 }}"
+                  aria-label="Voir carte {{ forloop.index }}">
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const section = document.querySelector('#Section-{{ section.id }}');
+  const counters = section.querySelectorAll('.js-counter');
+  const ticksProgressGroups = section.querySelectorAll('.js-ticks-progress');
+  const cardWrappers = section.querySelectorAll('.clinical-card-wrapper');
+  const slider = section.querySelector('.js-clinical-slider');
+  const dots = section.querySelectorAll('.clinical-dot');
+  
+  const totalTicks = 60; // Nombre total de traits dans le cercle
+  const animationDuration = {{ section.settings.animation_duration }};
+
+  // Observer pour les animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const wrapper = entry.target;
+        const delay = parseInt(wrapper.getAttribute('data-animation-delay')) || 0;
+        
+        // Animation d'entrée de la carte avec délai
+        setTimeout(() => {
+          wrapper.classList.add('is-visible');
+          
+          // Animation du compteur
+          const counter = wrapper.querySelector('.js-counter');
+          if (counter) {
+            const target = parseInt(counter.getAttribute('data-target'));
+            animateValue(counter, 0, target, animationDuration);
+          }
+          
+          // Animation des traits (ticks)
+          const ticksGroup = wrapper.querySelector('.js-ticks-progress');
+          if (ticksGroup) {
+            const percentage = parseInt(ticksGroup.getAttribute('data-percentage'));
+            const direction = ticksGroup.getAttribute('data-direction');
+            const ticksColor = ticksGroup.getAttribute('data-ticks-color');
+            const ticksLength = parseInt(ticksGroup.getAttribute('data-ticks-length'));
+            const ticksWidth = parseFloat(ticksGroup.getAttribute('data-ticks-width'));
+            animateTicks(ticksGroup, percentage, direction, ticksColor, ticksLength, ticksWidth, animationDuration);
+          }
+        }, delay);
+        
+        observer.unobserve(wrapper);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  cardWrappers.forEach(wrapper => observer.observe(wrapper));
+
+  // Animation du compteur
+  function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+      obj.innerHTML = Math.floor(easedProgress * (end - start) + start);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        obj.innerHTML = end;
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  // Animation des traits radiaux
+  function animateTicks(ticksGroup, percentage, direction, color, length, width, duration) {
+    const targetTicks = Math.round((percentage / 100) * totalTicks);
+    let startTimestamp = null;
+    let currentTicks = 0;
+    
+    // Nettoyer les traits existants
+    ticksGroup.innerHTML = '';
+    
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+      const newTickCount = Math.floor(easedProgress * targetTicks);
+      
+      // Ajouter les nouveaux traits
+      while (currentTicks < newTickCount) {
+        const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        
+        let rotation;
+        if (direction === 'antihoraire') {
+          rotation = 360 - (currentTicks * 6);
+        } else {
+          rotation = currentTicks * 6;
+        }
+        
+        tick.setAttribute('x1', '50');
+        tick.setAttribute('y1', '4');
+        tick.setAttribute('x2', '50');
+        tick.setAttribute('y2', (4 + length).toString());
+        tick.setAttribute('stroke', color);
+        tick.setAttribute('stroke-width', width.toString());
+        tick.setAttribute('stroke-linecap', 'round');
+        tick.setAttribute('transform', `rotate(${rotation} 50 50)`);
+        
+        ticksGroup.appendChild(tick);
+        currentTicks++;
+      }
+      
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  // Fonction d'easing pour une animation plus fluide
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  // Scroll Sync pour les points (Mobile - Slider uniquement)
+  if(slider && dots.length > 0) {
+    slider.addEventListener('scroll', () => {
+      const cardWidth = slider.querySelector('.clinical-card-wrapper').offsetWidth;
+      const index = Math.round(slider.scrollLeft / cardWidth);
+      
+      dots.forEach(dot => dot.classList.remove('is-active'));
+      if(dots[index]) dots[index].classList.add('is-active');
+    });
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.index);
+        const cardWidth = slider.querySelector('.clinical-card-wrapper').offsetWidth;
+        slider.scrollTo({
+          left: idx * cardWidth,
+          behavior: 'smooth'
+        });
+      });
+    });
+  }
+});
+</script>
+
+<style>
+  /* --- LAYOUT GENERAL --- */
+  .clinical-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-width {
+    max-width: {{ section.settings.page_width }}px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* --- HEADER --- */
+  .clinical-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+  }
+
+  /* Badge */
+  .clinical-badge-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .clinical-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 24px 6px 8px;
+    border-radius: 100px;
+    gap: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .clinical-avatars {
+    display: flex;
+  }
+  
+  .c-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    object-fit: cover;
+    margin-left: -10px;
+  }
+  .c-avatar:first-child { margin-left: 0; }
+
+  .clinical-badge-text {
+    font-size: 14px;
+  }
+
+  /* Titres */
+  .clinical-title {
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+  .h2 { font-size: 2rem; }
+  .h1 { font-size: 2.5rem; }
+  .h0 { font-size: 3rem; }
+
+  .clinical-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  /* --- GRILLE / CARDS DESKTOP --- */
+  .clinical-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    padding-top: {{ section.settings.circle_size | divided_by: 2 | plus: 10 }}px;
+  }
+
+  .clinical-card-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Le cercle flottant */
+  .clinical-circle-container {
+    position: absolute;
+    top: -{{ section.settings.circle_size | divided_by: 2 }}px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle-inner-bg {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .circle-ticks-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .ticks-background line {
+    opacity: 0.3;
+  }
+
+  .circle-percent-text {
+    position: relative;
+    z-index: 3;
+    line-height: 1;
+  }
+
+  /* La Carte Blanche */
+  .clinical-card {
+    width: 100%;
+    text-align: center;
+    min-height: 100%;
+  }
+
+  .card-title {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+  }
+
+  .card-text {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .card-text p {
+    margin: 0;
+  }
+
+  /* --- RESPONSIVE / MOBILE --- */
+  .clinical-pagination { display: none; }
+
+  @media screen and (max-width: 990px) {
+    /* MODE SLIDER (HORIZONTAL) */
+    .clinical-grid.clinical-layout-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 30px;
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    
+    .clinical-grid.clinical-layout-slider::-webkit-scrollbar { display: none; }
+
+    .clinical-grid.clinical-layout-slider .clinical-card-wrapper {
+      min-width: 280px;
+      max-width: 280px;
+      scroll-snap-align: center;
+    }
+
+    /* MODE STACK (VERTICAL) */
+    .clinical-grid.clinical-layout-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-bottom: 20px;
+      margin: 0;
+    }
+
+    .clinical-grid.clinical-layout-stack .clinical-card-wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .clinical-header {
+      margin-bottom: 50px;
+    }
+
+    /* Pagination dots (mobile only) */
+    .clinical-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .clinical-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      border: none;
+      padding: 0;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .clinical-dot:hover {
+      background: #bbb;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Résultats Cliniques",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "📱 Configuration Mobile"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Disposition Mobile",
+      "options": [
+        { "value": "slider", "label": "Slider (Horizontal)" },
+        { "value": "stack", "label": "Empilé (Vertical)" }
+      ],
+      "default": "slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Afficher points (mode Slider)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "🎨 Couleurs Globales"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Arrière-plan Section",
+      "default": "#DEDCD7"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Titre Principal",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description Header",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "🏷️ Badge (En-tête)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Afficher le badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texte Badge",
+      "default": "Reconnu par les dermatologues"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Fond Badge",
+      "default": "#FBE9EF"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Texte Badge",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "badge_border",
+      "label": "Bordure Badge",
+      "default": "#FBE9EF"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_1",
+      "label": "Avatar 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_2",
+      "label": "Avatar 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_3",
+      "label": "Avatar 3"
+    },
+    {
+      "type": "header",
+      "content": "🃏 Design des Cartes"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Arrondi des cartes",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Intensité ombre",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Fond Carte",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Bordure Carte",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Titre Carte",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Texte Carte",
+      "default": "#444444"
+    },
+    {
+      "type": "header",
+      "content": "📐 Espacement des Cartes"
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Espace entre les cartes",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding horizontal (cartes)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding haut (cartes)",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding bas (cartes)",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "⭕ Cercle"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Taille du cercle",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "circle_inner_margin",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Marge interne (fond cercle)",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "circle_bg_color",
+      "label": "Fond du cercle (centre)",
+      "default": "#FBE9EF"
+    },
+    {
+      "type": "header",
+      "content": "📊 Traits Radiaux (Ticks)"
+    },
+    {
+      "type": "range",
+      "id": "ticks_length",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Longueur des traits",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "ticks_width",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Épaisseur des traits",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "ticks_color",
+      "label": "Couleur des traits (actifs)",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "ticks_bg_color",
+      "label": "Couleur des traits (fond/restants)",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "header",
+      "content": "🔢 Pourcentage"
+    },
+    {
+      "type": "range",
+      "id": "percent_font_size",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille police pourcentage",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "percent_color",
+      "label": "Couleur pourcentage",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "✨ Animation"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "min": 500,
+      "max": 3000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Durée animation",
+      "default": 1500
+    },
+    {
+      "type": "range",
+      "id": "animation_stagger",
+      "min": 0,
+      "max": 500,
+      "step": 50,
+      "unit": "ms",
+      "label": "Délai entre cartes (cascade)",
+      "default": 200
+    },
+    {
+      "type": "select",
+      "id": "animation_direction",
+      "label": "Direction animation cercle",
+      "options": [
+        { "value": "horaire", "label": "Sens horaire" },
+        { "value": "antihoraire", "label": "Sens anti-horaire" }
+      ],
+      "default": "horaire"
+    },
+    {
+      "type": "header",
+      "content": "📝 Textes"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Validé par les professionnels de santé",
+      "label": "Titre Section"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Petit" },
+        { "value": "h1", "label": "Moyen" },
+        { "value": "h0", "label": "Grand" }
+      ],
+      "default": "h1",
+      "label": "Taille Titre"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Notre sérum a été élaboré et produit en France.</p>"
+    },
+    {
+      "type": "header",
+      "content": "📐 Espacement Section"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "label": "Largeur max",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge Haut (PC)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge Bas (PC)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge Haut (Mobile)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Marge Bas (Mobile)",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "range",
+          "id": "percentage",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Pourcentage",
+          "default": 98
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre Carte",
+          "default": "Ont constaté"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Des cils plus longs, épais et une augmentation de leur densité.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Résultats Cliniques",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "percentage": 98,
+            "title": "Ont constaté",
+            "text": "<p>Des cils <strong>plus longs, épais</strong> et une augmentation de <strong>leur densité</strong>.</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "percentage": 96,
+            "title": "Ont vu leurs cils",
+            "text": "<p>En meilleure santé, <strong>intensément foncés</strong> avec une courbure amplifiée.</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "percentage": 93,
+            "title": "Ont confirmé",
+            "text": "<p>Ne ressentir <strong>aucune irritation</strong> avec le sérum, même yeux sensibles.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -43,21 +43,6 @@
             "block_margin_bottom": 8
           }
         },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "checked_color": "accent",
-            "custom_width": "none",
-            "flex": false,
-            "hide_label": false,
-            "bg_secondary": false,
-            "size": "small",
-            "selection": "background",
-            "size_guide": false,
-            "block_margin_bottom": 20
-          }
-        },
         "stock": {
           "type": "stock",
           "settings": {
@@ -140,16 +125,20 @@
           }
         },
         "accordions": {
-          "type": "description",
+          "type": "description-faq",
           "settings": {
+            "open_first_collapsible_row": true,
+            "accordions_style": "2",
+            "secondary_bg_accordions": true,
+            "heading1": "Description",
+            "icon1": "clipboard",
             "show_description": true,
-            "tabs_background": "secondary",
-            "icon1": "truck",
-            "heading1": "Livraison & retours",
-            "text1": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
-            "icon2": "leaf",
-            "heading2": "Nos engagements",
-            "text2": "<ul><li>Des formules et des gestes qu'on peut expliquer simplement.</li><li>Aucune promesse médicale — du soin, vraiment.</li><li>Un support humain qui répond en moins de 24 h.</li></ul><p>Une question avant de commander ? Écris-nous.</p>",
+            "heading2": "Livraison & retours",
+            "icon2": "box",
+            "text2": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
+            "heading3": "Nos engagements",
+            "icon3": "leaf",
+            "text3": "<ul><li>Des formules et des gestes qu'on peut expliquer simplement.</li><li>Aucune promesse médicale — du soin, vraiment.</li><li>Un support humain qui répond en moins de 24 h.</li></ul><p>Une question avant de commander ? Écris-nous.</p>",
             "block_margin_bottom": 20
           }
         },
@@ -163,7 +152,6 @@
         "rating",
         "title",
         "price",
-        "variant_picker",
         "stock",
         "buy_buttons",
         "spin",

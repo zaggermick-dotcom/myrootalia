@@ -61,8 +61,8 @@
   #mrp-{{ uid }} .mrp-bgrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
   #mrp-{{ uid }} .mrp-bcard { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 34px 24px; text-align: center; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
   #mrp-{{ uid }} .mrp-bcard:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(43,43,43,.10); border-color: rgba(194,90,52,.35); }
-  #mrp-{{ uid }} .mrp-bicon { width: 60px; height: 60px; margin: 0 auto 18px; border-radius: 50%; background: linear-gradient(145deg, var(--c), #fff); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--g); }
-  #mrp-{{ uid }} .mrp-bicon svg { width: 28px; height: 28px; }
+  #mrp-{{ uid }} .mrp-bicon { width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%; background: linear-gradient(145deg, var(--c), #fff); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--g); }
+  #mrp-{{ uid }} .mrp-bicon svg { width: 24px; height: 24px; }
   #mrp-{{ uid }} .mrp-bt { font-family: var(--serif); font-size: 18px; color: var(--g); margin: 0 0 8px; }
   #mrp-{{ uid }} .mrp-bd { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin: 0; }
 
@@ -161,24 +161,46 @@
   #mrp-{{ uid }} .mrp-reassure svg { width: 17px; height: 17px; color: var(--g); }
 
   @media (max-width: 900px) {
-    #mrp-{{ uid }} .mrp-bgrid { grid-template-columns: 1fr 1fr; }
-    #mrp-{{ uid }} .mrp-split { grid-template-columns: 1fr; gap: 40px; }
-    #mrp-{{ uid }} .mrp-media::after { inset: 14px -14px -14px 14px; }
+    #mrp-{{ uid }} .mrp-bgrid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    #mrp-{{ uid }} .mrp-bcard { padding: 26px 16px; }
+    #mrp-{{ uid }} .mrp-bt { font-size: 16px; }
+    #mrp-{{ uid }} .mrp-bd { font-size: 12.5px; }
+    #mrp-{{ uid }} .mrp-split { grid-template-columns: 1fr; gap: 34px; }
+    #mrp-{{ uid }} .mrp-ingr { overflow-x: hidden; }
+    #mrp-{{ uid }} .mrp-media::after { display: none; }
     #mrp-{{ uid }} .mrp-steps, #mrp-{{ uid }} .mrp-uses { grid-template-columns: 1fr; }
     #mrp-{{ uid }} .mrp-step__n { position: static; margin-bottom: 10px; }
     #mrp-{{ uid }} .mrp-row { grid-template-columns: 1.35fr .8fr .8fr; }
     #mrp-{{ uid }} .mrp-gwrap { grid-template-columns: 1fr; text-align: center; justify-items: center; }
   }
+  @media (max-width: 560px) {
+    #mrp-{{ uid }} .mrp-bicon { width: 46px; height: 46px; margin-bottom: 12px; }
+    #mrp-{{ uid }} .mrp-bicon svg { width: 22px; height: 22px; }
+    #mrp-{{ uid }} .mrp-lead { font-size: 14.5px; }
+    #mrp-{{ uid }} .mrp-bd { font-size: 12px; }
+    #mrp-{{ uid }} .mrp-bt { font-size: 15px; }
+    #mrp-{{ uid }} .mrp-chip, #mrp-{{ uid }} .mrp-pill { font-size: 12.5px; padding: 9px 14px; }
+    #mrp-{{ uid }} .mrp-inci { font-size: 12.5px; }
+    #mrp-{{ uid }} .mrp-quote { font-size: 17px; }
+    #mrp-{{ uid }} .mrp-badge-pur { font-size: 11px; padding: 8px 12px; }
+  }
 
-  /* --- Bloc média natif : espace sous l'image + miniatures arrondies (réf. type Kreyòl) --- */
+  /* --- Bloc média natif : image arrondie + miniatures espacées/arrondies + sélection --- */
   .product__thumbs-wrapper { margin-top: 16px; }
-  .product__thumbs-wrapper .product__slide,
-  .product__thumbs-wrapper .product__media,
-  .product__thumbs-wrapper .product__media img,
-  .product__thumbs-wrapper .product__media .media { border-radius: 12px; overflow: hidden; }
   .product__medias-wrapper .product__media,
   .product__medias-wrapper .product__media img,
   .product__medias-wrapper .product__media .media { border-radius: 18px; overflow: hidden; }
+  .product__thumbs-wrapper .product__media {
+    box-sizing: border-box;
+    border: 3px solid transparent;   /* crée l'espace visuel entre les miniatures */
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color .2s ease;
+  }
+  .product__thumbs-wrapper .product__media img,
+  .product__thumbs-wrapper .product__media .media { border-radius: 9px; }
+  .product__thumbs-wrapper .swiper-slide-thumb-active .product__media,
+  .product__thumbs-wrapper .swiper-slide.is-active .product__media { border-color: #1c1c1c; }  /* contour foncé sur la miniature sélectionnée */
 {%- endstyle -%}
 
 <div id="mrp-{{ uid }}">
@@ -202,22 +224,22 @@
       </div>
       <div class="mrp-bgrid">
         <div class="mrp-bcard mrp-rv">
-          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></div>
+          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5" opacity=".5"/></svg></div>
           <p class="mrp-bt">Nourrit intensément</p>
           <p class="mrp-bd">Une huile riche qui gaine la fibre et nourrit le cuir chevelu en profondeur.</p>
         </div>
         <div class="mrp-bcard mrp-rv">
-          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M5 9l7-7 7 7"/></svg></div>
+          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21c-1.5-6-1-11.5 2.5-18"/><path d="M12 21V3"/><path d="M17 21c1.5-6 1-11.5-2.5-18"/></svg></div>
           <p class="mrp-bt">Apparence plus dense</p>
           <p class="mrp-bd">Favorise l'apparence de cheveux visiblement plus sains et plus denses.</p>
         </div>
         <div class="mrp-bcard mrp-rv">
-          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c3-2.5 6-2.5 9 0s6 2.5 9 0"/><path d="M3 13c3-2.5 6-2.5 9 0s6 2.5 9 0"/><path d="M3 18c3-2.5 6-2.5 9 0s6 2.5 9 0"/></svg></div>
           <p class="mrp-bt">Apaise le cuir chevelu</p>
           <p class="mrp-bd">Réconforte les cuirs chevelus secs et inconfortables, soir après soir.</p>
         </div>
         <div class="mrp-bcard mrp-rv">
-          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 20A7 7 0 0 1 4 13c0-4 3-8 7-11 4 3 7 7 7 11a7 7 0 0 1-7 7Z"/><path d="M11 20V9"/></svg></div>
+          <div class="mrp-bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3q3 2 0 4t0 4t0 4t0 4"/><path d="M15 3q-3 2 0 4t0 4t0 4t0 4"/></svg></div>
           <p class="mrp-bt">Cheveux secs & crépus</p>
           <p class="mrp-bd">Idéale pour cheveux secs, frisés et crépus qui ont soif de nutrition.</p>
         </div>

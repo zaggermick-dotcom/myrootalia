@@ -175,7 +175,7 @@
       "settings": {
         "section_id": "",
         "product_style": "medium",
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "thumbnails_style": true,
         "preshot": true,
         "navigation": true,
@@ -200,6 +200,19 @@
         "ritual_image_1": "shopify://shop_images/myrootelia-goutte.png",
         "ritual_image_2": "shopify://shop_images/myrootelia-application.png",
         "ritual_image_3": "shopify://shop_images/myrootelia-coffret.png"
+      }
+    },
+    "video": {
+      "type": "video-myrootelia",
+      "settings": {
+        "eyebrow": "En vidéo",
+        "heading": "Voir l'huile de Batana en action",
+        "subheading": "Texture, application et résultats du rituel — en quelques secondes.",
+        "dark": true,
+        "color_green": "#1E3F33",
+        "color_gold": "#C25A34",
+        "color_cream": "#F7F2E9",
+        "color_ink": "#26332C"
       }
     },
     "related": {
@@ -229,6 +242,7 @@
   "order": [
     "main",
     "produit_myrootelia",
+    "video",
     "related"
   ]
 }

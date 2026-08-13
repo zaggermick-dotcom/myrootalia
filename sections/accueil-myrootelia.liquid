@@ -13,19 +13,19 @@
 -%}
 
 {%- style -%}
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600;700&display=swap');
 
   #acc-{{ uid }} {
-    --g: {{ s.color_green | default: '#2F5233' }};
-    --g-dark: #223d27;
-    --o: {{ s.color_gold | default: '#B07A3B' }};
-    --o-dark: #946530;
-    --c: {{ s.color_cream | default: '#F5F1EA' }};
-    --ink: {{ s.color_ink | default: '#2B2B2B' }};
-    --muted: #6a655c;
-    --line: rgba(47,82,51,.12);
-    --serif: 'Playfair Display', Georgia, serif;
-    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --g: {{ s.color_green | default: '#1E3F33' }};
+    --g-dark: #14291F;
+    --o: {{ s.color_gold | default: '#C25A34' }};
+    --o-dark: #A44A29;
+    --c: {{ s.color_cream | default: '#F7F2E9' }};
+    --ink: {{ s.color_ink | default: '#26332C' }};
+    --muted: #6f6a60;
+    --line: rgba(30,63,51,.12);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
     font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased;
   }
   #acc-{{ uid }} * { box-sizing: border-box; }
@@ -35,17 +35,17 @@
   #acc-{{ uid }} .acc-h { font-family: var(--serif); font-weight: 600; color: var(--g); line-height: 1.1; margin: 0; }
   #acc-{{ uid }} .acc-h em { font-style: italic; color: var(--o); }
   #acc-{{ uid }} .acc-btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; cursor:pointer; font-weight:600; font-size:15px; letter-spacing:.3px; padding:16px 34px; border-radius:50px; text-decoration:none; border:1.5px solid transparent; transition: all .25s ease; }
-  #acc-{{ uid }} .acc-btn--gold { background:var(--o); color:#fff; box-shadow:0 10px 26px rgba(176,122,59,.3); }
-  #acc-{{ uid }} .acc-btn--gold:hover { background:var(--o-dark); transform:translateY(-2px); box-shadow:0 16px 34px rgba(176,122,59,.4); }
-  #acc-{{ uid }} .acc-btn--ghost { background:transparent; color:var(--g); border-color:rgba(47,82,51,.35); }
-  #acc-{{ uid }} .acc-btn--ghost:hover { border-color:var(--g); background:rgba(47,82,51,.05); }
+  #acc-{{ uid }} .acc-btn--gold { background:var(--o); color:#fff; box-shadow:0 10px 26px rgba(194,90,52,.3); }
+  #acc-{{ uid }} .acc-btn--gold:hover { background:var(--o-dark); transform:translateY(-2px); box-shadow:0 16px 34px rgba(194,90,52,.4); }
+  #acc-{{ uid }} .acc-btn--ghost { background:transparent; color:var(--g); border-color:rgba(30,63,51,.35); }
+  #acc-{{ uid }} .acc-btn--ghost:hover { border-color:var(--g); background:rgba(30,63,51,.05); }
   #acc-{{ uid }} .acc-btn--light { background:#fff; color:var(--g); }
   #acc-{{ uid }} .acc-btn--light:hover { transform:translateY(-2px); box-shadow:0 14px 30px rgba(0,0,0,.18); }
 
   /* HERO (fractionné) */
   #acc-{{ uid }} .acc-hero { background: var(--c); }
   #acc-{{ uid }} .acc-hero__grid { display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center; padding: 84px 24px; max-width:1180px; margin:0 auto; }
-  #acc-{{ uid }} .acc-hero h1 { font-family:var(--serif); font-weight:600; color:var(--g); font-size:clamp(38px,5.2vw,64px); line-height:1.05; margin:0 0 22px; letter-spacing:.2px; }
+  #acc-{{ uid }} .acc-hero h1 { font-family:var(--serif); font-weight:600; color:var(--g); font-size:clamp(30px,5.2vw,64px); line-height:1.05; margin:0 0 22px; letter-spacing:.2px; }
   #acc-{{ uid }} .acc-hero h1 em { font-style:italic; color:var(--o); }
   #acc-{{ uid }} .acc-hero__lead { font-size:clamp(16px,1.6vw,18px); line-height:1.75; color:#4a463f; max-width:460px; margin:0 0 26px; }
   #acc-{{ uid }} .acc-hero__price { display:flex; align-items:baseline; gap:12px; margin-bottom:22px; }
@@ -68,33 +68,44 @@
   #acc-{{ uid }} .acc-strip__item { display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:500; letter-spacing:.4px; }
   #acc-{{ uid }} .acc-strip__item svg { width:18px; height:18px; color:#cbb892; }
 
-  /* OFFRE PACK inline */
-  #acc-{{ uid }} .acc-offer { background:#fff; padding:88px 0; }
-  #acc-{{ uid }} .acc-offer__head { text-align:center; max-width:600px; margin:0 auto 44px; }
-  #acc-{{ uid }} .acc-offer__head .acc-h { font-size:clamp(26px,3.4vw,38px); margin-bottom:12px; }
-  #acc-{{ uid }} .acc-offer__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  #acc-{{ uid }} .acc-pk { position:relative; border:1px solid var(--line); border-radius:20px; padding:32px 24px; text-align:center; background:#fff; display:flex; flex-direction:column; transition:transform .3s ease, box-shadow .3s ease; }
-  #acc-{{ uid }} .acc-pk:hover { transform:translateY(-6px); box-shadow:0 24px 50px rgba(43,43,43,.1); }
-  #acc-{{ uid }} .acc-pk--hot { border-color:var(--o); box-shadow:0 24px 56px rgba(176,122,59,.16); }
-  #acc-{{ uid }} .acc-pk__tag { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--o); color:#fff; font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; padding:6px 15px; border-radius:40px; white-space:nowrap; }
-  #acc-{{ uid }} .acc-pk__name { font-family:var(--serif); font-size:22px; color:var(--g); margin:4px 0 12px; }
-  #acc-{{ uid }} .acc-pk__price { font-family:var(--serif); font-size:32px; font-weight:700; color:var(--ink); }
-  #acc-{{ uid }} .acc-pk__price s { font-size:15px; color:#a89f92; margin-left:6px; }
-  #acc-{{ uid }} .acc-pk__unit { font-size:12.5px; color:var(--muted); margin:4px 0 18px; }
+  /* OFFRE PACK inline — premium */
+  #acc-{{ uid }} .acc-offer { background:linear-gradient(180deg,#fff, #fbf7f0); padding:90px 0; }
+  #acc-{{ uid }} .acc-offer__head { text-align:center; max-width:600px; margin:0 auto 50px; }
+  #acc-{{ uid }} .acc-offer__head .acc-h { font-size:clamp(21px,3.4vw,38px); margin-bottom:12px; }
+  #acc-{{ uid }} .acc-offer__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch; }
+  #acc-{{ uid }} .acc-pk { position:relative; border:1.5px solid var(--line); border-radius:24px; padding:38px 26px 30px; text-align:center; background:#fff; display:flex; flex-direction:column; transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease; }
+  #acc-{{ uid }} .acc-pk:hover { transform:translateY(-8px); box-shadow:0 30px 60px rgba(38,51,44,.12); border-color:rgba(30,63,51,.25); }
+  #acc-{{ uid }} .acc-pk--hot { border-color:var(--o); background:linear-gradient(180deg,#fffdfb,#fff8f3); box-shadow:0 34px 70px rgba(194,90,52,.18); transform:scale(1.03); z-index:2; }
+  #acc-{{ uid }} .acc-pk--hot:hover { transform:scale(1.03) translateY(-8px); }
+  #acc-{{ uid }} .acc-pk__tag { position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--o); color:#fff; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; padding:7px 18px; border-radius:40px; white-space:nowrap; box-shadow:0 8px 20px rgba(194,90,52,.4); }
+  #acc-{{ uid }} .acc-pk__name { font-family:var(--serif); font-size:26px; font-weight:600; color:var(--g); margin:6px 0 2px; }
+  #acc-{{ uid }} .acc-pk__qty { font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:0 0 18px; }
+  #acc-{{ uid }} .acc-pk__price { display:flex; align-items:baseline; justify-content:center; gap:8px; }
+  #acc-{{ uid }} .acc-pk__price b { font-family:var(--serif); font-size:40px; font-weight:700; color:var(--ink); line-height:1; }
+  #acc-{{ uid }} .acc-pk__price s { font-size:16px; color:#a89f92; }
+  #acc-{{ uid }} .acc-pk__unit { font-size:13px; color:var(--g); font-weight:500; margin:8px 0 4px; }
+  #acc-{{ uid }} .acc-pk__save { display:inline-block; background:rgba(30,63,51,.08); color:var(--g); font-size:12.5px; font-weight:600; padding:6px 14px; border-radius:40px; margin:6px 0 22px; }
+  #acc-{{ uid }} .acc-pk__save--none { visibility:hidden; }
+  #acc-{{ uid }} .acc-pk__perks { list-style:none; margin:0 0 22px; padding:0; text-align:left; display:grid; gap:9px; }
+  #acc-{{ uid }} .acc-pk__perks li { display:flex; gap:9px; align-items:flex-start; font-size:13px; color:#4a463f; line-height:1.4; }
+  #acc-{{ uid }} .acc-pk__perks svg { width:16px; height:16px; color:var(--o); flex:none; margin-top:1px; }
   #acc-{{ uid }} .acc-pk__btn { margin-top:auto; }
   #acc-{{ uid }} .acc-pk form { margin:0; margin-top:auto; }
+  #acc-{{ uid }} .acc-offer__foot { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 30px; margin-top:34px; }
+  #acc-{{ uid }} .acc-offer__foot span { display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); }
+  #acc-{{ uid }} .acc-offer__foot svg { width:17px; height:17px; color:var(--g); }
 
   /* PROBLÈME → SOLUTION */
   #acc-{{ uid }} .acc-ps { background:var(--c); padding:90px 0; }
   #acc-{{ uid }} .acc-ps__grid { display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; }
-  #acc-{{ uid }} .acc-ps__title { font-family:var(--serif); font-size:clamp(26px,3.4vw,40px); color:var(--g); line-height:1.15; margin:0 0 16px; }
+  #acc-{{ uid }} .acc-ps__title { font-family:var(--serif); font-size:clamp(21px,3.4vw,40px); color:var(--g); line-height:1.15; margin:0 0 16px; }
   #acc-{{ uid }} .acc-ps__list { list-style:none; margin:22px 0 0; padding:0; display:grid; gap:14px; }
   #acc-{{ uid }} .acc-ps__list li { display:flex; gap:12px; font-size:15px; color:#4a463f; line-height:1.5; }
   #acc-{{ uid }} .acc-ps__list svg { width:22px; height:22px; color:var(--o); flex:none; margin-top:1px; }
 
   /* 3 PILIERS */
   #acc-{{ uid }} .acc-pillars { padding:88px 0; text-align:center; }
-  #acc-{{ uid }} .acc-pillars .acc-h { font-size:clamp(26px,3.4vw,38px); margin-bottom:48px; }
+  #acc-{{ uid }} .acc-pillars .acc-h { font-size:clamp(21px,3.4vw,38px); margin-bottom:48px; }
   #acc-{{ uid }} .acc-pgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
   #acc-{{ uid }} .acc-pill__n { font-family:var(--serif); font-size:44px; color:var(--o); opacity:.4; line-height:1; margin-bottom:14px; }
   #acc-{{ uid }} .acc-pill__t { font-family:var(--serif); font-size:21px; color:var(--g); margin:0 0 8px; }
@@ -106,12 +117,12 @@
   #acc-{{ uid }} .acc-origin img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.42; }
   #acc-{{ uid }} .acc-origin__inner { position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:70px 24px; color:#f3efe6; }
   #acc-{{ uid }} .acc-origin__inner .acc-eyebrow { color:#cbb892; }
-  #acc-{{ uid }} .acc-origin h2 { font-family:var(--serif); font-size:clamp(28px,3.8vw,44px); color:#fff; line-height:1.15; margin:0 0 18px; max-width:620px; }
+  #acc-{{ uid }} .acc-origin h2 { font-family:var(--serif); font-size:clamp(22px,3.8vw,44px); color:#fff; line-height:1.15; margin:0 0 18px; max-width:620px; }
   #acc-{{ uid }} .acc-origin p { font-size:16px; line-height:1.8; color:#e2dccf; max-width:540px; margin:0 0 26px; }
 
   /* RITUEL timeline horizontale */
   #acc-{{ uid }} .acc-ritual { padding:90px 0; background:#fff; text-align:center; }
-  #acc-{{ uid }} .acc-ritual .acc-h { font-size:clamp(26px,3.4vw,38px); margin-bottom:52px; }
+  #acc-{{ uid }} .acc-ritual .acc-h { font-size:clamp(21px,3.4vw,38px); margin-bottom:52px; }
   #acc-{{ uid }} .acc-timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative; max-width:900px; margin:0 auto; }
   #acc-{{ uid }} .acc-tl { position:relative; padding:0 22px; }
   #acc-{{ uid }} .acc-tl::before { content:""; position:absolute; top:26px; left:50%; width:100%; height:2px; background:repeating-linear-gradient(90deg,var(--o) 0 8px,transparent 8px 16px); opacity:.4; z-index:0; }
@@ -122,7 +133,7 @@
 
   /* AVIS placeholder */
   #acc-{{ uid }} .acc-reviews { padding:84px 0; background:var(--c); text-align:center; }
-  #acc-{{ uid }} .acc-reviews .acc-h { font-size:clamp(24px,3vw,34px); margin-bottom:10px; }
+  #acc-{{ uid }} .acc-reviews .acc-h { font-size:clamp(19px,3vw,34px); margin-bottom:10px; }
   #acc-{{ uid }} .acc-reviews__note { font-size:14px; color:var(--muted); max-width:520px; margin:0 auto 36px; }
   #acc-{{ uid }} .acc-rgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
   #acc-{{ uid }} .acc-rc { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px; text-align:left; }
@@ -132,7 +143,7 @@
 
   /* NEWSLETTER */
   #acc-{{ uid }} .acc-news { padding:90px 24px; text-align:center; background:var(--g); color:#eee7d8; }
-  #acc-{{ uid }} .acc-news h2 { font-family:var(--serif); font-size:clamp(26px,3.4vw,40px); color:#fff; margin:0 0 12px; }
+  #acc-{{ uid }} .acc-news h2 { font-family:var(--serif); font-size:clamp(21px,3.4vw,40px); color:#fff; margin:0 0 12px; }
   #acc-{{ uid }} .acc-news p { color:#d7d0c1; max-width:480px; margin:0 auto 26px; }
   #acc-{{ uid }} .acc-news form { display:flex; gap:10px; max-width:460px; margin:0 auto; flex-wrap:wrap; justify-content:center; }
   #acc-{{ uid }} .acc-news input { flex:1 1 250px; padding:15px 20px; border-radius:50px; border:none; font-family:var(--sans); font-size:14px; }
@@ -198,7 +209,7 @@
       <div class="acc-offer__head">
         <p class="acc-eyebrow" style="text-align:center;">L'offre myrootelia</p>
         <h2 class="acc-h">Choisissez votre format</h2>
-        <p style="color:var(--muted);font-size:15px;">Plus la cure est longue, plus le prix au flacon baisse. Livraison offerte dès 2 flacons.</p>
+        <p style="color:var(--muted);font-size:15px;">Plus la cure est longue, plus le prix au flacon baisse. Livraison offerte dès 50 $.</p>
       </div>
       {%- if p != blank -%}
         <div class="acc-offer__grid">
@@ -209,19 +220,35 @@
                 assign hot = true
               endif
               assign unit = variant.price | divided_by: forloop.index
+              assign has_save = false
+              if variant.compare_at_price > variant.price
+                assign has_save = true
+              endif
             -%}
             <div class="acc-pk{% if hot %} acc-pk--hot{% endif %}">
-              {%- if hot -%}<span class="acc-pk__tag">Le plus choisi</span>{%- elsif forloop.last -%}<span class="acc-pk__tag" style="background:var(--g);">Meilleure valeur</span>{%- endif -%}
-              <p class="acc-pk__name">{{ variant.title }}</p>
-              <div class="acc-pk__price">{{ variant.price | money }}{% if variant.compare_at_price > variant.price %}<s>{{ variant.compare_at_price | money }}</s>{% endif %}</div>
+              {%- if hot -%}<span class="acc-pk__tag">★ Le plus choisi</span>{%- elsif forloop.last -%}<span class="acc-pk__tag" style="background:var(--g);box-shadow:0 8px 20px rgba(30,63,51,.35);">Meilleure valeur</span>{%- endif -%}
+              <p class="acc-pk__name">{{ variant.title | split: '·' | first }}</p>
+              <p class="acc-pk__qty">{{ forloop.index }} flacon{% if forloop.index > 1 %}s{% endif %} · 50 ml</p>
+              <div class="acc-pk__price"><b>{{ variant.price | money }}</b>{% if has_save %}<s>{{ variant.compare_at_price | money }}</s>{% endif %}</div>
               <p class="acc-pk__unit">{% if forloop.index > 1 %}soit {{ unit | money }} / flacon{% else %}le flacon{% endif %}</p>
+              {%- if has_save -%}<span class="acc-pk__save">Vous économisez {{ variant.compare_at_price | minus: variant.price | money }}</span>{%- else -%}<span class="acc-pk__save acc-pk__save--none">.</span>{%- endif -%}
+              <ul class="acc-pk__perks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m20 6-11 11-5-5"/></svg>{% if forloop.index == 1 %}Idéal pour découvrir le rituel{% elsif forloop.index == 2 %}La cure de 2 mois recommandée{% else %}Le meilleur prix au flacon{% endif %}</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m20 6-11 11-5-5"/></svg>{% if forloop.index > 1 %}Livraison offerte{% else %}100 % Batana pur{% endif %}</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m20 6-11 11-5-5"/></svg>Essai 60 nuits</li>
+              </ul>
               <form method="post" action="/cart/add" accept-charset="UTF-8">
                 <input type="hidden" name="form_type" value="product">
                 <input type="hidden" name="id" value="{{ variant.id }}">
-                <button type="submit" name="add" class="acc-btn {% if hot %}acc-btn--gold{% else %}acc-btn--ghost{% endif %} acc-pk__btn" style="width:100%;">{% if hot %}Je choisis ce pack{% else %}Ajouter{% endif %}</button>
+                <button type="submit" name="add" class="acc-btn {% if hot %}acc-btn--gold{% else %}acc-btn--ghost{% endif %} acc-pk__btn" style="width:100%;">{% if hot %}Je choisis ce pack{% else %}Ajouter au panier{% endif %}</button>
               </form>
             </div>
           {%- endfor -%}
+        </div>
+        <div class="acc-offer__foot">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>Essai 60 nuits satisfait ou remboursé</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1 13H6L5 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>Livraison suivie offerte dès 50 $</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Paiement 100 % sécurisé</span>
         </div>
       {%- endif -%}
     </div>
@@ -335,10 +362,10 @@
     { "type": "image_picker", "id": "hero_image", "label": "Image hero (produit)" },
     { "type": "image_picker", "id": "origine_image", "label": "Image origine (paysage Honduras)" },
     { "type": "header", "content": "Couleurs (charte)" },
-    { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#2F5233" },
-    { "type": "color", "id": "color_gold", "label": "Or / terre", "default": "#B07A3B" },
-    { "type": "color", "id": "color_cream", "label": "Crème", "default": "#F5F1EA" },
-    { "type": "color", "id": "color_ink", "label": "Noir doux", "default": "#2B2B2B" }
+    { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#1E3F33" },
+    { "type": "color", "id": "color_gold", "label": "Or / terre", "default": "#C25A34" },
+    { "type": "color", "id": "color_cream", "label": "Crème", "default": "#F7F2E9" },
+    { "type": "color", "id": "color_ink", "label": "Noir doux", "default": "#26332C" }
   ],
   "presets": [{ "name": "Accueil myrootelia" }]
 }

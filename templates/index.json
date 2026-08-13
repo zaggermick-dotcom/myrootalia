@@ -565,12 +565,25 @@
         "desktop_content_alignment": "center",
         "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab"
       }
+    },
+    "pack": {
+      "type": "offre-pack-myrootelia",
+      "settings": {
+        "product_handle": "huile-de-batana-100-pure-du-honduras",
+        "eyebrow": "L'offre myrootelia",
+        "heading": "Choisissez votre format",
+        "subheading": "Plus vous prenez soin de vos racines dans la durée, plus le prix au flacon baisse. Livré à la maison, satisfait ou remboursé.",
+        "highlight_position": 2,
+        "highlight_badge": "Le plus choisi",
+        "last_badge": "Meilleure valeur"
+      }
     }
   },
   "order": [
     "hero",
     "trust_bar",
     "benefits",
+    "pack",
     "ingredient",
     "ritual",
     "origine",

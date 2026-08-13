@@ -169,6 +169,16 @@
     #mrp-{{ uid }} .mrp-row { grid-template-columns: 1.35fr .8fr .8fr; }
     #mrp-{{ uid }} .mrp-gwrap { grid-template-columns: 1fr; text-align: center; justify-items: center; }
   }
+
+  /* --- Bloc média natif : espace sous l'image + miniatures arrondies (réf. type Kreyòl) --- */
+  .product__thumbs-wrapper { margin-top: 16px; }
+  .product__thumbs-wrapper .product__slide,
+  .product__thumbs-wrapper .product__media,
+  .product__thumbs-wrapper .product__media img,
+  .product__thumbs-wrapper .product__media .media { border-radius: 12px; overflow: hidden; }
+  .product__medias-wrapper .product__media,
+  .product__medias-wrapper .product__media img,
+  .product__medias-wrapper .product__media .media { border-radius: 18px; overflow: hidden; }
 {%- endstyle -%}
 
 <div id="mrp-{{ uid }}">

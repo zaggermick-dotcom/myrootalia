@@ -1,0 +1,268 @@
+{%- comment -%}
+  myrootelia — Stories façon Instagram
+  Anneau dégradé = non vue · anneau grisé = vue (mémorisé par visiteur).
+  Clic → lecteur plein écran (vidéo Shopify ou YouTube/Vimeo).
+  Option : aperçu automatique au scroll (la vidéo joue en muet dans la bulle).
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id
+-%}
+
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+  #sto-{{ uid }} {
+    --g: {{ s.color_green | default: '#1E3F33' }};
+    --o: {{ s.color_gold | default: '#C25A34' }};
+    --c: {{ s.color_cream | default: '#F7F2E9' }};
+    --r1: {{ s.ring_color_1 | default: '#C25A34' }};
+    --r2: {{ s.ring_color_2 | default: '#E0A44C' }};
+    --r3: {{ s.ring_color_3 | default: '#1E3F33' }};
+    --rseen: {{ s.ring_seen | default: '#CFC9BD' }};
+    --bub: {{ s.bubble_size | default: 96 }}px;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--sans); background: {% if s.bg_cream %}var(--c){% else %}#fff{% endif %};
+    padding: clamp(48px,6vw,80px) 0;
+  }
+  #sto-{{ uid }} * { box-sizing: border-box; }
+  #sto-{{ uid }} .sto-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; text-align: center; }
+  #sto-{{ uid }} .sto-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--o); margin: 0 0 12px; }
+  #sto-{{ uid }} .sto-h { font-family: var(--serif); font-weight: 600; color: var(--g); font-size: clamp(22px,3.2vw,36px); line-height: 1.15; margin: 0 0 8px; }
+  #sto-{{ uid }} .sto-insta { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; color: #6f6a60; text-decoration: none; margin-bottom: 34px; transition: color .2s; }
+  #sto-{{ uid }} .sto-insta:hover { color: var(--o); }
+  #sto-{{ uid }} .sto-insta svg { width: 17px; height: 17px; }
+
+  #sto-{{ uid }} .sto-row { display: flex; justify-content: center; gap: clamp(18px,3vw,34px); flex-wrap: wrap; }
+  #sto-{{ uid }} .sto-item { display: flex; flex-direction: column; align-items: center; gap: 10px; width: calc(var(--bub) + 18px); }
+  #sto-{{ uid }} .sto-bubble {
+    width: var(--bub); height: var(--bub); border-radius: 50%; cursor: pointer; border: 0;
+    padding: 4px; background: conic-gradient(from 210deg, var(--r1), var(--r2), var(--r3), var(--r1));
+    position: relative; transition: transform .25s ease, filter .35s ease; -webkit-tap-highlight-color: transparent;
+  }
+  #sto-{{ uid }} .sto-bubble:hover { transform: scale(1.06); }
+  #sto-{{ uid }} .sto-bubble.mr-seen { background: var(--rseen); filter: saturate(.75); }
+  #sto-{{ uid }} .sto-bubble__in {
+    width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 3px solid {% if s.bg_cream %}var(--c){% else %}#fff{% endif %};
+    background: linear-gradient(150deg,#e9e0d2,#dfe6dc); position: relative;
+    display: flex; align-items: center; justify-content: center; color: var(--g);
+  }
+  #sto-{{ uid }} .sto-bubble__in img, #sto-{{ uid }} .sto-bubble__in video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  #sto-{{ uid }} .sto-bubble__in .sto-ph-ic { width: 30px; height: 30px; opacity: .4; }
+  #sto-{{ uid }} .sto-play {
+    position: absolute; bottom: 2px; right: 2px; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--o); color: #fff; display: flex; align-items: center; justify-content: center;
+    border: 2px solid {% if s.bg_cream %}var(--c){% else %}#fff{% endif %}; z-index: 2;
+  }
+  #sto-{{ uid }} .sto-play svg { width: 11px; height: 11px; margin-left: 1px; }
+  #sto-{{ uid }} .sto-label { font-size: 12.5px; color: #55504a; font-weight: 500; line-height: 1.3; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+  #sto-{{ uid }} .sto-seenlabel { font-size: 10.5px; color: #a89f92; letter-spacing: .4px; text-transform: uppercase; display: none; }
+  #sto-{{ uid }} .sto-bubble.mr-seen ~ .sto-seenlabel { display: block; }
+
+  /* Lecteur plein écran */
+  #sto-modal-{{ uid }} { position: fixed; inset: 0; z-index: 999; display: none; align-items: center; justify-content: center; background: rgba(12,16,13,.92); backdrop-filter: blur(6px); padding: 20px; }
+  #sto-modal-{{ uid }}.open { display: flex; }
+  #sto-modal-{{ uid }} .sto-frame { position: relative; width: min(420px, 92vw); aspect-ratio: 9/16; max-height: 88vh; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 40px 90px rgba(0,0,0,.5); }
+  #sto-modal-{{ uid }} .sto-frame video, #sto-modal-{{ uid }} .sto-frame iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+  #sto-modal-{{ uid }} .sto-progress { position: absolute; top: 10px; left: 12px; right: 12px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.28); overflow: hidden; z-index: 3; }
+  #sto-modal-{{ uid }} .sto-progress b { display: block; height: 100%; width: 0; background: #fff; border-radius: 3px; }
+  #sto-modal-{{ uid }} .sto-close { position: absolute; top: -14px; right: -14px; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; background: var(--o); color: #fff; font-size: 19px; line-height: 1; box-shadow: 0 10px 24px rgba(0,0,0,.4); z-index: 4; }
+  #sto-modal-{{ uid }} .sto-mtitle { position: absolute; bottom: 14px; left: 16px; right: 16px; color: #fff; font-size: 14px; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,.6); z-index: 3; }
+  @media (max-width: 560px) {
+    #sto-{{ uid }} { --bub: {{ s.bubble_size | default: 96 | times: 0.82 | round }}px; }
+    #sto-modal-{{ uid }} .sto-close { top: 8px; right: 8px; }
+  }
+{%- endstyle -%}
+
+<div id="sto-{{ uid }}">
+  <div class="sto-wrap">
+    {%- if s.eyebrow != blank -%}<p class="sto-eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+    {%- if s.heading != blank -%}<h2 class="sto-h">{{ s.heading }}</h2>{%- endif -%}
+    {%- if s.instagram_handle != blank -%}
+      <a class="sto-insta" href="{{ s.instagram_url | default: 'https://instagram.com' }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        {{ s.instagram_handle }}
+      </a>
+    {%- else -%}<div style="height:22px;"></div>{%- endif -%}
+
+    <div class="sto-row">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign has_native = false
+            if b.video != blank
+              assign has_native = true
+            endif
+          -%}
+          <div class="sto-item" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="sto-bubble"
+              data-story-id="{{ block.id }}"
+              {% if has_native %}data-video-src="{{ b.video.sources.last.url }}"{% elsif b.video_url != blank %}data-embed-type="{{ b.video_url.type }}" data-embed-id="{{ b.video_url.id }}"{% endif %}
+              data-title="{{ b.label | escape }}"
+              aria-label="Voir la story {{ b.label | escape }}"
+            >
+              <span class="sto-bubble__in">
+                {%- if b.image != blank -%}
+                  {{ b.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: b.label }}
+                {%- else -%}
+                  <svg class="sto-ph-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>
+                {%- endif -%}
+                {%- if s.autoplay_preview and has_native -%}
+                  <video class="sto-preview" src="{{ b.video.sources.last.url }}" muted loop playsinline preload="none" style="display:none;"></video>
+                {%- endif -%}
+              </span>
+              <span class="sto-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </button>
+            {%- if b.label != blank -%}<span class="sto-label">{{ b.label }}</span>{%- endif -%}
+            <span class="sto-seenlabel">Vue</span>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="sto-item">
+            <button type="button" class="sto-bubble" aria-label="Emplacement story">
+              <span class="sto-bubble__in"><svg class="sto-ph-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg></span>
+              <span class="sto-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </button>
+            <span class="sto-label">Votre story {{ i }}</span>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<div id="sto-modal-{{ uid }}" role="dialog" aria-modal="true" aria-label="Lecteur de story">
+  <div class="sto-frame">
+    <div class="sto-progress"><b></b></div>
+    <div class="sto-media"></div>
+    <p class="sto-mtitle"></p>
+    <button type="button" class="sto-close" aria-label="Fermer">✕</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('sto-{{ uid }}');
+    var modal = document.getElementById('sto-modal-{{ uid }}');
+    if (!root || root.dataset.init) return;
+    root.dataset.init = '1';
+    var KEY = 'mrStoriesSeen';
+    var seen;
+    try { seen = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { seen = []; }
+
+    var media = modal.querySelector('.sto-media');
+    var bar = modal.querySelector('.sto-progress b');
+    var mtitle = modal.querySelector('.sto-mtitle');
+    var frame = modal.querySelector('.sto-frame');
+
+    function markSeen(btn) {
+      var id = btn.getAttribute('data-story-id');
+      if (id && seen.indexOf(id) === -1) { seen.push(id); try { localStorage.setItem(KEY, JSON.stringify(seen)); } catch (e) {} }
+      btn.classList.add('mr-seen');
+    }
+    function close() {
+      modal.classList.remove('open');
+      media.innerHTML = '';
+      bar.style.width = '0';
+      document.body.style.overflow = '';
+    }
+    modal.querySelector('.sto-close').addEventListener('click', close);
+    modal.addEventListener('click', function (e) { if (!frame.contains(e.target)) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+    root.querySelectorAll('.sto-bubble').forEach(function (btn) {
+      var id = btn.getAttribute('data-story-id');
+      if (id && seen.indexOf(id) > -1) btn.classList.add('mr-seen');
+
+      btn.addEventListener('click', function () {
+        var src = btn.getAttribute('data-video-src');
+        var etype = btn.getAttribute('data-embed-type');
+        var eid = btn.getAttribute('data-embed-id');
+        if (!src && !etype) return;
+        markSeen(btn);
+        media.innerHTML = '';
+        bar.style.width = '0';
+        mtitle.textContent = btn.getAttribute('data-title') || '';
+        if (src) {
+          var v = document.createElement('video');
+          v.src = src; v.autoplay = true; v.playsInline = true; v.controls = false;
+          v.addEventListener('timeupdate', function () { if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%'; });
+          v.addEventListener('ended', close);
+          v.addEventListener('click', function () { v.paused ? v.play() : v.pause(); });
+          media.appendChild(v);
+        } else {
+          var f = document.createElement('iframe');
+          f.allow = 'autoplay; fullscreen; picture-in-picture';
+          f.allowFullscreen = true;
+          f.src = etype === 'youtube'
+            ? 'https://www.youtube.com/embed/' + eid + '?autoplay=1&playsinline=1'
+            : 'https://player.vimeo.com/video/' + eid + '?autoplay=1';
+          media.appendChild(f);
+          bar.style.width = '100%';
+        }
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    {% if s.autoplay_preview %}
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var v = en.target;
+          if (en.isIntersecting) { v.style.display = 'block'; v.play().catch(function () {}); }
+          else { v.pause(); }
+        });
+      }, { threshold: .4 });
+      root.querySelectorAll('.sto-preview').forEach(function (v) { obs.observe(v); });
+    }
+    {% endif %}
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Stories myrootelia",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Textes" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "En ce moment" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Le rituel, en stories" },
+    { "type": "text", "id": "instagram_handle", "label": "Compte Instagram (affiché)", "default": "@myrootelia" },
+    { "type": "url", "id": "instagram_url", "label": "Lien du compte Instagram" },
+    { "type": "header", "content": "Comportement" },
+    { "type": "checkbox", "id": "autoplay_preview", "label": "Aperçu auto au scroll (vidéo muette dans la bulle)", "default": false },
+    { "type": "range", "id": "bubble_size", "min": 64, "max": 140, "step": 4, "unit": "px", "label": "Taille des bulles", "default": 96 },
+    { "type": "checkbox", "id": "bg_cream", "label": "Fond ivoire", "default": true },
+    { "type": "header", "content": "Anneau (non vue)" },
+    { "type": "color", "id": "ring_color_1", "label": "Couleur 1", "default": "#C25A34" },
+    { "type": "color", "id": "ring_color_2", "label": "Couleur 2", "default": "#E0A44C" },
+    { "type": "color", "id": "ring_color_3", "label": "Couleur 3", "default": "#1E3F33" },
+    { "type": "color", "id": "ring_seen", "label": "Anneau une fois vue", "default": "#CFC9BD" },
+    { "type": "header", "content": "Charte" },
+    { "type": "color", "id": "color_green", "label": "Vert forêt", "default": "#1E3F33" },
+    { "type": "color", "id": "color_gold", "label": "Terracotta", "default": "#C25A34" },
+    { "type": "color", "id": "color_cream", "label": "Ivoire", "default": "#F7F2E9" }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Nom de la story", "default": "Le rituel" },
+        { "type": "image_picker", "id": "image", "label": "Vignette (couverture)" },
+        { "type": "video", "id": "video", "label": "Vidéo Shopify (recommandé)" },
+        { "type": "video_url", "id": "video_url", "label": "…ou lien YouTube / Vimeo", "accept": ["youtube", "vimeo"] }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [{ "name": "Stories myrootelia", "blocks": [{ "type": "story" }, { "type": "story" }, { "type": "story" }, { "type": "story" }] }]
+}
+{% endschema %}

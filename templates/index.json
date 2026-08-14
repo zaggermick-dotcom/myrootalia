@@ -17,7 +17,25 @@
         "color_cream": "#F7F2E9",
         "color_ink": "#26332C"
       }
+    },
+    "stories": {
+      "type": "stories-myrootelia",
+      "blocks": {
+        "st1": { "type": "story", "settings": { "label": "Le rituel" } },
+        "st2": { "type": "story", "settings": { "label": "La texture" } },
+        "st3": { "type": "story", "settings": { "label": "L'origine" } },
+        "st4": { "type": "story", "settings": { "label": "Vos partages" } }
+      },
+      "block_order": ["st1", "st2", "st3", "st4"],
+      "settings": {
+        "eyebrow": "En ce moment",
+        "heading": "Le rituel, en stories",
+        "instagram_handle": "@myrootelia",
+        "autoplay_preview": false,
+        "bubble_size": 96,
+        "bg_cream": true
+      }
     }
   },
-  "order": ["accueil"]
+  "order": ["accueil", "stories"]
 }

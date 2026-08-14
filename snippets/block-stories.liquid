@@ -97,3 +97,45 @@
     {%- endif -%}
   </div>
 </div>
+
+{%- comment -%} myrootelia — anneau Instagram vu / non-vu (amélioration du bloc Story) {%- endcomment -%}
+<style>
+  #stories__{{ sectionId }} .popup-video__opener {
+    position: relative;
+    border-radius: 50% !important;
+    padding: 4px !important;
+    background: conic-gradient(from 210deg, #C25A34, #E0A44C, #1E3F33, #C25A34) !important;
+    transition: filter .35s ease, transform .25s ease;
+  }
+  #stories__{{ sectionId }} .popup-video__opener:hover { transform: scale(1.04); }
+  #stories__{{ sectionId }} .popup-video__opener > img,
+  #stories__{{ sectionId }} .popup-video__opener > svg.placeholder-svg {
+    border-radius: 50%;
+    border: 3px solid #fff;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  #stories__{{ sectionId }} .popup-video__opener.mr-seen {
+    background: #cfc9bd !important;
+    filter: saturate(.75);
+  }
+  #stories__{{ sectionId }} .popup-video__opener.mr-seen:hover { filter: saturate(1); }
+</style>
+<script>
+  (function () {
+    var root = document.getElementById('stories__{{ sectionId }}');
+    if (!root || root.dataset.mrStories) return;
+    root.dataset.mrStories = '1';
+    var KEY = 'mrStoriesSeen';
+    var seen;
+    try { seen = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { seen = []; }
+    root.querySelectorAll('.popup-video__opener').forEach(function (el) {
+      var id = el.getAttribute('data-popup');
+      if (id && seen.indexOf(id) > -1) el.classList.add('mr-seen');
+      el.addEventListener('click', function () {
+        if (!id) return;
+        if (seen.indexOf(id) === -1) { seen.push(id); try { localStorage.setItem(KEY, JSON.stringify(seen)); } catch (e) {} }
+        el.classList.add('mr-seen');
+      });
+    });
+  })();
+</script>

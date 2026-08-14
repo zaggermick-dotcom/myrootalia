@@ -1,7 +1,60 @@
 {%- comment -%}
   Page produit myrootelia — landing complète (hero, origine, rituel, avis, packs, garantie, FAQ, CTA).
+
+  Données Shopify :
+  - Packs = les variantes réelles du produit (prix, prix barré, stock, ajout au panier AJAX).
+  - Avis  = métaobjets `review` (ou le type défini dans les réglages), sinon le métachamp
+            `reviews.rating` / `reviews.rating_count` pour la note globale.
+
   Le CSS est entièrement scopé sous #mre-landing pour ne pas déborder sur le reste du thème.
 {%- endcomment -%}
+
+{%- liquid
+  assign p = product
+
+  # ---------- Prix ----------
+  assign price_from = p.price_min | default: 3900
+  assign price_label = price_from | money_without_trailing_zeros
+
+  # ---------- Avis Shopify ----------
+  assign mo_type = section.settings.reviews_metaobject_type | default: 'review'
+  assign all_reviews = metaobjects[mo_type].values
+  assign reviews_sum = 0
+  assign reviews_count = 0
+
+  for r in all_reviews
+    assign r_product = r.product.value
+    if r_product == blank or r_product.id == p.id
+      assign reviews_count = reviews_count | plus: 1
+      assign r_rating = r.rating.value | plus: 0
+      if r_rating == 0
+        assign r_rating = 5
+      endif
+      assign reviews_sum = reviews_sum | plus: r_rating
+    endif
+  endfor
+
+  # Note globale : le métachamp d'une app d'avis prime, sinon moyenne des métaobjets.
+  assign rating_value = blank
+  assign rating_count = 0
+  if p.metafields.reviews.rating.value != blank
+    assign rating_value = p.metafields.reviews.rating.value.rating
+    assign rating_count = p.metafields.reviews.rating_count.value | plus: 0
+  elsif reviews_count > 0
+    assign rating_value = reviews_sum | times: 1.0 | divided_by: reviews_count | round: 1
+    assign rating_count = reviews_count
+  endif
+  assign rating_label = rating_value | replace: '.', ','
+  assign has_rating = false
+  if rating_value != blank and rating_count > 0
+    assign has_rating = true
+  endif
+
+  assign show_demo_reviews = false
+  if reviews_count == 0 and section.settings.show_demo_reviews
+    assign show_demo_reviews = true
+  endif
+-%}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,15 +98,18 @@
   }
   #mre-landing .center{text-align:center}
   #mre-landing .btn{
-    display:inline-block; background:var(--accent); color:#fff;
+    display:inline-block; width:auto; background:var(--accent); color:#fff;
     padding:16px 38px; border-radius:999px; text-decoration:none;
-    font-weight:600; letter-spacing:.04em; font-size:.95rem; border:none;
-    cursor:pointer; transition:transform .2s, background .3s, box-shadow .3s;
+    font-family:'Jost',sans-serif; font-weight:600; letter-spacing:.04em;
+    font-size:.95rem; line-height:1.4; text-transform:none; text-align:center;
+    border:none; cursor:pointer; transition:transform .2s, background .3s, box-shadow .3s;
     box-shadow:0 10px 26px -12px var(--accent);
   }
   #mre-landing .btn:hover{background:var(--accent-dark); transform:translateY(-2px)}
   #mre-landing .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
   #mre-landing .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  #mre-landing .btn[disabled]{background:var(--line); color:var(--ink2); cursor:not-allowed; box-shadow:none; transform:none}
+  #mre-landing .btn[disabled]:hover{background:var(--line); transform:none}
 
   /* ============ ANNONCE ============ */
   #mre-landing .annonce{
@@ -73,8 +129,8 @@
   #mre-landing nav a{margin-left:26px; text-decoration:none; color:var(--ink2); font-size:.9rem; transition:color .2s}
   #mre-landing nav a:hover{color:var(--accent)}
   #mre-landing .cart{position:relative}
-  #mre-landing .cart::after{
-    content:"1"; position:absolute; top:-8px; right:-12px; background:var(--accent);
+  #mre-landing .cart[data-count]::after{
+    content:attr(data-count); position:absolute; top:-8px; right:-12px; background:var(--accent);
     color:#fff; font-size:.6rem; width:16px; height:16px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
   }
@@ -116,8 +172,9 @@
     position:relative; aspect-ratio:4/5; border-radius:200px 200px 24px 24px;
     background:linear-gradient(180deg,var(--bg2),var(--card));
     border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
-    box-shadow:0 40px 80px -40px rgba(0,0,0,.3);
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.3); overflow:hidden;
   }
+  #mre-landing .hero-visual img{width:100%; height:100%; object-fit:cover}
   #mre-landing .bottle{
     width:34%; aspect-ratio:1/3.2; border-radius:14px 14px 20px 20px; position:relative;
     background:linear-gradient(170deg, var(--accent) 0%, var(--accent-dark) 90%);
@@ -193,6 +250,9 @@
 
   /* ============ OFFRE / PACKS ============ */
   #mre-landing .packs-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:50px; align-items:stretch}
+  #mre-landing .packs-grid[data-count="1"]{grid-template-columns:minmax(0,420px); justify-content:center}
+  #mre-landing .packs-grid[data-count="2"]{grid-template-columns:repeat(2,1fr)}
+  #mre-landing .packs-grid[data-count="4"]{grid-template-columns:repeat(4,1fr)}
   #mre-landing .pack{
     background:var(--card); border:1.5px solid var(--line); border-radius:24px;
     padding:38px 30px; text-align:center; position:relative; display:flex; flex-direction:column;
@@ -210,6 +270,16 @@
   #mre-landing .pack li{padding:7px 0; font-size:.92rem; color:var(--ink2)}
   #mre-landing .pack li::before{content:"✓"; color:var(--accent); font-weight:700; margin-right:10px}
   #mre-landing .econo{font-size:.8rem; color:var(--accent); font-weight:600; letter-spacing:.06em}
+  #mre-landing .pack .product-form,#mre-landing .pack form{margin-top:auto}
+  #mre-landing .pack .btn{width:100%}
+  #mre-landing .pack .rupture{font-size:.78rem; color:var(--ink2); margin-top:10px}
+  /* .hidden (base.css) porte un !important : c'est lui qui masque le spinner, piloté par product-form.js. */
+  #mre-landing .loading-overlay__spinner{display:inline-block; width:1em; height:1em; margin-left:8px; vertical-align:-.15em}
+  #mre-landing .loading-overlay__spinner svg{width:100%; height:100%; animation:mre-spin 1s linear infinite}
+  #mre-landing .loading-overlay__spinner circle{stroke:currentColor; stroke-dasharray:120; stroke-dashoffset:70}
+  @keyframes mre-spin{to{transform:rotate(360deg)}}
+  #mre-landing .product-form__error-message-wrapper[hidden]{display:none}
+  #mre-landing .product-form__error-message{display:block; margin-top:10px; font-size:.85rem; color:#B3261E}
 
   /* ============ GARANTIE ============ */
   #mre-landing .garantie{display:flex; align-items:center; gap:5vw; background:var(--bg)}
@@ -252,6 +322,7 @@
     align-items:center; justify-content:space-between; gap:12px;
   }
   #mre-landing .sticky-cta .p{font-family:'Fraunces',serif}
+  #mre-landing .sticky-cta .btn{padding:12px 26px}
 
   #mre-landing h2.sec{font-size:clamp(1.8rem,3.4vw,2.5rem); font-weight:400}
   #mre-landing .sub-sec{color:var(--ink2); margin-top:12px; max-width:60ch}
@@ -260,7 +331,8 @@
   @media(max-width:900px){
     #mre-landing section{padding:60px 5vw}
     #mre-landing .hero,#mre-landing .origine{grid-template-columns:1fr; min-height:auto; gap:44px}
-    #mre-landing .promesse .grid3,#mre-landing .rituel .steps,#mre-landing .avis-grid,#mre-landing .packs-grid{grid-template-columns:1fr}
+    #mre-landing .promesse .grid3,#mre-landing .rituel .steps,#mre-landing .avis-grid,#mre-landing .packs-grid,
+    #mre-landing .packs-grid[data-count="2"],#mre-landing .packs-grid[data-count="4"]{grid-template-columns:1fr}
     #mre-landing .pack.best{transform:none}
     #mre-landing nav{display:none}
     #mre-landing .sticky-cta{display:flex}
@@ -293,7 +365,13 @@
       <a href="#avis">Avis</a>
       <a href="#offre">Acheter</a>
     </nav>
-    <a href="#offre" class="cart" style="text-decoration:none;color:var(--ink);font-size:1.2rem">🛒</a>
+    <a
+      href="{{ routes.cart_url }}"
+      class="cart"
+      {% if cart.item_count > 0 %}data-count="{{ cart.item_count }}"{% endif %}
+      aria-label="Panier"
+      style="text-decoration:none;color:var(--ink);font-size:1.2rem"
+    >🛒</a>
   </header>
 
   <!-- 3. HERO -->
@@ -302,13 +380,24 @@
       <p class="eyebrow">Huile de Batana · Tradition Miskito du Honduras</p>
       <h1>Réveillez la <em>croissance</em> naturelle de vos cheveux.</h1>
       <p class="sub">Le sérum de croissance myrootelia concentre l'huile de Batana pure, pressée à la main, pour nourrir le cuir chevelu, fortifier la fibre et révéler des longueurs denses et brillantes.</p>
-      <a href="#offre" class="btn">Découvrir le sérum — 39 $</a>
-      <p class="proof"><span class="stars">★★★★★</span> 4,9/5 · +2 300 clientes au Canada</p>
+      <a href="#offre" class="btn">Découvrir le sérum — {{ price_label }}</a>
+      {%- if has_rating -%}
+        <p class="proof">
+          <span class="stars" aria-hidden="true">
+            {%- for i in (1..5) -%}{% if i <= rating_value %}★{% else %}☆{% endif %}{%- endfor -%}
+          </span>
+          {{ rating_label }}/5 · {{ rating_count }} avis
+        </p>
+      {%- endif -%}
     </div>
     <div class="hero-visual">
-      <div class="bottle" role="img" aria-label="Flacon du sérum Batana myrootelia"></div>
-      <div class="badge-float bf1"><b>100 % pure</b>Pressée à la main</div>
-      <div class="badge-float bf2"><b>90 jours</b>Résultats visibles</div>
+      {%- if p.featured_image != blank and section.settings.show_product_image -%}
+        {{ p.featured_image | image_url: width: 900 | image_tag: loading: 'eager', alt: p.featured_image.alt | default: p.title }}
+      {%- else -%}
+        <div class="bottle" role="img" aria-label="Flacon du sérum Batana myrootelia"></div>
+        <div class="badge-float bf1"><b>100 % pure</b>Pressée à la main</div>
+        <div class="badge-float bf2"><b>90 jours</b>Résultats visibles</div>
+      {%- endif -%}
     </div>
   </section>
 
@@ -354,45 +443,157 @@
     </div>
   </section>
 
-  <!-- 8. AVIS CLIENTS -->
-  <section class="avis center" id="avis">
-    <p class="eyebrow">Elles l'ont adopté</p>
-    <h2 class="sec">4,9/5 sur plus de 2 300 avis vérifiés</h2>
-    <div class="avis-grid" style="text-align:left">
-      <div class="card"><span class="stars">★★★★★</span><p class="txt">« Mes tempes se regarnissent après des années de tresses trop serrées. Je n'y croyais plus. »</p><p class="who">Aïssata K. — Montréal <span class="verif">· Achat vérifié</span></p></div>
-      <div class="card"><span class="stars">★★★★★</span><p class="txt">« Texture divine, odeur authentique, et surtout : 3 cm en 2 mois. Mon rituel du dimanche soir. »</p><p class="who">Marie-Ève L. — Québec <span class="verif">· Achat vérifié</span></p></div>
-      <div class="card"><span class="stars">★★★★★</span><p class="txt">« Enfin une vraie Batana, pas une copie coupée. La différence se sent dès l'ouverture du flacon. »</p><p class="who">Fatou D. — Ottawa <span class="verif">· Achat vérifié</span></p></div>
-    </div>
-  </section>
+  <!-- 8. AVIS CLIENTS (métaobjets Shopify) -->
+  {%- if reviews_count > 0 or show_demo_reviews -%}
+    <section class="avis center" id="avis">
+      <p class="eyebrow">Elles l'ont adopté</p>
+      {%- if has_rating -%}
+        <h2 class="sec">{{ rating_label }}/5 sur {{ rating_count }} avis client{% if rating_count > 1 %}s{% endif %}</h2>
+      {%- else -%}
+        <h2 class="sec">Ce qu'elles en disent</h2>
+      {%- endif -%}
+      <div class="avis-grid" style="text-align:left">
+        {%- if reviews_count > 0 -%}
+          {%- assign shown = 0 -%}
+          {%- for r in all_reviews -%}
+            {%- assign r_product = r.product.value -%}
+            {%- if r_product == blank or r_product.id == p.id -%}
+              {%- if shown >= section.settings.reviews_limit -%}{%- break -%}{%- endif -%}
+              {%- assign shown = shown | plus: 1 -%}
+              {%- assign r_rating = r.rating.value | plus: 0 -%}
+              {%- if r_rating == 0 -%}{%- assign r_rating = 5 -%}{%- endif -%}
+              <div class="card">
+                <span class="stars" aria-label="{{ r_rating }} étoiles sur 5">
+                  {%- for i in (1..5) -%}{% if i <= r_rating %}★{% else %}☆{% endif %}{%- endfor -%}
+                </span>
+                <p class="txt">« {{ r.body.value }} »</p>
+                <p class="who">
+                  {{ r.author.value }}{% if r.location.value != blank %} — {{ r.location.value }}{% endif %}
+                  {%- if r.verified.value == true %} <span class="verif">· Achat vérifié</span>{% endif -%}
+                </p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Avis de démonstration : aucun métaobjet `{{ mo_type }}` publié pour ce produit. {%- endcomment -%}
+          <div class="card"><span class="stars">★★★★★</span><p class="txt">« Mes tempes se regarnissent après des années de tresses trop serrées. Je n'y croyais plus. »</p><p class="who">Aïssata K. — Montréal</p></div>
+          <div class="card"><span class="stars">★★★★★</span><p class="txt">« Texture divine, odeur authentique, et surtout : 3 cm en 2 mois. Mon rituel du dimanche soir. »</p><p class="who">Marie-Ève L. — Québec</p></div>
+          <div class="card"><span class="stars">★★★★★</span><p class="txt">« Enfin une vraie Batana, pas une copie coupée. La différence se sent dès l'ouverture du flacon. »</p><p class="who">Fatou D. — Ottawa</p></div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
 
-  <!-- 9. OFFRE / PACKS -->
+  <!-- 9. OFFRE / PACKS (variantes Shopify réelles) -->
   <section class="center" id="offre">
     <p class="eyebrow">Choisissez votre cure</p>
     <h2 class="sec">Une cure complète, un prix juste.</h2>
     <p class="sub-sec">Un flacon = 1 mois de rituel. La croissance capillaire demande 90 jours : la cure de 3 est la plus choisie.</p>
-    <div class="packs-grid">
-      <div class="pack">
-        <h3>Découverte</h3>
-        <div class="prix">39 $</div>
-        <ul><li>1 flacon (30 ml)</li><li>Guide du rituel offert</li><li>Garantie 60 jours</li></ul>
-        <a href="#" class="btn ghost">Ajouter au panier</a>
+
+    {%- if p == blank -%}
+      <p class="sub-sec">Cette section affiche les variantes du produit. Ouvre-la depuis une page produit pour la prévisualiser.</p>
+    {%- else -%}
+      {%- assign variant_count = p.variants.size -%}
+      {%- liquid
+        # Variante mise en avant : métachamp `custom.pack_highlight`, sinon celle du milieu.
+        assign best_index = 0
+        if variant_count > 2
+          assign best_index = 1
+        endif
+        for v in p.variants
+          if v.metafields.custom.pack_highlight.value == true
+            assign best_index = forloop.index0
+            break
+          endif
+        endfor
+      -%}
+
+      <div class="packs-grid" data-count="{{ variant_count }}">
+        {%- for variant in p.variants -%}
+          {%- liquid
+            assign is_best = false
+            if forloop.index0 == best_index
+              assign is_best = true
+            endif
+
+            assign pack_title = variant.title
+            if variant.title == 'Default Title'
+              assign pack_title = p.title
+            endif
+
+            assign features = variant.metafields.custom.pack_features.value
+            if features == blank
+              assign features = p.metafields.custom.pack_features.value
+            endif
+
+            assign form_id = 'mre-pack-' | append: variant.id
+          -%}
+
+          <div class="pack{% if is_best %} best{% endif %}">
+            {%- if is_best and variant_count > 1 -%}<div class="tag">La plus populaire</div>{%- endif -%}
+            <h3>{{ pack_title }}</h3>
+            <div class="prix">{{ variant.price | money }}</div>
+            {%- if variant.compare_at_price > variant.price -%}
+              <div class="ancien">{{ variant.compare_at_price | money }}</div>
+              {%- assign economie = variant.compare_at_price | minus: variant.price -%}
+              <p class="econo">Économisez {{ economie | money }}</p>
+            {%- endif -%}
+
+            <ul>
+              {%- if features != blank -%}
+                {%- for feature in features -%}<li>{{ feature }}</li>{%- endfor -%}
+              {%- else -%}
+                {%- if variant.sku != blank -%}<li>Référence {{ variant.sku }}</li>{%- endif -%}
+                <li>Guide du rituel offert</li>
+                <li>Livraison gratuite dès 60 $</li>
+                <li>Garantie 60 jours</li>
+              {%- endif -%}
+            </ul>
+
+            <product-form class="product-form">
+              {%- form 'product', p, id: form_id, class: 'form', novalidate: 'novalidate' -%}
+                <input type="hidden" name="id" value="{{ variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="sections" value="cart-notification-product,cart-notification-button,cart-icon-bubble,cart-live-region-text,cart-drawer">
+                <input type="hidden" name="sections_url" value="{{ request.path }}">
+                <button
+                  type="submit"
+                  name="add"
+                  class="btn{% unless is_best %} ghost{% endunless %} product-form__submit"
+                  {% unless variant.available %}disabled{% endunless %}
+                  {% if settings.cart_type == 'notification' %}
+                    data-cart-notification="{{ form_id }}"
+                  {% elsif settings.cart_type == 'drawer' %}
+                    data-cart-drawer-trigger
+                  {% endif %}
+                >
+                  <span>
+                    {%- if variant.available -%}
+                      {% if is_best %}Commencer ma cure{% else %}Ajouter au panier{% endif %}
+                    {%- else -%}
+                      Rupture de stock
+                    {%- endif -%}
+                  </span>
+                  {%- comment -%} Requis par product-form.js, qui masque/affiche ce spinner. {%- endcomment -%}
+                  <span class="loading-overlay__spinner hidden">
+                    <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                    </svg>
+                  </span>
+                </button>
+                <div class="product-form__error-message-wrapper" role="alert" hidden>
+                  <span class="product-form__error-message"></span>
+                </div>
+              {%- endform -%}
+            </product-form>
+
+            {%- unless variant.available -%}
+              <p class="rupture">Réapprovisionnement en cours.</p>
+            {%- endunless -%}
+          </div>
+        {%- endfor -%}
       </div>
-      <div class="pack best">
-        <div class="tag">La plus populaire</div>
-        <h3>Cure Croissance</h3>
-        <div class="prix">99 $</div><div class="ancien">117 $</div>
-        <p class="econo">Économisez 18 $</p>
-        <ul><li>3 flacons (cure 90 jours)</li><li>Livraison gratuite</li><li>Peigne de massage offert</li><li>Garantie 60 jours</li></ul>
-        <a href="#" class="btn">Commencer ma cure</a>
-      </div>
-      <div class="pack">
-        <h3>Rituel Complet</h3>
-        <div class="prix">149 $</div><div class="ancien">195 $</div>
-        <p class="econo">Économisez 46 $</p>
-        <ul><li>5 flacons (cure 150 jours)</li><li>Livraison gratuite prioritaire</li><li>Bonnet satin + peigne offerts</li><li>Garantie 60 jours</li></ul>
-        <a href="#" class="btn ghost">Ajouter au panier</a>
-      </div>
-    </div>
+    {%- endif -%}
   </section>
 
   <!-- 10. GARANTIE -->
@@ -420,8 +621,8 @@
   <section class="cta-final">
     <p class="eyebrow" style="color:var(--gold)">Votre transformation commence ce soir</p>
     <h2>Des racines fortes.<br>Des longueurs dont vous serez fière.</h2>
-    <p>Rejoignez plus de 2 300 femmes qui ont fait de la Batana leur rituel — protégée par notre garantie 60 jours.</p>
-    <a href="#offre" class="btn">Commencer ma cure — 39 $</a>
+    <p>Un rituel simple, une huile brute, et notre garantie 60 jours pour essayer sans risque.</p>
+    <a href="#offre" class="btn">Commencer ma cure — {{ price_label }}</a>
   </section>
 
   <!-- 13. FOOTER -->
@@ -433,16 +634,23 @@
     <div>
       <a href="#">Livraison &amp; retours</a><a href="#">Politique de remboursement</a><a href="#">Confidentialité</a><a href="#">Contact</a>
     </div>
-    <div>© 2026 myrootelia · Montréal, Canada · FR / EN</div>
+    <div>© {{ 'now' | date: '%Y' }} myrootelia · Montréal, Canada · FR / EN</div>
   </footer>
 
   <!-- STICKY CTA MOBILE -->
   <div class="sticky-cta">
-    <div><div class="p">Sérum Batana</div><small style="color:var(--ink2)">39 $ · ★ 4,9</small></div>
-    <a href="#offre" class="btn" style="padding:12px 26px">Acheter</a>
+    <div>
+      <div class="p">{{ p.title | default: 'Sérum Batana' | truncate: 26 }}</div>
+      <small style="color:var(--ink2)">
+        {{ price_label }}{% if has_rating %} · ★ {{ rating_label }}{% endif %}
+      </small>
+    </div>
+    <a href="#offre" class="btn">Acheter</a>
   </div>
 
 </div>
+
+{%- render 'script' with 'product-form', defer: true -%}
 
 <script>
   (function () {
@@ -462,7 +670,45 @@
 {
   "name": "myrootelia — Page produit",
   "tag": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Visuel"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_image",
+      "label": "Utiliser l'image du produit dans le hero",
+      "info": "Décoché : le flacon dessiné en CSS est affiché.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Avis"
+    },
+    {
+      "type": "text",
+      "id": "reviews_metaobject_type",
+      "label": "Type de métaobjet des avis",
+      "default": "review",
+      "info": "Champs lus : author, location, rating, body, verified, product."
+    },
+    {
+      "type": "range",
+      "id": "reviews_limit",
+      "label": "Nombre d'avis affichés",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_demo_reviews",
+      "label": "Afficher des avis de démonstration si aucun avis Shopify",
+      "default": true
+    }
+  ],
   "presets": [
     {
       "name": "myrootelia — Page produit"

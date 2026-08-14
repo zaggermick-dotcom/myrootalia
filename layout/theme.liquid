@@ -134,7 +134,16 @@
     </a>
 
     {%- liquid
-      sections 'header-group'
+      # La page produit par défaut (template product.json) est une landing autonome
+      # qui contient déjà sa barre d'annonce, son header, son footer et son CTA sticky.
+      assign mre_standalone_product = false
+      if request.page_type == 'product' and template.suffix == blank
+        assign mre_standalone_product = true
+      endif
+
+      unless mre_standalone_product
+        sections 'header-group'
+      endunless
 
       if settings.cart_type == 'drawer' and request.page_type != 'cart'
         section 'cart-drawer'
@@ -144,7 +153,7 @@
         render 'cart-notification'
       endif
 
-      if template contains 'product'
+      if template contains 'product' and mre_standalone_product == false
         section 'main-sticky-atc'
       endif
     -%}
@@ -162,7 +171,9 @@
         {{ content_for_layout }}
       </main>
 
-      {% sections 'footer-group' %}
+      {%- unless mre_standalone_product -%}
+        {% sections 'footer-group' %}
+      {%- endunless -%}
 
       <ul hidden>
         <li id="a11y-refresh-page-message">

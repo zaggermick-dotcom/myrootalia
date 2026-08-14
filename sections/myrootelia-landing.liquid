@@ -1,0 +1,472 @@
+{%- comment -%}
+  Page produit myrootelia — landing complète (hero, origine, rituel, avis, packs, garantie, FAQ, CTA).
+  Le CSS est entièrement scopé sous #mre-landing pour ne pas déborder sur le reste du thème.
+{%- endcomment -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ PALETTES ============ */
+  #mre-landing{
+    --bg:#F8F2E9; --bg2:#F1E7D8; --ink:#2B1D14; --ink2:#6B5744;
+    --accent:#B4761F; --accent-dark:#8A5A16; --gold:#C68A3F;
+    --card:#FFFDF9; --line:#E4D6C2; --hero-glow:rgba(198,138,63,.28);
+  }
+  #mre-landing[data-theme="foret"]{
+    --bg:#F4F3EC; --bg2:#E9EAE0; --ink:#1C2A21; --ink2:#54655A;
+    --accent:#2E5741; --accent-dark:#213F30; --gold:#B98A44;
+    --card:#FCFCF8; --line:#D8DCCE; --hero-glow:rgba(46,87,65,.18);
+  }
+  #mre-landing[data-theme="noir"]{
+    --bg:#141210; --bg2:#1D1A16; --ink:#F3EADB; --ink2:#B8A88F;
+    --accent:#D3A45A; --accent-dark:#B8853B; --gold:#D3A45A;
+    --card:#211D18; --line:#383127; --hero-glow:rgba(211,164,90,.16);
+  }
+  #mre-landing[data-theme="rose"]{
+    --bg:#FAF4F1; --bg2:#F3E7E1; --ink:#3A2620; --ink2:#8A6A5D;
+    --accent:#A05C43; --accent-dark:#7F4632; --gold:#C08A62;
+    --card:#FFFCFA; --line:#EAD9D0; --hero-glow:rgba(192,138,98,.24);
+  }
+
+  #mre-landing *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  #mre-landing{
+    font-family:'Jost',sans-serif; background:var(--bg); color:var(--ink);
+    line-height:1.6; font-weight:400; transition:background .5s,color .5s;
+  }
+  #mre-landing h1,#mre-landing h2,#mre-landing h3,#mre-landing .serif{font-family:'Fraunces',serif;font-weight:500}
+  #mre-landing img{max-width:100%;display:block}
+  #mre-landing section{padding:88px 6vw}
+  #mre-landing .eyebrow{
+    letter-spacing:.28em; text-transform:uppercase; font-size:.72rem;
+    color:var(--accent); font-weight:600; margin-bottom:14px;
+  }
+  #mre-landing .center{text-align:center}
+  #mre-landing .btn{
+    display:inline-block; background:var(--accent); color:#fff;
+    padding:16px 38px; border-radius:999px; text-decoration:none;
+    font-weight:600; letter-spacing:.04em; font-size:.95rem; border:none;
+    cursor:pointer; transition:transform .2s, background .3s, box-shadow .3s;
+    box-shadow:0 10px 26px -12px var(--accent);
+  }
+  #mre-landing .btn:hover{background:var(--accent-dark); transform:translateY(-2px)}
+  #mre-landing .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+  #mre-landing .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* ============ ANNONCE ============ */
+  #mre-landing .annonce{
+    background:var(--ink); color:var(--bg); text-align:center;
+    padding:10px 16px; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
+  }
+  #mre-landing[data-theme="noir"] .annonce{background:var(--accent);color:#141210}
+
+  /* ============ HEADER ============ */
+  #mre-landing .mre-header{
+    position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between; padding:16px 6vw;
+  }
+  #mre-landing .logo{font-family:'Fraunces',serif; font-size:1.5rem; letter-spacing:.04em}
+  #mre-landing .logo span{color:var(--accent);font-style:italic}
+  #mre-landing nav a{margin-left:26px; text-decoration:none; color:var(--ink2); font-size:.9rem; transition:color .2s}
+  #mre-landing nav a:hover{color:var(--accent)}
+  #mre-landing .cart{position:relative}
+  #mre-landing .cart::after{
+    content:"1"; position:absolute; top:-8px; right:-12px; background:var(--accent);
+    color:#fff; font-size:.6rem; width:16px; height:16px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ============ SÉLECTEUR PALETTES ============ */
+  #mre-landing .palette-bar{
+    position:fixed; right:18px; top:45%; z-index:60; display:flex;
+    flex-direction:column; gap:10px; background:var(--card); border:1px solid var(--line);
+    padding:12px 9px; border-radius:999px; box-shadow:0 14px 40px -18px rgba(0,0,0,.35);
+  }
+  #mre-landing .drop{
+    width:26px; height:33px; border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+    cursor:pointer; border:2px solid transparent; transition:transform .2s,border .2s;
+  }
+  #mre-landing .drop:hover{transform:scale(1.15)}
+  #mre-landing .drop.active{border-color:var(--ink); transform:scale(1.12)}
+  #mre-landing .drop[data-t="ambre"]{background:linear-gradient(160deg,#C68A3F,#6B4517)}
+  #mre-landing .drop[data-t="foret"]{background:linear-gradient(160deg,#2E5741,#B98A44)}
+  #mre-landing .drop[data-t="noir"]{background:linear-gradient(160deg,#1D1A16,#D3A45A)}
+  #mre-landing .drop[data-t="rose"]{background:linear-gradient(160deg,#C08A62,#7F4632)}
+  #mre-landing .palette-label{font-size:.55rem; text-align:center; letter-spacing:.1em; color:var(--ink2); text-transform:uppercase}
+
+  /* ============ HERO ============ */
+  #mre-landing .hero{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:6vw; align-items:center;
+    min-height:82vh; position:relative; overflow:hidden; background:var(--bg);
+  }
+  #mre-landing .hero::before{
+    content:""; position:absolute; right:-10%; top:-20%; width:60vw; height:60vw;
+    background:radial-gradient(circle, var(--hero-glow), transparent 65%);
+    pointer-events:none;
+  }
+  #mre-landing .hero h1{font-size:clamp(2.4rem,5vw,4.2rem); line-height:1.08; font-weight:500}
+  #mre-landing .hero h1 em{font-style:italic; color:var(--accent)}
+  #mre-landing .hero p.sub{margin:22px 0 30px; color:var(--ink2); font-size:1.08rem; max-width:46ch}
+  #mre-landing .stars{color:var(--gold); letter-spacing:3px}
+  #mre-landing .hero .proof{margin-top:10px; font-size:.85rem; color:var(--ink2)}
+  #mre-landing .hero-visual{
+    position:relative; aspect-ratio:4/5; border-radius:200px 200px 24px 24px;
+    background:linear-gradient(180deg,var(--bg2),var(--card));
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.3);
+  }
+  #mre-landing .bottle{
+    width:34%; aspect-ratio:1/3.2; border-radius:14px 14px 20px 20px; position:relative;
+    background:linear-gradient(170deg, var(--accent) 0%, var(--accent-dark) 90%);
+    box-shadow:inset 0 0 30px rgba(255,255,255,.18), 0 30px 50px -20px rgba(0,0,0,.45);
+  }
+  #mre-landing .bottle::before{
+    content:""; position:absolute; top:-14%; left:32%; width:36%; height:14%;
+    background:var(--ink); border-radius:5px 5px 2px 2px;
+  }
+  #mre-landing .bottle::after{
+    content:"myrootelia\A BATANA"; white-space:pre; position:absolute; inset:38% 10% auto;
+    background:var(--card); border-radius:4px; padding:12px 4px;
+    font-family:'Fraunces',serif; font-size:.72rem; text-align:center;
+    color:var(--ink); letter-spacing:.12em; line-height:1.9;
+  }
+  #mre-landing .badge-float{
+    position:absolute; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; padding:10px 16px; font-size:.8rem; box-shadow:0 16px 34px -18px rgba(0,0,0,.3);
+  }
+  #mre-landing .badge-float b{display:block; font-size:.95rem}
+  #mre-landing .bf1{top:12%; left:-6%} #mre-landing .bf2{bottom:14%; right:-4%}
+
+  /* ============ BANDEAU CONFIANCE ============ */
+  #mre-landing .trust{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:14px 54px;
+    padding:26px 6vw; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--bg2); font-size:.86rem; letter-spacing:.06em; color:var(--ink2);
+  }
+  #mre-landing .trust span::before{content:"✦"; color:var(--accent); margin-right:9px}
+
+  /* ============ PROBLÈME / PROMESSE ============ */
+  #mre-landing .promesse{background:var(--bg)}
+  #mre-landing .promesse .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:50px}
+  #mre-landing .card{
+    background:var(--card); border:1px solid var(--line); border-radius:20px;
+    padding:34px 28px; transition:transform .25s, box-shadow .25s;
+  }
+  #mre-landing .card:hover{transform:translateY(-5px); box-shadow:0 24px 50px -28px rgba(0,0,0,.3)}
+  #mre-landing .card .num{font-family:'Fraunces',serif; font-size:2rem; color:var(--accent); font-style:italic}
+  #mre-landing .card h3{margin:10px 0 8px; font-size:1.2rem}
+  #mre-landing .card p{color:var(--ink2); font-size:.94rem}
+
+  /* ============ ORIGINE ============ */
+  #mre-landing .origine{background:var(--ink); color:var(--bg); display:grid; grid-template-columns:1fr 1fr; gap:6vw; align-items:center}
+  #mre-landing[data-theme="noir"] .origine{background:var(--bg2); color:var(--ink)}
+  #mre-landing .origine .eyebrow{color:var(--gold)}
+  #mre-landing .origine h2{font-size:clamp(1.8rem,3.4vw,2.6rem); font-weight:400}
+  #mre-landing .origine p{color:color-mix(in srgb,var(--bg) 72%,transparent); margin-top:18px; font-size:1rem}
+  #mre-landing[data-theme="noir"] .origine p{color:var(--ink2)}
+  #mre-landing .origine-visual{
+    aspect-ratio:1/1; border-radius:50% 50% 8px 50%; border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);
+    background:radial-gradient(circle at 35% 30%, color-mix(in srgb,var(--gold) 45%,transparent), transparent 70%);
+    display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif;
+    font-style:italic; font-size:1.1rem; text-align:center; padding:2rem; color:var(--gold);
+  }
+
+  /* ============ RITUEL ============ */
+  #mre-landing .rituel .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:50px; counter-reset:step}
+  #mre-landing .step{position:relative; padding:30px 26px; border-left:2px solid var(--line)}
+  #mre-landing .step::before{
+    counter-increment:step; content:counter(step,decimal-leading-zero);
+    font-family:'Fraunces',serif; font-style:italic; color:var(--accent); font-size:1.6rem;
+  }
+  #mre-landing .step h3{margin:8px 0 6px; font-size:1.1rem}
+  #mre-landing .step p{color:var(--ink2); font-size:.92rem}
+
+  /* ============ AVIS ============ */
+  #mre-landing .avis{background:var(--bg2)}
+  #mre-landing .avis-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:46px}
+  #mre-landing .avis .card p.txt{font-family:'Fraunces',serif; font-style:italic; font-size:1.02rem; color:var(--ink)}
+  #mre-landing .avis .who{margin-top:18px; font-size:.85rem; color:var(--ink2)}
+  #mre-landing .verif{color:var(--accent); font-size:.75rem; letter-spacing:.08em; text-transform:uppercase}
+
+  /* ============ OFFRE / PACKS ============ */
+  #mre-landing .packs-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:50px; align-items:stretch}
+  #mre-landing .pack{
+    background:var(--card); border:1.5px solid var(--line); border-radius:24px;
+    padding:38px 30px; text-align:center; position:relative; display:flex; flex-direction:column;
+  }
+  #mre-landing .pack.best{border-color:var(--accent); transform:scale(1.04); box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+  #mre-landing .pack .tag{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:var(--accent); color:#fff; font-size:.7rem; letter-spacing:.18em;
+    text-transform:uppercase; padding:6px 18px; border-radius:999px;
+  }
+  #mre-landing .pack h3{font-size:1.25rem}
+  #mre-landing .pack .prix{font-family:'Fraunces',serif; font-size:2.4rem; margin:14px 0 2px}
+  #mre-landing .pack .ancien{text-decoration:line-through; color:var(--ink2); font-size:.95rem}
+  #mre-landing .pack ul{list-style:none; margin:22px 0 28px; text-align:left; flex:1}
+  #mre-landing .pack li{padding:7px 0; font-size:.92rem; color:var(--ink2)}
+  #mre-landing .pack li::before{content:"✓"; color:var(--accent); font-weight:700; margin-right:10px}
+  #mre-landing .econo{font-size:.8rem; color:var(--accent); font-weight:600; letter-spacing:.06em}
+
+  /* ============ GARANTIE ============ */
+  #mre-landing .garantie{display:flex; align-items:center; gap:5vw; background:var(--bg)}
+  #mre-landing .sceau{
+    min-width:170px; width:170px; height:170px; border-radius:50%;
+    border:2px solid var(--accent); display:flex; flex-direction:column;
+    align-items:center; justify-content:center; font-family:'Fraunces',serif;
+    color:var(--accent); text-align:center; line-height:1.3;
+  }
+  #mre-landing .sceau b{font-size:2.2rem}
+
+  /* ============ FAQ ============ */
+  #mre-landing details{
+    border-bottom:1px solid var(--line); padding:20px 4px; cursor:pointer; max-width:760px; margin:0 auto;
+  }
+  #mre-landing summary{font-family:'Fraunces',serif; font-size:1.08rem; list-style:none; display:flex; justify-content:space-between}
+  #mre-landing summary::-webkit-details-marker{display:none}
+  #mre-landing summary::after{content:"+"; color:var(--accent); font-size:1.3rem}
+  #mre-landing details[open] summary::after{content:"–"}
+  #mre-landing details p{margin-top:12px; color:var(--ink2); font-size:.94rem}
+
+  /* ============ CTA FINAL / FOOTER ============ */
+  #mre-landing .cta-final{background:var(--ink); color:var(--bg); text-align:center}
+  #mre-landing[data-theme="noir"] .cta-final{background:var(--bg2); color:var(--ink)}
+  #mre-landing .cta-final h2{font-size:clamp(1.9rem,3.6vw,2.8rem); font-weight:400}
+  #mre-landing .cta-final p{margin:16px auto 30px; max-width:52ch; color:color-mix(in srgb,var(--bg) 70%,transparent)}
+  #mre-landing[data-theme="noir"] .cta-final p{color:var(--ink2)}
+  #mre-landing .mre-footer{
+    padding:44px 6vw; display:flex; flex-wrap:wrap; gap:20px;
+    justify-content:space-between; border-top:1px solid var(--line);
+    font-size:.84rem; color:var(--ink2); background:var(--bg);
+  }
+  #mre-landing .mre-footer a{color:var(--ink2); text-decoration:none; margin-right:20px}
+  #mre-landing .mre-footer a:hover{color:var(--accent)}
+
+  /* ============ STICKY CTA MOBILE ============ */
+  #mre-landing .sticky-cta{
+    position:fixed; bottom:0; left:0; right:0; z-index:55; display:none;
+    background:var(--card); border-top:1px solid var(--line); padding:12px 16px;
+    align-items:center; justify-content:space-between; gap:12px;
+  }
+  #mre-landing .sticky-cta .p{font-family:'Fraunces',serif}
+
+  #mre-landing h2.sec{font-size:clamp(1.8rem,3.4vw,2.5rem); font-weight:400}
+  #mre-landing .sub-sec{color:var(--ink2); margin-top:12px; max-width:60ch}
+  #mre-landing .center .sub-sec{margin-left:auto;margin-right:auto}
+
+  @media(max-width:900px){
+    #mre-landing section{padding:60px 5vw}
+    #mre-landing .hero,#mre-landing .origine{grid-template-columns:1fr; min-height:auto; gap:44px}
+    #mre-landing .promesse .grid3,#mre-landing .rituel .steps,#mre-landing .avis-grid,#mre-landing .packs-grid{grid-template-columns:1fr}
+    #mre-landing .pack.best{transform:none}
+    #mre-landing nav{display:none}
+    #mre-landing .sticky-cta{display:flex}
+    #mre-landing .bf1{left:2%} #mre-landing .bf2{right:2%}
+    #mre-landing .palette-bar{top:auto; bottom:86px; right:12px; padding:9px 7px}
+  }
+  @media(prefers-reduced-motion:reduce){#mre-landing *{transition:none!important}}
+</style>
+
+<div id="mre-landing" data-theme="ambre">
+
+  <!-- SÉLECTEUR DE COULEURS -->
+  <div class="palette-bar" aria-label="Choisir la palette">
+    <div class="drop active" data-t="ambre" title="Ambre Racine"></div>
+    <div class="drop" data-t="foret" title="Forêt Miskito"></div>
+    <div class="drop" data-t="noir" title="Noir Doré"></div>
+    <div class="drop" data-t="rose" title="Cacao Rosé"></div>
+    <div class="palette-label">Palette</div>
+  </div>
+
+  <!-- 1. BARRE D'ANNONCE -->
+  <div class="annonce">Livraison gratuite au Canada dès 60 $ · Garantie 60 jours</div>
+
+  <!-- 2. HEADER -->
+  <header class="mre-header">
+    <div class="logo">my<span>rootelia</span></div>
+    <nav>
+      <a href="#origine">Notre histoire</a>
+      <a href="#rituel">Le rituel</a>
+      <a href="#avis">Avis</a>
+      <a href="#offre">Acheter</a>
+    </nav>
+    <a href="#offre" class="cart" style="text-decoration:none;color:var(--ink);font-size:1.2rem">🛒</a>
+  </header>
+
+  <!-- 3. HERO -->
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Huile de Batana · Tradition Miskito du Honduras</p>
+      <h1>Réveillez la <em>croissance</em> naturelle de vos cheveux.</h1>
+      <p class="sub">Le sérum de croissance myrootelia concentre l'huile de Batana pure, pressée à la main, pour nourrir le cuir chevelu, fortifier la fibre et révéler des longueurs denses et brillantes.</p>
+      <a href="#offre" class="btn">Découvrir le sérum — 39 $</a>
+      <p class="proof"><span class="stars">★★★★★</span> 4,9/5 · +2 300 clientes au Canada</p>
+    </div>
+    <div class="hero-visual">
+      <div class="bottle" role="img" aria-label="Flacon du sérum Batana myrootelia"></div>
+      <div class="badge-float bf1"><b>100 % pure</b>Pressée à la main</div>
+      <div class="badge-float bf2"><b>90 jours</b>Résultats visibles</div>
+    </div>
+  </section>
+
+  <!-- 4. BANDEAU CONFIANCE -->
+  <div class="trust">
+    <span>Sans sulfates ni silicones</span>
+    <span>Vegan &amp; cruelty-free</span>
+    <span>Sourcing équitable Miskito</span>
+    <span>Fabriqué en petits lots</span>
+  </div>
+
+  <!-- 5. PROBLÈME → PROMESSE -->
+  <section class="promesse center">
+    <p class="eyebrow">Pourquoi Batana</p>
+    <h2 class="sec">Vos cheveux méritent mieux que des promesses.</h2>
+    <p class="sub-sec">Casse, chute, pousse lente, cuir chevelu déséquilibré : la réponse ne vient pas d'un laboratoire, mais d'une forêt.</p>
+    <div class="grid3" style="text-align:left">
+      <div class="card"><div class="num">I.</div><h3>Nourrit la racine</h3><p>Riche en acides oléique et linoléique, la Batana pénètre le follicule et crée l'environnement idéal pour une pousse saine.</p></div>
+      <div class="card"><div class="num">II.</div><h3>Fortifie la fibre</h3><p>Les tocotriénols (vitamine E rare) réparent la kératine endommagée et réduisent visiblement la casse dès les premières semaines.</p></div>
+      <div class="card"><div class="num">III.</div><h3>Révèle la brillance</h3><p>Un film protecteur naturel scelle l'hydratation, discipline les frisottis et redonne aux longueurs un éclat profond.</p></div>
+    </div>
+  </section>
+
+  <!-- 6. ORIGINE / STORYTELLING -->
+  <section class="origine" id="origine">
+    <div>
+      <p class="eyebrow">L'or liquide du Honduras</p>
+      <h2>Un secret gardé par le peuple Miskito depuis des générations.</h2>
+      <p>Sur la côte de La Moskitia, les femmes Miskito — surnommées « le peuple aux beaux cheveux » — extraient l'huile de Batana des noix du palmier américain, torréfiées et pressées à la main.</p>
+      <p>myrootelia travaille en direct avec ces communautés : un sourcing équitable, une huile brute jamais raffinée, et une part de chaque vente reversée aux coopératives locales.</p>
+    </div>
+    <div class="origine-visual">« Le trésor de La Moskitia,<br>de la forêt à votre rituel. »</div>
+  </section>
+
+  <!-- 7. RITUEL D'APPLICATION -->
+  <section class="rituel center" id="rituel">
+    <p class="eyebrow">Simple. Sensoriel. Efficace.</p>
+    <h2 class="sec">Votre rituel en 3 gestes</h2>
+    <div class="steps" style="text-align:left">
+      <div class="step"><h3>Appliquez</h3><p>4 à 6 gouttes directement sur le cuir chevelu, raie par raie, sur cheveux secs ou humides.</p></div>
+      <div class="step"><h3>Massez</h3><p>3 minutes de massage circulaire pour activer la microcirculation et faire pénétrer le sérum.</p></div>
+      <div class="step"><h3>Laissez agir</h3><p>Toute la nuit ou minimum 30 minutes, 3 fois par semaine. Résultats visibles dès 90 jours.</p></div>
+    </div>
+  </section>
+
+  <!-- 8. AVIS CLIENTS -->
+  <section class="avis center" id="avis">
+    <p class="eyebrow">Elles l'ont adopté</p>
+    <h2 class="sec">4,9/5 sur plus de 2 300 avis vérifiés</h2>
+    <div class="avis-grid" style="text-align:left">
+      <div class="card"><span class="stars">★★★★★</span><p class="txt">« Mes tempes se regarnissent après des années de tresses trop serrées. Je n'y croyais plus. »</p><p class="who">Aïssata K. — Montréal <span class="verif">· Achat vérifié</span></p></div>
+      <div class="card"><span class="stars">★★★★★</span><p class="txt">« Texture divine, odeur authentique, et surtout : 3 cm en 2 mois. Mon rituel du dimanche soir. »</p><p class="who">Marie-Ève L. — Québec <span class="verif">· Achat vérifié</span></p></div>
+      <div class="card"><span class="stars">★★★★★</span><p class="txt">« Enfin une vraie Batana, pas une copie coupée. La différence se sent dès l'ouverture du flacon. »</p><p class="who">Fatou D. — Ottawa <span class="verif">· Achat vérifié</span></p></div>
+    </div>
+  </section>
+
+  <!-- 9. OFFRE / PACKS -->
+  <section class="center" id="offre">
+    <p class="eyebrow">Choisissez votre cure</p>
+    <h2 class="sec">Une cure complète, un prix juste.</h2>
+    <p class="sub-sec">Un flacon = 1 mois de rituel. La croissance capillaire demande 90 jours : la cure de 3 est la plus choisie.</p>
+    <div class="packs-grid">
+      <div class="pack">
+        <h3>Découverte</h3>
+        <div class="prix">39 $</div>
+        <ul><li>1 flacon (30 ml)</li><li>Guide du rituel offert</li><li>Garantie 60 jours</li></ul>
+        <a href="#" class="btn ghost">Ajouter au panier</a>
+      </div>
+      <div class="pack best">
+        <div class="tag">La plus populaire</div>
+        <h3>Cure Croissance</h3>
+        <div class="prix">99 $</div><div class="ancien">117 $</div>
+        <p class="econo">Économisez 18 $</p>
+        <ul><li>3 flacons (cure 90 jours)</li><li>Livraison gratuite</li><li>Peigne de massage offert</li><li>Garantie 60 jours</li></ul>
+        <a href="#" class="btn">Commencer ma cure</a>
+      </div>
+      <div class="pack">
+        <h3>Rituel Complet</h3>
+        <div class="prix">149 $</div><div class="ancien">195 $</div>
+        <p class="econo">Économisez 46 $</p>
+        <ul><li>5 flacons (cure 150 jours)</li><li>Livraison gratuite prioritaire</li><li>Bonnet satin + peigne offerts</li><li>Garantie 60 jours</li></ul>
+        <a href="#" class="btn ghost">Ajouter au panier</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. GARANTIE -->
+  <section class="garantie">
+    <div class="sceau"><b>60</b>jours<br>satisfait ou<br>remboursé</div>
+    <div>
+      <h2 class="sec">Le risque est pour nous, pas pour vous.</h2>
+      <p class="sub-sec">Testez le sérum pendant 60 jours. Si vous ne constatez aucune différence sur la casse, la densité ou la brillance, nous vous remboursons intégralement — sans question, sans retour à faire.</p>
+    </div>
+  </section>
+
+  <!-- 11. FAQ -->
+  <section class="center">
+    <p class="eyebrow">Questions fréquentes</p>
+    <h2 class="sec" style="margin-bottom:40px">Tout ce que vous devez savoir</h2>
+    <div style="text-align:left">
+      <details open><summary>Quand verrai-je des résultats ?</summary><p>La casse diminue dès 2 à 3 semaines. Pour la densité et la longueur, comptez un cycle capillaire complet : 90 jours d'utilisation régulière, 3 fois par semaine.</p></details>
+      <details><summary>Convient-il à tous les types de cheveux ?</summary><p>Oui — cheveux texturés (3A à 4C), bouclés, lisses, colorés ou avec protections (tresses, tissages, locks). La Batana est aussi douce pour les cuirs chevelus sensibles.</p></details>
+      <details><summary>Votre Batana est-elle vraiment pure ?</summary><p>100 % pure, pressée à la main par les coopératives Miskito du Honduras, jamais raffinée ni coupée. Chaque lot est traçable jusqu'à sa communauté d'origine.</p></details>
+      <details><summary>Délais et frais de livraison ?</summary><p>Expédition depuis le Canada sous 24 h. Livraison en 2 à 5 jours ouvrables, gratuite dès 60 $.</p></details>
+    </div>
+  </section>
+
+  <!-- 12. CTA FINAL -->
+  <section class="cta-final">
+    <p class="eyebrow" style="color:var(--gold)">Votre transformation commence ce soir</p>
+    <h2>Des racines fortes.<br>Des longueurs dont vous serez fière.</h2>
+    <p>Rejoignez plus de 2 300 femmes qui ont fait de la Batana leur rituel — protégée par notre garantie 60 jours.</p>
+    <a href="#offre" class="btn">Commencer ma cure — 39 $</a>
+  </section>
+
+  <!-- 13. FOOTER -->
+  <footer class="mre-footer">
+    <div>
+      <div class="logo" style="font-size:1.2rem">my<span>rootelia</span></div>
+      <p style="margin-top:8px">L'or liquide de La Moskitia,<br>du palmier américain à votre rituel.</p>
+    </div>
+    <div>
+      <a href="#">Livraison &amp; retours</a><a href="#">Politique de remboursement</a><a href="#">Confidentialité</a><a href="#">Contact</a>
+    </div>
+    <div>© 2026 myrootelia · Montréal, Canada · FR / EN</div>
+  </footer>
+
+  <!-- STICKY CTA MOBILE -->
+  <div class="sticky-cta">
+    <div><div class="p">Sérum Batana</div><small style="color:var(--ink2)">39 $ · ★ 4,9</small></div>
+    <a href="#offre" class="btn" style="padding:12px 26px">Acheter</a>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('mre-landing');
+    if (!root) return;
+    root.querySelectorAll('.drop').forEach(function (el) {
+      el.addEventListener('click', function () {
+        root.setAttribute('data-theme', el.dataset.t);
+        root.querySelectorAll('.drop').forEach(function (d) { d.classList.remove('active'); });
+        el.classList.add('active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "myrootelia — Page produit",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "myrootelia — Page produit"
+    }
+  ]
+}
+{% endschema %}

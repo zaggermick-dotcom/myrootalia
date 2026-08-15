@@ -76,7 +76,7 @@
   {%- if st.icon_shape == 'cercle' -%}
   #mrt-icones-{{ section.id }} .mrtI-ico{border-radius:50%;
     background:color-mix(in srgb, var(--mrtI-accent) 14%, var(--mrtI-card))}
-  {%- elsif st.icon_shape == 'cercle_bordé' -%}
+  {%- elsif st.icon_shape == 'cercle_borde' -%}
   #mrt-icones-{{ section.id }} .mrtI-ico{border-radius:50%;
     border:1px solid color-mix(in srgb, var(--mrtI-accent) 40%, transparent)}
   {%- elsif st.icon_shape == 'losange' -%}
@@ -198,7 +198,7 @@
     ], "default": "center" },
     { "type": "select", "id": "icon_shape", "label": "Forme de l'icône", "options": [
       { "value": "cercle", "label": "Cercle plein" },
-      { "value": "cercle_bordé", "label": "Cercle bordé" },
+      { "value": "cercle_borde", "label": "Cercle bordé" },
       { "value": "losange", "label": "Losange" },
       { "value": "aucune", "label": "Icône seule" }
     ], "default": "cercle" },

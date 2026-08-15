@@ -1,0 +1,560 @@
+<div>c</div>
+{% schema %}
+{
+  "name": "ZZ Test C",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Sur-titre",
+      "default": "La routine"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Titre",
+      "default": "<p>Deux minutes, <em>chaque soir</em></p>",
+      "info": "Utilise <em>…</em> pour mettre un mot en italique doré."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Un geste simple qui devient un réflexe. Pas de promesse magique — juste de la constance."
+    },
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Pastille (chrono)",
+      "default": "2 minutes par jour, montre en main"
+    },
+    {
+      "type": "select",
+      "id": "chip_icon",
+      "label": "Icône de la pastille",
+      "options": [
+        {
+          "value": "chrono",
+          "label": "Chronomètre"
+        },
+        {
+          "value": "horloge",
+          "label": "Horloge"
+        },
+        {
+          "value": "sablier",
+          "label": "Sablier"
+        },
+        {
+          "value": "lune",
+          "label": "Lune"
+        },
+        {
+          "value": "etincelle",
+          "label": "Étincelle"
+        },
+        {
+          "value": "coeur",
+          "label": "Cœur"
+        },
+        {
+          "value": "feuille",
+          "label": "Feuille"
+        },
+        {
+          "value": "aucune",
+          "label": "Aucune"
+        }
+      ],
+      "default": "chrono"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignement de l'en-tête",
+      "options": [
+        {
+          "value": "left",
+          "label": "Gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        },
+        {
+          "value": "right",
+          "label": "Droite"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 26,
+      "max": 54,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille du titre",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Espace sous l'en-tête",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Appel à l'action"
+    },
+    {
+      "type": "text",
+      "id": "cta_note",
+      "label": "Petite phrase au-dessus",
+      "default": "Essai 60 nuits — remboursé si tu n'aimes pas."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "Commencer ma routine"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton",
+      "info": "Laisse #acheter pour remonter au bloc d'achat de la page produit."
+    },
+    {
+      "type": "range",
+      "id": "cta_gap",
+      "min": 20,
+      "max": 90,
+      "step": 4,
+      "unit": "px",
+      "label": "Espace au-dessus du bouton",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Grille"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "unit": "col",
+      "label": "Colonnes (desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Espacement (desktop)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_sm",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Espacement (mobile)",
+      "default": 34
+    },
+    {
+      "type": "checkbox",
+      "id": "show_connector",
+      "label": "Ligne pointillée entre les étapes",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "layout_width",
+      "label": "Largeur",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Étroite"
+        },
+        {
+          "value": "normal",
+          "label": "Page"
+        },
+        {
+          "value": "full",
+          "label": "Large"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Cartes"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Arrondi",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "image_ratio",
+      "min": 55,
+      "max": 125,
+      "step": 5,
+      "unit": "%",
+      "label": "Hauteur de l'image",
+      "default": 85
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Marge intérieure",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 15,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille du titre de carte",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille du texte",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "num_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille du numéro",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fond de section",
+      "default": "#FAF6EF"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fond des cartes",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Titres",
+      "default": "#1E3A2F"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Textes",
+      "default": "#25332C"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent",
+      "default": "#C6A15B"
+    },
+    {
+      "type": "color",
+      "id": "color_num_bg",
+      "label": "Fond du numéro",
+      "default": "#1E3A2F"
+    },
+    {
+      "type": "color",
+      "id": "color_num_text",
+      "label": "Texte du numéro",
+      "default": "#FAF6EF"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_bg",
+      "label": "Fond du bouton",
+      "default": "#1E3A2F"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_text",
+      "label": "Texte du bouton",
+      "default": "#FAF6EF"
+    },
+    {
+      "type": "header",
+      "content": "Fenêtre de détail"
+    },
+    {
+      "type": "text",
+      "id": "modal_close_text",
+      "label": "Texte du bouton fermer",
+      "default": "J’ai compris"
+    },
+    {
+      "type": "header",
+      "content": "Espacements"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Haut (desktop)",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bas (desktop)",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_top_sm",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Haut (mobile)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_sm",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bas (mobile)",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "etape",
+      "name": "Étape",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "duree",
+          "label": "Durée",
+          "default": "30 secondes"
+        },
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "aucune",
+              "label": "Aucune"
+            },
+            {
+              "value": "compte_gouttes",
+              "label": "Compte-gouttes"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "gouttes",
+              "label": "Gouttes"
+            },
+            {
+              "value": "flacon",
+              "label": "Flacon"
+            },
+            {
+              "value": "massage",
+              "label": "Massage"
+            },
+            {
+              "value": "main",
+              "label": "Main"
+            },
+            {
+              "value": "cuir_chevelu",
+              "label": "Cuir chevelu"
+            },
+            {
+              "value": "cheveux",
+              "label": "Cheveux"
+            },
+            {
+              "value": "peigne",
+              "label": "Peigne"
+            },
+            {
+              "value": "brosse",
+              "label": "Brosse"
+            },
+            {
+              "value": "miroir",
+              "label": "Miroir"
+            },
+            {
+              "value": "lune",
+              "label": "Lune"
+            },
+            {
+              "value": "soleil",
+              "label": "Soleil"
+            },
+            {
+              "value": "feuille",
+              "label": "Feuille"
+            },
+            {
+              "value": "pousse",
+              "label": "Pousse"
+            },
+            {
+              "value": "fleur",
+              "label": "Fleur"
+            },
+            {
+              "value": "eau",
+              "label": "Eau"
+            },
+            {
+              "value": "etincelle",
+              "label": "Étincelle"
+            },
+            {
+              "value": "coeur",
+              "label": "Cœur"
+            },
+            {
+              "value": "chrono",
+              "label": "Chronomètre"
+            },
+            {
+              "value": "horloge",
+              "label": "Horloge"
+            },
+            {
+              "value": "sablier",
+              "label": "Sablier"
+            },
+            {
+              "value": "calendrier",
+              "label": "Calendrier"
+            },
+            {
+              "value": "croissance",
+              "label": "Croissance"
+            },
+            {
+              "value": "coche_cercle",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            }
+          ],
+          "default": "aucune"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Applique"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Quelques gouttes sur cuir chevelu propre et sec, directement à la racine.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Fenêtre de détail (optionnelle)"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texte du lien",
+          "default": "En savoir plus"
+        },
+        {
+          "type": "text",
+          "id": "modal_title",
+          "label": "Titre de la fenêtre"
+        },
+        {
+          "type": "textarea",
+          "id": "modal_content",
+          "label": "Contenu de la fenêtre"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

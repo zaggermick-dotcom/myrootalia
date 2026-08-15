@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "benefits": {
+      "type": "mrt-icones",
+      "blocks": {
+        "b0": {
+          "type": "icone",
+          "settings": {
+            "icone": "feuille",
+            "titre": "Test"
+          }
+        }
+      },
+      "block_order": [
+        "b0"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "benefits"
+  ]
+}

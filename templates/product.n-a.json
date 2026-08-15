@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "benefits": {
+      "type": "mrt-icones",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "kicker": "Les bénéfices",
+        "title": "<p>Trois raisons d'en faire <em>ton rituel</em></p>",
+        "description": "",
+        "alignment": "center",
+        "title_size": 36,
+        "header_gap": 44,
+        "style": "carte_bordee",
+        "item_alignment": "center",
+        "icon_shape": "cercle",
+        "icon_size": 58,
+        "icon_gap": 16,
+        "card_radius": 18,
+        "card_padding": 30,
+        "item_title_size": 20,
+        "item_text_size": 14,
+        "columns": 3,
+        "columns_tablet": 2,
+        "columns_mobile": 1,
+        "gap": 24,
+        "gap_mobile": 16,
+        "layout_width": "normal",
+        "cta_text": "",
+        "cta_link": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_sm": 40,
+        "padding_bottom_sm": 40
+      }
+    }
+  },
+  "order": [
+    "benefits"
+  ]
+}

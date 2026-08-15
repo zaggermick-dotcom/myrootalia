@@ -597,8 +597,16 @@
     function addToCart(btn) {
       var drawer = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
       var errEl = root.querySelector('[data-mrt-error]');
+      /* garde-fou : on vérifie l'ID contre la liste des variantes du produit
+         avant l'envoi ; si l'attribut a été perdu/corrompu, on retombe sur
+         la première variante disponible. */
+      var vid = parseInt(btn.dataset.mrtVariant, 10);
+      if (!variants.some(function (v) { return v.id === vid; })) {
+        var fb = variants.find(function (v) { return v.available; }) || variants[0];
+        if (fb) vid = fb.id;
+      }
       var fd = new FormData();
-      fd.append('id', btn.dataset.mrtVariant);
+      fd.append('id', vid);
       fd.append('quantity', qtyInput ? qtyInput.value : 1);
       if (drawer && typeof drawer.renderContents === 'function') {
         fd.append('sections', drawer.getSectionsToRender().map(function (s) { return s.id; }).join(','));
@@ -611,7 +619,13 @@
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (data.status) {
-            if (errEl) { errEl.textContent = data.description || 'Impossible d’ajouter au panier.'; errEl.classList.add('is-visible'); }
+            var msg = data.description || 'Impossible d’ajouter au panier.';
+            /* "Cannot find variant" avec un ID pourtant valide = produit en
+               Brouillon ou non publié sur le canal « Boutique en ligne ». */
+            if (/cannot find variant/i.test(msg)) {
+              msg = 'Produit indisponible à la vente pour le moment. (Marchand : vérifie que le produit est « Actif » et publié sur le canal Boutique en ligne.)';
+            }
+            if (errEl) { errEl.textContent = msg; errEl.classList.add('is-visible'); }
             return;
           }
           if (drawer && typeof drawer.renderContents === 'function') {

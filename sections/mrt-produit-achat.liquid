@@ -1,0 +1,460 @@
+{% comment %}
+  MRT · Achat produit — bloc d'achat complet myrootalia
+  Galerie + variantes + quantité + ajout panier NATIF (product-form du thème :
+  tiroir panier + bulle header synchronisés automatiquement).
+{% endcomment %}
+
+{%- render 'script' with 'product-form', defer: true -%}
+
+{%- liquid
+  assign v0 = product.selected_or_first_available_variant
+  assign product_form_id = 'product-form-' | append: section.id
+  assign st = section.settings
+-%}
+
+{%- style -%}
+  #mrt-achat-{{ section.id }}{
+    --mrt-bg: {{ st.color_bg }};
+    --mrt-ink: {{ st.color_text }};
+    --mrt-accent: {{ st.color_accent }};
+    --mrt-btn-bg: {{ st.color_btn_bg }};
+    --mrt-btn-text: {{ st.color_btn_text }};
+    --mrt-card: {{ st.color_card_bg }};
+    --mrt-muted: color-mix(in srgb, {{ st.color_text }} 60%, {{ st.color_bg }});
+    --mrt-line: color-mix(in srgb, {{ st.color_text }} 14%, transparent);
+    --mrt-serif: var(--font-heading-family, Georgia, serif);
+    --mrt-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrt-bg); color: var(--mrt-ink);
+    font-family: var(--mrt-sans); line-height: 1.6;
+    padding-top: {{ st.padding_top_sm }}px; padding-bottom: {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){
+    #mrt-achat-{{ section.id }}{padding-top: {{ st.padding_top }}px; padding-bottom: {{ st.padding_bottom }}px;}
+  }
+  #mrt-achat-{{ section.id }} .mrtA-wrap{max-width:1180px;margin:0 auto;padding:0 20px;
+    display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+  {%- if st.media_position == 'right' -%}
+  #mrt-achat-{{ section.id }} .mrtA-gallery{order:2}
+  {%- endif -%}
+  @media(max-width:899px){#mrt-achat-{{ section.id }} .mrtA-wrap{grid-template-columns:1fr;gap:28px}
+    #mrt-achat-{{ section.id }} .mrtA-gallery{order:0}}
+  #mrt-achat-{{ section.id }} img{max-width:100%;display:block}
+
+  {%- if st.gallery_sticky -%}
+  #mrt-achat-{{ section.id }} .mrtA-gallery{position:sticky;top:24px}
+  @media(max-width:899px){#mrt-achat-{{ section.id }} .mrtA-gallery{position:static}}
+  {%- endif -%}
+  #mrt-achat-{{ section.id }} .mrtA-main{border-radius:18px;overflow:hidden;background:var(--mrt-card);
+    {% if st.image_ratio == 'square' %}aspect-ratio:1/1;{% elsif st.image_ratio == 'portrait' %}aspect-ratio:4/5;{% endif %}
+    box-shadow:0 24px 60px -30px rgba(21,42,33,.35)}
+  #mrt-achat-{{ section.id }} .mrtA-main img{width:100%;height:100%;object-fit:cover;transition:opacity .3s ease}
+  #mrt-achat-{{ section.id }} .mrtA-thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;padding-bottom:4px}
+  #mrt-achat-{{ section.id }} .mrtA-thumb{flex:0 0 72px;height:72px;border-radius:12px;overflow:hidden;
+    cursor:pointer;border:2px solid transparent;opacity:.7;transition:.25s;background:var(--mrt-card)}
+  #mrt-achat-{{ section.id }} .mrtA-thumb img{width:100%;height:100%;object-fit:cover}
+  #mrt-achat-{{ section.id }} .mrtA-thumb.is-active{border-color:var(--mrt-accent);opacity:1}
+  #mrt-achat-{{ section.id }} .mrtA-thumb:hover{opacity:1}
+
+  #mrt-achat-{{ section.id }} .mrtA-brand{font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--mrt-accent);font-weight:600;margin:0 0 10px}
+  #mrt-achat-{{ section.id }} .mrtA-title{font-family:var(--mrt-serif);font-weight:500;
+    font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0 0 10px}
+  #mrt-achat-{{ section.id }} .mrtA-pitch{color:var(--mrt-muted);font-size:16.5px;margin:0 0 18px}
+  #mrt-achat-{{ section.id }} .mrtA-pitch strong{color:var(--mrt-ink)}
+  #mrt-achat-{{ section.id }} .mrtA-price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 22px}
+  #mrt-achat-{{ section.id }} .mrtA-price{font-family:var(--mrt-serif);font-size:30px}
+  #mrt-achat-{{ section.id }} .mrtA-compare{color:var(--mrt-muted);text-decoration:line-through;font-size:17px}
+  #mrt-achat-{{ section.id }} .mrtA-save{font-size:12.5px;font-weight:700;
+    background:color-mix(in srgb, var(--mrt-accent) 22%, transparent);border-radius:999px;padding:5px 12px}
+
+  #mrt-achat-{{ section.id }} .mrtA-opt-label{font-size:13px;font-weight:600;letter-spacing:.05em;
+    text-transform:uppercase;margin:0 0 9px;color:var(--mrt-muted)}
+  #mrt-achat-{{ section.id }} .mrtA-opts{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 20px}
+  #mrt-achat-{{ section.id }} .mrtA-opt{padding:10px 18px;border-radius:999px;border:1.5px solid var(--mrt-line);
+    background:var(--mrt-card);cursor:pointer;font-size:14px;font-family:var(--mrt-sans);color:var(--mrt-ink);transition:.2s}
+  #mrt-achat-{{ section.id }} .mrtA-opt.is-active{background:var(--mrt-btn-bg);border-color:var(--mrt-btn-bg);color:var(--mrt-btn-text)}
+  #mrt-achat-{{ section.id }} .mrtA-opt:not(.is-active):hover{border-color:var(--mrt-btn-bg)}
+
+  #mrt-achat-{{ section.id }} .mrtA-buyrow{display:flex;gap:12px;margin:0 0 14px}
+  #mrt-achat-{{ section.id }} .mrtA-qty{display:flex;align-items:center;border:1.5px solid var(--mrt-line);
+    border-radius:999px;background:var(--mrt-card);flex:0 0 auto}
+  #mrt-achat-{{ section.id }} .mrtA-qty button{width:42px;height:52px;border:0;background:none;font-size:19px;cursor:pointer;color:var(--mrt-ink)}
+  #mrt-achat-{{ section.id }} .mrtA-qty input{width:38px;height:52px;border:0;text-align:center;font-size:15px;
+    font-weight:600;background:none;color:var(--mrt-ink);-moz-appearance:textfield}
+  #mrt-achat-{{ section.id }} .mrtA-qty input::-webkit-outer-spin-button,
+  #mrt-achat-{{ section.id }} .mrtA-qty input::-webkit-inner-spin-button{-webkit-appearance:none}
+
+  #mrt-achat-{{ section.id }} .mrtA-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;padding:17px 32px;border:0;border-radius:999px;cursor:pointer;
+    background:var(--mrt-btn-bg);color:var(--mrt-btn-text);font-family:var(--mrt-sans);
+    font-size:16px;font-weight:600;letter-spacing:.02em;position:relative;
+    transition:transform .25s ease, box-shadow .25s ease, filter .25s ease}
+  #mrt-achat-{{ section.id }} .mrtA-btn:hover{filter:brightness(.92);transform:translateY(-2px);
+    box-shadow:0 12px 28px -12px rgba(21,42,33,.55)}
+  #mrt-achat-{{ section.id }} .mrtA-btn[disabled],#mrt-achat-{{ section.id }} .mrtA-btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
+  #mrt-achat-{{ section.id }} .loading-overlay__spinner{width:18px;height:18px}
+  #mrt-achat-{{ section.id }} .loading-overlay__spinner.hidden{display:none}
+  #mrt-achat-{{ section.id }} .loading-overlay__spinner .spinner{width:18px;height:18px;animation:mrtArot 1s linear infinite}
+  #mrt-achat-{{ section.id }} .loading-overlay__spinner .path{stroke:currentColor;stroke-dasharray:120;stroke-dashoffset:60}
+  @keyframes mrtArot{to{transform:rotate(360deg)}}
+
+  #mrt-achat-{{ section.id }} .product-form__error-message-wrapper{display:flex;align-items:center;gap:8px;
+    color:#A4442E;font-size:14px;margin:0 0 12px}
+  #mrt-achat-{{ section.id }} .product-form__error-message-wrapper[hidden]{display:none}
+  #mrt-achat-{{ section.id }} .product-form__error-message-wrapper .icon-error{width:14px;height:14px;flex:0 0 auto}
+
+  #mrt-achat-{{ section.id }} .mrtA-reassure{display:flex;flex-wrap:wrap;gap:8px 18px;margin:6px 0 20px;
+    font-size:13.5px;color:var(--mrt-muted)}
+  #mrt-achat-{{ section.id }} .mrtA-reassure span::before{content:"✓";color:var(--mrt-accent);font-weight:700;margin-right:7px}
+  #mrt-achat-{{ section.id }} .mrtA-delivery{display:flex;align-items:center;gap:10px;background:var(--mrt-card);
+    border:1px solid var(--mrt-line);border-radius:12px;padding:13px 16px;font-size:14px;margin:0 0 22px}
+
+  #mrt-achat-{{ section.id }} .mrtA-acc{border-top:1px solid var(--mrt-line)}
+  #mrt-achat-{{ section.id }} .mrtA-acc details{border-bottom:1px solid var(--mrt-line)}
+  #mrt-achat-{{ section.id }} .mrtA-acc summary{list-style:none;display:flex;justify-content:space-between;
+    align-items:center;padding:17px 2px;cursor:pointer;font-weight:600;font-size:15.5px}
+  #mrt-achat-{{ section.id }} .mrtA-acc summary::-webkit-details-marker{display:none}
+  #mrt-achat-{{ section.id }} .mrtA-acc summary::after{content:"+";font-size:21px;font-weight:400;color:var(--mrt-accent);transition:transform .3s}
+  #mrt-achat-{{ section.id }} .mrtA-acc details[open] summary::after{transform:rotate(45deg)}
+  #mrt-achat-{{ section.id }} .mrtA-acc .mrtA-acc-body{padding:0 2px 18px;color:var(--mrt-muted);font-size:14.5px}
+  #mrt-achat-{{ section.id }} .mrtA-acc .mrtA-acc-body ul{padding-left:18px;display:grid;gap:6px;margin:0}
+  #mrt-achat-{{ section.id }} .mrtA-acc .mrtA-acc-body strong{color:var(--mrt-ink)}
+
+  #mrt-sticky-{{ section.id }}{position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:color-mix(in srgb, {{ st.color_bg }} 96%, transparent);backdrop-filter:blur(10px);
+    border-top:1px solid var(--mrt-line);padding:10px 16px;transform:translateY(110%);transition:transform .35s ease}
+  #mrt-sticky-{{ section.id }}.is-visible{transform:translateY(0)}
+  #mrt-sticky-{{ section.id }} .mrtA-sticky-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px}
+  #mrt-sticky-{{ section.id }} img{width:44px;height:44px;border-radius:10px;object-fit:cover}
+  #mrt-sticky-{{ section.id }} .mrtA-sticky-meta{flex:1;min-width:0}
+  #mrt-sticky-{{ section.id }} .mrtA-sticky-meta b{display:block;font-size:14px;color:{{ st.color_text }};
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #mrt-sticky-{{ section.id }} .mrtA-sticky-meta span{font-size:13px;color:color-mix(in srgb, {{ st.color_text }} 60%, {{ st.color_bg }})}
+  #mrt-sticky-{{ section.id }} .mrtA-btn{width:auto;padding:13px 26px;font-size:14.5px}
+  @media(max-width:559px){#mrt-sticky-{{ section.id }} img{display:none}}
+{%- endstyle -%}
+
+{%- if product == blank -%}
+  <div style="text-align:center;padding:40px 20px;">⚠️ Cette section doit être placée sur un template <strong>produit</strong>.</div>
+{%- else -%}
+
+{%- if st.anchor_id != blank -%}<span id="{{ st.anchor_id }}"></span>{%- endif -%}
+<section id="mrt-achat-{{ section.id }}">
+  <div class="mrtA-wrap">
+
+    <div class="mrtA-gallery">
+      <div class="mrtA-main">
+        {%- if product.featured_image -%}
+          <img data-mrt-main src="{{ product.featured_image | image_url: width: 1100 }}"
+               alt="{{ product.featured_image.alt | default: product.title | escape }}" width="1100" height="1100">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      {%- if st.show_thumbs and product.images.size > 1 -%}
+        <div class="mrtA-thumbs">
+          {%- for image in product.images limit: 8 -%}
+            <div class="mrtA-thumb{% if forloop.first %} is-active{% endif %}" data-mrt-thumb="{{ image | image_url: width: 1100 }}">
+              <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | escape }}" loading="lazy" width="160" height="160">
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="mrtA-buy">
+      {%- if st.surtitle != blank -%}<p class="mrtA-brand">{{ st.surtitle | escape }}</p>{%- endif -%}
+      <h1 class="mrtA-title">{{ product.title | escape }}</h1>
+      {%- if st.pitch != blank -%}<div class="mrtA-pitch">{{ st.pitch }}</div>{%- endif -%}
+
+      <div class="mrtA-price-row">
+        <span class="mrtA-price" data-mrt-price>{{ v0.price | money }}</span>
+        <span class="mrtA-compare" data-mrt-compare {% unless v0.compare_at_price > v0.price %}hidden{% endunless %}>{{ v0.compare_at_price | money }}</span>
+        {%- if st.show_save_badge -%}
+          <span class="mrtA-save" data-mrt-save {% unless v0.compare_at_price > v0.price %}hidden{% endunless %}>Économise&nbsp;<span data-mrt-save-amt>{{ v0.compare_at_price | minus: v0.price | money }}</span></span>
+        {%- endif -%}
+      </div>
+
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          <p class="mrtA-opt-label">{{ option.name | escape }}</p>
+          <div class="mrtA-opts" data-mrt-option-index="{{ forloop.index0 }}">
+            {%- assign selected_val = option.selected_value | strip -%}
+            {%- for value in option.values -%}
+              {%- assign val_str = value | strip -%}
+              <button type="button" class="mrtA-opt{% if selected_val == val_str %} is-active{% endif %}" data-mrt-value="{{ val_str | escape }}">{{ val_str | escape }}</button>
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      {%- endunless -%}
+
+      <product-form class="product-form" data-section-id="{{ section.id }}">
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+          <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B"/>
+            <path d="M5.87 3.53l.1 4.04h1.06l.1-4.04H5.87zM6.5 9.66c.38 0 .68-.29.68-.66 0-.36-.3-.65-.68-.65-.38 0-.68.29-.68.65 0 .37.3.66.68.66z" fill="#fff"/>
+          </svg>
+          <span class="product-form__error-message"></span>
+        </div>
+
+        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ v0.id }}" disabled class="product-variant-id">
+
+          <div class="mrtA-buyrow">
+            {%- if st.show_qty -%}
+              <div class="mrtA-qty">
+                <button type="button" data-mrt-qty-minus aria-label="Réduire la quantité">−</button>
+                <input type="number" name="quantity" form="{{ product_form_id }}" data-mrt-qty value="1" min="1" aria-label="Quantité">
+                <button type="button" data-mrt-qty-plus aria-label="Augmenter la quantité">+</button>
+              </div>
+            {%- endif -%}
+            <button
+              id="ProductSubmitButton-{{ section.id }}"
+              type="submit" name="add"
+              class="mrtA-btn product-form__submit"
+              data-mrt-submit
+              {% if v0.available == false %}disabled{% endif %}
+            >
+              <span>{% if v0.available %}{{ st.button_text | default: 'Ajouter au panier' | escape }}{% else %}Épuisé{% endif %}</span>
+              <div class="loading-overlay__spinner hidden">
+                <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </div>
+            </button>
+          </div>
+        {%- endform -%}
+      </product-form>
+
+      {%- assign has_reassure = false -%}
+      {%- if st.reassure_1 != blank or st.reassure_2 != blank or st.reassure_3 != blank or st.reassure_4 != blank -%}{%- assign has_reassure = true -%}{%- endif -%}
+      {%- if has_reassure -%}
+        <div class="mrtA-reassure">
+          {%- if st.reassure_1 != blank -%}<span>{{ st.reassure_1 | escape }}</span>{%- endif -%}
+          {%- if st.reassure_2 != blank -%}<span>{{ st.reassure_2 | escape }}</span>{%- endif -%}
+          {%- if st.reassure_3 != blank -%}<span>{{ st.reassure_3 | escape }}</span>{%- endif -%}
+          {%- if st.reassure_4 != blank -%}<span>{{ st.reassure_4 | escape }}</span>{%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if st.show_delivery -%}
+        <div class="mrtA-delivery">
+          <span aria-hidden="true">📦</span>
+          <span>Commande aujourd'hui, livré entre le <b data-mrt-date-min data-days="{{ st.delivery_min }}"></b> et le <b data-mrt-date-max data-days="{{ st.delivery_max }}"></b>.</span>
+        </div>
+      {%- endif -%}
+
+      <div class="mrtA-acc">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'accordeon' and block.settings.titre != blank -%}
+            <details {% if block.settings.ouvert %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary>{% if block.settings.emoji != blank %}{{ block.settings.emoji }}&nbsp; {% endif %}{{ block.settings.titre | escape }}</summary>
+              <div class="mrtA-acc-body">{{ block.settings.contenu }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if st.show_description and product.description != blank -%}
+          <details>
+            <summary>Description</summary>
+            <div class="mrtA-acc-body">{{ product.description }}</div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if st.enable_sticky -%}
+  <div id="mrt-sticky-{{ section.id }}">
+    <div class="mrtA-sticky-in">
+      {%- if product.featured_image -%}<img src="{{ product.featured_image | image_url: width: 120 }}" alt="" width="44" height="44">{%- endif -%}
+      <div class="mrtA-sticky-meta">
+        <b>{{ product.title | escape }}</b>
+        <span data-mrt-sticky-price>{{ v0.price | money }}</span>
+      </div>
+      <button type="button" class="mrtA-btn" data-mrt-sticky-atc {% if v0.available == false %}disabled{% endif %}>
+        {{ st.button_text | default: 'Ajouter au panier' | escape }}
+      </button>
+    </div>
+  </div>
+{%- endif -%}
+
+<script type="application/json" data-mrt-variants-{{ section.id }}>
+  [{%- for v in product.variants -%}
+    {"id":{{ v.id }},"options":{{ v.options | json }},"price":{{ v.price }},"cap":{{ v.compare_at_price | default: 0 }},"available":{{ v.available }},"img":{% if v.featured_image %}{{ v.featured_image | image_url: width: 1100 | json }}{% else %}null{% endif %}}{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}]
+</script>
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-achat-{{ section.id }}');
+  if (!root) return;
+  var variants = JSON.parse(document.querySelector('[data-mrt-variants-{{ section.id }}]').textContent);
+  var money = new Intl.NumberFormat('{{ request.locale.iso_code | default: "fr-CA" }}', { style: 'currency', currency: '{{ cart.currency.iso_code | default: "CAD" }}' });
+  var fmt = function (c) { return money.format(c / 100); };
+  var idInput = document.querySelector('#{{ product_form_id }} .product-variant-id');
+  var submitBtn = root.querySelector('[data-mrt-submit]');
+  var sticky = document.getElementById('mrt-sticky-{{ section.id }}');
+
+  var mainImg = root.querySelector('[data-mrt-main]');
+  root.querySelectorAll('[data-mrt-thumb]').forEach(function (t) {
+    t.addEventListener('click', function () {
+      root.querySelectorAll('[data-mrt-thumb]').forEach(function (x) { x.classList.remove('is-active'); });
+      t.classList.add('is-active');
+      if (mainImg) { mainImg.style.opacity = 0; setTimeout(function () { mainImg.src = t.dataset.mrtThumb; mainImg.style.opacity = 1; }, 180); }
+    });
+  });
+
+  var optGroups = root.querySelectorAll('[data-mrt-option-index]');
+  var norm = function (s) { return (s || '').replace(/\s+/g, ' ').trim(); };
+  function refreshVariant() {
+    if (!optGroups.length) return;
+    var sel = Array.prototype.map.call(optGroups, function (g) {
+      var a = g.querySelector('.mrtA-opt.is-active');
+      return a ? norm(a.dataset.mrtValue) : null;
+    });
+    var current = variants.find(function (v) {
+      return v.options.every(function (o, i) { return norm(o) === sel[i]; });
+    }) || null;
+    var priceEl = root.querySelector('[data-mrt-price]');
+    var cmpEl = root.querySelector('[data-mrt-compare]');
+    var saveEl = root.querySelector('[data-mrt-save]');
+    var saveAmt = root.querySelector('[data-mrt-save-amt]');
+    var stickyPrice = sticky ? sticky.querySelector('[data-mrt-sticky-price]') : null;
+    var stickyBtn = sticky ? sticky.querySelector('[data-mrt-sticky-atc]') : null;
+    var label = submitBtn ? submitBtn.querySelector('span') : null;
+    if (current && current.available) {
+      if (idInput) { idInput.value = current.id; idInput.disabled = false; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.removeAttribute('aria-disabled'); }
+      if (stickyBtn) stickyBtn.disabled = false;
+      if (label) label.textContent = {{ st.button_text | default: 'Ajouter au panier' | json }};
+    } else {
+      if (current && idInput) { idInput.value = current.id; }
+      if (submitBtn) submitBtn.disabled = true;
+      if (stickyBtn) stickyBtn.disabled = true;
+      if (label) label.textContent = current ? 'Épuisé' : 'Indisponible';
+    }
+    if (!current) return;
+    if (priceEl) priceEl.textContent = fmt(current.price);
+    if (stickyPrice) stickyPrice.textContent = fmt(current.price);
+    var onSale = current.cap > current.price;
+    if (cmpEl) { cmpEl.hidden = !onSale; cmpEl.textContent = onSale ? fmt(current.cap) : ''; }
+    if (saveEl) saveEl.hidden = !onSale;
+    if (saveAmt && onSale) saveAmt.textContent = fmt(current.cap - current.price);
+    if (current.img && mainImg) { mainImg.style.opacity = 0; setTimeout(function () { mainImg.src = current.img; mainImg.style.opacity = 1; }, 180); }
+  }
+  optGroups.forEach(function (g) {
+    g.querySelectorAll('.mrtA-opt').forEach(function (b) {
+      b.addEventListener('click', function () {
+        g.querySelectorAll('.mrtA-opt').forEach(function (x) { x.classList.remove('is-active'); });
+        b.classList.add('is-active');
+        refreshVariant();
+      });
+    });
+  });
+  refreshVariant();
+
+  var qtyInput = root.querySelector('[data-mrt-qty]');
+  var minus = root.querySelector('[data-mrt-qty-minus]');
+  var plus = root.querySelector('[data-mrt-qty-plus]');
+  if (minus) minus.addEventListener('click', function () { qtyInput.value = Math.max(1, parseInt(qtyInput.value || 1, 10) - 1); });
+  if (plus) plus.addEventListener('click', function () { qtyInput.value = parseInt(qtyInput.value || 1, 10) + 1; });
+
+  root.querySelectorAll('[data-mrt-date-min],[data-mrt-date-max]').forEach(function (el) {
+    var d = new Date(); d.setDate(d.getDate() + parseInt(el.dataset.days, 10));
+    el.textContent = d.toLocaleDateString('fr-CA', { day: 'numeric', month: 'long' });
+  });
+
+  if (sticky) {
+    var stickyBtn = sticky.querySelector('[data-mrt-sticky-atc]');
+    if (stickyBtn) stickyBtn.addEventListener('click', function () { if (submitBtn) submitBtn.click(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        sticky.classList.toggle('is-visible', !entries[0].isIntersecting);
+      }, { rootMargin: '-80px 0px 0px 0px' }).observe(root);
+    }
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "MRT · Achat produit",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "header", "content": "Contenu" },
+    { "type": "text", "id": "anchor_id", "label": "Ancre HTML", "info": "Les boutons de la page pointant vers #acheter remonteront ici.", "default": "acheter" },
+    { "type": "text", "id": "surtitle", "label": "Sur-titre (marque)", "default": "myrootalia · soins naturels" },
+    { "type": "richtext", "id": "pitch", "label": "Pitch sous le titre", "default": "<p><strong>Le rituel du soir</strong> qui nourrit ton cuir chevelu — pour l'apparence de cheveux plus denses, en 2 minutes par jour.</p>" },
+    { "type": "text", "id": "button_text", "label": "Texte du bouton", "default": "Commencer ma routine" },
+    { "type": "checkbox", "id": "show_qty", "label": "Afficher la quantité", "default": true },
+    { "type": "checkbox", "id": "show_save_badge", "label": "Afficher le badge « Économise »", "default": true },
+    { "type": "checkbox", "id": "show_description", "label": "Description produit en accordéon", "default": false },
+    { "type": "header", "content": "Réassurance (sous le bouton)" },
+    { "type": "text", "id": "reassure_1", "label": "Puce 1", "default": "Essai 60 nuits, remboursé" },
+    { "type": "text", "id": "reassure_2", "label": "Puce 2", "default": "Livraison offerte dès 50 $" },
+    { "type": "text", "id": "reassure_3", "label": "Puce 3", "default": "Expédié du Québec" },
+    { "type": "text", "id": "reassure_4", "label": "Puce 4", "default": "Paiement sécurisé" },
+    { "type": "header", "content": "Estimation de livraison" },
+    { "type": "checkbox", "id": "show_delivery", "label": "Afficher l'estimation", "default": true },
+    { "type": "range", "id": "delivery_min", "min": 1, "max": 10, "step": 1, "unit": "j", "label": "Délai minimum", "default": 3 },
+    { "type": "range", "id": "delivery_max", "min": 2, "max": 20, "step": 1, "unit": "j", "label": "Délai maximum", "default": 8 },
+    { "type": "header", "content": "Galerie" },
+    { "type": "select", "id": "image_ratio", "label": "Ratio de l'image", "options": [
+      { "value": "square", "label": "Carré (1:1)" },
+      { "value": "portrait", "label": "Portrait (4:5)" },
+      { "value": "adapt", "label": "Adapter à l'image" }
+    ], "default": "square" },
+    { "type": "checkbox", "id": "show_thumbs", "label": "Afficher les vignettes", "default": true },
+    { "type": "checkbox", "id": "gallery_sticky", "label": "Galerie collante au défilement", "default": true },
+    { "type": "select", "id": "media_position", "label": "Position de la galerie", "options": [
+      { "value": "left", "label": "Gauche" },
+      { "value": "right", "label": "Droite" }
+    ], "default": "left" },
+    { "type": "header", "content": "Barre d'achat collante" },
+    { "type": "checkbox", "id": "enable_sticky", "label": "Activer la barre collante", "info": "Désactive-la si la barre d'achat native du thème est déjà active.", "default": false },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_text", "label": "Texte", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent (or)", "default": "#C6A15B" },
+    { "type": "color", "id": "color_btn_bg", "label": "Fond du bouton", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_btn_text", "label": "Texte du bouton", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_card_bg", "label": "Fond des cartes", "default": "#F1EAE0" },
+    { "type": "header", "content": "Espacements" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (desktop)", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (desktop)", "default": 56 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 24 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "accordeon",
+      "name": "Accordéon",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Émoji (optionnel)" },
+        { "type": "text", "id": "titre", "label": "Titre", "default": "Ingrédients & formule" },
+        { "type": "richtext", "id": "contenu", "label": "Contenu", "default": "<ul><li><strong>Huile de romarin</strong> — l'actif star des routines cuir chevelu sain.</li><li><strong>Huile de ricin</strong> — nourrit et gaine la fibre.</li><li><strong>Biotine</strong> — associée à la force des cheveux.</li><li><strong>Jojoba &amp; argan</strong> — texture légère, absorption rapide.</li></ul>" },
+        { "type": "checkbox", "id": "ouvert", "label": "Ouvert par défaut", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MRT · Achat produit",
+      "blocks": [
+        { "type": "accordeon" },
+        { "type": "accordeon", "settings": { "titre": "Comment l'utiliser", "contenu": "<ul><li><strong>Applique</strong> quelques gouttes sur cuir chevelu propre et sec.</li><li><strong>Masse</strong> 1 à 2 minutes, du front à la nuque.</li><li><strong>Laisse poser</strong> — idéalement le soir. Usage quotidien.</li></ul><p>Les résultats s'installent avec la constance, en 8 à 12 semaines.</p>" } },
+        { "type": "accordeon", "settings": { "titre": "Livraison & retours", "contenu": "<ul><li>Gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées, livré en 3 à 8 jours.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,221 +1,71 @@
 {
   "sections": {
     "main": {
-      "type": "main-product",
+      "type": "mrt-produit-achat",
       "blocks": {
-        "media": {
-          "type": "media",
+        "acc_ingredients": {
+          "type": "accordeon",
           "settings": {
-            "block_margin_bottom": 12
+            "emoji": "",
+            "titre": "Ingrédients & formule",
+            "contenu": "<ul><li><strong>Huile de romarin</strong> — l'actif star des routines cuir chevelu sain.</li><li><strong>Huile de ricin</strong> — nourrit et gaine la fibre.</li><li><strong>Biotine</strong> — associée à la force des cheveux.</li><li><strong>Jojoba &amp; argan</strong> — texture légère, absorption rapide.</li></ul><p>Sans sulfates ni parabènes. Parfum naturel léger. Vegan &amp; cruelty-free.</p>",
+            "ouvert": false
           }
         },
-        "rating": {
-          "type": "rating",
-          "disabled": true,
+        "acc_usage": {
+          "type": "accordeon",
           "settings": {
-            "stars_style": "stars",
-            "rating": 5,
-            "rating_text": " / 5 — à brancher sur ton app d'avis (Judge.me / Loox)",
-            "block_margin_bottom": 8
+            "emoji": "",
+            "titre": "Comment l'utiliser",
+            "contenu": "<ul><li><strong>Applique</strong> quelques gouttes sur cuir chevelu propre et sec.</li><li><strong>Masse</strong> 1 à 2 minutes, du front à la nuque.</li><li><strong>Laisse poser</strong> — idéalement le soir. Usage quotidien.</li></ul><p>Les résultats s'installent avec la constance, en 8 à 12 semaines.</p>",
+            "ouvert": false
           }
         },
-        "title": {
-          "type": "title",
+        "acc_livraison": {
+          "type": "accordeon",
           "settings": {
-            "heading_style": "1",
-            "show_price": false,
-            "price_color": "accent-1",
-            "block_margin_bottom": 8
-          }
-        },
-        "price": {
-          "type": "price",
-          "settings": {
-            "price_color": "text",
-            "price_font_size": 130,
-            "price_font_size_sale": 100,
-            "show_sale_badge": true,
-            "sale_badge": "Économise [amount]",
-            "block_margin_bottom": 8
-          }
-        },
-        "pitch": {
-          "type": "text",
-          "settings": {
-            "text": "<strong>Le rituel du soir</strong> qui nourrit ton cuir chevelu — pour l'apparence de cheveux plus denses, en 2 minutes par jour.",
-            "text_size": 17,
-            "text_style": "text",
-            "text_alignment": "left",
-            "color": "rgba(0,0,0,0)",
-            "bg_color": "rgba(0,0,0,0)",
-            "border_check": false,
-            "border-position": "inside",
-            "border_select": "normal",
-            "border-weight": 1,
-            "border_radius": 0,
-            "block_margin_bottom": 12
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "checked_color": "accent",
-            "custom_width": "none",
-            "flex": false,
-            "hide_label": false,
-            "bg_secondary": false,
-            "size": "small",
-            "selection": "background",
-            "size_guide": false,
-            "block_margin_bottom": 20
-          }
-        },
-        "stock": {
-          "type": "stock",
-          "settings": {
-            "stock_type": "shopify",
-            "limit": 100,
-            "disable_bar": false,
-            "enable_manual_urgency": false,
-            "text": "Plus que $quantity en stock",
-            "alignment": "left",
-            "fill_color": "accent",
-            "border": "border--none",
-            "shadow": "shadow--none",
-            "block_margin_bottom": 16
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "button_text": "Commencer ma routine",
-            "button_style": "1",
-            "icon": "none",
-            "extra_button": false,
-            "show_qty": true,
-            "show_dynamic_checkout": true,
-            "button_width": "all",
-            "block_margin_bottom": 16
-          }
-        },
-        "spin": {
-          "type": "product-spin-message",
-          "settings": {
-            "message_1": "<p>Expédié du Québec sous 24 h ouvrées</p>",
-            "message_2": "<p>Essai 60 nuits — remboursé si tu n'aimes pas</p>",
-            "message_3": "<p>Livraison gratuite dès 50 $</p>",
-            "message_4": "<p>Paiement sécurisé — Visa · MC · Amex · Shop Pay</p>",
-            "interval": 4,
-            "block_margin_bottom": 16
-          }
-        },
-        "delivery": {
-          "type": "delivery_estimation",
-          "settings": {
-            "icons_color": "accent-1",
-            "format": "dd/MM",
-            "today_info": "Commandé",
-            "ready_info": "Expédié",
-            "ready": 1,
-            "delivered_info": "Livré",
-            "delivered": 5,
-            "block_margin_bottom": 20
-          }
-        },
-        "trust": {
-          "type": "icon-with-text",
-          "settings": {
-            "icons_style": "grid",
-            "fill_color": "accent",
-            "color_bg_secondary": true,
-            "fill_fade_background": false,
-            "bg_color_icons": false,
-            "border": "border--none",
-            "shadow": "shadow--none",
-            "icon_1_icon_type": "check_mark",
-            "icon_1_text": "Essai 60 nuits",
-            "icon_1_description": "Remboursé, sans justification.",
-            "icon_1_url": "",
-            "icon_2_icon_type": "truck",
-            "icon_2_text": "Livraison offerte 50 $+",
-            "icon_2_description": "Expédié du Québec.",
-            "icon_2_url": "",
-            "icon_3_icon_type": "leaf",
-            "icon_3_text": "Actifs naturels",
-            "icon_3_description": "Formule courte et lisible.",
-            "icon_3_url": "",
-            "icon_4_icon_type": "chat_bubble",
-            "icon_4_text": "Support humain",
-            "icon_4_description": "Réponse en 24 h.",
-            "icon_4_url": "",
-            "block_margin_bottom": 20
-          }
-        },
-        "accordions": {
-          "type": "description",
-          "settings": {
-            "show_description": true,
-            "tabs_background": "secondary",
-            "icon1": "leaf",
-            "heading1": "Ingrédients & formule",
-            "text1": "<ul><li><strong>Huile de romarin</strong> — l'actif star des routines cuir chevelu sain.</li><li><strong>Huile de ricin</strong> — nourrit et gaine la fibre.</li><li><strong>Biotine</strong> — associée à la force des cheveux.</li><li><strong>Jojoba & argan</strong> — texture légère, absorption rapide.</li></ul><p>Sans sulfates ni parabènes. Parfum naturel léger. Vegan & cruelty-free.</p>",
-            "icon2": "clipboard",
-            "heading2": "Comment l'utiliser",
-            "text2": "<ul><li><strong>Applique</strong> quelques gouttes sur cuir chevelu propre et sec, à la racine grâce à l'embout.</li><li><strong>Masse</strong> 1 à 2 minutes, mouvements circulaires, du front à la nuque.</li><li><strong>Laisse poser</strong> — idéalement le soir. Usage quotidien.</li></ul><p>Les résultats s'installent avec la constance, en 8 à 12 semaines.</p>",
-            "icon3": "truck",
-            "heading3": "Livraison & retours",
-            "text3": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
-            "block_margin_bottom": 20
-          }
-        },
-        "share": {
-          "type": "share",
-          "disabled": true,
-          "settings": {
-            "share_label": "Partager",
-            "block_margin_bottom": 16
+            "emoji": "",
+            "titre": "Livraison & retours",
+            "contenu": "<ul><li>Gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées, livré en 3 à 8 jours.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
+            "ouvert": false
           }
         }
       },
       "block_order": [
-        "media",
-        "rating",
-        "title",
-        "price",
-        "pitch",
-        "variant_picker",
-        "stock",
-        "buy_buttons",
-        "spin",
-        "delivery",
-        "trust",
-        "accordions",
-        "share"
+        "acc_ingredients",
+        "acc_usage",
+        "acc_livraison"
       ],
       "settings": {
-        "section_id": "acheter",
-        "product_style": "medium",
-        "media_layout_desktop": "slider",
-        "media_thum_position": "bottom",
-        "image_ratio": "adapt",
-        "price_first": false,
-        "thumbnails_style": true,
-        "preshot": true,
-        "navigation": true,
-        "pagination": true,
-        "super_glue": true,
-        "enable_zoom": true,
-        "exclude_variant_images": true,
-        "desktop_content_alignment": "left",
-        "enable_animations": false,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 28,
-        "padding_bottom": 48,
-        "padding_top_sm": 12,
-        "padding_bottom_sm": 24,
-        "color_palette": "background-1"
+        "anchor_id": "acheter",
+        "surtitle": "myrootalia · soins naturels",
+        "pitch": "<p><strong>Le rituel du soir</strong> qui nourrit ton cuir chevelu — pour l'apparence de cheveux plus denses, en 2 minutes par jour.</p>",
+        "button_text": "Commencer ma routine",
+        "show_qty": true,
+        "show_save_badge": true,
+        "show_description": false,
+        "reassure_1": "Essai 60 nuits, remboursé",
+        "reassure_2": "Livraison offerte dès 50 $",
+        "reassure_3": "Expédié du Québec",
+        "reassure_4": "Paiement sécurisé",
+        "show_delivery": true,
+        "delivery_min": 3,
+        "delivery_max": 8,
+        "image_ratio": "square",
+        "show_thumbs": true,
+        "gallery_sticky": true,
+        "media_position": "left",
+        "enable_sticky": false,
+        "color_bg": "#FAF6EF",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "color_card_bg": "#F1EAE0",
+        "padding_top": 48,
+        "padding_bottom": 56,
+        "padding_top_sm": 24,
+        "padding_bottom_sm": 40
       }
     },
     "trust_strip": {
@@ -666,84 +516,6 @@
         "color_palette": "background-1"
       }
     },
-    "testimonials": {
-      "type": "scrolling-testimonials",
-      "disabled": true,
-      "blocks": {
-        "t0": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Trois semaines que je l'applique le soir. Mon cuir chevelu tiraille moins, et le massage est devenu mon moment à moi.",
-            "name": "Léa, 34 ans — Montréal",
-            "role": "Cliente",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "t1": {
-          "type": "testimonial",
-          "settings": {
-            "text": "J'avais peur que ça graisse — en fait non, la texture est très légère. Deux minutes le soir, montre en main.",
-            "name": "Sophie, 28 ans — Québec",
-            "role": "Cliente",
-            "verified": true,
-            "stars_rating": 4
-          }
-        },
-        "t2": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Je le combine avec le kit et le masseur. L'odeur naturelle et le geste du soir, ça change des lotions chimiques.",
-            "name": "Karim, 41 ans — Longueuil",
-            "role": "Client",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "t3": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Ce que j'aime : aucune promesse magique. Une routine, de la constance. Deux mois que je tiens, et je continue.",
-            "name": "Amélie, 31 ans — Laval",
-            "role": "Cliente",
-            "verified": true,
-            "stars_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "t0",
-        "t1",
-        "t2",
-        "t3"
-      ],
-      "settings": {
-        "scroll_direction": "left",
-        "scroll_speed": 24,
-        "pause_on_hover": true,
-        "enable_rating": true,
-        "stars_style": "stars",
-        "stars_color_source": "settings",
-        "stars_color_custom": "#efca00",
-        "equalize_review_heights": true,
-        "review_content_position": "flex-start",
-        "subheading": "Avis clients",
-        "heading": "<p>Ce que disent les premières testeuses</p>",
-        "heading_style": "2",
-        "description": "<p>Section désactivée — active-la quand tu auras 5 à 10 vrais avis de testeuses (doc 23). Jamais de faux avis.</p>",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28,
-        "color_palette": "background-2"
-      }
-    },
     "progression": {
       "type": "timeline",
       "blocks": {
@@ -1087,6 +859,190 @@
         "padding_top_sm": 28,
         "padding_bottom_sm": 28
       }
+    },
+    "temoignages": {
+      "type": "mrt-temoignages",
+      "disabled": true,
+      "blocks": {
+        "t0": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Léa M.",
+            "author_age": "34 ans",
+            "verified": true,
+            "rating": 5,
+            "review_title": "Le rituel du soir que je tiens vraiment",
+            "review_text": "Mon cuir chevelu tiraille moins et mes cheveux paraissent plus denses. Deux minutes chaque soir — je continue.",
+            "results_text": "Routine tenue 8 semaines",
+            "time_before": "Jour 0",
+            "time_after": "Semaine 8"
+          }
+        },
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Sophie R.",
+            "author_age": "28 ans",
+            "verified": true,
+            "rating": 4,
+            "review_title": "Léger, ça ne graisse pas",
+            "review_text": "J'avais peur que ça graisse — en fait non, la texture pénètre vite. Je l'applique le soir, montre en main.",
+            "results_text": "Routine tenue 6 semaines",
+            "time_before": "Jour 0",
+            "time_after": "Semaine 6"
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Amélie T.",
+            "author_age": "31 ans",
+            "verified": true,
+            "rating": 5,
+            "review_title": "Aucune promesse magique, et c'est ça que j'aime",
+            "review_text": "Une routine, de la constance. Deux mois que je tiens, et le geste du soir est devenu mon moment à moi.",
+            "results_text": "Routine tenue 9 semaines",
+            "time_before": "Jour 0",
+            "time_after": "Semaine 9"
+          }
+        }
+      },
+      "block_order": [
+        "t0",
+        "t1",
+        "t2"
+      ],
+      "settings": {
+        "show_badge": true,
+        "badge_text": "Avis vérifiés",
+        "subheading": "Avant / après",
+        "title": "Elles ont <em>tenu la routine</em>",
+        "description": "Fais glisser le curseur sur chaque photo pour comparer. Résultats individuels.",
+        "alignment": "center",
+        "show_trust_badges": true,
+        "trust_1": "Avis vérifiés",
+        "trust_2": "Essai 60 nuits",
+        "trust_3": "Expédié du Québec",
+        "scale_type_desktop": "fade",
+        "scale_type_mobile": "smooth",
+        "show_stats": false,
+        "disclaimer": "Résultats individuels. La constance fait la différence — 8 à 12 semaines.",
+        "enable_review_submission": false,
+        "show_navigation": true,
+        "show_pagination": true,
+        "enable_active_card": true,
+        "enable_autoplay": true,
+        "autoplay_delay": 5,
+        "layout_width": "container",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "bg_color": "#FAF6EF",
+        "card_bg_color": "#FFFFFF",
+        "title_color": "#1E3A2F",
+        "text_color": "#25332C",
+        "accent_color": "#C6A15B",
+        "cta_bg_color": "#1E3A2F",
+        "cta_text_color": "#FAF6EF",
+        "product_bg_color": "#F1EAE0",
+        "card_border_color": "#1E3A2F",
+        "card_border_width": 1
+      }
+    },
+    "ugc": {
+      "type": "mrt-ugc",
+      "blocks": {
+        "u0": {
+          "type": "ugc",
+          "settings": {}
+        },
+        "u1": {
+          "type": "ugc",
+          "settings": {}
+        },
+        "u2": {
+          "type": "ugc",
+          "settings": {}
+        },
+        "u3": {
+          "type": "ugc",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "u0",
+        "u1",
+        "u2",
+        "u3"
+      ],
+      "settings": {
+        "subheading": "Ils en parlent",
+        "heading": "<p>La routine, filmée par vous</p>",
+        "description": "<p>De vraies vidéos, de vraies salles de bain. Touche une vidéo pour le son.</p>",
+        "alignment": "center",
+        "inline_autoplay": true,
+        "marquee": false,
+        "marquee_speed": 40,
+        "ratio": "9/16",
+        "card_width": 250,
+        "gap": 16,
+        "show_product": true,
+        "color_bg": "#F1EAE0",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "layout_width": "full",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28
+      }
+    },
+    "stories": {
+      "type": "mrt-stories",
+      "blocks": {
+        "s0": {
+          "type": "story",
+          "settings": {}
+        },
+        "s1": {
+          "type": "story",
+          "settings": {}
+        },
+        "s2": {
+          "type": "story",
+          "settings": {}
+        },
+        "s3": {
+          "type": "story",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "subheading": "En coulisses",
+        "heading": "<p>Nos stories</p>",
+        "description": "<p>La routine en vrai, filmée par nous et par vous.</p>",
+        "alignment": "center",
+        "inline_autoplay": true,
+        "auto_advance": true,
+        "loop_stories": true,
+        "card_width": 210,
+        "gap": 16,
+        "color_bg": "#FAF6EF",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "ring_color_1": "#C6A15B",
+        "ring_color_2": "#1E3A2F",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28
+      }
     }
   },
   "order": [
@@ -1097,8 +1053,10 @@
     "solution",
     "ingredients",
     "comparison",
-    "testimonials",
+    "temoignages",
+    "ugc",
     "progression",
+    "stories",
     "faq",
     "guarantees",
     "final_cta",

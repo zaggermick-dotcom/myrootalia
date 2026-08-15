@@ -1,0 +1,361 @@
+{% comment %}
+  MRT · Stories autoplay — vraies stories façon Instagram
+  - Cartes vidéo qui se lancent toutes seules (muettes) quand elles sont visibles
+  - Clic → visionneuse plein écran : barres de progression, enchaînement auto,
+    zones tactiles précédent/suivant, bouton son, boucle
+  - Vidéos importées (recommandé) ou YouTube/Vimeo
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign story_blocks = section.blocks | where: 'type', 'story'
+-%}
+
+{%- style -%}
+  #mrt-stories-{{ section.id }}{
+    --mrtS-bg: {{ st.color_bg }};
+    --mrtS-ink: {{ st.color_text }};
+    --mrtS-accent: {{ st.color_accent }};
+    --mrtS-ring-a: {{ st.ring_color_1 }};
+    --mrtS-ring-b: {{ st.ring_color_2 }};
+    --mrtS-serif: var(--font-heading-family, Georgia, serif);
+    --mrtS-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrtS-bg); color: var(--mrtS-ink);
+    font-family: var(--mrtS-sans);
+    padding-top: {{ st.padding_top_sm }}px; padding-bottom: {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){
+    #mrt-stories-{{ section.id }}{padding-top: {{ st.padding_top }}px; padding-bottom: {{ st.padding_bottom }}px;}
+  }
+  #mrt-stories-{{ section.id }} .mrtS-wrap{max-width:{% if st.layout_width == 'full' %}100%{% else %}1180px{% endif %};margin:0 auto;padding:0 20px}
+  #mrt-stories-{{ section.id }} .mrtS-head{text-align:{{ st.alignment }};margin-bottom:32px}
+  #mrt-stories-{{ section.id }} .mrtS-kicker{display:block;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--mrtS-accent);font-weight:600;margin-bottom:12px}
+  #mrt-stories-{{ section.id }} .mrtS-h2{font-family:var(--mrtS-serif);font-weight:500;
+    font-size:clamp(26px,4vw,38px);line-height:1.2;margin:0 0 10px}
+  #mrt-stories-{{ section.id }} .mrtS-h2 p{margin:0}
+  #mrt-stories-{{ section.id }} .mrtS-desc{color:color-mix(in srgb, var(--mrtS-ink) 65%, var(--mrtS-bg));max-width:560px;
+    {% if st.alignment == 'center' %}margin:0 auto;{% endif %}}
+  #mrt-stories-{{ section.id }} .mrtS-desc p{margin:0}
+
+  #mrt-stories-{{ section.id }} .mrtS-row{display:flex;gap:{{ st.gap }}px;overflow-x:auto;
+    scroll-snap-type:x proximity;padding:8px 2px 12px;scrollbar-width:none}
+  #mrt-stories-{{ section.id }} .mrtS-row::-webkit-scrollbar{display:none}
+  #mrt-stories-{{ section.id }} .mrtS-card{flex:0 0 {{ st.card_width }}px;scroll-snap-align:start;cursor:pointer}
+  @media(max-width:749px){#mrt-stories-{{ section.id }} .mrtS-card{flex-basis:{{ st.card_width | times: 0.78 | round }}px}}
+  #mrt-stories-{{ section.id }} .mrtS-media{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;
+    background:#101a15;padding:0;border:0;width:100%;display:block;
+    box-shadow:0 18px 40px -22px rgba(21,42,33,.45);transition:transform .3s ease}
+  #mrt-stories-{{ section.id }} .mrtS-card:hover .mrtS-media{transform:translateY(-4px)}
+  #mrt-stories-{{ section.id }} .mrtS-media::before{content:"";position:absolute;inset:0;z-index:2;border-radius:18px;
+    padding:3px;background:linear-gradient(45deg,var(--mrtS-ring-a),var(--mrtS-ring-b));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  #mrt-stories-{{ section.id }} .mrtS-media img,
+  #mrt-stories-{{ section.id }} .mrtS-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #mrt-stories-{{ section.id }} .mrtS-play{position:absolute;right:10px;top:10px;z-index:3;width:34px;height:34px;
+    border-radius:50%;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);display:flex;align-items:center;
+    justify-content:center;color:#fff;font-size:13px;pointer-events:none}
+  #mrt-stories-{{ section.id }} .mrtS-name{margin:10px 2px 0;font-size:13.5px;font-weight:600;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+
+  /* ---------- visionneuse ---------- */
+  #mrtS-viewer-{{ section.id }}{position:fixed;inset:0;z-index:999;background:rgba(10,14,12,.96);
+    display:none;align-items:center;justify-content:center}
+  #mrtS-viewer-{{ section.id }}.is-open{display:flex}
+  #mrtS-viewer-{{ section.id }} .mrtS-stage{position:relative;height:min(92vh,880px);aspect-ratio:9/16;
+    max-width:94vw;border-radius:20px;overflow:hidden;background:#000}
+  #mrtS-viewer-{{ section.id }} .mrtS-slide{position:absolute;inset:0;display:none}
+  #mrtS-viewer-{{ section.id }} .mrtS-slide.is-active{display:block}
+  #mrtS-viewer-{{ section.id }} .mrtS-slide video,
+  #mrtS-viewer-{{ section.id }} .mrtS-slide iframe{width:100%;height:100%;object-fit:cover;border:0}
+  #mrtS-viewer-{{ section.id }} .mrtS-progress{position:absolute;top:10px;left:10px;right:10px;z-index:5;
+    display:flex;gap:5px}
+  #mrtS-viewer-{{ section.id }} .mrtS-seg{flex:1;height:3px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden}
+  #mrtS-viewer-{{ section.id }} .mrtS-seg i{display:block;height:100%;width:0;background:#fff;border-radius:99px}
+  #mrtS-viewer-{{ section.id }} .mrtS-seg.is-done i{width:100%}
+  #mrtS-viewer-{{ section.id }} .mrtS-topbar{position:absolute;top:24px;left:14px;right:14px;z-index:5;
+    display:flex;align-items:center;justify-content:space-between;color:#fff}
+  #mrtS-viewer-{{ section.id }} .mrtS-topbar .mrtS-who{font-size:13.5px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  #mrtS-viewer-{{ section.id }} .mrtS-ctrl{display:flex;gap:8px}
+  #mrtS-viewer-{{ section.id }} .mrtS-ctrl button{width:36px;height:36px;border-radius:50%;border:0;cursor:pointer;
+    background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:15px;display:flex;
+    align-items:center;justify-content:center}
+  #mrtS-viewer-{{ section.id }} .mrtS-tap{position:absolute;top:0;bottom:0;width:38%;z-index:4;cursor:pointer;border:0;background:none}
+  #mrtS-viewer-{{ section.id }} .mrtS-tap.prev{left:0}
+  #mrtS-viewer-{{ section.id }} .mrtS-tap.next{right:0}
+  #mrtS-viewer-{{ section.id }} .mrtS-unmute{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:5;
+    border:0;border-radius:999px;padding:10px 20px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+    color:#fff;font-size:13px;font-weight:600;cursor:pointer;display:none}
+  #mrtS-viewer-{{ section.id }} .mrtS-unmute.is-visible{display:block}
+{%- endstyle -%}
+
+<section id="mrt-stories-{{ section.id }}">
+  <div class="mrtS-wrap">
+    <div class="mrtS-head">
+      {%- if st.subheading != blank -%}<span class="mrtS-kicker">{{ st.subheading | escape }}</span>{%- endif -%}
+      {%- if st.heading != blank -%}<h2 class="mrtS-h2">{{ st.heading }}</h2>{%- endif -%}
+      {%- if st.description != blank -%}<div class="mrtS-desc">{{ st.description }}</div>{%- endif -%}
+    </div>
+
+    <div class="mrtS-row">
+      {%- for block in story_blocks -%}
+        <div class="mrtS-card" {{ block.shopify_attributes }}>
+          <button type="button" class="mrtS-media" data-mrts-open="{{ forloop.index0 }}" aria-label="Voir la story {{ block.settings.name | escape }}">
+            {%- if block.settings.video != blank and st.inline_autoplay -%}
+              {{ block.settings.video | video_tag: class: 'mrtS-inline', image_size: '600x', autoplay: false, loop: true, controls: false, muted: true, preload: 'metadata' }}
+            {%- elsif block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.name }}
+            {%- elsif block.settings.video != blank and block.settings.video.preview_image -%}
+              {{ block.settings.video.preview_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.name }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag }}
+            {%- endif -%}
+            <span class="mrtS-play" aria-hidden="true">▶</span>
+          </button>
+          {%- if block.settings.name != blank -%}<p class="mrtS-name">{{ block.settings.name | escape }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<div id="mrtS-viewer-{{ section.id }}" role="dialog" aria-modal="true" aria-label="Stories">
+  <div class="mrtS-stage">
+    <div class="mrtS-progress">
+      {%- for block in story_blocks -%}<span class="mrtS-seg"><i></i></span>{%- endfor -%}
+    </div>
+    <div class="mrtS-topbar">
+      <span class="mrtS-who" data-mrts-who></span>
+      <div class="mrtS-ctrl">
+        <button type="button" data-mrts-mute aria-label="Activer ou couper le son">🔇</button>
+        <button type="button" data-mrts-close aria-label="Fermer">✕</button>
+      </div>
+    </div>
+    {%- for block in story_blocks -%}
+      <div class="mrtS-slide"
+        data-name="{{ block.settings.name | escape }}"
+        data-duration="{{ block.settings.duration | default: 10 }}"
+        {%- if block.settings.video != blank -%}
+          data-kind="file"
+        {%- elsif block.settings.video_url != blank -%}
+          data-kind="{{ block.settings.video_url.type }}" data-vid="{{ block.settings.video_url.id }}"
+        {%- else -%}
+          data-kind="image"
+        {%- endif -%}
+      >
+        {%- if block.settings.video != blank -%}
+          {{ block.settings.video | video_tag: image_size: '1100x', autoplay: false, loop: false, controls: false, muted: true, preload: 'none', playsinline: true }}
+        {%- elsif block.settings.video_url != blank -%}
+          {%- comment -%} iframe injecté au moment de l'affichage {%- endcomment -%}
+        {%- elsif block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', alt: block.settings.name }}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+    <button type="button" class="mrtS-tap prev" data-mrts-prev aria-label="Story précédente"></button>
+    <button type="button" class="mrtS-tap next" data-mrts-next aria-label="Story suivante"></button>
+    <button type="button" class="mrtS-unmute" data-mrts-unmute>🔊 Activer le son</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-stories-{{ section.id }}');
+  var viewer = document.getElementById('mrtS-viewer-{{ section.id }}');
+  if (!root || !viewer) return;
+
+  /* ---------- autoplay muet des cartes visibles ---------- */
+  {%- if st.inline_autoplay -%}
+  var inlineVideos = root.querySelectorAll('video.mrtS-inline');
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) { v.muted = true; var p = v.play(); if (p) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.4 });
+    inlineVideos.forEach(function (v) { io.observe(v); });
+  }
+  {%- endif -%}
+
+  /* ---------- visionneuse ---------- */
+  var slides = viewer.querySelectorAll('.mrtS-slide');
+  var segs = viewer.querySelectorAll('.mrtS-seg');
+  var who = viewer.querySelector('[data-mrts-who]');
+  var unmuteBtn = viewer.querySelector('[data-mrts-unmute]');
+  var muteBtn = viewer.querySelector('[data-mrts-mute]');
+  var idx = 0, timer = null, raf = null, muted = true;
+  var autoAdvance = {{ st.auto_advance | json }};
+  var loopStories = {{ st.loop_stories | json }};
+
+  function stopMedia(slide) {
+    var v = slide.querySelector('video');
+    if (v) { v.pause(); v.currentTime = 0; }
+    var f = slide.querySelector('iframe');
+    if (f) f.remove();
+  }
+  function clearTimers() {
+    if (timer) { clearTimeout(timer); timer = null; }
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+  }
+  function fillSeg(i, ratio) { segs[i].querySelector('i').style.width = (ratio * 100) + '%'; }
+
+  function show(i) {
+    clearTimers();
+    slides.forEach(function (s, k) {
+      s.classList.toggle('is-active', k === i);
+      if (k !== i) stopMedia(s);
+      segs[k].classList.toggle('is-done', k < i);
+      if (k >= i) fillSeg(k, 0);
+    });
+    idx = i;
+    var slide = slides[i];
+    who.textContent = slide.dataset.name || '';
+    var kind = slide.dataset.kind;
+    var dur = parseFloat(slide.dataset.duration) * 1000;
+
+    if (kind === 'file') {
+      var v = slide.querySelector('video');
+      if (v) {
+        v.muted = muted; v.currentTime = 0;
+        var p = v.play(); if (p) p.catch(function () {});
+        var tick = function () {
+          if (v.duration) fillSeg(i, Math.min(1, v.currentTime / v.duration));
+          raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        v.onended = function () { fillSeg(i, 1); if (autoAdvance) next(); };
+        return;
+      }
+    }
+    if (kind === 'youtube' || kind === 'vimeo') {
+      var vid = slide.dataset.vid;
+      var src = kind === 'youtube'
+        ? 'https://www.youtube.com/embed/' + vid + '?autoplay=1&mute=' + (muted ? 1 : 0) + '&controls=0&playsinline=1&rel=0'
+        : 'https://player.vimeo.com/video/' + vid + '?autoplay=1&muted=' + (muted ? 1 : 0) + '&controls=0';
+      var f = document.createElement('iframe');
+      f.src = src; f.allow = 'autoplay; encrypted-media'; f.allowFullscreen = true;
+      slide.appendChild(f);
+    }
+    /* image ou iframe : progression au minuteur */
+    var t0 = performance.now();
+    var tick2 = function (now) {
+      var r = Math.min(1, (now - t0) / dur);
+      fillSeg(i, r);
+      if (r < 1) raf = requestAnimationFrame(tick2);
+    };
+    raf = requestAnimationFrame(tick2);
+    if (autoAdvance) timer = setTimeout(next, dur);
+  }
+  function next() {
+    if (idx < slides.length - 1) show(idx + 1);
+    else if (loopStories) show(0);
+    else close();
+  }
+  function prev() { show(idx > 0 ? idx - 1 : 0); }
+  function open(i) {
+    viewer.classList.add('is-open');
+    document.documentElement.style.overflow = 'hidden';
+    muted = true;
+    muteBtn.textContent = '🔇';
+    unmuteBtn.classList.add('is-visible');
+    show(i);
+  }
+  function close() {
+    clearTimers();
+    slides.forEach(stopMedia);
+    viewer.classList.remove('is-open');
+    document.documentElement.style.overflow = '';
+  }
+  function setMuted(m) {
+    muted = m;
+    muteBtn.textContent = m ? '🔇' : '🔊';
+    unmuteBtn.classList.toggle('is-visible', m);
+    var v = slides[idx].querySelector('video');
+    if (v) v.muted = m;
+    else if (slides[idx].querySelector('iframe')) show(idx); /* recharge l'iframe avec le bon état son */
+  }
+
+  root.querySelectorAll('[data-mrts-open]').forEach(function (b) {
+    b.addEventListener('click', function () { open(parseInt(b.dataset.mrtsOpen, 10)); });
+  });
+  viewer.querySelector('[data-mrts-close]').addEventListener('click', close);
+  viewer.querySelector('[data-mrts-next]').addEventListener('click', next);
+  viewer.querySelector('[data-mrts-prev]').addEventListener('click', prev);
+  unmuteBtn.addEventListener('click', function () { setMuted(false); });
+  muteBtn.addEventListener('click', function () { setMuted(!muted); });
+  viewer.addEventListener('click', function (e) { if (e.target === viewer) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!viewer.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MRT · Stories autoplay",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "subheading", "label": "Sur-titre", "default": "En coulisses" },
+    { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>Nos stories</p>" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>La routine en vrai, filmée par nous et par vous.</p>" },
+    { "type": "select", "id": "alignment", "label": "Alignement", "options": [
+      { "value": "left", "label": "Gauche" },
+      { "value": "center", "label": "Centre" },
+      { "value": "right", "label": "Droite" }
+    ], "default": "center" },
+    { "type": "header", "content": "Lecture automatique" },
+    { "type": "checkbox", "id": "inline_autoplay", "label": "Lire les vidéos en muet dans les cartes", "info": "Vidéos importées uniquement. Lecture dès qu'une carte est visible.", "default": true },
+    { "type": "checkbox", "id": "auto_advance", "label": "Enchaîner les stories automatiquement", "default": true },
+    { "type": "checkbox", "id": "loop_stories", "label": "Recommencer à la fin", "default": true },
+    { "type": "header", "content": "Cartes" },
+    { "type": "range", "id": "card_width", "min": 120, "max": 320, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 210 },
+    { "type": "range", "id": "gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 16 },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_text", "label": "Texte", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent", "default": "#C6A15B" },
+    { "type": "color", "id": "ring_color_1", "label": "Anneau — couleur 1", "default": "#C6A15B" },
+    { "type": "color", "id": "ring_color_2", "label": "Anneau — couleur 2", "default": "#1E3A2F" },
+    { "type": "header", "content": "Mise en page" },
+    { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
+      { "value": "normal", "label": "Page" },
+      { "value": "full", "label": "Pleine largeur" }
+    ], "default": "normal" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (desktop)", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (desktop)", "default": 56 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 28 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nom / légende", "default": "@myrootalia" },
+        { "type": "image_picker", "id": "image", "label": "Image de couverture", "info": "Utilisée si la lecture auto des cartes est coupée ou pour les vidéos YouTube/Vimeo." },
+        { "type": "video", "id": "video", "label": "Vidéo (importée — recommandé)" },
+        { "type": "video_url", "id": "video_url", "accept": ["youtube", "vimeo"], "label": "Ou vidéo YouTube / Vimeo" },
+        { "type": "range", "id": "duration", "min": 3, "max": 30, "step": 1, "unit": "s", "label": "Durée (YouTube/Vimeo/image)", "default": 10 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MRT · Stories autoplay",
+      "category": "Storytelling",
+      "blocks": [
+        { "type": "story" }, { "type": "story" }, { "type": "story" }, { "type": "story" }, { "type": "story" }
+      ]
+    }
+  ]
+}
+{% endschema %}

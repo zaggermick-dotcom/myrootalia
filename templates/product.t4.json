@@ -1,0 +1,156 @@
+{
+  "sections": {
+    "guarantees": {
+      "type": "mrt-icones",
+      "blocks": {
+        "g0": {
+          "type": "icone",
+          "settings": {
+            "icone": "bouclier",
+            "titre": "Essai 60 nuits",
+            "texte": "<p>Remboursé, sans justification.</p>"
+          }
+        },
+        "g1": {
+          "type": "icone",
+          "settings": {
+            "icone": "camion",
+            "titre": "Livraison offerte dès 50 $",
+            "texte": "<p>Expédié du Québec sous 24 h.</p>"
+          }
+        },
+        "g2": {
+          "type": "icone",
+          "settings": {
+            "icone": "bulle",
+            "titre": "Support humain",
+            "texte": "<p>On répond en moins de 24 h.</p>"
+          }
+        },
+        "g3": {
+          "type": "icone",
+          "settings": {
+            "icone": "cadenas",
+            "titre": "Paiement sécurisé",
+            "texte": "<p>Visa · Mastercard · Amex · Shop Pay.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "g0",
+        "g1",
+        "g2",
+        "g3"
+      ],
+      "settings": {
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "kicker": "Nos engagements",
+        "title": "<p>On te couvre <em>à chaque étape</em></p>",
+        "description": "",
+        "alignment": "center",
+        "title_size": 34,
+        "header_gap": 44,
+        "style": "epure",
+        "item_alignment": "center",
+        "icon_shape": "cercle_borde",
+        "icon_size": 54,
+        "icon_gap": 14,
+        "card_radius": 18,
+        "card_padding": 24,
+        "item_title_size": 17,
+        "item_text_size": 13,
+        "columns": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "gap": 24,
+        "gap_mobile": 18,
+        "layout_width": "normal",
+        "cta_text": "",
+        "cta_link": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_sm": 40,
+        "padding_bottom_sm": 40
+      }
+    },
+    "final_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Prêt·e à commencer ?",
+            "heading": "<p>Repars de la racine.</p>",
+            "heading_style": "2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Deux minutes par jour, de vrais ingrédients — et 60 nuits pour te décider.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "b": {
+          "type": "button",
+          "settings": {
+            "button_text": "Commencer ma routine",
+            "button_link": "",
+            "button_style": "1",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t",
+        "b"
+      ],
+      "settings": {
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 64,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1"
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "subheading": "Complète ta routine",
+        "heading": "<p>Ça se marie bien avec</p>",
+        "heading_style": "2",
+        "alignment": "center",
+        "limit": 4,
+        "media_aspect_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "slides_on_desktop": 4,
+        "slides_on_tablet": 3,
+        "slides_on_mobile": "2",
+        "layout_width": "normal",
+        "color_palette": "background-1",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28
+      }
+    }
+  },
+  "order": [
+    "guarantees",
+    "final_cta",
+    "related"
+  ]
+}

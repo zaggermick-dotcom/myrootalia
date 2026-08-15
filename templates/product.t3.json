@@ -1,0 +1,313 @@
+{
+  "sections": {
+    "ugc": {
+      "type": "mrt-ugc",
+      "blocks": {
+        "u0": {
+          "type": "ugc",
+          "settings": {}
+        },
+        "u1": {
+          "type": "ugc",
+          "settings": {}
+        },
+        "u2": {
+          "type": "ugc",
+          "settings": {}
+        },
+        "u3": {
+          "type": "ugc",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "u0",
+        "u1",
+        "u2",
+        "u3"
+      ],
+      "settings": {
+        "subheading": "Ils en parlent",
+        "heading": "<p>La routine, filmée par vous</p>",
+        "description": "<p>De vraies vidéos, de vraies salles de bain. Touche une vidéo pour le son.</p>",
+        "alignment": "center",
+        "inline_autoplay": true,
+        "marquee": false,
+        "marquee_speed": 40,
+        "ratio": "9/16",
+        "card_width": 250,
+        "gap": 16,
+        "show_product": true,
+        "color_bg": "#F1EAE0",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "layout_width": "full",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28
+      }
+    },
+    "chronologie": {
+      "type": "mrt-chronologie",
+      "blocks": {
+        "w0": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 1–2",
+            "titre": "Le rituel s'installe.",
+            "icone": "lune",
+            "texte": "<p>Deux minutes chaque soir. Le cuir chevelu est nourri, le massage détend.</p>"
+          }
+        },
+        "w1": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 3–4",
+            "titre": "Le confort d'abord.",
+            "icone": "feuille",
+            "texte": "<p>Cuir chevelu plus confortable, moins de tiraillements pour la plupart.</p>"
+          }
+        },
+        "w2": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 5–8",
+            "titre": "La fibre est gainée.",
+            "icone": "goutte",
+            "texte": "<p>Les cheveux sont mieux nourris et la casse tend à diminuer.</p>"
+          }
+        },
+        "w3": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 8–12",
+            "titre": "Le cap des résultats.",
+            "icone": "etincelle",
+            "texte": "<p>Avec la constance, les cheveux paraissent visiblement plus denses.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "w0",
+        "w1",
+        "w2",
+        "w3"
+      ],
+      "settings": {
+        "kicker": "Ta progression",
+        "title": "<p>8 à 12 semaines, <em>en toute honnêteté</em></p>",
+        "description": "<p>Chaque cuir chevelu a son rythme. Voici le déroulé habituel.</p>",
+        "title_size": 36,
+        "header_gap": 52,
+        "layout": "alternee",
+        "layout_width": "normal",
+        "gap": 32,
+        "content_gap": 22,
+        "dot_content": "icone",
+        "dot_style": "contour",
+        "dot_size": 44,
+        "dot_halo": 5,
+        "line_style": "pointille",
+        "line_width": 2,
+        "card_style": true,
+        "card_radius": 16,
+        "card_padding": 24,
+        "item_title_size": 21,
+        "item_text_size": 15,
+        "cta_note": "",
+        "cta_text": "",
+        "cta_link": "",
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_line": "#DDD3C4",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_sm": 44,
+        "padding_bottom_sm": 44
+      }
+    },
+    "stories": {
+      "type": "mrt-stories",
+      "blocks": {
+        "s0": {
+          "type": "story",
+          "settings": {}
+        },
+        "s1": {
+          "type": "story",
+          "settings": {}
+        },
+        "s2": {
+          "type": "story",
+          "settings": {}
+        },
+        "s3": {
+          "type": "story",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "subheading": "En coulisses",
+        "heading": "<p>Nos stories</p>",
+        "description": "<p>La routine en vrai, filmée par nous et par vous.</p>",
+        "alignment": "center",
+        "inline_autoplay": true,
+        "auto_advance": true,
+        "loop_stories": true,
+        "card_width": 210,
+        "gap": 16,
+        "color_bg": "#FAF6EF",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "ring_color_1": "#C6A15B",
+        "ring_color_2": "#1E3A2F",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28
+      }
+    },
+    "faq": {
+      "type": "mrt-reductible",
+      "blocks": {
+        "q0": {
+          "type": "ligne",
+          "settings": {
+            "icone": "chrono",
+            "question": "En combien de temps je vois des résultats ?",
+            "reponse": "<p>Compte 8 à 12 semaines d'usage quotidien. Le confort du cuir chevelu se ressent souvent bien avant. C'est la constance qui fait tout.</p>",
+            "ouvert": true
+          }
+        },
+        "q1": {
+          "type": "ligne",
+          "settings": {
+            "icone": "personnes",
+            "question": "Pour qui est ce produit ?",
+            "reponse": "<p>Pour toutes et tous : cheveux fins, cheveux qui s'affinent, cuir chevelu sec ou négligé. Dès 18 ans.</p>"
+          }
+        },
+        "q2": {
+          "type": "ligne",
+          "settings": {
+            "icone": "goutte",
+            "question": "Est-ce que ça graisse les cheveux ?",
+            "reponse": "<p>Non. La texture est légère et pénètre vite. Si tu préfères, applique-le le soir — il aura la nuit pour agir.</p>"
+          }
+        },
+        "q3": {
+          "type": "ligne",
+          "settings": {
+            "icone": "cuir_chevelu",
+            "question": "Est-ce que ça fait repousser les cheveux ?",
+            "reponse": "<p>On ne fera jamais cette promesse : c'est un soin cosmétique, pas un traitement médical. Il nourrit le cuir chevelu et favorise l'apparence de cheveux plus denses. En cas de chute soudaine ou importante, consulte un professionnel de santé.</p>"
+          }
+        },
+        "q4": {
+          "type": "ligne",
+          "settings": {
+            "icone": "liste",
+            "question": "Qu'est-ce qu'il y a dedans ?",
+            "reponse": "<p>Huile de romarin, huile de ricin, biotine et des huiles support (jojoba, argan). Sans sulfates ni parabènes, vegan et cruelty-free. La liste complète est sur l'étiquette.</p>"
+          }
+        },
+        "q5": {
+          "type": "ligne",
+          "settings": {
+            "icone": "feuille",
+            "question": "Ça convient aux cheveux colorés ou traités ?",
+            "reponse": "<p>Oui. La formule est douce, sans sulfates, et s'applique sur le cuir chevelu. Après une coloration très récente, attends quelques jours.</p>"
+          }
+        },
+        "q6": {
+          "type": "ligne",
+          "settings": {
+            "icone": "rafraichir",
+            "question": "Comment fonctionne l'abonnement ?",
+            "reponse": "<p>-15 % sur chaque flacon, livré automatiquement chaque mois. Sans engagement : pause ou annulation en deux clics.</p>"
+          }
+        },
+        "q7": {
+          "type": "ligne",
+          "settings": {
+            "icone": "retour",
+            "question": "Et si ça ne me convient pas ?",
+            "reponse": "<p>Essai 60 nuits. Tu nous écris, on te rembourse, on ne discute pas.</p>"
+          }
+        },
+        "q8": {
+          "type": "ligne",
+          "settings": {
+            "icone": "camion",
+            "question": "Livraison et délais ?",
+            "reponse": "<p>Gratuite au Canada dès 50 $, sinon 6,99 $. Expédié du Québec sous 24 à 48 h ouvrées, livré en 3 à 8 jours. Paiement sécurisé : Visa, Mastercard, Amex, Shop Pay.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "kicker": "FAQ",
+        "title": "<p>Les questions <em>qu'on nous pose</em></p>",
+        "description": "<p>Et nos réponses, sans détour.</p>",
+        "alignment": "left",
+        "title_size": 36,
+        "header_gap": 44,
+        "layout": "deux_colonnes",
+        "layout_width": "normal",
+        "style": "carte",
+        "exclusive": true,
+        "indent_answer": true,
+        "radius": 14,
+        "gap": 10,
+        "row_padding": 18,
+        "icon_size": 36,
+        "question_size": 16,
+        "answer_size": 15,
+        "foot_note": "Une autre question ? Écris-nous, on répond en moins de 24 h.",
+        "cta_text": "",
+        "cta_link": "",
+        "seo_schema": true,
+        "color_bg": "#F1EAE0",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_sm": 44,
+        "padding_bottom_sm": 44
+      }
+    }
+  },
+  "order": [
+    "ugc",
+    "chronologie",
+    "stories",
+    "faq"
+  ]
+}

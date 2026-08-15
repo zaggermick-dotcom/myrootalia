@@ -1,0 +1,239 @@
+{
+  "sections": {
+    "main": {
+      "type": "mrt-produit-achat",
+      "blocks": {
+        "acc_ingredients": {
+          "type": "accordeon",
+          "settings": {
+            "emoji": "",
+            "titre": "Ingrédients & formule",
+            "contenu": "<ul><li><strong>Huile de romarin</strong> — l'actif star des routines cuir chevelu sain.</li><li><strong>Huile de ricin</strong> — nourrit et gaine la fibre.</li><li><strong>Biotine</strong> — associée à la force des cheveux.</li><li><strong>Jojoba &amp; argan</strong> — texture légère, absorption rapide.</li></ul><p>Sans sulfates ni parabènes. Parfum naturel léger. Vegan &amp; cruelty-free.</p>",
+            "ouvert": false
+          }
+        },
+        "acc_usage": {
+          "type": "accordeon",
+          "settings": {
+            "emoji": "",
+            "titre": "Comment l'utiliser",
+            "contenu": "<ul><li><strong>Applique</strong> quelques gouttes sur cuir chevelu propre et sec.</li><li><strong>Masse</strong> 1 à 2 minutes, du front à la nuque.</li><li><strong>Laisse poser</strong> — idéalement le soir. Usage quotidien.</li></ul><p>Les résultats s'installent avec la constance, en 8 à 12 semaines.</p>",
+            "ouvert": false
+          }
+        },
+        "acc_livraison": {
+          "type": "accordeon",
+          "settings": {
+            "emoji": "",
+            "titre": "Livraison & retours",
+            "contenu": "<ul><li>Gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées, livré en 3 à 8 jours.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
+            "ouvert": false
+          }
+        }
+      },
+      "block_order": [
+        "acc_ingredients",
+        "acc_usage",
+        "acc_livraison"
+      ],
+      "settings": {
+        "anchor_id": "acheter",
+        "surtitle": "myrootalia · soins naturels",
+        "pitch": "<p><strong>Le rituel du soir</strong> qui nourrit ton cuir chevelu — pour l'apparence de cheveux plus denses, en 2 minutes par jour.</p>",
+        "button_text": "Commencer ma routine",
+        "show_qty": true,
+        "show_save_badge": true,
+        "show_description": false,
+        "reassure_1": "Essai 60 nuits, remboursé",
+        "reassure_2": "Livraison offerte dès 50 $",
+        "reassure_3": "Expédié du Québec",
+        "reassure_4": "Paiement sécurisé",
+        "show_delivery": true,
+        "delivery_min": 3,
+        "delivery_max": 8,
+        "image_ratio": "square",
+        "show_thumbs": true,
+        "gallery_sticky": true,
+        "media_position": "left",
+        "enable_sticky": false,
+        "color_bg": "#FAF6EF",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "color_card_bg": "#F1EAE0",
+        "padding_top": 48,
+        "padding_bottom": 56,
+        "padding_top_sm": 24,
+        "padding_bottom_sm": 40
+      }
+    },
+    "trust_strip": {
+      "type": "marquee",
+      "blocks": {
+        "m0": {
+          "type": "marquee",
+          "settings": {
+            "description": "Essai 60 nuits"
+          }
+        },
+        "m1": {
+          "type": "marquee",
+          "settings": {
+            "description": "Livraison gratuite dès 50 $"
+          }
+        },
+        "m2": {
+          "type": "marquee",
+          "settings": {
+            "description": "Expédié du Québec"
+          }
+        },
+        "m3": {
+          "type": "marquee",
+          "settings": {
+            "description": "Support humain sous 24 h"
+          }
+        },
+        "m4": {
+          "type": "marquee",
+          "settings": {
+            "description": "Actifs naturels"
+          }
+        }
+      },
+      "block_order": [
+        "m0",
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ],
+      "settings": {
+        "uppercase": true,
+        "bolder": false,
+        "font_family": "body",
+        "font_size_desktop": 14,
+        "font_size_mobile": 12,
+        "delay": 30,
+        "layout_width": "full",
+        "color_palette": "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "padding_top_sm": 12,
+        "padding_bottom_sm": 12
+      }
+    },
+    "benefits": {
+      "type": "mrt-icones",
+      "blocks": {
+        "b0": {
+          "type": "icone",
+          "settings": {
+            "icone": "cuir_chevelu",
+            "titre": "Cuir chevelu sain",
+            "texte": "<p>Apaise et nourrit le cuir chevelu — le sol où tout commence.</p>"
+          }
+        },
+        "b1": {
+          "type": "icone",
+          "settings": {
+            "icone": "cheveux",
+            "titre": "Moins de casse",
+            "texte": "<p>Des huiles qui gainent la fibre et aident à réduire la casse.</p>"
+          }
+        },
+        "b2": {
+          "type": "icone",
+          "settings": {
+            "icone": "etincelle",
+            "titre": "Densité visible",
+            "texte": "<p>Favorise l'apparence de cheveux plus denses, avec la constance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b0",
+        "b1",
+        "b2"
+      ],
+      "settings": {
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "kicker": "Les bénéfices",
+        "title": "<p>Trois raisons d'en faire <em>ton rituel</em></p>",
+        "description": "",
+        "alignment": "center",
+        "title_size": 36,
+        "header_gap": 44,
+        "style": "carte_bordee",
+        "item_alignment": "center",
+        "icon_shape": "cercle",
+        "icon_size": 58,
+        "icon_gap": 16,
+        "card_radius": 18,
+        "card_padding": 30,
+        "item_title_size": 20,
+        "item_text_size": 14,
+        "columns": 3,
+        "columns_tablet": 2,
+        "columns_mobile": 1,
+        "gap": 24,
+        "gap_mobile": 16,
+        "layout_width": "normal",
+        "cta_text": "",
+        "cta_link": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_sm": 40,
+        "padding_bottom_sm": 40
+      }
+    },
+    "problem": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Le problème",
+            "heading": "<p>Cheveux qui s'affinent, cuir chevelu oublié ?</p>",
+            "heading_style": "2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "description": "<p>On empile les shampoings, les masques, les promesses. La plupart des solutions sont chimiques, compliquées — ou juste décevantes.</p><p>Pendant ce temps, le cuir chevelu, lui, reste négligé. C'est pourtant là que tout commence.</p><p><strong>myrootalia repart de la base :</strong> nourrir la racine avec des actifs naturels, 2 minutes par jour.</p>",
+            "color_bold_words": "text"
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t"
+      ],
+      "settings": {
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust_strip",
+    "benefits",
+    "problem"
+  ]
+}

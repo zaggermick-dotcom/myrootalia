@@ -52,6 +52,12 @@ def verifier_reglages(reglages, ou, fichier, erreurs):
         if r.get("type") != "range":
             continue
         rid, mini, maxi, pas = r.get("id"), r["min"], r["max"], r["step"]
+        # un pas décimal fait rejeter la section entière (constaté sur la boutique) :
+        # exprimer la valeur en entier (ex. un interligne en %) et diviser côté CSS
+        if any(isinstance(v, float) and not float(v).is_integer() for v in (mini, maxi, pas)):
+            erreurs.append(
+                f"{fichier} · {ou}.{rid} : pas ou bornes décimales — utiliser des entiers"
+            )
         crans = (maxi - mini) / pas
         if abs(crans - round(crans)) > 1e-6:
             erreurs.append(

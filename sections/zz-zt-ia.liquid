@@ -1,0 +1,223 @@
+<div>x</div>
+{% schema %}
+{
+  "name": "zt ia",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Sur-titre",
+      "default": "Les bénéfices"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Titre",
+      "default": "<p>Trois raisons d'en faire <em>ton rituel</em></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignement de l'en-tête",
+      "options": [
+        {
+          "value": "left",
+          "label": "Gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        },
+        {
+          "value": "right",
+          "label": "Droite"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille du titre",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Espace sous l'en-tête",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Présentation",
+      "options": [
+        {
+          "value": "epure",
+          "label": "Épuré (sans carte)"
+        },
+        {
+          "value": "carte",
+          "label": "Cartes avec ombre"
+        },
+        {
+          "value": "carte_bordee",
+          "label": "Cartes avec bordure"
+        },
+        {
+          "value": "ligne",
+          "label": "Icône à gauche du texte"
+        }
+      ],
+      "default": "carte_bordee"
+    },
+    {
+      "type": "select",
+      "id": "item_alignment",
+      "label": "Alignement du contenu",
+      "options": [
+        {
+          "value": "center",
+          "label": "Centré"
+        },
+        {
+          "value": "left",
+          "label": "À gauche"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "icon_shape",
+      "label": "Forme de l'icône",
+      "options": [
+        {
+          "value": "cercle",
+          "label": "Cercle plein"
+        },
+        {
+          "value": "cercle_borde",
+          "label": "Cercle bordé"
+        },
+        {
+          "value": "losange",
+          "label": "Losange"
+        },
+        {
+          "value": "aucune",
+          "label": "Icône seule"
+        }
+      ],
+      "default": "cercle"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 32,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Taille de l'icône",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "min": 6,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Espace icône / texte",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Arrondi des cartes",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 14,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Marge intérieure des cartes",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "item_title_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille des titres",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "item_text_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille des textes",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Grille"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "col",
+      "label": "Colonnes (desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "col",
+      "label": "Colonnes (tablette)",
+      "default": 2
+    }
+  ]
+}
+{% endschema %}

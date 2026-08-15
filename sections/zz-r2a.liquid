@@ -1,0 +1,46 @@
+<div>x</div>
+{% schema %}
+{
+  "name": "ZZ R2A",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "Commencer ma routine"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton",
+      "info": "Laisse #acheter pour remonter au bloc d'achat de la page produit."
+    },
+    {
+      "type": "range",
+      "id": "cta_gap",
+      "min": 20,
+      "max": 90,
+      "step": 4,
+      "unit": "px",
+      "label": "Espace au-dessus du bouton",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Grille"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "unit": "col",
+      "label": "Colonnes (desktop)",
+      "default": 3
+    }
+  ]
+}
+{% endschema %}

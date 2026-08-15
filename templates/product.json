@@ -195,38 +195,135 @@
       }
     },
     "problem": {
-      "type": "rich-text",
+      "type": "mrt-texte",
       "blocks": {
-        "h": {
-          "type": "heading",
+        "k": {
+          "type": "surtitre",
           "settings": {
-            "subheading": "Le problème",
-            "heading": "<p>Cheveux qui s'affinent, cuir chevelu oublié ?</p>",
-            "heading_style": "2"
+            "texte": "Le problème"
           }
         },
-        "t": {
-          "type": "text",
+        "h": {
+          "type": "titre",
           "settings": {
-            "description": "<p>On empile les shampoings, les masques, les promesses. La plupart des solutions sont chimiques, compliquées — ou juste décevantes.</p><p>Pendant ce temps, le cuir chevelu, lui, reste négligé. C'est pourtant là que tout commence.</p><p><strong>myrootalia repart de la base :</strong> nourrir la racine avec des actifs naturels, 2 minutes par jour.</p>",
-            "color_bold_words": "text"
+            "texte": "<p>Cheveux qui s'affinent, <em>cuir chevelu oublié</em> ?</p>",
+            "niveau": "h2"
+          }
+        },
+        "t1": {
+          "type": "texte",
+          "settings": {
+            "texte": "<p>On empile les shampoings, les masques, les promesses. La plupart des solutions sont chimiques, compliquées — ou juste décevantes.</p>",
+            "lettrine": false
+          }
+        },
+        "t2": {
+          "type": "texte",
+          "settings": {
+            "texte": "<p>Pendant ce temps, le cuir chevelu, lui, reste négligé. <strong>C'est pourtant là que tout commence.</strong></p>",
+            "lettrine": false
+          }
+        },
+        "li": {
+          "type": "puces",
+          "settings": {
+            "icone": "croix_cercle",
+            "texte": "Des formules à rallonge qu'on ne comprend pas\nDes routines trop longues qu'on abandonne\nDes promesses de repousse jamais tenues"
+          }
+        },
+        "f": {
+          "type": "filet",
+          "settings": {
+            "largeur": 80
+          }
+        },
+        "q": {
+          "type": "citation",
+          "settings": {
+            "texte": "<p>myrootalia repart de la base : nourrir la racine avec des actifs naturels, deux minutes par jour.</p>",
+            "auteur": ""
+          }
+        },
+        "b": {
+          "type": "bouton",
+          "settings": {
+            "texte": "Voir la routine",
+            "lien": "",
+            "style": "2",
+            "fleche": true,
+            "texte_2": "",
+            "lien_2": "",
+            "style_2": "2"
           }
         }
       },
       "block_order": [
+        "k",
         "h",
-        "t"
+        "t1",
+        "t2",
+        "li",
+        "f",
+        "q",
+        "b"
       ],
       "settings": {
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28,
-        "color_palette": "background-2"
+        "layout": "image_gauche",
+        "layout_width": "normale",
+        "content_max_width": 660,
+        "text_ratio": 50,
+        "split_gap": 56,
+        "split_gap_mobile": 28,
+        "vertical_align": "center",
+        "image_first_mobile": true,
+        "text_align": "left",
+        "text_align_mobile": "left",
+        "block_gap": 18,
+        "block_gap_mobile": 14,
+        "side_padding": 20,
+        "image_alt": "Cuir chevelu et racines — le point de départ de la routine myrootalia",
+        "image_caption": "",
+        "image_ratio": "4/5",
+        "image_radius": 18,
+        "focal_x": 50,
+        "focal_y": 50,
+        "image_shadow": true,
+        "image_zoom": true,
+        "image_frame": true,
+        "frame_inset": 14,
+        "bg_min_height": 540,
+        "bg_min_height_mobile": 420,
+        "overlay_style": "degrade_bas",
+        "overlay_color": "#1E3A2F",
+        "overlay_opacity": 55,
+        "kicker_size": 12,
+        "kicker_rules": "un",
+        "title_size": 40,
+        "title_size_mobile": 28,
+        "title_weight": 500,
+        "title_leading": 1.16,
+        "text_size": 16,
+        "text_size_mobile": 15,
+        "text_leading": 1.7,
+        "first_letter": false,
+        "quote_size": 23,
+        "quote_style": "filet",
+        "stat_size": 46,
+        "button_size": 15,
+        "button_padding_x": 34,
+        "button_padding_y": 16,
+        "button_radius": 40,
+        "buttons_full_mobile": true,
+        "color_bg": "#F1EAE0",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_sm": 44,
+        "padding_bottom_sm": 44
       }
     },
     "comparison": {

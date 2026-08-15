@@ -36,17 +36,36 @@
   #mrt-ugc-{{ section.id }} .mrtU-desc p{margin:0}
 
   #mrt-ugc-{{ section.id }} .mrtU-slider{position:relative}
-  #mrt-ugc-{{ section.id }} .mrtU-track{display:flex;gap:{{ st.gap }}px;
-    {% if st.marquee %}width:max-content;animation:mrtUmarq {{ st.marquee_speed }}s linear infinite;
-    {% else %}overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:8px;{% endif %}}
-  #mrt-ugc-{{ section.id }} .mrtU-track::-webkit-scrollbar{display:none}
-  {% if st.marquee %}
+  {%- if st.marquee -%}
+  #mrt-ugc-{{ section.id }} .mrtU-viewport{overflow:hidden}
+  #mrt-ugc-{{ section.id }} .mrtU-track{display:flex;gap:{{ st.gap }}px;width:max-content;
+    animation:mrtUmarq {{ st.marquee_speed }}s linear infinite}
   #mrt-ugc-{{ section.id }} .mrtU-track:hover{animation-play-state:paused}
   @keyframes mrtUmarq{to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){#mrt-ugc-{{ section.id }} .mrtU-track{animation:none;width:auto;overflow-x:auto}}
-  {% endif %}
+  @media(prefers-reduced-motion:reduce){#mrt-ugc-{{ section.id }} .mrtU-track{animation:none;width:auto}
+    #mrt-ugc-{{ section.id }} .mrtU-viewport{overflow-x:auto}}
+  {%- else -%}
+  /* la piste porte le centrage : margin auto centre tant qu'il reste de la place */
+  #mrt-ugc-{{ section.id }} .mrtU-viewport{display:flex;overflow-x:auto;
+    scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:8px}
+  #mrt-ugc-{{ section.id }} .mrtU-viewport::-webkit-scrollbar{display:none}
+  #mrt-ugc-{{ section.id }} .mrtU-track{display:flex;gap:{{ st.gap }}px;padding-inline:2px;
+    margin-inline:{% if st.cards_alignment == 'center' %}auto{% elsif st.cards_alignment == 'right' %}auto 0{% else %}0 auto{% endif %}}
+  @media(max-width:1024px){#mrt-ugc-{{ section.id }} .mrtU-track{gap:{{ st.gap_tablet }}px;
+    margin-inline:{% if st.cards_alignment_tablet == 'center' %}auto{% elsif st.cards_alignment_tablet == 'right' %}auto 0{% else %}0 auto{% endif %}}}
+  @media(max-width:749px){#mrt-ugc-{{ section.id }} .mrtU-track{gap:{{ st.gap_mobile }}px;
+    margin-inline:{% if st.cards_alignment_mobile == 'center' %}auto{% elsif st.cards_alignment_mobile == 'right' %}auto 0{% else %}0 auto{% endif %}}}
+  {%- endif -%}
   #mrt-ugc-{{ section.id }} .mrtU-card{flex:0 0 {{ st.card_width }}px;scroll-snap-align:start}
-  @media(max-width:749px){#mrt-ugc-{{ section.id }} .mrtU-card{flex-basis:{{ st.card_width | times: 0.8 | round }}px}}
+  @media(max-width:1024px){#mrt-ugc-{{ section.id }} .mrtU-card{flex-basis:{{ st.card_width_tablet }}px}}
+  @media(max-width:749px){#mrt-ugc-{{ section.id }} .mrtU-card{flex-basis:{{ st.card_width_mobile }}px}}
+  {%- if st.grid_mobile -%}
+  @media(max-width:749px){
+    #mrt-ugc-{{ section.id }} .mrtU-viewport{overflow:visible;display:block}
+    #mrt-ugc-{{ section.id }} .mrtU-track{display:grid;
+      grid-template-columns:repeat({{ st.columns_mobile }},minmax(0,1fr));width:100%;margin-inline:0;animation:none}
+    #mrt-ugc-{{ section.id }} .mrtU-card{flex:none;width:100%}}
+  {%- endif -%}
   #mrt-ugc-{{ section.id }} .mrtU-media{position:relative;aspect-ratio:{{ st.ratio }};border-radius:16px;overflow:hidden;
     background:#101a15;cursor:pointer;width:100%;display:block;border:0;padding:0;
     box-shadow:0 18px 40px -24px rgba(21,42,33,.45);transition:transform .3s ease}
@@ -106,7 +125,8 @@
         <button type="button" class="mrtU-arrow prev" data-mrtu-prev aria-label="Précédent">←</button>
         <button type="button" class="mrtU-arrow next" data-mrtu-next aria-label="Suivant">→</button>
       {%- endunless -%}
-      <div class="mrtU-track" data-mrtu-track>
+      <div class="mrtU-viewport" data-mrtu-track>
+      <div class="mrtU-track">
         {%- assign loops = 1 -%}
         {%- if st.marquee -%}{%- assign loops = 2 -%}{%- endif -%}
         {%- for i in (1..loops) -%}
@@ -143,6 +163,7 @@
             </div>
           {%- endfor -%}
         {%- endfor -%}
+      </div>
       </div>
     </div>
   </div>
@@ -259,9 +280,27 @@
       { "value": "1/1", "label": "Carré (1:1)" },
       { "value": "16/9", "label": "Horizontal (16:9)" }
     ], "default": "9/16" },
+    { "type": "checkbox", "id": "show_product", "label": "Afficher le produit associé sous la vidéo", "default": true },
+    { "type": "header", "content": "Cartes — ordinateur" },
+    { "type": "select", "id": "cards_alignment", "label": "Alignement des cartes", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
     { "type": "range", "id": "card_width", "min": 160, "max": 380, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 250 },
     { "type": "range", "id": "gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 16 },
-    { "type": "checkbox", "id": "show_product", "label": "Afficher le produit associé sous la vidéo", "default": true },
+    { "type": "header", "content": "Cartes — tablette" },
+    { "type": "select", "id": "cards_alignment_tablet", "label": "Alignement des cartes", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
+    { "type": "range", "id": "card_width_tablet", "min": 140, "max": 340, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 210 },
+    { "type": "range", "id": "gap_tablet", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 14 },
+    { "type": "header", "content": "Cartes — mobile" },
+    { "type": "select", "id": "cards_alignment_mobile", "label": "Alignement des cartes", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
+    { "type": "range", "id": "card_width_mobile", "min": 120, "max": 300, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 170 },
+    { "type": "range", "id": "gap_mobile", "min": 6, "max": 32, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 12 },
+    { "type": "checkbox", "id": "grid_mobile", "label": "Tout afficher en grille sur mobile", "info": "Sans défilement horizontal. Incompatible avec le défilement automatique.", "default": false },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 3, "step": 1, "unit": "col", "label": "Colonnes en grille (mobile)", "default": 2 },
     { "type": "header", "content": "Couleurs" },
     { "type": "color", "id": "color_bg", "label": "Fond", "default": "#F1EAE0" },
     { "type": "color", "id": "color_text", "label": "Texte", "default": "#25332C" },

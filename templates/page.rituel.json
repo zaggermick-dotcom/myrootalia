@@ -1,0 +1,421 @@
+{
+  "sections": {
+    "landing": {
+      "type": "landing-rituel-myrootelia",
+      "settings": {
+        "product_handle": "huile-de-batana-100-pure-du-honduras",
+        "default_palette": "ambre",
+        "show_palette_bar": true,
+        "show_sticky": true
+      }
+    },
+    "benefices": {
+      "type": "mrt-icones",
+      "blocks": {
+        "i0": {
+          "type": "icone",
+          "settings": {
+            "icone": "cuir_chevelu",
+            "titre": "Cuir chevelu nourri",
+            "texte": "<p>Une huile riche, appliquée là où tout commence.</p>"
+          }
+        },
+        "i1": {
+          "type": "icone",
+          "settings": {
+            "icone": "cheveux",
+            "titre": "Fibre gainée",
+            "texte": "<p>Aide à réduire la casse au fil des semaines.</p>"
+          }
+        },
+        "i2": {
+          "type": "icone",
+          "settings": {
+            "icone": "etincelle",
+            "titre": "Cheveux plus denses",
+            "texte": "<p>Favorise l'apparence de cheveux plus denses, avec la constance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "i0",
+        "i1",
+        "i2"
+      ],
+      "settings": {
+        "kicker": "Pourquoi la Batana",
+        "title": "<p>L'huile ancestrale, <em>version rituel</em></p>",
+        "description": "<p>Trois gestes, une routine tenable.</p>",
+        "alignment": "center",
+        "title_size": 32,
+        "header_gap": 40,
+        "style": "carte_bordee",
+        "item_alignment": "center",
+        "icon_shape": "cercle",
+        "icon_size": 52,
+        "icon_gap": 14,
+        "card_radius": 16,
+        "card_padding": 24,
+        "item_title_size": 17,
+        "item_text_size": 13,
+        "columns": 3,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "gap": 20,
+        "gap_mobile": 14,
+        "layout_width": "normal",
+        "cta_text": "",
+        "cta_link": "",
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_sm": 36,
+        "padding_bottom_sm": 36
+      }
+    },
+    "routine": {
+      "type": "mrt-routine",
+      "blocks": {
+        "s0": {
+          "type": "etape",
+          "settings": {
+            "duree": "30 secondes",
+            "icone": "compte_gouttes",
+            "title": "Applique",
+            "description": "<p>Quelques gouttes de Batana sur cuir chevelu propre et sec, directement à la racine.</p>"
+          }
+        },
+        "s1": {
+          "type": "etape",
+          "settings": {
+            "duree": "1 minute",
+            "icone": "massage",
+            "title": "Masse",
+            "description": "<p>Mouvements circulaires du bout des doigts, du front à la nuque.</p>"
+          }
+        },
+        "s2": {
+          "type": "etape",
+          "settings": {
+            "duree": "Toute la nuit",
+            "icone": "lune",
+            "title": "Laisse poser",
+            "description": "<p>Le soir de préférence — l'huile travaille pendant ton sommeil.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "settings": {
+        "kicker": "Le rituel",
+        "title": "<p>Deux minutes, <em>chaque soir</em></p>",
+        "description": "Un geste simple qui devient un réflexe. La constance fait tout.",
+        "chip_text": "2 minutes par jour, montre en main",
+        "chip_icon": "chrono",
+        "alignment": "center",
+        "title_size": 36,
+        "header_gap": 44,
+        "cta_note": "Essai 60 nuits — remboursé si tu n'aimes pas.",
+        "cta_text": "Commencer mon rituel",
+        "cta_link": "",
+        "cta_gap": 44,
+        "columns": 3,
+        "grid_gap": 28,
+        "grid_gap_sm": 34,
+        "show_connector": true,
+        "layout_width": "normal",
+        "card_radius": 18,
+        "image_ratio": 85,
+        "content_padding": 24,
+        "card_title_size": 21,
+        "card_text_size": 14,
+        "num_size": 52,
+        "color_bg": "#F1EAE0",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_num_bg": "#1E3A2F",
+        "color_num_text": "#FAF6EF",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "modal_close_text": "J’ai compris",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_sm": 44,
+        "padding_bottom_sm": 44
+      }
+    },
+    "chronologie": {
+      "type": "mrt-chronologie",
+      "blocks": {
+        "w0": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 1–2",
+            "titre": "Le rituel s'installe.",
+            "icone": "lune",
+            "texte": "<p>Deux minutes chaque soir. Le cuir chevelu est nourri, le massage détend.</p>"
+          }
+        },
+        "w1": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 3–4",
+            "titre": "Le confort d'abord.",
+            "icone": "feuille",
+            "texte": "<p>Cuir chevelu plus confortable, moins de tiraillements pour la plupart.</p>"
+          }
+        },
+        "w2": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 5–8",
+            "titre": "La fibre est gainée.",
+            "icone": "goutte",
+            "texte": "<p>Les cheveux sont mieux nourris et la casse tend à diminuer.</p>"
+          }
+        },
+        "w3": {
+          "type": "etape",
+          "settings": {
+            "periode": "Semaines 8–12",
+            "titre": "Le cap des résultats.",
+            "icone": "etincelle",
+            "texte": "<p>Avec la constance, les cheveux paraissent visiblement plus denses.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "w0",
+        "w1",
+        "w2",
+        "w3"
+      ],
+      "settings": {
+        "kicker": "Ta progression",
+        "title": "<p>8 à 12 semaines, <em>en toute honnêteté</em></p>",
+        "description": "<p>Chaque cuir chevelu a son rythme. Voici le déroulé habituel.</p>",
+        "title_size": 34,
+        "header_gap": 48,
+        "layout": "alternee",
+        "layout_width": "normal",
+        "gap": 32,
+        "content_gap": 22,
+        "dot_content": "icone",
+        "dot_style": "contour",
+        "dot_size": 44,
+        "dot_halo": 5,
+        "line_style": "pointille",
+        "line_width": 2,
+        "card_style": true,
+        "card_radius": 16,
+        "card_padding": 24,
+        "item_title_size": 20,
+        "item_text_size": 15,
+        "cta_note": "",
+        "cta_text": "",
+        "cta_link": "",
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_line": "#DDD3C4",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_sm": 44,
+        "padding_bottom_sm": 44
+      }
+    },
+    "faq_rituel": {
+      "type": "mrt-reductible",
+      "blocks": {
+        "q0": {
+          "type": "ligne",
+          "settings": {
+            "icone": "chrono",
+            "question": "En combien de temps je vois des résultats ?",
+            "reponse": "<p>Compte 8 à 12 semaines d'usage quotidien. Le confort du cuir chevelu se ressent souvent bien avant.</p>",
+            "ouvert": true
+          }
+        },
+        "q1": {
+          "type": "ligne",
+          "settings": {
+            "icone": "goutte",
+            "question": "Est-ce que l'huile graisse les cheveux ?",
+            "reponse": "<p>Applique-la le soir sur le cuir chevelu : elle a la nuit pour pénétrer, et ton shampoing habituel fait le reste.</p>",
+            "ouvert": false
+          }
+        },
+        "q2": {
+          "type": "ligne",
+          "settings": {
+            "icone": "cuir_chevelu",
+            "question": "Est-ce que ça fait repousser les cheveux ?",
+            "reponse": "<p>On ne fera jamais cette promesse : c'est un soin cosmétique, pas un traitement médical. En cas de chute importante, consulte un professionnel de santé.</p>",
+            "ouvert": false
+          }
+        },
+        "q3": {
+          "type": "ligne",
+          "settings": {
+            "icone": "feuille",
+            "question": "D'où vient cette huile ?",
+            "reponse": "<p>Du Honduras, pressée à froid selon le savoir-faire du peuple Miskito. 100 % pure, sans additif.</p>",
+            "ouvert": false
+          }
+        },
+        "q4": {
+          "type": "ligne",
+          "settings": {
+            "icone": "retour",
+            "question": "Et si ça ne me convient pas ?",
+            "reponse": "<p>Essai 60 nuits. Tu nous écris, on te rembourse, on ne discute pas.</p>",
+            "ouvert": false
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "kicker": "FAQ",
+        "title": "<p>Les questions <em>qu'on nous pose</em></p>",
+        "description": "",
+        "alignment": "center",
+        "title_size": 32,
+        "header_gap": 40,
+        "layout": "deux_colonnes",
+        "layout_width": "normal",
+        "style": "carte",
+        "exclusive": true,
+        "indent_answer": true,
+        "radius": 14,
+        "gap": 10,
+        "row_padding": 16,
+        "icon_size": 34,
+        "question_size": 15,
+        "answer_size": 14,
+        "foot_note": "Une autre question ? Écris-nous, on répond en moins de 24 h.",
+        "cta_text": "",
+        "cta_link": "",
+        "seo_schema": false,
+        "color_bg": "#F1EAE0",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 64,
+        "padding_bottom": 72,
+        "padding_top_sm": 36,
+        "padding_bottom_sm": 40
+      }
+    },
+    "garanties": {
+      "type": "mrt-icones",
+      "blocks": {
+        "i0": {
+          "type": "icone",
+          "settings": {
+            "icone": "bouclier",
+            "titre": "Essai 60 nuits",
+            "texte": "<p>Remboursé, sans justification.</p>"
+          }
+        },
+        "i1": {
+          "type": "icone",
+          "settings": {
+            "icone": "camion",
+            "titre": "Livraison offerte dès 50 $",
+            "texte": "<p>Expédié du Québec sous 24 h.</p>"
+          }
+        },
+        "i2": {
+          "type": "icone",
+          "settings": {
+            "icone": "bulle",
+            "titre": "Support humain",
+            "texte": "<p>On répond en moins de 24 h.</p>"
+          }
+        },
+        "i3": {
+          "type": "icone",
+          "settings": {
+            "icone": "cadenas",
+            "titre": "Paiement sécurisé",
+            "texte": "<p>Visa · Mastercard · Amex · Shop Pay.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "i0",
+        "i1",
+        "i2",
+        "i3"
+      ],
+      "settings": {
+        "kicker": "Nos engagements",
+        "title": "<p>On te couvre <em>à chaque étape</em></p>",
+        "description": "",
+        "alignment": "center",
+        "title_size": 32,
+        "header_gap": 40,
+        "style": "epure",
+        "item_alignment": "center",
+        "icon_shape": "cercle_borde",
+        "icon_size": 52,
+        "icon_gap": 14,
+        "card_radius": 16,
+        "card_padding": 24,
+        "item_title_size": 17,
+        "item_text_size": 13,
+        "columns": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "gap": 20,
+        "gap_mobile": 14,
+        "layout_width": "normal",
+        "cta_text": "",
+        "cta_link": "",
+        "color_bg": "#FAF6EF",
+        "color_card": "#FFFFFF",
+        "color_title": "#1E3A2F",
+        "color_text": "#25332C",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#1E3A2F",
+        "color_btn_text": "#FAF6EF",
+        "padding_top": 64,
+        "padding_bottom": 72,
+        "padding_top_sm": 36,
+        "padding_bottom_sm": 36
+      }
+    }
+  },
+  "order": [
+    "landing",
+    "benefices",
+    "routine",
+    "chronologie",
+    "faq_rituel",
+    "garanties"
+  ]
+}

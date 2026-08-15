@@ -58,7 +58,7 @@
     margin:0 -20px;padding:{{ st.hero_lift }}px 20px 6px}
   #mrt-comp-{{ section.id }} .mrtC-scroll::-webkit-scrollbar{display:none}
   #mrt-comp-{{ section.id }} table{width:100%;min-width:{{ cols | times: 130 | plus: 200 }}px;
-    border-collapse:separate;border-spacing:0;position:relative}
+    border-collapse:separate;border-spacing:0;position:relative;table-layout:auto}
 
   #mrt-comp-{{ section.id }} th, #mrt-comp-{{ section.id }} td{padding:{{ st.cell_padding }}px 14px;text-align:center;
     vertical-align:middle;font-size:{{ st.cell_text_size }}px;line-height:1.45}
@@ -131,9 +131,36 @@
   #mrt-comp-{{ section.id }} .mrtC-btn:hover{transform:translateY(-3px);filter:brightness(.93)}
 
   #mrt-comp-{{ section.id }} .mrtC-hint{display:none;text-align:center;font-size:12.5px;color:var(--mrtC-muted);margin-top:12px}
+
+  {%- if st.mobile_full -%}
+  /* ---------- mobile : tableau entier visible, aucun défilement ---------- */
+  @media(max-width:749px){
+    #mrt-comp-{{ section.id }} .mrtC-scroll{overflow:visible;margin:0;padding-left:0;padding-right:0}
+    #mrt-comp-{{ section.id }} table{min-width:0;width:100%;table-layout:fixed}
+    #mrt-comp-{{ section.id }} .mrtC-hint{display:none}
+    #mrt-comp-{{ section.id }} th, #mrt-comp-{{ section.id }} td{
+      padding:{{ st.cell_padding_mobile }}px {{ st.cell_padding_mobile | times: 0.4 | round }}px;
+      font-size:{{ st.cell_text_size_mobile }}px;word-break:break-word;hyphens:auto}
+    #mrt-comp-{{ section.id }} .mrtC-crit{min-width:0;max-width:none;
+      width:{{ st.crit_width_mobile }}%;font-size:{{ st.cell_text_size_mobile }}px;
+      padding-left:{{ st.cell_padding_mobile | times: 0.5 | round }}px;line-height:1.35}
+    #mrt-comp-{{ section.id }} thead th{font-size:{{ st.header_text_size_mobile }}px;line-height:1.25}
+    #mrt-comp-{{ section.id }} .mrtC-brand-name{font-size:{{ st.header_text_size_mobile }}px;
+      word-break:break-word;hyphens:auto}
+    #mrt-comp-{{ section.id }} .mrtC-brand img{max-width:{{ st.logo_width | times: 0.6 | round }}px}
+    #mrt-comp-{{ section.id }} .mrtC-mark{width:{{ st.mark_size_mobile }}px;height:{{ st.mark_size_mobile }}px}
+    #mrt-comp-{{ section.id }} .mrtC-mark svg{width:{{ st.mark_size_mobile | times: 0.55 | round }}px;height:{{ st.mark_size_mobile | times: 0.55 | round }}px}
+    #mrt-comp-{{ section.id }} .mrtC-txt{font-size:{{ st.cell_text_size_mobile }}px;line-height:1.3;display:block}
+    #mrt-comp-{{ section.id }} .mrtC-badge{font-size:9px;padding:4px 9px;letter-spacing:.08em;top:-11px}
+    {%- if st.hide_tooltip_mobile -%}
+    #mrt-comp-{{ section.id }} .mrtC-tip{display:none}
+    {%- endif -%}
+  }
+  {%- else -%}
   @media(max-width:749px){#mrt-comp-{{ section.id }} .mrtC-hint{display:block}
-    #mrt-comp-{{ section.id }} .mrtC-crit{min-width:150px;font-size:{{ st.cell_text_size }}px}
-    #mrt-comp-{{ section.id }} th, #mrt-comp-{{ section.id }} td{padding:{{ st.cell_padding | times: 0.75 | round }}px 9px}}
+    #mrt-comp-{{ section.id }} .mrtC-crit{min-width:150px;font-size:{{ st.cell_text_size_mobile }}px}
+    #mrt-comp-{{ section.id }} th, #mrt-comp-{{ section.id }} td{padding:{{ st.cell_padding_mobile }}px 9px}}
+  {%- endif -%}
 {%- endstyle -%}
 
 <section id="mrt-comp-{{ section.id }}">
@@ -294,7 +321,15 @@
     { "type": "range", "id": "logo_width", "min": 40, "max": 180, "step": 5, "unit": "px", "label": "Largeur des logos", "default": 90 },
     { "type": "checkbox", "id": "zebra", "label": "Lignes alternées", "default": true },
     { "type": "text", "id": "criteria_label", "label": "Libellé de la colonne critères", "default": "Critère" },
-    { "type": "text", "id": "scroll_hint", "label": "Indication mobile", "default": "Fais glisser le tableau →" },
+    { "type": "header", "content": "Affichage mobile" },
+    { "type": "checkbox", "id": "mobile_full", "label": "Tableau entier visible sur mobile", "info": "Tout rentre à l'écran, sans défilement horizontal. Décoche pour revenir au tableau glissant.", "default": true },
+    { "type": "range", "id": "crit_width_mobile", "min": 26, "max": 56, "step": 2, "unit": "%", "label": "Largeur de la colonne critères", "default": 40 },
+    { "type": "range", "id": "cell_text_size_mobile", "min": 8, "max": 16, "step": 1, "unit": "px", "label": "Taille du texte", "default": 11 },
+    { "type": "range", "id": "header_text_size_mobile", "min": 8, "max": 16, "step": 1, "unit": "px", "label": "Taille des en-têtes", "default": 11 },
+    { "type": "range", "id": "cell_padding_mobile", "min": 6, "max": 22, "step": 2, "unit": "px", "label": "Hauteur des lignes", "default": 12 },
+    { "type": "range", "id": "mark_size_mobile", "min": 16, "max": 34, "step": 2, "unit": "px", "label": "Taille des pastilles", "default": 22 },
+    { "type": "checkbox", "id": "hide_tooltip_mobile", "label": "Masquer les infobulles sur mobile", "default": true },
+    { "type": "text", "id": "scroll_hint", "label": "Indication (mode glissant)", "default": "Fais glisser le tableau →" },
     { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
       { "value": "narrow", "label": "Étroite" }, { "value": "normal", "label": "Page" }, { "value": "full", "label": "Large" }
     ], "default": "normal" },

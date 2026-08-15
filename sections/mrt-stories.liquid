@@ -38,11 +38,31 @@
     {% if st.alignment == 'center' %}margin:0 auto;{% endif %}}
   #mrt-stories-{{ section.id }} .mrtS-desc p{margin:0}
 
-  #mrt-stories-{{ section.id }} .mrtS-row{display:flex;gap:{{ st.gap }}px;overflow-x:auto;
+  /* la piste porte le centrage : margin auto centre quand il reste de la place,
+     et laisse le défilement normal dès que les cartes débordent */
+  #mrt-stories-{{ section.id }} .mrtS-row{display:flex;overflow-x:auto;
     scroll-snap-type:x proximity;padding:8px 2px 12px;scrollbar-width:none}
   #mrt-stories-{{ section.id }} .mrtS-row::-webkit-scrollbar{display:none}
+  #mrt-stories-{{ section.id }} .mrtS-track{display:flex;gap:{{ st.gap }}px;
+    margin-inline:{% if st.cards_alignment == 'center' %}auto{% elsif st.cards_alignment == 'right' %}auto 0{% else %}0 auto{% endif %};
+    padding-inline:2px}
   #mrt-stories-{{ section.id }} .mrtS-card{flex:0 0 {{ st.card_width }}px;scroll-snap-align:start;cursor:pointer}
-  @media(max-width:749px){#mrt-stories-{{ section.id }} .mrtS-card{flex-basis:{{ st.card_width | times: 0.78 | round }}px}}
+  @media(max-width:1024px){
+    #mrt-stories-{{ section.id }} .mrtS-card{flex-basis:{{ st.card_width_tablet }}px}
+    #mrt-stories-{{ section.id }} .mrtS-track{gap:{{ st.gap_tablet }}px;
+      margin-inline:{% if st.cards_alignment_tablet == 'center' %}auto{% elsif st.cards_alignment_tablet == 'right' %}auto 0{% else %}0 auto{% endif %}}}
+  @media(max-width:749px){
+    #mrt-stories-{{ section.id }} .mrtS-card{flex-basis:{{ st.card_width_mobile }}px}
+    #mrt-stories-{{ section.id }} .mrtS-track{gap:{{ st.gap_mobile }}px;
+      margin-inline:{% if st.cards_alignment_mobile == 'center' %}auto{% elsif st.cards_alignment_mobile == 'right' %}auto 0{% else %}0 auto{% endif %}}}
+  {%- if st.grid_mobile -%}
+  /* mode grille : toutes les stories visibles, sans défilement */
+  @media(max-width:749px){
+    #mrt-stories-{{ section.id }} .mrtS-row{overflow:visible}
+    #mrt-stories-{{ section.id }} .mrtS-track{display:grid;
+      grid-template-columns:repeat({{ st.columns_mobile }},minmax(0,1fr));width:100%;margin-inline:0}
+    #mrt-stories-{{ section.id }} .mrtS-card{flex:none;width:100%}}
+  {%- endif -%}
   #mrt-stories-{{ section.id }} .mrtS-media{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;
     background:#101a15;padding:0;border:0;width:100%;display:block;
     box-shadow:0 18px 40px -22px rgba(21,42,33,.45);transition:transform .3s ease}
@@ -99,6 +119,7 @@
     </div>
 
     <div class="mrtS-row">
+      <div class="mrtS-track">
       {%- for block in story_blocks -%}
         <div class="mrtS-card" {{ block.shopify_attributes }}>
           <button type="button" class="mrtS-media" data-mrts-open="{{ forloop.index0 }}" aria-label="Voir la story {{ block.settings.name | escape }}">
@@ -116,6 +137,7 @@
           {%- if block.settings.name != blank -%}<p class="mrtS-name">{{ block.settings.name | escape }}</p>{%- endif -%}
         </div>
       {%- endfor -%}
+      </div>
     </div>
   </div>
 </section>
@@ -316,9 +338,26 @@
     { "type": "checkbox", "id": "inline_autoplay", "label": "Lire les vidéos en muet dans les cartes", "info": "Vidéos importées uniquement. Lecture dès qu'une carte est visible.", "default": true },
     { "type": "checkbox", "id": "auto_advance", "label": "Enchaîner les stories automatiquement", "default": true },
     { "type": "checkbox", "id": "loop_stories", "label": "Recommencer à la fin", "default": true },
-    { "type": "header", "content": "Cartes" },
+    { "type": "header", "content": "Cartes — ordinateur" },
+    { "type": "select", "id": "cards_alignment", "label": "Alignement des cartes", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
     { "type": "range", "id": "card_width", "min": 120, "max": 320, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 210 },
     { "type": "range", "id": "gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 16 },
+    { "type": "header", "content": "Cartes — tablette" },
+    { "type": "select", "id": "cards_alignment_tablet", "label": "Alignement des cartes", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
+    { "type": "range", "id": "card_width_tablet", "min": 110, "max": 300, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 180 },
+    { "type": "range", "id": "gap_tablet", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 14 },
+    { "type": "header", "content": "Cartes — mobile" },
+    { "type": "select", "id": "cards_alignment_mobile", "label": "Alignement des cartes", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
+    { "type": "range", "id": "card_width_mobile", "min": 100, "max": 280, "step": 10, "unit": "px", "label": "Largeur des cartes", "default": 150 },
+    { "type": "range", "id": "gap_mobile", "min": 6, "max": 32, "step": 2, "unit": "px", "label": "Espace entre les cartes", "default": 12 },
+    { "type": "checkbox", "id": "grid_mobile", "label": "Tout afficher en grille sur mobile", "info": "Sans défilement horizontal : toutes les stories sont visibles.", "default": false },
+    { "type": "range", "id": "columns_mobile", "min": 2, "max": 4, "step": 1, "unit": "col", "label": "Colonnes en grille (mobile)", "default": 2 },
     { "type": "header", "content": "Couleurs" },
     { "type": "color", "id": "color_bg", "label": "Fond", "default": "#FAF6EF" },
     { "type": "color", "id": "color_text", "label": "Texte", "default": "#25332C" },

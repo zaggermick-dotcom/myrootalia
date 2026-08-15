@@ -293,75 +293,83 @@
       "cart-drawer": {
         "type": "cart-drawer",
         "blocks": {
-          "timer_pxhqMQ": {
-            "type": "timer",
-            "settings": {
-              "color_palette": "inverse",
-              "text": "Votre panier est réservé pendant $time",
-              "delay": 10,
-              "reset_cart": false
-            }
-          },
           "free_shipping_4phqVN": {
             "type": "free_shipping",
             "settings": {
               "color_palette": "background-2",
               "min_price": 50,
-              "text_before": "Plus que $amount pour avoir la livraison gratuite",
-              "text_after": "Vous avez la livraison offerte !"
+              "text_before": "Plus que <strong>$amount</strong> pour la livraison offerte",
+              "text_after": "Livraison offerte — c'est acquis"
+            }
+          },
+          "timer_pxhqMQ": {
+            "type": "timer",
+            "settings": {
+              "color_palette": "inverse",
+              "text": "Ton panier est réservé encore $time",
+              "delay": 10,
+              "reset_cart": false
             }
           },
           "delivery_estimation_YRYbn4": {
             "type": "delivery_estimation",
-            "disabled": true,
             "settings": {
               "color_palette": "background-2",
               "icons_color": "accent-1",
               "format": "dd/MM",
               "today_info": "Commandé",
-              "ready_info": "Expedié",
+              "ready_info": "Expédié",
               "ready": 2,
               "delivered_info": "Livré",
               "delivered": 8
             }
+          },
+          "trust_mrt": {
+            "type": "trust",
+            "settings": {
+              "color_palette": "background-2",
+              "style": "bullet_points",
+              "size": 20
+            }
           }
         },
         "block_order": [
-          "timer_pxhqMQ",
           "free_shipping_4phqVN",
-          "delivery_estimation_YRYbn4"
+          "timer_pxhqMQ",
+          "delivery_estimation_YRYbn4",
+          "trust_mrt"
         ],
         "settings": {
           "cart_general_color_palette": "",
           "cart_sort_by": "as_added",
           "cart_modules_border": "border--1",
-          "cart_modules_alignment": "center",
+          "cart_modules_alignment": "left",
           "cart_module_code": true,
           "cart_module_code_palette": "",
           "cart_module_code_placeholder": "Code promo",
           "cart_module_code_button_text": "Appliquer",
-          "cart_module_code_button_style": "3",
+          "cart_module_code_button_style": "2",
           "cart_upsell_enable": true,
           "cart_upsell_style": "collection",
           "cart_module_upsell_palette": "background-1",
-          "cart_upsell_title": "Vous allez aimer ces articles",
+          "cart_upsell_title": "Complète ta routine",
           "cart_upsell_button_text": "Ajouter",
-          "cart_upsell_button_style": "1",
+          "cart_upsell_button_style": "2",
           "cart_upsell_collection": "nos-essentiels",
           "upsell-layout": "horizontal",
           "outside_vertical_mobile_layout": "horizontal",
           "autoplay": true,
-          "speed": 4,
+          "speed": 5,
           "cart_upsell_product": "trousse",
           "cart_module_protection_palette": "",
           "cart_protection_product": "",
           "cart_protection_text": "Protégez votre commande contre les dommages, la perte ou le vol.",
-          "cart_savings_text": "Économie",
+          "cart_savings_text": "Tu économises",
           "cart_subtotal_text": "Sous-total",
           "cart_total_text": "Total",
-          "cart_button_text": "Aller à l'étape suivante",
+          "cart_button_text": "Passer à la caisse",
           "cart_button_style": "1",
-          "cart_footer_text": "",
+          "cart_footer_text": "Livraison et taxes calculées à la caisse · Essai 60 nuits",
           "cart_footer_payment_badges": true
         }
       }

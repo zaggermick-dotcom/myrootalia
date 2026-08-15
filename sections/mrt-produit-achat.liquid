@@ -132,6 +132,83 @@
   #mrt-sticky-{{ section.id }} .mrtA-sticky-meta span{font-size:13px;color:color-mix(in srgb, {{ st.color_text }} 60%, {{ st.color_bg }})}
   #mrt-sticky-{{ section.id }} .mrtA-btn{width:auto;padding:13px 26px;font-size:14.5px}
   @media(max-width:559px){#mrt-sticky-{{ section.id }} img{display:none}}
+
+  /* ═══════════════ MOBILE — mise en page dédiée ═══════════════ */
+  @media(max-width:749px){
+    #mrt-achat-{{ section.id }} .mrtA-wrap{padding:0 {{ st.side_padding_mobile }}px;gap:22px}
+
+    /* rien ne peut déborder de la colonne */
+    #mrt-achat-{{ section.id }} .mrtA-buy,
+    #mrt-achat-{{ section.id }} .mrtA-gallery{min-width:0;max-width:100%}
+    #mrt-achat-{{ section.id }} .mrtA-buy *{max-width:100%}
+
+    /* titre : coupure propre des mots longs, plus de trou au milieu */
+    #mrt-achat-{{ section.id }} .mrtA-title{font-size:{{ st.title_size_mobile }}px;line-height:1.2;
+      overflow-wrap:break-word;word-break:normal;hyphens:auto;text-wrap:balance;margin:0 0 8px}
+    #mrt-achat-{{ section.id }} .mrtA-brand{font-size:10.5px;letter-spacing:.18em;margin:0 0 8px}
+    #mrt-achat-{{ section.id }} .mrtA-pitch{font-size:{{ st.pitch_size_mobile }}px;margin:0 0 14px}
+
+    /* prix : tout sur une ligne lisible, badge à la suite */
+    #mrt-achat-{{ section.id }} .mrtA-price-row{gap:8px 10px;margin:0 0 16px;align-items:center}
+    #mrt-achat-{{ section.id }} .mrtA-price{font-size:{{ st.price_size_mobile }}px;line-height:1.1}
+    #mrt-achat-{{ section.id }} .mrtA-compare{font-size:15px}
+    #mrt-achat-{{ section.id }} .mrtA-save{font-size:11.5px;padding:4px 10px;white-space:nowrap}
+
+    /* variantes : boutons pleine largeur, texte jamais coupé */
+    #mrt-achat-{{ section.id }} .mrtA-opt-label{font-size:12px;margin:0 0 8px}
+    #mrt-achat-{{ section.id }} .mrtA-opts{gap:8px;margin:0 0 16px;
+      {% if st.variants_full_width_mobile %}display:grid;grid-template-columns:1fr;{% endif %}}
+    #mrt-achat-{{ section.id }} .mrtA-opt{padding:13px 16px;font-size:14px;line-height:1.3;
+      white-space:normal;overflow-wrap:break-word;
+      {% if st.variants_full_width_mobile %}width:100%;text-align:center;{% endif %}}
+
+    /* quantité + bouton : le bouton garde toute la place utile */
+    #mrt-achat-{{ section.id }} .mrtA-buyrow{gap:10px;margin:0 0 12px;
+      {% if st.stack_buy_mobile %}flex-direction:column;{% else %}flex-direction:row;align-items:stretch;{% endif %}}
+    #mrt-achat-{{ section.id }} .mrtA-qty{flex:0 0 auto;align-self:stretch;
+      {% if st.stack_buy_mobile %}width:100%;justify-content:center;{% endif %}}
+    #mrt-achat-{{ section.id }} .mrtA-qty button{width:40px;height:50px}
+    #mrt-achat-{{ section.id }} .mrtA-qty input{width:34px;height:50px}
+    #mrt-achat-{{ section.id }} .mrtA-btn{flex:1 1 auto;min-width:0;width:100%;
+      padding:16px 18px;font-size:{{ st.button_size_mobile }}px;line-height:1.2;
+      white-space:normal;overflow-wrap:break-word;text-align:center}
+    #mrt-achat-{{ section.id }} .product-form{width:100%}
+    #mrt-achat-{{ section.id }} .form{width:100%}
+
+    /* réassurance : deux colonnes régulières plutôt qu'un pavé irrégulier */
+    #mrt-achat-{{ section.id }} .mrtA-reassure{
+      {% if st.reassure_grid_mobile %}display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;
+      {% else %}gap:6px 14px;{% endif %}
+      font-size:12.5px;margin:4px 0 16px}
+    #mrt-achat-{{ section.id }} .mrtA-reassure span{display:flex;align-items:flex-start;line-height:1.35}
+    #mrt-achat-{{ section.id }} .mrtA-reassure span::before{flex:0 0 auto;margin-right:6px}
+
+    #mrt-achat-{{ section.id }} .mrtA-delivery{font-size:13px;padding:11px 13px;margin:0 0 18px;
+      align-items:flex-start;line-height:1.4}
+
+    /* galerie */
+    #mrt-achat-{{ section.id }} .mrtA-main{border-radius:14px}
+    #mrt-achat-{{ section.id }} .mrtA-thumbs{gap:8px;margin-top:10px}
+    #mrt-achat-{{ section.id }} .mrtA-thumb{flex-basis:{{ st.thumb_size_mobile }}px;height:{{ st.thumb_size_mobile }}px;border-radius:10px}
+
+    /* accordéons */
+    #mrt-achat-{{ section.id }} .mrtA-acc summary{padding:15px 2px;font-size:14.5px;gap:10px}
+    #mrt-achat-{{ section.id }} .mrtA-acc .mrtA-acc-body{font-size:13.5px;padding:0 2px 15px}
+    #mrt-achat-{{ section.id }} .mrtA-acc .mrtA-acc-body ul{padding-left:16px}
+
+    /* message d'erreur du formulaire */
+    #mrt-achat-{{ section.id }} .product-form__error-message-wrapper{font-size:13px;line-height:1.4}
+
+    /* barre collante : ne cache jamais le contenu de fin de page */
+    #mrt-sticky-{{ section.id }} .mrtA-btn{padding:13px 20px;font-size:14px;white-space:nowrap}
+    #mrt-sticky-{{ section.id }} .mrtA-sticky-in{gap:10px}
+  }
+  @media(max-width:389px){
+    #mrt-achat-{{ section.id }} .mrtA-title{font-size:{{ st.title_size_mobile | minus: 3 }}px}
+    #mrt-achat-{{ section.id }} .mrtA-price{font-size:{{ st.price_size_mobile | minus: 3 }}px}
+    #mrt-achat-{{ section.id }} .mrtA-reassure{grid-template-columns:1fr}
+    #mrt-achat-{{ section.id }} .mrtA-btn{font-size:{{ st.button_size_mobile | minus: 1 }}px;padding:15px 14px}
+  }
 {%- endstyle -%}
 
 {%- if product == blank -%}
@@ -419,6 +496,16 @@
       { "value": "left", "label": "Gauche" },
       { "value": "right", "label": "Droite" }
     ], "default": "left" },
+    { "type": "header", "content": "Affichage mobile" },
+    { "type": "range", "id": "title_size_mobile", "min": 20, "max": 40, "step": 1, "unit": "px", "label": "Taille du titre", "default": 27 },
+    { "type": "range", "id": "pitch_size_mobile", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Taille du pitch", "default": 15 },
+    { "type": "range", "id": "price_size_mobile", "min": 18, "max": 40, "step": 1, "unit": "px", "label": "Taille du prix", "default": 26 },
+    { "type": "range", "id": "button_size_mobile", "min": 13, "max": 20, "step": 1, "unit": "px", "label": "Taille du texte du bouton", "default": 15 },
+    { "type": "range", "id": "thumb_size_mobile", "min": 48, "max": 90, "step": 2, "unit": "px", "label": "Taille des vignettes", "default": 62 },
+    { "type": "range", "id": "side_padding_mobile", "min": 10, "max": 28, "step": 2, "unit": "px", "label": "Marge latérale", "default": 16 },
+    { "type": "checkbox", "id": "variants_full_width_mobile", "label": "Variantes sur toute la largeur", "info": "Recommandé quand les noms de variantes sont longs.", "default": true },
+    { "type": "checkbox", "id": "stack_buy_mobile", "label": "Quantité au-dessus du bouton", "info": "Décoche pour garder quantité et bouton côte à côte.", "default": false },
+    { "type": "checkbox", "id": "reassure_grid_mobile", "label": "Réassurance sur deux colonnes", "default": true },
     { "type": "header", "content": "Barre d'achat collante" },
     { "type": "checkbox", "id": "enable_sticky", "label": "Activer la barre collante", "info": "Désactive-la si la barre d'achat native du thème est déjà active.", "default": false },
     { "type": "header", "content": "Couleurs" },

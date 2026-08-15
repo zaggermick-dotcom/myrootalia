@@ -224,6 +224,19 @@
         "separator_bg_color": ""
       }
     },
+    "produit_myrootelia": {
+      "type": "produit-myrootelia",
+      "settings": {
+        "ingredient_image": "shopify://shop_images/myrootelia-produit.png",
+        "ritual_image_1": "shopify://shop_images/myrootelia-goutte.png",
+        "ritual_image_2": "shopify://shop_images/myrootelia-application.png",
+        "ritual_image_3": "shopify://shop_images/myrootelia-coffret.png",
+        "color_green": "#1e3f33",
+        "color_gold": "#c25a34",
+        "color_cream": "#f7f2e9",
+        "color_ink": "#26332c"
+      }
+    },
     "video": {
       "type": "video-myrootelia",
       "settings": {
@@ -279,6 +292,7 @@
   },
   "order": [
     "main",
+    "produit_myrootelia",
     "video",
     "related"
   ]

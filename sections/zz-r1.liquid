@@ -1,0 +1,129 @@
+<div>x</div>
+{% schema %}
+{
+  "name": "ZZ R1",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Sur-titre",
+      "default": "La routine"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Titre",
+      "default": "<p>Deux minutes, <em>chaque soir</em></p>",
+      "info": "Utilise <em>…</em> pour mettre un mot en italique doré."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Un geste simple qui devient un réflexe. Pas de promesse magique — juste de la constance."
+    },
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Pastille (chrono)",
+      "default": "2 minutes par jour, montre en main"
+    },
+    {
+      "type": "select",
+      "id": "chip_icon",
+      "label": "Icône de la pastille",
+      "options": [
+        {
+          "value": "chrono",
+          "label": "Chronomètre"
+        },
+        {
+          "value": "horloge",
+          "label": "Horloge"
+        },
+        {
+          "value": "sablier",
+          "label": "Sablier"
+        },
+        {
+          "value": "lune",
+          "label": "Lune"
+        },
+        {
+          "value": "etincelle",
+          "label": "Étincelle"
+        },
+        {
+          "value": "coeur",
+          "label": "Cœur"
+        },
+        {
+          "value": "feuille",
+          "label": "Feuille"
+        },
+        {
+          "value": "aucune",
+          "label": "Aucune"
+        }
+      ],
+      "default": "chrono"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignement de l'en-tête",
+      "options": [
+        {
+          "value": "left",
+          "label": "Gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        },
+        {
+          "value": "right",
+          "label": "Droite"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 26,
+      "max": 54,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille du titre",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Espace sous l'en-tête",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Appel à l'action"
+    },
+    {
+      "type": "text",
+      "id": "cta_note",
+      "label": "Petite phrase au-dessus",
+      "default": "Essai 60 nuits — remboursé si tu n'aimes pas."
+    }
+  ]
+}
+{% endschema %}

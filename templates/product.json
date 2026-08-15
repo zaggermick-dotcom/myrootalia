@@ -1,6 +1,11 @@
 /*
- * myrootelia — page produit (Huile de Batana)
- * Fiche standard + contenu sur-mesure myrootelia + produits liés
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
  */
 {
   "sections": {
@@ -19,7 +24,7 @@
           "settings": {
             "stars_style": "stars",
             "rating": 5,
-            "rating_text": " / 5 — à brancher sur ton app d'avis",
+            "rating_text": "/ 5 — à brancher sur ton app d'avis",
             "block_margin_bottom": 8
           }
         },
@@ -47,14 +52,19 @@
           "type": "stock",
           "settings": {
             "stock_type": "shopify",
+            "stock_manual": 23,
             "limit": 100,
             "disable_bar": false,
             "enable_manual_urgency": false,
-            "text": "Plus que $quantity en stock",
-            "alignment": "left",
+            "decrement_amount": 1,
+            "decrement_interval": 10,
+            "min_stock": 10,
             "fill_color": "accent",
+            "color_bg_secondary": false,
             "border": "border--none",
             "shadow": "shadow--none",
+            "text": "Plus que $quantity en stock",
+            "alignment": "left",
             "block_margin_bottom": 16
           }
         },
@@ -67,7 +77,12 @@
             "extra_button": false,
             "show_qty": true,
             "show_dynamic_checkout": true,
+            "text_above": "",
+            "text_alignment": "left",
             "button_width": "all",
+            "color_text": "",
+            "color_bg": "",
+            "color_bg_hover": "",
             "block_margin_bottom": 16
           }
         },
@@ -121,30 +136,42 @@
             "icon_4_text": "Support humain",
             "icon_4_description": "Réponse en 24 h.",
             "icon_4_url": "",
+            "show_shipping_delay": true,
+            "ship_weekend": false,
+            "format": "dd/MM",
+            "ship_min": 2,
+            "ship_max": 5,
             "block_margin_bottom": 20
           }
         },
         "accordions": {
           "type": "description-faq",
           "settings": {
+            "icon1": "clipboard",
+            "heading1": "Description",
+            "text1": "<p>Hey it's me a brand new tab ! :)</p>",
+            "show_description": true,
             "open_first_collapsible_row": true,
+            "icon2": "box",
+            "heading2": "Livraison & retours",
+            "text2": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
+            "icon3": "leaf",
+            "heading3": "Nos engagements",
+            "text3": "<ul><li>Des formules et des gestes qu'on peut expliquer simplement.</li><li>Aucune promesse médicale — du soin, vraiment.</li><li>Un support humain qui répond en moins de 24 h.</li></ul><p>Une question avant de commander ? Écris-nous.</p>",
+            "icon4": "check_mark",
+            "heading4": "Tab 4",
+            "text4": "<p>Hey it's me a brand new tab ! :)</p>",
             "accordions_style": "2",
             "secondary_bg_accordions": true,
-            "heading1": "Description",
-            "icon1": "clipboard",
-            "show_description": true,
-            "heading2": "Livraison & retours",
-            "icon2": "box",
-            "text2": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
-            "heading3": "Nos engagements",
-            "icon3": "leaf",
-            "text3": "<ul><li>Des formules et des gestes qu'on peut expliquer simplement.</li><li>Aucune promesse médicale — du soin, vraiment.</li><li>Un support humain qui répond en moins de 24 h.</li></ul><p>Une question avant de commander ? Écris-nous.</p>",
             "block_margin_bottom": 20
           }
         },
         "share": {
           "type": "share",
-          "settings": {}
+          "settings": {
+            "share_label": "Share",
+            "block_margin_bottom": 16
+          }
         }
       },
       "block_order": [
@@ -163,13 +190,17 @@
       "settings": {
         "section_id": "",
         "product_style": "medium",
+        "media_layout_desktop": "slider",
+        "media_thum_position": "bottom",
         "image_ratio": "square",
+        "price_first": false,
         "thumbnails_style": true,
         "preshot": true,
         "navigation": true,
         "pagination": true,
         "super_glue": true,
         "enable_zoom": true,
+        "exclude_variant_images": true,
         "desktop_content_alignment": "left",
         "enable_animations": false,
         "animation": "fade-up",
@@ -178,38 +209,40 @@
         "padding_bottom": 48,
         "padding_top_sm": 12,
         "padding_bottom_sm": 24,
-        "color_palette": "background-1"
-      }
-    },
-    "produit_myrootelia": {
-      "type": "produit-myrootelia",
-      "settings": {
-        "ingredient_image": "shopify://shop_images/myrootelia-produit.png",
-        "ritual_image_1": "shopify://shop_images/myrootelia-goutte.png",
-        "ritual_image_2": "shopify://shop_images/myrootelia-application.png",
-        "ritual_image_3": "shopify://shop_images/myrootelia-coffret.png"
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
     "video": {
       "type": "video-myrootelia",
       "settings": {
+        "video_url": "",
         "eyebrow": "En vidéo",
         "heading": "Voir l'huile de Batana en action",
         "subheading": "Texture, application et résultats du rituel — en quelques secondes.",
+        "placeholder_title": "Votre vidéo ici",
+        "placeholder_note": "Ajoutez une vidéo Shopify ou un lien YouTube / Vimeo dans les réglages de la section.",
         "dark": true,
-        "color_green": "#1E3F33",
-        "color_gold": "#C25A34",
-        "color_cream": "#F7F2E9",
-        "color_ink": "#26332C"
+        "color_green": "#1e3f33",
+        "color_gold": "#c25a34",
+        "color_cream": "#f7f2e9",
+        "color_ink": "#26332c"
       }
     },
     "related": {
       "type": "related-products",
       "settings": {
-        "subheading": "Complète ta routine",
-        "heading": "<p>Ça se marie bien avec</p>",
-        "heading_style": "2",
-        "alignment": "center",
         "limit": 4,
         "media_aspect_ratio": "square",
         "show_secondary_image": true,
@@ -218,18 +251,34 @@
         "slides_on_desktop": 4,
         "slides_on_tablet": 3,
         "slides_on_mobile": "2",
+        "subheading": "Complète ta routine",
+        "heading": "<p>Ça se marie bien avec</p>",
+        "heading_style": "2",
+        "description": "<p>Show to your customers a video presenting your brand and your products.</p>",
+        "alignment": "center",
         "layout_width": "normal",
-        "color_palette": "background-1",
         "padding_top": 56,
         "padding_bottom": 56,
         "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     }
   },
   "order": [
     "main",
-    "produit_myrootelia",
     "video",
     "related"
   ]

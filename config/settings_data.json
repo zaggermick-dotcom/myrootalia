@@ -147,7 +147,7 @@
     "cart_module_upsell_palette": "background-2",
     "cart_upsell_title": "",
     "cart_upsell_button_text": "Ajouter",
-    "cart_upsell_collection": "kit",
+    "cart_upsell_collection": "nos-essentiels",
     "cart_upsell_product": "crayon-de-maquillage-1",
     "cart_module_protection_palette": "background-2",
     "cart_protection_product": "garantie-prolongee-pour-epilateur",
@@ -370,7 +370,8 @@
           "cart_button_text": "Passer à la caisse",
           "cart_button_style": "1",
           "cart_footer_text": "Livraison et taxes calculées à la caisse · Essai 60 nuits",
-          "cart_footer_payment_badges": true
+          "cart_footer_payment_badges": true,
+          "cart_footer_image": ""
         }
       }
     },

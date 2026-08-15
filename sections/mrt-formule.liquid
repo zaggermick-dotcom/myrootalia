@@ -1,0 +1,262 @@
+{% comment %}
+  MRT · Formule — ingrédients en médaillons, très peu de texte
+  Chaque actif : une image ronde (ou une icône), un nom, un rôle en
+  quelques mots. Bandeau de badges « sans… » en dessous.
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign actifs = section.blocks | where: 'type', 'actif'
+  assign badges = section.blocks | where: 'type', 'badge'
+-%}
+
+{%- style -%}
+  #mrt-formule-{{ section.id }}{
+    --mrtF-bg: {{ st.color_bg }};
+    --mrtF-ink: {{ st.color_text }};
+    --mrtF-title: {{ st.color_title }};
+    --mrtF-accent: {{ st.color_accent }};
+    --mrtF-medal: {{ st.color_medal_bg }};
+    --mrtF-line: color-mix(in srgb, {{ st.color_title }} 15%, transparent);
+    --mrtF-muted: color-mix(in srgb, {{ st.color_text }} 62%, {{ st.color_bg }});
+    --mrtF-serif: var(--font-heading-family, Georgia, serif);
+    --mrtF-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrtF-bg); color: var(--mrtF-ink); font-family: var(--mrtF-sans);
+    padding: {{ st.padding_top_sm }}px 0 {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){#mrt-formule-{{ section.id }}{padding: {{ st.padding_top }}px 0 {{ st.padding_bottom }}px;}}
+  #mrt-formule-{{ section.id }} *{box-sizing:border-box}
+  #mrt-formule-{{ section.id }} .mrtF-wrap{
+    max-width:{% if st.layout_width == 'full' %}1500px{% elsif st.layout_width == 'narrow' %}940px{% else %}1200px{% endif %};
+    margin:0 auto;padding:0 20px}
+
+  #mrt-formule-{{ section.id }} .mrtF-head{text-align:center;max-width:620px;margin:0 auto {{ st.header_gap }}px}
+  #mrt-formule-{{ section.id }} .mrtF-kicker{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--mrtF-accent);font-weight:600;margin-bottom:13px}
+  #mrt-formule-{{ section.id }} .mrtF-kicker::before,
+  #mrt-formule-{{ section.id }} .mrtF-kicker::after{content:"";width:24px;height:1px;background:currentColor;opacity:.5}
+  #mrt-formule-{{ section.id }} .mrtF-h2{font-family:var(--mrtF-serif);font-weight:500;
+    font-size:clamp(26px,3.6vw,{{ st.title_size }}px);line-height:1.16;color:var(--mrtF-title);margin:0 0 12px}
+  #mrt-formule-{{ section.id }} .mrtF-h2 p{margin:0}
+  #mrt-formule-{{ section.id }} .mrtF-h2 em{font-style:italic;color:var(--mrtF-accent)}
+  #mrt-formule-{{ section.id }} .mrtF-desc{font-size:15.5px;line-height:1.65;color:var(--mrtF-muted);margin:0}
+  #mrt-formule-{{ section.id }} .mrtF-desc p{margin:0}
+
+  /* ---------- médaillons ---------- */
+  #mrt-formule-{{ section.id }} .mrtF-grid{display:grid;
+    grid-template-columns:repeat({{ st.columns }}, minmax(0,1fr));gap:{{ st.gap }}px {{ st.gap | divided_by: 2 }}px}
+  @media(max-width:1024px){#mrt-formule-{{ section.id }} .mrtF-grid{grid-template-columns:repeat({{ st.columns_tablet }}, minmax(0,1fr))}}
+  @media(max-width:600px){#mrt-formule-{{ section.id }} .mrtF-grid{grid-template-columns:repeat({{ st.columns_mobile }}, minmax(0,1fr));gap:{{ st.gap_mobile }}px}}
+
+  #mrt-formule-{{ section.id }} .mrtF-item{text-align:center;display:flex;flex-direction:column;align-items:center;
+    opacity:0;transform:translateY(22px) scale(.97);
+    transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)}
+  #mrt-formule-{{ section.id }} .mrtF-item.is-in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){#mrt-formule-{{ section.id }} .mrtF-item{opacity:1;transform:none;transition:none}}
+
+  #mrt-formule-{{ section.id }} .mrtF-medal{position:relative;width:{{ st.medal_size }}px;height:{{ st.medal_size }}px;
+    border-radius:50%;overflow:hidden;background:var(--mrtF-medal);
+    display:flex;align-items:center;justify-content:center;color:var(--mrtF-accent);
+    {% if st.medal_ring %}box-shadow:0 0 0 1px var(--mrtF-line), 0 0 0 {{ st.ring_gap }}px var(--mrtF-bg), 0 0 0 calc({{ st.ring_gap }}px + 1px) color-mix(in srgb, var(--mrtF-accent) 40%, transparent);{% endif %}
+    transition:transform .5s cubic-bezier(.22,.61,.36,1), box-shadow .5s ease}
+  #mrt-formule-{{ section.id }} .mrtF-item:hover .mrtF-medal{transform:translateY(-6px) scale(1.03)}
+  #mrt-formule-{{ section.id }} .mrtF-medal img{width:100%;height:100%;object-fit:cover;
+    transition:transform .8s cubic-bezier(.22,.61,.36,1)}
+  #mrt-formule-{{ section.id }} .mrtF-item:hover .mrtF-medal img{transform:scale(1.08)}
+  #mrt-formule-{{ section.id }} .mrtF-medal svg{width:{{ st.medal_size | times: 0.36 | round }}px;height:{{ st.medal_size | times: 0.36 | round }}px}
+
+  #mrt-formule-{{ section.id }} .mrtF-dose{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    background:var(--mrtF-accent);color:{{ st.color_bg }};font-size:11px;font-weight:700;letter-spacing:.04em;
+    padding:4px 12px;border-radius:999px 999px 0 0;line-height:1.3}
+
+  #mrt-formule-{{ section.id }} .mrtF-name{font-family:var(--mrtF-serif);font-weight:500;
+    font-size:{{ st.name_size }}px;line-height:1.25;color:var(--mrtF-title);margin:{{ st.medal_gap }}px 0 5px}
+  #mrt-formule-{{ section.id }} .mrtF-role{font-size:{{ st.role_size }}px;line-height:1.45;color:var(--mrtF-muted);
+    margin:0;max-width:190px}
+  #mrt-formule-{{ section.id }} .mrtF-latin{display:block;margin-top:6px;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:color-mix(in srgb, var(--mrtF-accent) 85%, var(--mrtF-ink));font-weight:600}
+
+  /* ---------- badges « sans » ---------- */
+  #mrt-formule-{{ section.id }} .mrtF-badges{display:flex;flex-wrap:wrap;justify-content:center;
+    gap:{{ st.badge_gap }}px;margin-top:{{ st.badges_top_gap }}px;
+    {% if st.badges_separator %}padding-top:{{ st.badges_top_gap }}px;border-top:1px solid var(--mrtF-line);{% endif %}}
+  #mrt-formule-{{ section.id }} .mrtF-badge{display:inline-flex;align-items:center;gap:8px;
+    padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;color:var(--mrtF-title);
+    background:{% if st.badge_style == 'plein' %}var(--mrtF-medal){% else %}transparent{% endif %};
+    border:1px solid {% if st.badge_style == 'plein' %}transparent{% else %}var(--mrtF-line){% endif %};
+    transition:border-color .3s ease, background .3s ease, transform .3s ease}
+  #mrt-formule-{{ section.id }} .mrtF-badge:hover{transform:translateY(-2px);
+    border-color:color-mix(in srgb, var(--mrtF-accent) 50%, transparent)}
+  #mrt-formule-{{ section.id }} .mrtF-badge svg{width:16px;height:16px;color:var(--mrtF-accent);flex:0 0 auto}
+
+  #mrt-formule-{{ section.id }} .mrtF-note{text-align:center;font-size:13px;color:var(--mrtF-muted);
+    margin:{{ st.badges_top_gap }}px auto 0;max-width:560px}
+  #mrt-formule-{{ section.id }} .mrtF-note p{margin:0}
+{%- endstyle -%}
+
+<section id="mrt-formule-{{ section.id }}">
+  <div class="mrtF-wrap">
+
+    {%- if st.kicker != blank or st.title != blank or st.description != blank -%}
+      <div class="mrtF-head">
+        {%- if st.kicker != blank -%}<span class="mrtF-kicker">{{ st.kicker | escape }}</span>{%- endif -%}
+        {%- if st.title != blank -%}<h2 class="mrtF-h2">{{ st.title }}</h2>{%- endif -%}
+        {%- if st.description != blank -%}<div class="mrtF-desc">{{ st.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mrtF-grid">
+      {%- for block in actifs -%}
+        <div class="mrtF-item" style="transition-delay:{{ forloop.index0 | times: 90 }}ms" {{ block.shopify_attributes }}>
+          <div class="mrtF-medal">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: block.settings.nom, widths: '200,300,400' }}
+            {%- else -%}
+              {%- render 'mrt-icon', icon: block.settings.icone -%}
+            {%- endif -%}
+            {%- if block.settings.dose != blank -%}<span class="mrtF-dose">{{ block.settings.dose | escape }}</span>{%- endif -%}
+          </div>
+          <h3 class="mrtF-name">{{ block.settings.nom | escape }}</h3>
+          {%- if block.settings.role != blank -%}<p class="mrtF-role">{{ block.settings.role | escape }}</p>{%- endif -%}
+          {%- if block.settings.nom_latin != blank -%}<span class="mrtF-latin">{{ block.settings.nom_latin | escape }}</span>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if badges.size > 0 -%}
+      <div class="mrtF-badges">
+        {%- for block in badges -%}
+          <span class="mrtF-badge" {{ block.shopify_attributes }}>
+            {%- render 'mrt-icon', icon: block.settings.icone -%}{{ block.settings.texte | escape }}
+          </span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if st.note != blank -%}<div class="mrtF-note">{{ st.note }}</div>{%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-formule-{{ section.id }}');
+  if (!root) return;
+  var items = root.querySelectorAll('.mrtF-item');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MRT · Formule",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "La formule" },
+    { "type": "richtext", "id": "title", "label": "Titre", "default": "<p>Quatre actifs, <em>rien de superflu</em></p>" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Une formule courte, lisible, qu'on peut te nommer.</p>" },
+    { "type": "range", "id": "title_size", "min": 24, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
+    { "type": "range", "id": "header_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 48 },
+    { "type": "header", "content": "Médaillons" },
+    { "type": "range", "id": "medal_size", "min": 80, "max": 220, "step": 5, "unit": "px", "label": "Taille des médaillons", "default": 140 },
+    { "type": "checkbox", "id": "medal_ring", "label": "Anneau autour du médaillon", "default": true },
+    { "type": "range", "id": "ring_gap", "min": 2, "max": 12, "step": 1, "unit": "px", "label": "Écart de l'anneau", "default": 5 },
+    { "type": "range", "id": "medal_gap", "min": 8, "max": 32, "step": 2, "unit": "px", "label": "Espace sous le médaillon", "default": 18 },
+    { "type": "range", "id": "name_size", "min": 15, "max": 30, "step": 1, "unit": "px", "label": "Taille des noms", "default": 20 },
+    { "type": "range", "id": "role_size", "min": 11, "max": 18, "step": 1, "unit": "px", "label": "Taille des rôles", "default": 14 },
+    { "type": "header", "content": "Grille" },
+    { "type": "range", "id": "columns", "min": 2, "max": 6, "step": 1, "unit": "col", "label": "Colonnes (desktop)", "default": 4 },
+    { "type": "range", "id": "columns_tablet", "min": 2, "max": 4, "step": 1, "unit": "col", "label": "Colonnes (tablette)", "default": 2 },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 3, "step": 1, "unit": "col", "label": "Colonnes (mobile)", "default": 2 },
+    { "type": "range", "id": "gap", "min": 16, "max": 72, "step": 4, "unit": "px", "label": "Espacement (desktop)", "default": 40 },
+    { "type": "range", "id": "gap_mobile", "min": 12, "max": 48, "step": 2, "unit": "px", "label": "Espacement (mobile)", "default": 28 },
+    { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
+      { "value": "narrow", "label": "Étroite" }, { "value": "normal", "label": "Page" }, { "value": "full", "label": "Large" }
+    ], "default": "normal" },
+    { "type": "header", "content": "Badges « sans… »" },
+    { "type": "select", "id": "badge_style", "label": "Style des badges", "options": [
+      { "value": "plein", "label": "Fond plein" }, { "value": "contour", "label": "Contour seul" }
+    ], "default": "contour" },
+    { "type": "range", "id": "badge_gap", "min": 6, "max": 28, "step": 2, "unit": "px", "label": "Espacement des badges", "default": 12 },
+    { "type": "range", "id": "badges_top_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace au-dessus", "default": 44 },
+    { "type": "checkbox", "id": "badges_separator", "label": "Trait de séparation au-dessus", "default": true },
+    { "type": "richtext", "id": "note", "label": "Mention finale", "default": "<p>Liste complète des ingrédients sur l'étiquette du flacon.</p>" },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond de section", "default": "#F1EAE0" },
+    { "type": "color", "id": "color_medal_bg", "label": "Fond des médaillons", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_title", "label": "Titres", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_text", "label": "Textes", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent", "default": "#C6A15B" },
+    { "type": "header", "content": "Espacements" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Haut (desktop)", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Bas (desktop)", "default": 72 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 40 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "actif",
+      "name": "Actif",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo de l'actif", "info": "Idéalement carrée. Sans image, l'icône ci-dessous est utilisée." },
+        { "type": "select", "id": "icone", "label": "Icône de secours", "options": [
+          { "value": "feuille", "label": "🌿 Feuille" }, { "value": "pousse", "label": "🌱 Pousse" },
+          { "value": "goutte", "label": "💧 Goutte" }, { "value": "gouttes", "label": "💦 Gouttes" },
+          { "value": "fleur", "label": "🌸 Fleur" }, { "value": "graine", "label": "🌰 Graine" },
+          { "value": "flacon", "label": "🧴 Flacon" }, { "value": "compte_gouttes", "label": "🧪 Compte-gouttes" },
+          { "value": "eau", "label": "🌊 Eau" }, { "value": "soleil", "label": "☀️ Soleil" },
+          { "value": "eclair", "label": "⚡ Éclair" }, { "value": "etincelle", "label": "✨ Étincelle" },
+          { "value": "coeur", "label": "❤️ Cœur" }, { "value": "microscope", "label": "🔬 Microscope" },
+          { "value": "goutte_labo", "label": "⚗️ Éprouvette" }, { "value": "plume", "label": "🪶 Plume" }
+        ], "default": "feuille" },
+        { "type": "text", "id": "nom", "label": "Nom", "default": "Huile de romarin" },
+        { "type": "text", "id": "role", "label": "Rôle en quelques mots", "default": "Cuir chevelu sain" },
+        { "type": "text", "id": "nom_latin", "label": "Nom latin / INCI (optionnel)" },
+        { "type": "text", "id": "dose", "label": "Dosage affiché (optionnel)", "info": "Ex. « 5 % ». Laisse vide pour ne rien afficher." }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Badge « sans… »",
+      "settings": [
+        { "type": "select", "id": "icone", "label": "Icône", "options": [
+          { "value": "sans", "label": "🚫 Sans (interdit)" }, { "value": "coche_cercle", "label": "✅ Coche" },
+          { "value": "lapin", "label": "🐰 Lapin (cruelty-free)" }, { "value": "feuille", "label": "🌿 Feuille (vegan)" },
+          { "value": "recyclage", "label": "♻️ Recyclage" }, { "value": "bouclier", "label": "🛡️ Bouclier" },
+          { "value": "coeur", "label": "❤️ Cœur" }, { "value": "certificat", "label": "📜 Certificat" },
+          { "value": "medaille", "label": "🏅 Médaille" }, { "value": "monde", "label": "🌍 Monde" },
+          { "value": "goutte", "label": "💧 Goutte" }, { "value": "plume", "label": "🪶 Plume" }
+        ], "default": "sans" },
+        { "type": "text", "id": "texte", "label": "Texte", "default": "Sans sulfates" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MRT · Formule",
+      "blocks": [
+        { "type": "actif", "settings": { "icone": "feuille", "nom": "Huile de romarin", "role": "Cuir chevelu sain", "nom_latin": "Rosmarinus officinalis" } },
+        { "type": "actif", "settings": { "icone": "goutte", "nom": "Huile de ricin", "role": "Nourrit et gaine la fibre", "nom_latin": "Ricinus communis" } },
+        { "type": "actif", "settings": { "icone": "eclair", "nom": "Biotine", "role": "Force des cheveux", "nom_latin": "Vitamine B8" } },
+        { "type": "actif", "settings": { "icone": "gouttes", "nom": "Jojoba & argan", "role": "Texture légère", "nom_latin": "Simmondsia · Argania" } },
+        { "type": "badge", "settings": { "icone": "sans", "texte": "Sans sulfates" } },
+        { "type": "badge", "settings": { "icone": "sans", "texte": "Sans parabènes" } },
+        { "type": "badge", "settings": { "icone": "feuille", "texte": "Vegan" } },
+        { "type": "badge", "settings": { "icone": "lapin", "texte": "Cruelty-free" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

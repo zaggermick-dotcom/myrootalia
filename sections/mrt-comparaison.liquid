@@ -1,0 +1,376 @@
+{% comment %}
+  MRT · Comparaison — tableau comparatif premium
+  Colonne « nous » mise en avant, 2 à 4 concurrents, chaque cellule au
+  choix : coche, croix, tilde ou texte libre. Tout est personnalisable.
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign lignes = section.blocks | where: 'type', 'ligne'
+  assign cols = 1
+  if st.col2_enable
+    assign cols = cols | plus: 1
+  endif
+  if st.col3_enable
+    assign cols = cols | plus: 1
+  endif
+  if st.col4_enable
+    assign cols = cols | plus: 1
+  endif
+-%}
+
+{%- style -%}
+  #mrt-comp-{{ section.id }}{
+    --mrtC-bg: {{ st.color_bg }};
+    --mrtC-ink: {{ st.color_text }};
+    --mrtC-title: {{ st.color_title }};
+    --mrtC-accent: {{ st.color_accent }};
+    --mrtC-hero: {{ st.color_hero }};
+    --mrtC-hero-ink: {{ st.color_hero_text }};
+    --mrtC-table: {{ st.color_table_bg }};
+    --mrtC-line: color-mix(in srgb, {{ st.color_title }} 13%, transparent);
+    --mrtC-muted: color-mix(in srgb, {{ st.color_text }} 60%, {{ st.color_bg }});
+    --mrtC-yes: {{ st.color_yes }};
+    --mrtC-no: {{ st.color_no }};
+    --mrtC-serif: var(--font-heading-family, Georgia, serif);
+    --mrtC-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrtC-bg); color: var(--mrtC-ink); font-family: var(--mrtC-sans);
+    padding: {{ st.padding_top_sm }}px 0 {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){#mrt-comp-{{ section.id }}{padding: {{ st.padding_top }}px 0 {{ st.padding_bottom }}px;}}
+  #mrt-comp-{{ section.id }} *{box-sizing:border-box}
+  #mrt-comp-{{ section.id }} .mrtC-wrap{
+    max-width:{% if st.layout_width == 'narrow' %}860px{% elsif st.layout_width == 'full' %}1400px{% else %}1080px{% endif %};
+    margin:0 auto;padding:0 20px}
+
+  #mrt-comp-{{ section.id }} .mrtC-head{text-align:center;max-width:640px;margin:0 auto {{ st.header_gap }}px}
+  #mrt-comp-{{ section.id }} .mrtC-kicker{display:inline-block;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--mrtC-accent);font-weight:600;margin-bottom:13px}
+  #mrt-comp-{{ section.id }} .mrtC-h2{font-family:var(--mrtC-serif);font-weight:500;
+    font-size:clamp(26px,3.6vw,{{ st.title_size }}px);line-height:1.16;color:var(--mrtC-title);margin:0 0 12px}
+  #mrt-comp-{{ section.id }} .mrtC-h2 p{margin:0}
+  #mrt-comp-{{ section.id }} .mrtC-h2 em{font-style:italic;color:var(--mrtC-accent)}
+  #mrt-comp-{{ section.id }} .mrtC-desc{font-size:15.5px;line-height:1.65;color:var(--mrtC-muted);margin:0}
+  #mrt-comp-{{ section.id }} .mrtC-desc p{margin:0}
+
+  /* ---------- tableau ---------- */
+  #mrt-comp-{{ section.id }} .mrtC-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    margin:0 -20px;padding:{{ st.hero_lift }}px 20px 6px}
+  #mrt-comp-{{ section.id }} .mrtC-scroll::-webkit-scrollbar{display:none}
+  #mrt-comp-{{ section.id }} table{width:100%;min-width:{{ cols | times: 130 | plus: 200 }}px;
+    border-collapse:separate;border-spacing:0;position:relative}
+
+  #mrt-comp-{{ section.id }} th, #mrt-comp-{{ section.id }} td{padding:{{ st.cell_padding }}px 14px;text-align:center;
+    vertical-align:middle;font-size:{{ st.cell_text_size }}px;line-height:1.45}
+  #mrt-comp-{{ section.id }} thead th{font-family:var(--mrtC-sans);font-weight:600;font-size:{{ st.header_text_size }}px;
+    color:var(--mrtC-title);padding-top:{{ st.cell_padding | plus: 6 }}px;padding-bottom:{{ st.cell_padding | plus: 6 }}px}
+
+  /* colonne des critères */
+  #mrt-comp-{{ section.id }} .mrtC-crit{text-align:left;font-weight:500;color:var(--mrtC-title);
+    font-size:{{ st.cell_text_size | plus: 1 }}px;padding-left:{{ st.cell_padding }}px;
+    min-width:190px;max-width:340px}
+  #mrt-comp-{{ section.id }} tbody tr:not(:last-child) td,
+  #mrt-comp-{{ section.id }} tbody tr:not(:last-child) th{border-bottom:1px solid var(--mrtC-line)}
+  {%- if st.zebra -%}
+  #mrt-comp-{{ section.id }} tbody tr:nth-child(even) td:not(.mrtC-hero-cell),
+  #mrt-comp-{{ section.id }} tbody tr:nth-child(even) .mrtC-crit{
+    background:color-mix(in srgb, {{ st.color_title }} 3.5%, transparent)}
+  {%- endif -%}
+
+  /* colonne mise en avant */
+  #mrt-comp-{{ section.id }} .mrtC-hero-cell{background:var(--mrtC-hero);color:var(--mrtC-hero-ink);position:relative}
+  #mrt-comp-{{ section.id }} thead .mrtC-hero-cell{color:var(--mrtC-hero-ink);
+    border-radius:{{ st.table_radius }}px {{ st.table_radius }}px 0 0;
+    padding-top:{{ st.cell_padding | plus: 18 }}px;
+    box-shadow:0 -18px 40px -22px rgba(21,42,33,.55)}
+  #mrt-comp-{{ section.id }} tbody tr:last-child .mrtC-hero-cell{
+    border-radius:0 0 {{ st.table_radius }}px {{ st.table_radius }}px;
+    padding-bottom:{{ st.cell_padding | plus: 12 }}px}
+  #mrt-comp-{{ section.id }} tbody .mrtC-hero-cell{border-bottom-color:color-mix(in srgb, var(--mrtC-hero-ink) 16%, transparent) !important}
+
+  #mrt-comp-{{ section.id }} .mrtC-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--mrtC-accent);color:{{ st.color_hero }};font-size:10.5px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;padding:6px 16px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 6px 18px -8px rgba(21,42,33,.6)}
+  #mrt-comp-{{ section.id }} .mrtC-brand{display:flex;flex-direction:column;align-items:center;gap:8px}
+  #mrt-comp-{{ section.id }} .mrtC-brand img{max-width:{{ st.logo_width }}px;height:auto}
+  #mrt-comp-{{ section.id }} .mrtC-brand-name{font-family:var(--mrtC-serif);font-weight:500;
+    font-size:{{ st.header_text_size | plus: 3 }}px;letter-spacing:-.005em}
+  #mrt-comp-{{ section.id }} thead th:not(.mrtC-hero-cell) .mrtC-brand-name{color:var(--mrtC-muted);font-family:var(--mrtC-sans);
+    font-size:{{ st.header_text_size }}px;font-weight:600}
+
+  /* pastilles oui / non / partiel */
+  #mrt-comp-{{ section.id }} .mrtC-mark{display:inline-flex;align-items:center;justify-content:center;
+    width:{{ st.mark_size }}px;height:{{ st.mark_size }}px;border-radius:50%}
+  #mrt-comp-{{ section.id }} .mrtC-mark svg{width:{{ st.mark_size | times: 0.55 | round }}px;height:{{ st.mark_size | times: 0.55 | round }}px;stroke-width:2.4}
+  #mrt-comp-{{ section.id }} .mrtC-mark.yes{background:color-mix(in srgb, var(--mrtC-yes) 16%, transparent);color:var(--mrtC-yes)}
+  #mrt-comp-{{ section.id }} .mrtC-hero-cell .mrtC-mark.yes{background:color-mix(in srgb, var(--mrtC-hero-ink) 20%, transparent);color:var(--mrtC-hero-ink)}
+  #mrt-comp-{{ section.id }} .mrtC-mark.no{background:color-mix(in srgb, var(--mrtC-no) 13%, transparent);color:var(--mrtC-no)}
+  #mrt-comp-{{ section.id }} .mrtC-mark.partial{background:color-mix(in srgb, var(--mrtC-muted) 16%, transparent);color:var(--mrtC-muted)}
+  #mrt-comp-{{ section.id }} .mrtC-txt{font-weight:600;font-size:{{ st.cell_text_size }}px}
+  #mrt-comp-{{ section.id }} td:not(.mrtC-hero-cell) .mrtC-txt{color:var(--mrtC-muted);font-weight:500}
+
+  /* infobulle */
+  #mrt-comp-{{ section.id }} .mrtC-tip{display:inline-flex;align-items:center;justify-content:center;
+    width:16px;height:16px;margin-left:7px;border-radius:50%;border:1px solid var(--mrtC-line);
+    font-size:10px;font-weight:700;color:var(--mrtC-muted);cursor:help;position:relative;vertical-align:middle}
+  #mrt-comp-{{ section.id }} .mrtC-tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 9px);left:50%;
+    transform:translateX(-50%) translateY(4px);width:max-content;max-width:230px;
+    background:{{ st.color_title }};color:{{ st.color_bg }};font-size:12px;font-weight:400;line-height:1.45;
+    letter-spacing:0;padding:9px 13px;border-radius:9px;text-align:left;
+    opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;z-index:20}
+  #mrt-comp-{{ section.id }} .mrtC-tip:hover::after,
+  #mrt-comp-{{ section.id }} .mrtC-tip:focus::after{opacity:1;transform:translateX(-50%)}
+
+  #mrt-comp-{{ section.id }} .mrtC-cta{text-align:center;margin-top:{{ st.cta_gap }}px}
+  #mrt-comp-{{ section.id }} .mrtC-note{font-size:13px;color:var(--mrtC-muted);margin:0 0 16px}
+  #mrt-comp-{{ section.id }} .mrtC-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;
+    border-radius:999px;text-decoration:none;background:{{ st.color_btn_bg }};color:{{ st.color_btn_text }};
+    font-size:15px;font-weight:600;box-shadow:0 12px 30px -14px rgba(21,42,33,.6);
+    transition:transform .3s ease, filter .3s ease}
+  #mrt-comp-{{ section.id }} .mrtC-btn:hover{transform:translateY(-3px);filter:brightness(.93)}
+
+  #mrt-comp-{{ section.id }} .mrtC-hint{display:none;text-align:center;font-size:12.5px;color:var(--mrtC-muted);margin-top:12px}
+  @media(max-width:749px){#mrt-comp-{{ section.id }} .mrtC-hint{display:block}
+    #mrt-comp-{{ section.id }} .mrtC-crit{min-width:150px;font-size:{{ st.cell_text_size }}px}
+    #mrt-comp-{{ section.id }} th, #mrt-comp-{{ section.id }} td{padding:{{ st.cell_padding | times: 0.75 | round }}px 9px}}
+{%- endstyle -%}
+
+<section id="mrt-comp-{{ section.id }}">
+  <div class="mrtC-wrap">
+
+    {%- if st.kicker != blank or st.title != blank or st.description != blank -%}
+      <div class="mrtC-head">
+        {%- if st.kicker != blank -%}<span class="mrtC-kicker">{{ st.kicker | escape }}</span>{%- endif -%}
+        {%- if st.title != blank -%}<h2 class="mrtC-h2">{{ st.title }}</h2>{%- endif -%}
+        {%- if st.description != blank -%}<div class="mrtC-desc">{{ st.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mrtC-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="mrtC-crit" scope="col"><span class="visually-hidden">{{ st.criteria_label | default: 'Critère' | escape }}</span></th>
+            <th class="mrtC-hero-cell" scope="col">
+              {%- if st.hero_badge != blank -%}<span class="mrtC-badge">{{ st.hero_badge | escape }}</span>{%- endif -%}
+              <span class="mrtC-brand">
+                {%- if st.col1_logo != blank -%}
+                  {{ st.col1_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: st.col1_name }}
+                {%- endif -%}
+                <span class="mrtC-brand-name">{{ st.col1_name | escape }}</span>
+              </span>
+            </th>
+            {%- if st.col2_enable -%}
+              <th scope="col"><span class="mrtC-brand">
+                {%- if st.col2_logo != blank -%}{{ st.col2_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: st.col2_name }}{%- endif -%}
+                <span class="mrtC-brand-name">{{ st.col2_name | escape }}</span></span>
+              </th>
+            {%- endif -%}
+            {%- if st.col3_enable -%}
+              <th scope="col"><span class="mrtC-brand">
+                {%- if st.col3_logo != blank -%}{{ st.col3_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: st.col3_name }}{%- endif -%}
+                <span class="mrtC-brand-name">{{ st.col3_name | escape }}</span></span>
+              </th>
+            {%- endif -%}
+            {%- if st.col4_enable -%}
+              <th scope="col"><span class="mrtC-brand">
+                {%- if st.col4_logo != blank -%}{{ st.col4_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: st.col4_name }}{%- endif -%}
+                <span class="mrtC-brand-name">{{ st.col4_name | escape }}</span></span>
+              </th>
+            {%- endif -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in lignes -%}
+            <tr {{ block.shopify_attributes }}>
+              <th class="mrtC-crit" scope="row">
+                {{ block.settings.critere | escape }}
+                {%- if block.settings.infobulle != blank -%}
+                  <span class="mrtC-tip" tabindex="0" role="note" data-tip="{{ block.settings.infobulle | escape }}">?</span>
+                {%- endif -%}
+              </th>
+
+              {%- for i in (1..4) -%}
+                {%- liquid
+                  case i
+                    when 1
+                      assign val = block.settings.col1
+                      assign txt = block.settings.col1_texte
+                      assign show = true
+                    when 2
+                      assign val = block.settings.col2
+                      assign txt = block.settings.col2_texte
+                      assign show = st.col2_enable
+                    when 3
+                      assign val = block.settings.col3
+                      assign txt = block.settings.col3_texte
+                      assign show = st.col3_enable
+                    when 4
+                      assign val = block.settings.col4
+                      assign txt = block.settings.col4_texte
+                      assign show = st.col4_enable
+                  endcase
+                -%}
+                {%- if show -%}
+                  <td{% if i == 1 %} class="mrtC-hero-cell"{% endif %}>
+                    {%- case val -%}
+                      {%- when 'oui' -%}
+                        <span class="mrtC-mark yes" role="img" aria-label="Oui">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        </span>
+                      {%- when 'non' -%}
+                        <span class="mrtC-mark no" role="img" aria-label="Non">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                        </span>
+                      {%- when 'partiel' -%}
+                        <span class="mrtC-mark partial" role="img" aria-label="Partiellement">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                        </span>
+                      {%- when 'texte' -%}
+                        <span class="mrtC-txt">{{ txt | escape }}</span>
+                      {%- else -%}
+                        <span aria-hidden="true">—</span>
+                    {%- endcase -%}
+                  </td>
+                {%- endif -%}
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    {%- if st.scroll_hint != blank -%}<p class="mrtC-hint">{{ st.scroll_hint | escape }}</p>{%- endif -%}
+
+    {%- if st.cta_text != blank -%}
+      <div class="mrtC-cta">
+        {%- if st.cta_note != blank -%}<p class="mrtC-note">{{ st.cta_note | escape }}</p>{%- endif -%}
+        <a class="mrtC-btn" href="{{ st.cta_link | default: '#acheter' }}">{{ st.cta_text | escape }}
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MRT · Comparaison",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "Comparaison" },
+    { "type": "richtext", "id": "title", "label": "Titre", "default": "<p>Pourquoi <em>myrootalia</em> plutôt qu'autre chose</p>" },
+    { "type": "richtext", "id": "description", "label": "Description" },
+    { "type": "range", "id": "title_size", "min": 24, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
+    { "type": "range", "id": "header_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 48 },
+    { "type": "header", "content": "Colonne mise en avant" },
+    { "type": "text", "id": "col1_name", "label": "Nom", "default": "myrootalia" },
+    { "type": "image_picker", "id": "col1_logo", "label": "Logo (optionnel)" },
+    { "type": "text", "id": "hero_badge", "label": "Badge au-dessus", "default": "Notre choix" },
+    { "type": "range", "id": "hero_lift", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Débord du badge", "default": 22 },
+    { "type": "header", "content": "Colonne 2" },
+    { "type": "checkbox", "id": "col2_enable", "label": "Afficher", "default": true },
+    { "type": "text", "id": "col2_name", "label": "Nom", "default": "Traitements chimiques" },
+    { "type": "image_picker", "id": "col2_logo", "label": "Logo (optionnel)" },
+    { "type": "header", "content": "Colonne 3" },
+    { "type": "checkbox", "id": "col3_enable", "label": "Afficher", "default": false },
+    { "type": "text", "id": "col3_name", "label": "Nom", "default": "Séances en salon" },
+    { "type": "image_picker", "id": "col3_logo", "label": "Logo (optionnel)" },
+    { "type": "header", "content": "Colonne 4" },
+    { "type": "checkbox", "id": "col4_enable", "label": "Afficher", "default": false },
+    { "type": "text", "id": "col4_name", "label": "Nom", "default": "Autres marques" },
+    { "type": "image_picker", "id": "col4_logo", "label": "Logo (optionnel)" },
+    { "type": "header", "content": "Apparence du tableau" },
+    { "type": "range", "id": "table_radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Arrondi de la colonne mise en avant", "default": 18 },
+    { "type": "range", "id": "cell_padding", "min": 8, "max": 32, "step": 2, "unit": "px", "label": "Hauteur des lignes", "default": 18 },
+    { "type": "range", "id": "cell_text_size", "min": 11, "max": 19, "step": 1, "unit": "px", "label": "Taille du texte", "default": 14 },
+    { "type": "range", "id": "header_text_size", "min": 12, "max": 22, "step": 1, "unit": "px", "label": "Taille des en-têtes", "default": 15 },
+    { "type": "range", "id": "mark_size", "min": 20, "max": 44, "step": 2, "unit": "px", "label": "Taille des pastilles", "default": 30 },
+    { "type": "range", "id": "logo_width", "min": 40, "max": 180, "step": 5, "unit": "px", "label": "Largeur des logos", "default": 90 },
+    { "type": "checkbox", "id": "zebra", "label": "Lignes alternées", "default": true },
+    { "type": "text", "id": "criteria_label", "label": "Libellé de la colonne critères", "default": "Critère" },
+    { "type": "text", "id": "scroll_hint", "label": "Indication mobile", "default": "Fais glisser le tableau →" },
+    { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
+      { "value": "narrow", "label": "Étroite" }, { "value": "normal", "label": "Page" }, { "value": "full", "label": "Large" }
+    ], "default": "normal" },
+    { "type": "header", "content": "Bouton (optionnel)" },
+    { "type": "text", "id": "cta_note", "label": "Petite phrase", "default": "Essai 60 nuits — remboursé si tu n'aimes pas." },
+    { "type": "text", "id": "cta_text", "label": "Texte du bouton", "default": "Commencer ma routine" },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton" },
+    { "type": "range", "id": "cta_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace au-dessus du bouton", "default": 44 },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond de section", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_table_bg", "label": "Fond du tableau", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_title", "label": "Titres", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_text", "label": "Textes", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent (badge)", "default": "#C6A15B" },
+    { "type": "color", "id": "color_hero", "label": "Fond colonne mise en avant", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_hero_text", "label": "Texte colonne mise en avant", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_yes", "label": "Couleur « oui »", "default": "#2E7D5B" },
+    { "type": "color", "id": "color_no", "label": "Couleur « non »", "default": "#B4553C" },
+    { "type": "color", "id": "color_btn_bg", "label": "Fond du bouton", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_btn_text", "label": "Texte du bouton", "default": "#FAF6EF" },
+    { "type": "header", "content": "Espacements" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Haut (desktop)", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Bas (desktop)", "default": 72 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 40 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "ligne",
+      "name": "Critère",
+      "settings": [
+        { "type": "text", "id": "critere", "label": "Critère", "default": "Des actifs naturels" },
+        { "type": "text", "id": "infobulle", "label": "Infobulle (optionnelle)" },
+        { "type": "header", "content": "Colonne mise en avant" },
+        { "type": "select", "id": "col1", "label": "Valeur", "options": [
+          { "value": "oui", "label": "✓ Oui" }, { "value": "non", "label": "✕ Non" },
+          { "value": "partiel", "label": "– Partiellement" }, { "value": "texte", "label": "Texte libre" },
+          { "value": "vide", "label": "Vide" }
+        ], "default": "oui" },
+        { "type": "text", "id": "col1_texte", "label": "Texte libre" },
+        { "type": "header", "content": "Colonne 2" },
+        { "type": "select", "id": "col2", "label": "Valeur", "options": [
+          { "value": "oui", "label": "✓ Oui" }, { "value": "non", "label": "✕ Non" },
+          { "value": "partiel", "label": "– Partiellement" }, { "value": "texte", "label": "Texte libre" },
+          { "value": "vide", "label": "Vide" }
+        ], "default": "non" },
+        { "type": "text", "id": "col2_texte", "label": "Texte libre" },
+        { "type": "header", "content": "Colonne 3" },
+        { "type": "select", "id": "col3", "label": "Valeur", "options": [
+          { "value": "oui", "label": "✓ Oui" }, { "value": "non", "label": "✕ Non" },
+          { "value": "partiel", "label": "– Partiellement" }, { "value": "texte", "label": "Texte libre" },
+          { "value": "vide", "label": "Vide" }
+        ], "default": "non" },
+        { "type": "text", "id": "col3_texte", "label": "Texte libre" },
+        { "type": "header", "content": "Colonne 4" },
+        { "type": "select", "id": "col4", "label": "Valeur", "options": [
+          { "value": "oui", "label": "✓ Oui" }, { "value": "non", "label": "✕ Non" },
+          { "value": "partiel", "label": "– Partiellement" }, { "value": "texte", "label": "Texte libre" },
+          { "value": "vide", "label": "Vide" }
+        ], "default": "non" },
+        { "type": "text", "id": "col4_texte", "label": "Texte libre" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MRT · Comparaison",
+      "blocks": [
+        { "type": "ligne", "settings": { "critere": "Des actifs naturels, formule courte", "col1": "oui", "col2": "non" } },
+        { "type": "ligne", "settings": { "critere": "2 minutes par jour, chez toi", "col1": "oui", "col2": "partiel" } },
+        { "type": "ligne", "settings": { "critere": "Texture légère, non grasse", "col1": "oui", "col2": "non" } },
+        { "type": "ligne", "settings": { "critere": "Sans sulfates ni parabènes", "col1": "oui", "col2": "non" } },
+        { "type": "ligne", "settings": { "critere": "Coût mensuel", "col1": "texte", "col1_texte": "33,99 $", "col2": "texte", "col2_texte": "60 à 100 $" } },
+        { "type": "ligne", "settings": { "critere": "Essai 60 nuits, remboursé", "col1": "oui", "col2": "non" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

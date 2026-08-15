@@ -1,0 +1,341 @@
+{% comment %}
+  MRT · Contenu réductible — FAQ / accordéons premium
+  Trois styles (cartes, liste, bordé), icône par ligne, ouverture unique
+  ou multiple, et balisage FAQ pour Google (extraits enrichis).
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign lignes = section.blocks | where: 'type', 'ligne'
+-%}
+
+{%- style -%}
+  #mrt-red-{{ section.id }}{
+    --mrtQ-bg: {{ st.color_bg }};
+    --mrtQ-ink: {{ st.color_text }};
+    --mrtQ-title: {{ st.color_title }};
+    --mrtQ-accent: {{ st.color_accent }};
+    --mrtQ-card: {{ st.color_card }};
+    --mrtQ-line: color-mix(in srgb, {{ st.color_title }} 14%, transparent);
+    --mrtQ-muted: color-mix(in srgb, {{ st.color_text }} 64%, {{ st.color_bg }});
+    --mrtQ-serif: var(--font-heading-family, Georgia, serif);
+    --mrtQ-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrtQ-bg); color: var(--mrtQ-ink); font-family: var(--mrtQ-sans);
+    padding: {{ st.padding_top_sm }}px 0 {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){#mrt-red-{{ section.id }}{padding: {{ st.padding_top }}px 0 {{ st.padding_bottom }}px;}}
+  #mrt-red-{{ section.id }} *{box-sizing:border-box}
+  #mrt-red-{{ section.id }} .mrtQ-wrap{
+    max-width:{% if st.layout == 'deux_colonnes' %}1200px{% elsif st.layout_width == 'narrow' %}680px{% else %}820px{% endif %};
+    margin:0 auto;padding:0 20px}
+  {%- if st.layout == 'deux_colonnes' -%}
+  #mrt-red-{{ section.id }} .mrtQ-inner{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+  #mrt-red-{{ section.id }} .mrtQ-head{text-align:left;margin:0;position:sticky;top:24px}
+  @media(max-width:899px){
+    #mrt-red-{{ section.id }} .mrtQ-inner{grid-template-columns:1fr;gap:32px}
+    #mrt-red-{{ section.id }} .mrtQ-head{position:static;text-align:{{ st.alignment }}}}
+  {%- else -%}
+  #mrt-red-{{ section.id }} .mrtQ-head{text-align:{{ st.alignment }};max-width:620px;
+    margin:0 auto {{ st.header_gap }}px;
+    {% if st.alignment == 'left' %}margin-left:0;{% endif %}}
+  {%- endif -%}
+
+  #mrt-red-{{ section.id }} .mrtQ-kicker{display:inline-block;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--mrtQ-accent);font-weight:600;margin-bottom:13px}
+  #mrt-red-{{ section.id }} .mrtQ-h2{font-family:var(--mrtQ-serif);font-weight:500;
+    font-size:clamp(26px,3.6vw,{{ st.title_size }}px);line-height:1.16;color:var(--mrtQ-title);margin:0 0 12px}
+  #mrt-red-{{ section.id }} .mrtQ-h2 p{margin:0}
+  #mrt-red-{{ section.id }} .mrtQ-h2 em{font-style:italic;color:var(--mrtQ-accent)}
+  #mrt-red-{{ section.id }} .mrtQ-desc{font-size:15.5px;line-height:1.65;color:var(--mrtQ-muted);margin:0}
+  #mrt-red-{{ section.id }} .mrtQ-desc p{margin:0}
+
+  #mrt-red-{{ section.id }} .mrtQ-list{display:flex;flex-direction:column;gap:{{ st.gap }}px}
+
+  #mrt-red-{{ section.id }} details{
+    {% if st.style == 'carte' %}background:var(--mrtQ-card);border:1px solid var(--mrtQ-line);
+      border-radius:{{ st.radius }}px;overflow:hidden;
+    {% elsif st.style == 'borde' %}border-bottom:1px solid var(--mrtQ-line);
+    {% else %}background:var(--mrtQ-card);border-radius:{{ st.radius }}px;overflow:hidden;
+      box-shadow:0 2px 14px -10px rgba(21,42,33,.3);{% endif %}
+    transition:border-color .35s ease, box-shadow .35s ease}
+  {%- if st.style != 'borde' -%}
+  #mrt-red-{{ section.id }} details[open]{border-color:color-mix(in srgb, var(--mrtQ-accent) 42%, transparent);
+    box-shadow:0 18px 40px -26px rgba(21,42,33,.42)}
+  {%- endif -%}
+
+  #mrt-red-{{ section.id }} summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;
+    padding:{{ st.row_padding }}px {% if st.style == 'borde' %}2px{% else %}{{ st.row_padding | plus: 2 }}px{% endif %};
+    font-size:{{ st.question_size }}px;font-weight:600;color:var(--mrtQ-title);line-height:1.4;
+    transition:color .3s ease}
+  #mrt-red-{{ section.id }} summary::-webkit-details-marker{display:none}
+  #mrt-red-{{ section.id }} summary:hover{color:var(--mrtQ-accent)}
+  #mrt-red-{{ section.id }} summary:focus-visible{outline:2px solid var(--mrtQ-accent);outline-offset:2px}
+
+  #mrt-red-{{ section.id }} .mrtQ-ico{flex:0 0 auto;width:{{ st.icon_size }}px;height:{{ st.icon_size }}px;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--mrtQ-accent);
+    background:color-mix(in srgb, var(--mrtQ-accent) 13%, transparent);transition:.35s}
+  #mrt-red-{{ section.id }} .mrtQ-ico svg{width:{{ st.icon_size | times: 0.52 | round }}px;height:{{ st.icon_size | times: 0.52 | round }}px}
+  #mrt-red-{{ section.id }} details[open] .mrtQ-ico{background:var(--mrtQ-accent);color:var(--mrtQ-card)}
+
+  #mrt-red-{{ section.id }} .mrtQ-q{flex:1;min-width:0}
+  #mrt-red-{{ section.id }} .mrtQ-sign{flex:0 0 auto;width:22px;height:22px;position:relative;
+    color:var(--mrtQ-accent);transition:transform .35s cubic-bezier(.22,.61,.36,1)}
+  #mrt-red-{{ section.id }} .mrtQ-sign::before,
+  #mrt-red-{{ section.id }} .mrtQ-sign::after{content:"";position:absolute;background:currentColor;border-radius:2px;
+    top:50%;left:50%;transform:translate(-50%,-50%)}
+  #mrt-red-{{ section.id }} .mrtQ-sign::before{width:14px;height:1.6px}
+  #mrt-red-{{ section.id }} .mrtQ-sign::after{width:1.6px;height:14px;transition:opacity .3s ease, transform .35s ease}
+  #mrt-red-{{ section.id }} details[open] .mrtQ-sign{transform:rotate(180deg)}
+  #mrt-red-{{ section.id }} details[open] .mrtQ-sign::after{opacity:0;transform:translate(-50%,-50%) scaleY(0)}
+
+  #mrt-red-{{ section.id }} .mrtQ-a{overflow:hidden}
+  #mrt-red-{{ section.id }} .mrtQ-a-inner{padding:0 {% if st.style == 'borde' %}2px{% else %}{{ st.row_padding | plus: 2 }}px{% endif %} {{ st.row_padding }}px;
+    {% if st.indent_answer %}padding-left:calc({{ st.icon_size }}px + 14px + {% if st.style == 'borde' %}2px{% else %}{{ st.row_padding | plus: 2 }}px{% endif %});{% endif %}
+    font-size:{{ st.answer_size }}px;line-height:1.68;color:var(--mrtQ-muted)}
+  #mrt-red-{{ section.id }} .mrtQ-a-inner > :first-child{margin-top:0}
+  #mrt-red-{{ section.id }} .mrtQ-a-inner > :last-child{margin-bottom:0}
+  #mrt-red-{{ section.id }} .mrtQ-a-inner ul{padding-left:18px;display:grid;gap:6px}
+  #mrt-red-{{ section.id }} .mrtQ-a-inner a{color:var(--mrtQ-accent)}
+  #mrt-red-{{ section.id }} .mrtQ-a-inner strong{color:var(--mrtQ-title)}
+  #mrt-red-{{ section.id }} .mrtQ-a-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+    font-size:13.5px;font-weight:600;color:var(--mrtQ-title);text-decoration:none;
+    border-bottom:1px solid color-mix(in srgb, var(--mrtQ-accent) 55%, transparent);transition:.25s}
+  #mrt-red-{{ section.id }} .mrtQ-a-link:hover{color:var(--mrtQ-accent);gap:9px}
+
+  #mrt-red-{{ section.id }} .mrtQ-foot{text-align:center;margin-top:{{ st.header_gap }}px}
+  #mrt-red-{{ section.id }} .mrtQ-note{font-size:14px;color:var(--mrtQ-muted);margin:0 0 16px}
+  #mrt-red-{{ section.id }} .mrtQ-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 34px;
+    border-radius:999px;text-decoration:none;background:{{ st.color_btn_bg }};color:{{ st.color_btn_text }};
+    font-size:15px;font-weight:600;box-shadow:0 12px 30px -14px rgba(21,42,33,.6);
+    transition:transform .3s ease, filter .3s ease}
+  #mrt-red-{{ section.id }} .mrtQ-btn:hover{transform:translateY(-3px);filter:brightness(.93)}
+{%- endstyle -%}
+
+<section id="mrt-red-{{ section.id }}">
+  <div class="mrtQ-wrap">
+    <div class="mrtQ-inner">
+
+      {%- if st.kicker != blank or st.title != blank or st.description != blank -%}
+        <div class="mrtQ-head">
+          {%- if st.kicker != blank -%}<span class="mrtQ-kicker">{{ st.kicker | escape }}</span>{%- endif -%}
+          {%- if st.title != blank -%}<h2 class="mrtQ-h2">{{ st.title }}</h2>{%- endif -%}
+          {%- if st.description != blank -%}<div class="mrtQ-desc">{{ st.description }}</div>{%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="mrtQ-list">
+        {%- for block in lignes -%}
+          <details {% if st.exclusive %}name="mrtQ-{{ section.id }}"{% endif %}
+                   {% if block.settings.ouvert %}open{% endif %} {{ block.shopify_attributes }}>
+            <summary>
+              {%- if block.settings.icone != 'aucune' -%}
+                <span class="mrtQ-ico">{%- render 'mrt-icon', icon: block.settings.icone -%}</span>
+              {%- endif -%}
+              <span class="mrtQ-q">{{ block.settings.question | escape }}</span>
+              <span class="mrtQ-sign" aria-hidden="true"></span>
+            </summary>
+            <div class="mrtQ-a">
+              <div class="mrtQ-a-inner">
+                {{ block.settings.reponse }}
+                {%- if block.settings.lien_texte != blank and block.settings.lien != blank -%}
+                  <a class="mrtQ-a-link" href="{{ block.settings.lien }}">{{ block.settings.lien_texte | escape }}
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
+
+    </div>
+
+    {%- if st.foot_note != blank or st.cta_text != blank -%}
+      <div class="mrtQ-foot">
+        {%- if st.foot_note != blank -%}<p class="mrtQ-note">{{ st.foot_note | escape }}</p>{%- endif -%}
+        {%- if st.cta_text != blank -%}
+          <a class="mrtQ-btn" href="{{ st.cta_link | default: '#acheter' }}">{{ st.cta_text | escape }}
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- if st.seo_schema and lignes.size > 0 -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- for block in lignes -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | strip_html | json }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.reponse | strip_html | strip_newlines | json }} }
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+{%- endif -%}
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-red-{{ section.id }}');
+  if (!root) return;
+  var items = root.querySelectorAll('details');
+  var exclusive = {{ st.exclusive | json }};
+  var supportsName = 'name' in document.createElement('details');
+
+  items.forEach(function (d) {
+    var panel = d.querySelector('.mrtQ-a');
+    if (!panel) return;
+
+    /* animation d'ouverture / fermeture en hauteur réelle */
+    d.addEventListener('toggle', function () {
+      if (d.open) {
+        panel.style.height = '0px';
+        requestAnimationFrame(function () {
+          panel.style.transition = 'height .38s cubic-bezier(.22,.61,.36,1)';
+          panel.style.height = panel.scrollHeight + 'px';
+        });
+        panel.addEventListener('transitionend', function onEnd() {
+          panel.style.height = 'auto';
+          panel.style.transition = '';
+          panel.removeEventListener('transitionend', onEnd);
+        });
+      }
+      /* repli exclusif pour les navigateurs sans attribut name */
+      if (d.open && exclusive && !supportsName) {
+        items.forEach(function (other) { if (other !== d) other.open = false; });
+      }
+    });
+
+    /* fermeture animée */
+    var summary = d.querySelector('summary');
+    summary.addEventListener('click', function (e) {
+      if (!d.open) return;
+      e.preventDefault();
+      panel.style.height = panel.scrollHeight + 'px';
+      requestAnimationFrame(function () {
+        panel.style.transition = 'height .32s cubic-bezier(.22,.61,.36,1)';
+        panel.style.height = '0px';
+      });
+      panel.addEventListener('transitionend', function onEnd() {
+        d.open = false;
+        panel.style.height = '';
+        panel.style.transition = '';
+        panel.removeEventListener('transitionend', onEnd);
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MRT · Contenu réductible",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "FAQ" },
+    { "type": "richtext", "id": "title", "label": "Titre", "default": "<p>Les questions <em>qu'on nous pose</em></p>" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Et nos réponses, sans détour.</p>" },
+    { "type": "select", "id": "alignment", "label": "Alignement de l'en-tête", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }
+    ], "default": "center" },
+    { "type": "range", "id": "title_size", "min": 24, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
+    { "type": "range", "id": "header_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 44 },
+    { "type": "header", "content": "Disposition" },
+    { "type": "select", "id": "layout", "label": "Type", "options": [
+      { "value": "simple", "label": "En-tête au-dessus" },
+      { "value": "deux_colonnes", "label": "En-tête à gauche, questions à droite" }
+    ], "default": "simple" },
+    { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
+      { "value": "narrow", "label": "Étroite" }, { "value": "normal", "label": "Normale" }
+    ], "default": "normal" },
+    { "type": "header", "content": "Style" },
+    { "type": "select", "id": "style", "label": "Apparence", "options": [
+      { "value": "carte", "label": "Cartes bordées" },
+      { "value": "ombre", "label": "Cartes avec ombre" },
+      { "value": "borde", "label": "Liste avec traits" }
+    ], "default": "carte" },
+    { "type": "checkbox", "id": "exclusive", "label": "Une seule question ouverte à la fois", "default": true },
+    { "type": "checkbox", "id": "indent_answer", "label": "Aligner la réponse sur le texte de la question", "default": true },
+    { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Arrondi", "default": 14 },
+    { "type": "range", "id": "gap", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Espace entre les lignes", "default": 10 },
+    { "type": "range", "id": "row_padding", "min": 10, "max": 34, "step": 2, "unit": "px", "label": "Hauteur des lignes", "default": 18 },
+    { "type": "range", "id": "icon_size", "min": 0, "max": 52, "step": 2, "unit": "px", "label": "Taille des icônes", "default": 36 },
+    { "type": "range", "id": "question_size", "min": 13, "max": 22, "step": 1, "unit": "px", "label": "Taille des questions", "default": 16 },
+    { "type": "range", "id": "answer_size", "min": 12, "max": 19, "step": 1, "unit": "px", "label": "Taille des réponses", "default": 15 },
+    { "type": "header", "content": "Pied de section" },
+    { "type": "text", "id": "foot_note", "label": "Petite phrase", "default": "Une autre question ? Écris-nous, on répond en moins de 24 h." },
+    { "type": "text", "id": "cta_text", "label": "Texte du bouton" },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton" },
+    { "type": "header", "content": "Référencement" },
+    { "type": "checkbox", "id": "seo_schema", "label": "Balisage FAQ pour Google", "info": "Permet l'affichage des questions dans les résultats de recherche. À n'activer que sur une seule section FAQ par page.", "default": true },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond de section", "default": "#F1EAE0" },
+    { "type": "color", "id": "color_card", "label": "Fond des lignes", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_title", "label": "Titres et questions", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_text", "label": "Textes", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent", "default": "#C6A15B" },
+    { "type": "color", "id": "color_btn_bg", "label": "Fond du bouton", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_btn_text", "label": "Texte du bouton", "default": "#FAF6EF" },
+    { "type": "header", "content": "Espacements" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Haut (desktop)", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Bas (desktop)", "default": 72 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 40 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "ligne",
+      "name": "Question",
+      "settings": [
+        { "type": "select", "id": "icone", "label": "Icône", "options": [
+          { "value": "aucune", "label": "Aucune" },
+          { "value": "question", "label": "❓ Question" }, { "value": "info", "label": "ℹ️ Info" },
+          { "value": "horloge", "label": "🕐 Horloge" }, { "value": "chrono", "label": "⏱️ Chronomètre" },
+          { "value": "calendrier", "label": "📅 Calendrier" }, { "value": "sablier", "label": "⏳ Sablier" },
+          { "value": "camion", "label": "🚚 Camion" }, { "value": "colis", "label": "📦 Colis" },
+          { "value": "retour", "label": "↩️ Retour" }, { "value": "cadenas", "label": "🔒 Cadenas" },
+          { "value": "carte_bancaire", "label": "💳 Carte bancaire" }, { "value": "bouclier", "label": "🛡️ Bouclier" },
+          { "value": "feuille", "label": "🌿 Feuille" }, { "value": "goutte", "label": "💧 Goutte" },
+          { "value": "flacon", "label": "🧴 Flacon" }, { "value": "compte_gouttes", "label": "🧪 Compte-gouttes" },
+          { "value": "cheveux", "label": "💇 Cheveux" }, { "value": "cuir_chevelu", "label": "🧠 Cuir chevelu" },
+          { "value": "massage", "label": "🤲 Massage" }, { "value": "personnes", "label": "👥 Personnes" },
+          { "value": "bulle", "label": "💬 Bulle" }, { "value": "enveloppe", "label": "✉️ Enveloppe" },
+          { "value": "coeur", "label": "❤️ Cœur" }, { "value": "lapin", "label": "🐰 Cruelty-free" },
+          { "value": "recyclage", "label": "♻️ Recyclage" }, { "value": "rafraichir", "label": "🔄 Abonnement" },
+          { "value": "etincelle", "label": "✨ Étincelle" }, { "value": "microscope", "label": "🔬 Microscope" },
+          { "value": "liste", "label": "📋 Liste" }, { "value": "oeil", "label": "👁️ Œil" }
+        ], "default": "question" },
+        { "type": "text", "id": "question", "label": "Question", "default": "En combien de temps je vois des résultats ?" },
+        { "type": "richtext", "id": "reponse", "label": "Réponse", "default": "<p>Compte 8 à 12 semaines d'usage quotidien. Le confort du cuir chevelu se ressent souvent bien avant. C'est la constance qui fait tout.</p>" },
+        { "type": "checkbox", "id": "ouvert", "label": "Ouverte par défaut", "default": false },
+        { "type": "text", "id": "lien_texte", "label": "Texte du lien (optionnel)" },
+        { "type": "url", "id": "lien", "label": "Lien" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MRT · Contenu réductible",
+      "blocks": [
+        { "type": "ligne", "settings": { "icone": "chrono", "question": "En combien de temps je vois des résultats ?", "reponse": "<p>Compte 8 à 12 semaines d'usage quotidien. Le confort du cuir chevelu se ressent souvent bien avant. C'est la constance qui fait tout.</p>", "ouvert": true } },
+        { "type": "ligne", "settings": { "icone": "personnes", "question": "Pour qui est ce produit ?", "reponse": "<p>Pour toutes et tous : cheveux fins, cheveux qui s'affinent, cuir chevelu sec ou négligé. Dès 18 ans.</p>" } },
+        { "type": "ligne", "settings": { "icone": "goutte", "question": "Est-ce que ça graisse les cheveux ?", "reponse": "<p>Non. La texture est légère et pénètre vite. Si tu préfères, applique-le le soir — il aura la nuit pour agir.</p>" } },
+        { "type": "ligne", "settings": { "icone": "cuir_chevelu", "question": "Est-ce que ça fait repousser les cheveux ?", "reponse": "<p>On ne fera jamais cette promesse : c'est un soin cosmétique, pas un traitement médical. Il nourrit le cuir chevelu et favorise l'apparence de cheveux plus denses. En cas de chute soudaine ou importante, consulte un professionnel de santé.</p>" } },
+        { "type": "ligne", "settings": { "icone": "retour", "question": "Et si ça ne me convient pas ?", "reponse": "<p>Essai 60 nuits. Tu nous écris, on te rembourse, on ne discute pas.</p>" } },
+        { "type": "ligne", "settings": { "icone": "camion", "question": "Livraison et délais ?", "reponse": "<p>Gratuite au Canada dès 50 $, sinon 6,99 $. Expédié du Québec sous 24 à 48 h ouvrées, livré en 3 à 8 jours.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

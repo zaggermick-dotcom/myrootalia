@@ -1,0 +1,304 @@
+{% comment %}
+  MRT · Icônes — bénéfices, garanties, engagements
+  50 icônes au trait fin (bibliothèque mrt-icon), 4 styles d'affichage,
+  entièrement personnalisable dans l'éditeur.
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign items = section.blocks | where: 'type', 'icone'
+-%}
+
+{%- style -%}
+  #mrt-icones-{{ section.id }}{
+    --mrtI-bg: {{ st.color_bg }};
+    --mrtI-ink: {{ st.color_text }};
+    --mrtI-title: {{ st.color_title }};
+    --mrtI-accent: {{ st.color_accent }};
+    --mrtI-card: {{ st.color_card }};
+    --mrtI-line: color-mix(in srgb, {{ st.color_title }} 14%, transparent);
+    --mrtI-muted: color-mix(in srgb, {{ st.color_text }} 62%, {{ st.color_bg }});
+    --mrtI-serif: var(--font-heading-family, Georgia, serif);
+    --mrtI-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrtI-bg); color: var(--mrtI-ink); font-family: var(--mrtI-sans);
+    padding: {{ st.padding_top_sm }}px 0 {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){#mrt-icones-{{ section.id }}{padding: {{ st.padding_top }}px 0 {{ st.padding_bottom }}px;}}
+  #mrt-icones-{{ section.id }} *{box-sizing:border-box}
+  #mrt-icones-{{ section.id }} .mrtI-wrap{
+    max-width:{% if st.layout_width == 'full' %}1600px{% elsif st.layout_width == 'narrow' %}940px{% else %}1240px{% endif %};
+    margin:0 auto;padding:0 20px}
+
+  #mrt-icones-{{ section.id }} .mrtI-head{text-align:{{ st.alignment }};max-width:660px;margin:0 auto {{ st.header_gap }}px;
+    {% if st.alignment == 'left' %}margin-left:0;{% elsif st.alignment == 'right' %}margin-right:0;{% endif %}}
+  #mrt-icones-{{ section.id }} .mrtI-kicker{display:inline-block;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--mrtI-accent);font-weight:600;margin-bottom:13px}
+  #mrt-icones-{{ section.id }} .mrtI-h2{font-family:var(--mrtI-serif);font-weight:500;
+    font-size:clamp(26px,3.6vw,{{ st.title_size }}px);line-height:1.18;color:var(--mrtI-title);margin:0 0 12px}
+  #mrt-icones-{{ section.id }} .mrtI-h2 p{margin:0}
+  #mrt-icones-{{ section.id }} .mrtI-h2 em{font-style:italic;color:var(--mrtI-accent)}
+  #mrt-icones-{{ section.id }} .mrtI-desc{font-size:16px;line-height:1.65;color:var(--mrtI-muted);margin:0}
+  #mrt-icones-{{ section.id }} .mrtI-desc p{margin:0}
+
+  #mrt-icones-{{ section.id }} .mrtI-grid{display:grid;
+    grid-template-columns:repeat({{ st.columns }}, minmax(0,1fr));gap:{{ st.gap }}px}
+  @media(max-width:1024px){#mrt-icones-{{ section.id }} .mrtI-grid{
+    grid-template-columns:repeat({{ st.columns_tablet }}, minmax(0,1fr))}}
+  @media(max-width:640px){#mrt-icones-{{ section.id }} .mrtI-grid{
+    grid-template-columns:repeat({{ st.columns_mobile }}, minmax(0,1fr));gap:{{ st.gap_mobile }}px}}
+
+  #mrt-icones-{{ section.id }} .mrtI-item{
+    display:flex;gap:{{ st.icon_gap }}px;
+    {% if st.style == 'ligne' %}flex-direction:row;align-items:flex-start;text-align:left;
+    {% else %}flex-direction:column;align-items:{% if st.item_alignment == 'center' %}center{% else %}flex-start{% endif %};
+    text-align:{{ st.item_alignment }};{% endif %}
+    opacity:0;transform:translateY(20px);
+    transition:opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1)}
+  #mrt-icones-{{ section.id }} .mrtI-item.is-in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){#mrt-icones-{{ section.id }} .mrtI-item{opacity:1;transform:none;transition:none}}
+
+  {%- if st.style == 'carte' or st.style == 'carte_bordee' -%}
+  #mrt-icones-{{ section.id }} .mrtI-item{background:var(--mrtI-card);border-radius:{{ st.card_radius }}px;
+    padding:{{ st.card_padding }}px;
+    {% if st.style == 'carte_bordee' %}border:1px solid var(--mrtI-line);
+    {% else %}box-shadow:0 2px 16px -10px rgba(21,42,33,.3);{% endif %}
+    transition:transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease, border-color .4s ease,
+      opacity .65s cubic-bezier(.22,.61,.36,1)}
+  #mrt-icones-{{ section.id }} .mrtI-item:hover{transform:translateY(-6px);
+    box-shadow:0 26px 50px -26px rgba(21,42,33,.42);
+    border-color:color-mix(in srgb, var(--mrtI-accent) 45%, transparent)}
+  {%- endif -%}
+
+  #mrt-icones-{{ section.id }} .mrtI-ico{flex:0 0 auto;color:var(--mrtI-accent);
+    width:{{ st.icon_size }}px;height:{{ st.icon_size }}px;display:flex;align-items:center;justify-content:center;
+    transition:transform .45s cubic-bezier(.34,1.4,.64,1), background .35s ease, color .35s ease}
+  #mrt-icones-{{ section.id }} .mrtI-ico svg{width:{{ st.icon_size | times: 0.55 | round }}px;height:{{ st.icon_size | times: 0.55 | round }}px}
+  {%- if st.icon_shape == 'cercle' -%}
+  #mrt-icones-{{ section.id }} .mrtI-ico{border-radius:50%;
+    background:color-mix(in srgb, var(--mrtI-accent) 14%, var(--mrtI-card))}
+  {%- elsif st.icon_shape == 'cercle_bordé' -%}
+  #mrt-icones-{{ section.id }} .mrtI-ico{border-radius:50%;
+    border:1px solid color-mix(in srgb, var(--mrtI-accent) 40%, transparent)}
+  {%- elsif st.icon_shape == 'losange' -%}
+  #mrt-icones-{{ section.id }} .mrtI-ico{border-radius:{{ st.icon_size | divided_by: 4 }}px;transform:rotate(45deg);
+    background:color-mix(in srgb, var(--mrtI-accent) 14%, var(--mrtI-card))}
+  #mrt-icones-{{ section.id }} .mrtI-ico svg{transform:rotate(-45deg)}
+  #mrt-icones-{{ section.id }} .mrtI-item:hover .mrtI-ico{transform:rotate(45deg) scale(1.08)}
+  {%- elsif st.icon_shape == 'aucune' -%}
+  #mrt-icones-{{ section.id }} .mrtI-ico svg{width:{{ st.icon_size | times: 0.8 | round }}px;height:{{ st.icon_size | times: 0.8 | round }}px}
+  {%- endif -%}
+  {%- unless st.icon_shape == 'losange' -%}
+  #mrt-icones-{{ section.id }} .mrtI-item:hover .mrtI-ico{transform:scale(1.08);
+    {% if st.icon_shape != 'aucune' %}background:var(--mrtI-accent);color:var(--mrtI-card);{% endif %}}
+  {%- endunless -%}
+
+  #mrt-icones-{{ section.id }} .mrtI-body{min-width:0}
+  #mrt-icones-{{ section.id }} .mrtI-t{font-family:var(--mrtI-serif);font-weight:500;
+    font-size:{{ st.item_title_size }}px;line-height:1.3;color:var(--mrtI-title);margin:0 0 6px}
+  #mrt-icones-{{ section.id }} .mrtI-d{font-size:{{ st.item_text_size }}px;line-height:1.6;
+    color:var(--mrtI-muted);margin:0}
+  #mrt-icones-{{ section.id }} .mrtI-d p{margin:0}
+  #mrt-icones-{{ section.id }} .mrtI-link{display:inline-flex;align-items:center;gap:6px;margin-top:9px;
+    font-size:13px;font-weight:600;color:var(--mrtI-title);text-decoration:none;
+    border-bottom:1px solid color-mix(in srgb, var(--mrtI-accent) 55%, transparent);transition:.25s}
+  #mrt-icones-{{ section.id }} .mrtI-link:hover{color:var(--mrtI-accent);gap:9px}
+
+  #mrt-icones-{{ section.id }} .mrtI-cta{text-align:center;margin-top:{{ st.header_gap }}px}
+  #mrt-icones-{{ section.id }} .mrtI-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;
+    border-radius:999px;text-decoration:none;background:{{ st.color_btn_bg }};color:{{ st.color_btn_text }};
+    font-size:15px;font-weight:600;box-shadow:0 12px 30px -14px rgba(21,42,33,.6);
+    transition:transform .3s ease, filter .3s ease}
+  #mrt-icones-{{ section.id }} .mrtI-btn:hover{transform:translateY(-3px);filter:brightness(.93)}
+{%- endstyle -%}
+
+<section id="mrt-icones-{{ section.id }}">
+  <div class="mrtI-wrap">
+
+    {%- if st.kicker != blank or st.title != blank or st.description != blank -%}
+      <div class="mrtI-head">
+        {%- if st.kicker != blank -%}<span class="mrtI-kicker">{{ st.kicker | escape }}</span>{%- endif -%}
+        {%- if st.title != blank -%}<h2 class="mrtI-h2">{{ st.title }}</h2>{%- endif -%}
+        {%- if st.description != blank -%}<div class="mrtI-desc">{{ st.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mrtI-grid">
+      {%- for block in items -%}
+        <div class="mrtI-item" style="transition-delay:{{ forloop.index0 | times: 90 }}ms" {{ block.shopify_attributes }}>
+          {%- if block.settings.icone != 'aucune' -%}
+            <div class="mrtI-ico">{%- render 'mrt-icon', icon: block.settings.icone -%}</div>
+          {%- endif -%}
+          <div class="mrtI-body">
+            {%- if block.settings.titre != blank -%}<h3 class="mrtI-t">{{ block.settings.titre | escape }}</h3>{%- endif -%}
+            {%- if block.settings.texte != blank -%}<div class="mrtI-d">{{ block.settings.texte }}</div>{%- endif -%}
+            {%- if block.settings.lien_texte != blank and block.settings.lien != blank -%}
+              <a class="mrtI-link" href="{{ block.settings.lien }}">{{ block.settings.lien_texte | escape }}
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if st.cta_text != blank -%}
+      <div class="mrtI-cta">
+        <a class="mrtI-btn" href="{{ st.cta_link | default: '#acheter' }}">{{ st.cta_text | escape }}
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-icones-{{ section.id }}');
+  if (!root) return;
+  var items = root.querySelectorAll('.mrtI-item');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MRT · Icônes",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "Les bénéfices" },
+    { "type": "richtext", "id": "title", "label": "Titre", "default": "<p>Trois raisons d'en faire <em>ton rituel</em></p>" },
+    { "type": "richtext", "id": "description", "label": "Description" },
+    { "type": "select", "id": "alignment", "label": "Alignement de l'en-tête", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
+    ], "default": "center" },
+    { "type": "range", "id": "title_size", "min": 24, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
+    { "type": "range", "id": "header_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 44 },
+    { "type": "header", "content": "Style" },
+    { "type": "select", "id": "style", "label": "Présentation", "options": [
+      { "value": "epure", "label": "Épuré (sans carte)" },
+      { "value": "carte", "label": "Cartes avec ombre" },
+      { "value": "carte_bordee", "label": "Cartes avec bordure" },
+      { "value": "ligne", "label": "Icône à gauche du texte" }
+    ], "default": "carte_bordee" },
+    { "type": "select", "id": "item_alignment", "label": "Alignement du contenu", "options": [
+      { "value": "center", "label": "Centré" }, { "value": "left", "label": "À gauche" }
+    ], "default": "center" },
+    { "type": "select", "id": "icon_shape", "label": "Forme de l'icône", "options": [
+      { "value": "cercle", "label": "Cercle plein" },
+      { "value": "cercle_bordé", "label": "Cercle bordé" },
+      { "value": "losange", "label": "Losange" },
+      { "value": "aucune", "label": "Icône seule" }
+    ], "default": "cercle" },
+    { "type": "range", "id": "icon_size", "min": 32, "max": 96, "step": 4, "unit": "px", "label": "Taille de l'icône", "default": 56 },
+    { "type": "range", "id": "icon_gap", "min": 6, "max": 32, "step": 2, "unit": "px", "label": "Espace icône / texte", "default": 16 },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Arrondi des cartes", "default": 18 },
+    { "type": "range", "id": "card_padding", "min": 14, "max": 48, "step": 2, "unit": "px", "label": "Marge intérieure des cartes", "default": 28 },
+    { "type": "range", "id": "item_title_size", "min": 14, "max": 28, "step": 1, "unit": "px", "label": "Taille des titres", "default": 19 },
+    { "type": "range", "id": "item_text_size", "min": 12, "max": 18, "step": 1, "unit": "px", "label": "Taille des textes", "default": 14 },
+    { "type": "header", "content": "Grille" },
+    { "type": "range", "id": "columns", "min": 2, "max": 6, "step": 1, "unit": "col", "label": "Colonnes (desktop)", "default": 3 },
+    { "type": "range", "id": "columns_tablet", "min": 1, "max": 4, "step": 1, "unit": "col", "label": "Colonnes (tablette)", "default": 2 },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 2, "step": 1, "unit": "col", "label": "Colonnes (mobile)", "default": 1 },
+    { "type": "range", "id": "gap", "min": 10, "max": 60, "step": 2, "unit": "px", "label": "Espacement (desktop)", "default": 24 },
+    { "type": "range", "id": "gap_mobile", "min": 10, "max": 48, "step": 2, "unit": "px", "label": "Espacement (mobile)", "default": 16 },
+    { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
+      { "value": "narrow", "label": "Étroite" }, { "value": "normal", "label": "Page" }, { "value": "full", "label": "Large" }
+    ], "default": "normal" },
+    { "type": "header", "content": "Bouton (optionnel)" },
+    { "type": "text", "id": "cta_text", "label": "Texte du bouton" },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton" },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond de section", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_card", "label": "Fond des cartes", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_title", "label": "Titres", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_text", "label": "Textes", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent (icônes)", "default": "#C6A15B" },
+    { "type": "color", "id": "color_btn_bg", "label": "Fond du bouton", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_btn_text", "label": "Texte du bouton", "default": "#FAF6EF" },
+    { "type": "header", "content": "Espacements" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Haut (desktop)", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Bas (desktop)", "default": 64 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 36 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 36 }
+  ],
+  "blocks": [
+    {
+      "type": "icone",
+      "name": "Icône",
+      "settings": [
+        { "type": "select", "id": "icone", "label": "Icône", "options": [
+          { "value": "feuille", "label": "🌿 Feuille" }, { "value": "pousse", "label": "🌱 Pousse" },
+          { "value": "goutte", "label": "💧 Goutte" }, { "value": "gouttes", "label": "💦 Gouttes" },
+          { "value": "compte_gouttes", "label": "🧪 Compte-gouttes" }, { "value": "flacon", "label": "🧴 Flacon" },
+          { "value": "fleur", "label": "🌸 Fleur" }, { "value": "graine", "label": "🌰 Graine" },
+          { "value": "soleil", "label": "☀️ Soleil" }, { "value": "lune", "label": "🌙 Lune" },
+          { "value": "eau", "label": "🌊 Eau" },
+          { "value": "cheveux", "label": "💇 Cheveux" }, { "value": "cuir_chevelu", "label": "🧠 Cuir chevelu" },
+          { "value": "massage", "label": "🤲 Massage" }, { "value": "peigne", "label": "🪮 Peigne" },
+          { "value": "brosse", "label": "🖌️ Brosse" }, { "value": "main", "label": "✋ Main" },
+          { "value": "miroir", "label": "🪞 Miroir" },
+          { "value": "bouclier", "label": "🛡️ Bouclier" }, { "value": "coche", "label": "✓ Coche" },
+          { "value": "coche_cercle", "label": "✅ Coche cerclée" }, { "value": "croix_cercle", "label": "❌ Croix cerclée" },
+          { "value": "cadenas", "label": "🔒 Cadenas" }, { "value": "retour", "label": "↩️ Retour" },
+          { "value": "medaille", "label": "🏅 Médaille" }, { "value": "certificat", "label": "📜 Certificat" },
+          { "value": "coeur", "label": "❤️ Cœur" }, { "value": "lapin", "label": "🐰 Lapin (cruelty-free)" },
+          { "value": "recyclage", "label": "♻️ Recyclage" }, { "value": "sans", "label": "🚫 Sans (interdit)" },
+          { "value": "camion", "label": "🚚 Camion" }, { "value": "colis", "label": "📦 Colis" },
+          { "value": "cadeau", "label": "🎁 Cadeau" }, { "value": "carte_bancaire", "label": "💳 Carte bancaire" },
+          { "value": "etiquette", "label": "🏷️ Étiquette" }, { "value": "monde", "label": "🌍 Monde" },
+          { "value": "epingle", "label": "📍 Épingle" },
+          { "value": "horloge", "label": "🕐 Horloge" }, { "value": "chrono", "label": "⏱️ Chronomètre" },
+          { "value": "sablier", "label": "⏳ Sablier" }, { "value": "calendrier", "label": "📅 Calendrier" },
+          { "value": "croissance", "label": "📈 Croissance" }, { "value": "graphique", "label": "📊 Graphique" },
+          { "value": "cible", "label": "🎯 Cible" }, { "value": "rafraichir", "label": "🔄 Rafraîchir" },
+          { "value": "etoile", "label": "⭐ Étoile" }, { "value": "etincelle", "label": "✨ Étincelle" },
+          { "value": "eclair", "label": "⚡ Éclair" }, { "value": "microscope", "label": "🔬 Microscope" },
+          { "value": "goutte_labo", "label": "⚗️ Éprouvette" }, { "value": "plume", "label": "🪶 Plume" },
+          { "value": "thermometre", "label": "🌡️ Thermomètre" }, { "value": "flocon", "label": "❄️ Flocon" },
+          { "value": "bulle", "label": "💬 Bulle" }, { "value": "enveloppe", "label": "✉️ Enveloppe" },
+          { "value": "personnes", "label": "👥 Personnes" }, { "value": "question", "label": "❓ Question" },
+          { "value": "info", "label": "ℹ️ Info" }, { "value": "oeil", "label": "👁️ Œil" },
+          { "value": "liste", "label": "📋 Liste" }, { "value": "livre", "label": "📖 Livre" },
+          { "value": "aucune", "label": "Aucune" }
+        ], "default": "feuille" },
+        { "type": "text", "id": "titre", "label": "Titre", "default": "Cuir chevelu sain" },
+        { "type": "richtext", "id": "texte", "label": "Texte", "default": "<p>Apaise et nourrit le cuir chevelu — le sol où tout commence.</p>" },
+        { "type": "text", "id": "lien_texte", "label": "Texte du lien (optionnel)" },
+        { "type": "url", "id": "lien", "label": "Lien" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MRT · Icônes — Bénéfices",
+      "blocks": [
+        { "type": "icone", "settings": { "icone": "cuir_chevelu", "titre": "Cuir chevelu sain", "texte": "<p>Apaise et nourrit le cuir chevelu — le sol où tout commence.</p>" } },
+        { "type": "icone", "settings": { "icone": "cheveux", "titre": "Moins de casse", "texte": "<p>Des huiles qui gainent la fibre et aident à réduire la casse.</p>" } },
+        { "type": "icone", "settings": { "icone": "etincelle", "titre": "Densité visible", "texte": "<p>Favorise l'apparence de cheveux plus denses, avec la constance.</p>" } }
+      ]
+    },
+    {
+      "name": "MRT · Icônes — Garanties",
+      "blocks": [
+        { "type": "icone", "settings": { "icone": "bouclier", "titre": "Essai 60 nuits", "texte": "<p>Remboursé, sans justification.</p>" } },
+        { "type": "icone", "settings": { "icone": "camion", "titre": "Livraison offerte dès 50 $", "texte": "<p>Expédié du Québec sous 24 h.</p>" } },
+        { "type": "icone", "settings": { "icone": "bulle", "titre": "Support humain", "texte": "<p>On répond en moins de 24 h.</p>" } },
+        { "type": "icone", "settings": { "icone": "cadenas", "titre": "Paiement sécurisé", "texte": "<p>Visa · Mastercard · Amex · Shop Pay.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

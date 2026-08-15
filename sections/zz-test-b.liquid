@@ -1,0 +1,199 @@
+{% comment %}
+  MRT · Chronologie — progression dans le temps
+  Trois dispositions : verticale, alternée gauche/droite, horizontale.
+  Chaque étape : période, titre, texte, icône, image et repère de progression.
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign etapes = section.blocks | where: 'type', 'etape'
+-%}
+
+{%- style -%}
+  #mrt-chrono-{{ section.id }}{
+    --mrtT-bg: {{ st.color_bg }};
+    --mrtT-ink: {{ st.color_text }};
+    --mrtT-title: {{ st.color_title }};
+    --mrtT-accent: {{ st.color_accent }};
+    --mrtT-card: {{ st.color_card }};
+    --mrtT-line: {{ st.color_line }};
+    --mrtT-muted: color-mix(in srgb, {{ st.color_text }} 62%, {{ st.color_bg }});
+    --mrtT-dot: {{ st.dot_size }}px;
+    --mrtT-serif: var(--font-heading-family, Georgia, serif);
+    --mrtT-sans: var(--font-body-family, -apple-system, sans-serif);
+    background: var(--mrtT-bg); color: var(--mrtT-ink); font-family: var(--mrtT-sans);
+    padding: {{ st.padding_top_sm }}px 0 {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){#mrt-chrono-{{ section.id }}{padding: {{ st.padding_top }}px 0 {{ st.padding_bottom }}px;}}
+  #mrt-chrono-{{ section.id }} *{box-sizing:border-box}
+  #mrt-chrono-{{ section.id }} .mrtT-wrap{
+    max-width:{% if st.layout == 'horizontale' %}1280px{% elsif st.layout_width == 'narrow' %}720px{% else %}900px{% endif %};
+    margin:0 auto;padding:0 20px}
+
+  #mrt-chrono-{{ section.id }} .mrtT-head{text-align:center;max-width:620px;margin:0 auto {{ st.header_gap }}px}
+  #mrt-chrono-{{ section.id }} .mrtT-kicker{display:inline-block;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--mrtT-accent);font-weight:600;margin-bottom:13px}
+  #mrt-chrono-{{ section.id }} .mrtT-h2{font-family:var(--mrtT-serif);font-weight:500;
+    font-size:clamp(26px,3.6vw,{{ st.title_size }}px);line-height:1.16;color:var(--mrtT-title);margin:0 0 12px}
+  #mrt-chrono-{{ section.id }} .mrtT-h2 p{margin:0}
+  #mrt-chrono-{{ section.id }} .mrtT-h2 em{font-style:italic;color:var(--mrtT-accent)}
+  #mrt-chrono-{{ section.id }} .mrtT-desc{font-size:15.5px;line-height:1.65;color:var(--mrtT-muted);margin:0}
+  #mrt-chrono-{{ section.id }} .mrtT-desc p{margin:0}
+
+  #mrt-chrono-{{ section.id }} .mrtT-item{position:relative;opacity:0;transform:translateY(24px);
+    transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)}
+  #mrt-chrono-{{ section.id }} .mrtT-item.is-in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){#mrt-chrono-{{ section.id }} .mrtT-item{opacity:1;transform:none;transition:none}}
+
+  #mrt-chrono-{{ section.id }} .mrtT-period{display:inline-block;font-size:11.5px;letter-spacing:.18em;
+    text-transform:uppercase;font-weight:700;color:var(--mrtT-accent);margin-bottom:7px}
+  #mrt-chrono-{{ section.id }} .mrtT-t{font-family:var(--mrtT-serif);font-weight:500;
+    font-size:{{ st.item_title_size }}px;line-height:1.28;color:var(--mrtT-title);margin:0 0 7px}
+  #mrt-chrono-{{ section.id }} .mrtT-d{font-size:{{ st.item_text_size }}px;line-height:1.62;color:var(--mrtT-muted);margin:0}
+  #mrt-chrono-{{ section.id }} .mrtT-d p{margin:0}
+  #mrt-chrono-{{ section.id }} .mrtT-img{margin-top:14px;border-radius:14px;overflow:hidden;max-width:100%}
+  #mrt-chrono-{{ section.id }} .mrtT-img img{width:100%;height:auto;display:block}
+
+  /* pastille / point */
+  #mrt-chrono-{{ section.id }} .mrtT-dot{position:absolute;z-index:2;width:var(--mrtT-dot);height:var(--mrtT-dot);
+    border-radius:50%;background:{% if st.dot_style == 'plein' %}var(--mrtT-accent){% else %}var(--mrtT-bg){% endif %};
+    border:2px solid var(--mrtT-accent);color:{% if st.dot_style == 'plein' %}var(--mrtT-bg){% else %}var(--mrtT-accent){% endif %};
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mrtT-serif);font-size:{{ st.dot_size | times: 0.4 | round }}px;font-weight:600;
+    box-shadow:0 0 0 {{ st.dot_halo }}px var(--mrtT-bg);
+    transition:transform .45s cubic-bezier(.34,1.4,.64,1)}
+  #mrt-chrono-{{ section.id }} .mrtT-dot svg{width:{{ st.dot_size | times: 0.46 | round }}px;height:{{ st.dot_size | times: 0.46 | round }}px}
+  #mrt-chrono-{{ section.id }} .mrtT-item:hover .mrtT-dot{transform:scale(1.14)}
+
+  {%- if st.card_style -%}
+  #mrt-chrono-{{ section.id }} .mrtT-body{background:var(--mrtT-card);border:1px solid color-mix(in srgb, {{ st.color_title }} 12%, transparent);
+    border-radius:{{ st.card_radius }}px;padding:{{ st.card_padding }}px;
+    transition:transform .4s ease, box-shadow .4s ease}
+  #mrt-chrono-{{ section.id }} .mrtT-item:hover .mrtT-body{transform:translateY(-4px);
+    box-shadow:0 24px 46px -26px rgba(21,42,33,.4)}
+  {%- endif -%}
+
+  /* ---------- disposition verticale & alternée ---------- */
+  {%- if st.layout == 'verticale' or st.layout == 'alternee' -%}
+  #mrt-chrono-{{ section.id }} .mrtT-list{position:relative;display:flex;flex-direction:column;gap:{{ st.gap }}px}
+  #mrt-chrono-{{ section.id }} .mrtT-list::before{content:"";position:absolute;top:6px;bottom:6px;width:{{ st.line_width }}px;
+    background:{% if st.line_style == 'pointille' %}repeating-linear-gradient(to bottom,var(--mrtT-line) 0 6px,transparent 6px 13px){% else %}var(--mrtT-line){% endif %};
+    {% if st.layout == 'alternee' %}left:50%;transform:translateX(-50%);{% else %}left:calc(var(--mrtT-dot) / 2 - {{ st.line_width | divided_by: 2 }}px);{% endif %}}
+
+  #mrt-chrono-{{ section.id }} .mrtT-item{
+    {% if st.layout == 'alternee' %}width:calc(50% - {{ st.dot_size | divided_by: 2 | plus: 26 }}px);
+    {% else %}padding-left:calc(var(--mrtT-dot) + {{ st.content_gap }}px);{% endif %}}
+  {%- if st.layout == 'alternee' -%}
+  #mrt-chrono-{{ section.id }} .mrtT-item:nth-child(odd){align-self:flex-start;text-align:right}
+  #mrt-chrono-{{ section.id }} .mrtT-item:nth-child(even){align-self:flex-end}
+  #mrt-chrono-{{ section.id }} .mrtT-item:nth-child(odd) .mrtT-dot{right:calc(-1 * (var(--mrtT-dot) + {{ st.dot_size | divided_by: 2 | plus: 26 }}px) + var(--mrtT-dot) / 2 + {{ st.dot_size | divided_by: 2 | plus: 26 }}px - var(--mrtT-dot) / 2);
+    right:calc(-1 * ({{ st.dot_size | divided_by: 2 | plus: 26 }}px + var(--mrtT-dot) / 2));top:4px}
+  #mrt-chrono-{{ section.id }} .mrtT-item:nth-child(even) .mrtT-dot{
+    left:calc(-1 * ({{ st.dot_size | divided_by: 2 | plus: 26 }}px + var(--mrtT-dot) / 2));top:4px}
+  @media(max-width:749px){
+    #mrt-chrono-{{ section.id }} .mrtT-list::before{left:calc(var(--mrtT-dot) / 2 - {{ st.line_width | divided_by: 2 }}px);transform:none}
+    #mrt-chrono-{{ section.id }} .mrtT-item,
+    #mrt-chrono-{{ section.id }} .mrtT-item:nth-child(odd),
+    #mrt-chrono-{{ section.id }} .mrtT-item:nth-child(even){width:100%;align-self:stretch;text-align:left;
+      padding-left:calc(var(--mrtT-dot) + {{ st.content_gap }}px)}
+    #mrt-chrono-{{ section.id }} .mrtT-item .mrtT-dot{left:0;right:auto;top:2px}}
+  {%- else -%}
+  #mrt-chrono-{{ section.id }} .mrtT-dot{left:0;top:2px}
+  {%- endif -%}
+  {%- endif -%}
+
+  /* ---------- disposition horizontale ---------- */
+  {%- if st.layout == 'horizontale' -%}
+  #mrt-chrono-{{ section.id }} .mrtT-list{position:relative;display:grid;
+    grid-template-columns:repeat({{ etapes.size }}, minmax(0,1fr));gap:{{ st.gap }}px}
+  #mrt-chrono-{{ section.id }} .mrtT-list::before{content:"";position:absolute;
+    top:calc(var(--mrtT-dot) / 2 - {{ st.line_width | divided_by: 2 }}px);
+    left:8%;right:8%;height:{{ st.line_width }}px;
+    background:{% if st.line_style == 'pointille' %}repeating-linear-gradient(to right,var(--mrtT-line) 0 6px,transparent 6px 13px){% else %}var(--mrtT-line){% endif %}}
+  #mrt-chrono-{{ section.id }} .mrtT-item{text-align:center;padding-top:calc(var(--mrtT-dot) + {{ st.content_gap }}px)}
+  #mrt-chrono-{{ section.id }} .mrtT-dot{left:50%;transform:translateX(-50%);top:0}
+  #mrt-chrono-{{ section.id }} .mrtT-item:hover .mrtT-dot{transform:translateX(-50%) scale(1.14)}
+  @media(max-width:900px){
+    #mrt-chrono-{{ section.id }} .mrtT-list{grid-template-columns:1fr;gap:{{ st.gap | plus: 6 }}px}
+    #mrt-chrono-{{ section.id }} .mrtT-list::before{top:6px;bottom:6px;left:calc(var(--mrtT-dot) / 2 - {{ st.line_width | divided_by: 2 }}px);
+      right:auto;width:{{ st.line_width }}px;height:auto;
+      background:{% if st.line_style == 'pointille' %}repeating-linear-gradient(to bottom,var(--mrtT-line) 0 6px,transparent 6px 13px){% else %}var(--mrtT-line){% endif %}}
+    #mrt-chrono-{{ section.id }} .mrtT-item{text-align:left;padding-top:0;
+      padding-left:calc(var(--mrtT-dot) + {{ st.content_gap }}px)}
+    #mrt-chrono-{{ section.id }} .mrtT-dot{left:0;transform:none;top:2px}
+    #mrt-chrono-{{ section.id }} .mrtT-item:hover .mrtT-dot{transform:scale(1.14)}}
+  {%- endif -%}
+
+  #mrt-chrono-{{ section.id }} .mrtT-cta{text-align:center;margin-top:{{ st.header_gap }}px}
+  #mrt-chrono-{{ section.id }} .mrtT-note{font-size:13px;color:var(--mrtT-muted);margin:0 0 16px}
+  #mrt-chrono-{{ section.id }} .mrtT-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 38px;
+    border-radius:999px;text-decoration:none;background:{{ st.color_btn_bg }};color:{{ st.color_btn_text }};
+    font-size:15px;font-weight:600;box-shadow:0 12px 30px -14px rgba(21,42,33,.6);
+    transition:transform .3s ease, filter .3s ease}
+  #mrt-chrono-{{ section.id }} .mrtT-btn:hover{transform:translateY(-3px);filter:brightness(.93)}
+{%- endstyle -%}
+
+<section id="mrt-chrono-{{ section.id }}">
+  <div class="mrtT-wrap">
+
+    {%- if st.kicker != blank or st.title != blank or st.description != blank -%}
+      <div class="mrtT-head">
+        {%- if st.kicker != blank -%}<span class="mrtT-kicker">{{ st.kicker | escape }}</span>{%- endif -%}
+        {%- if st.title != blank -%}<h2 class="mrtT-h2">{{ st.title }}</h2>{%- endif -%}
+        {%- if st.description != blank -%}<div class="mrtT-desc">{{ st.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mrtT-list">
+      {%- for block in etapes -%}
+        <div class="mrtT-item" style="transition-delay:{{ forloop.index0 | times: 110 }}ms" {{ block.shopify_attributes }}>
+          <span class="mrtT-dot">
+            {%- if st.dot_content == 'numero' -%}{{ forloop.index }}
+            {%- elsif st.dot_content == 'icone' and block.settings.icone != 'aucune' -%}{%- render 'mrt-icon', icon: block.settings.icone -%}
+            {%- endif -%}
+          </span>
+          <div class="mrtT-body">
+            {%- if block.settings.periode != blank -%}<span class="mrtT-period">{{ block.settings.periode | escape }}</span>{%- endif -%}
+            {%- if block.settings.titre != blank -%}<h3 class="mrtT-t">{{ block.settings.titre | escape }}</h3>{%- endif -%}
+            {%- if block.settings.texte != blank -%}<div class="mrtT-d">{{ block.settings.texte }}</div>{%- endif -%}
+            {%- if block.settings.image != blank -%}
+              <div class="mrtT-img">{{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.titre }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if st.cta_text != blank -%}
+      <div class="mrtT-cta">
+        {%- if st.cta_note != blank -%}<p class="mrtT-note">{{ st.cta_note | escape }}</p>{%- endif -%}
+        <a class="mrtT-btn" href="{{ st.cta_link | default: '#acheter' }}">{{ st.cta_text | escape }}
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-chrono-{{ section.id }}');
+  if (!root) return;
+  var items = root.querySelectorAll('.mrtT-item');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  }
+})();
+</script>
+
+{% schema %}
+{"name":"ZZ Test B","tag":"section","class":"section","blocks":[{"type":"etape","name":"E","settings":[{"type":"text","id":"periode","label":"P"},{"type":"text","id":"titre","label":"T"},{"type":"richtext","id":"texte","label":"X"},{"type":"select","id":"icone","label":"I","options":[{"value":"aucune","label":"A"},{"value":"lune","label":"L"}],"default":"aucune"},{"type":"image_picker","id":"image","label":"Img"}]}],"settings":[]}
+{% endschema %}

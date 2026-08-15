@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "final_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Prêt·e à commencer ?",
+            "heading": "<p>Repars de la racine.</p>",
+            "heading_style": "2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Deux minutes par jour, de vrais ingrédients — et 60 nuits pour te décider.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "b": {
+          "type": "button",
+          "settings": {
+            "button_text": "Commencer ma routine",
+            "button_link": "",
+            "button_style": "1",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t",
+        "b"
+      ],
+      "settings": {
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 64,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1"
+      }
+    }
+  },
+  "order": [
+    "final_cta"
+  ]
+}

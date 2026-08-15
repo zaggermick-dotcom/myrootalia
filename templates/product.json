@@ -15,7 +15,7 @@
           "settings": {
             "stars_style": "stars",
             "rating": 5,
-            "rating_text": " / 5 — à brancher sur ton app d'avis",
+            "rating_text": " / 5 — à brancher sur ton app d'avis (Judge.me / Loox)",
             "block_margin_bottom": 8
           }
         },
@@ -37,6 +37,23 @@
             "show_sale_badge": true,
             "sale_badge": "Économise [amount]",
             "block_margin_bottom": 8
+          }
+        },
+        "pitch": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Le rituel du soir</strong> qui nourrit ton cuir chevelu — pour l'apparence de cheveux plus denses, en 2 minutes par jour.",
+            "text_size": 17,
+            "text_style": "text",
+            "text_alignment": "left",
+            "color": "rgba(0,0,0,0)",
+            "bg_color": "rgba(0,0,0,0)",
+            "border_check": false,
+            "border-position": "inside",
+            "border_select": "normal",
+            "border-weight": 1,
+            "border_radius": 0,
+            "block_margin_bottom": 12
           }
         },
         "variant_picker": {
@@ -126,7 +143,7 @@
             "icon_2_url": "",
             "icon_3_icon_type": "leaf",
             "icon_3_text": "Actifs naturels",
-            "icon_3_description": "Formules courtes et lisibles.",
+            "icon_3_description": "Formule courte et lisible.",
             "icon_3_url": "",
             "icon_4_icon_type": "chat_bubble",
             "icon_4_text": "Support humain",
@@ -140,18 +157,25 @@
           "settings": {
             "show_description": true,
             "tabs_background": "secondary",
-            "icon1": "truck",
-            "heading1": "Livraison & retours",
-            "text1": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
-            "icon2": "leaf",
-            "heading2": "Nos engagements",
-            "text2": "<ul><li>Des formules et des gestes qu'on peut expliquer simplement.</li><li>Aucune promesse médicale — du soin, vraiment.</li><li>Un support humain qui répond en moins de 24 h.</li></ul><p>Une question avant de commander ? Écris-nous.</p>",
+            "icon1": "leaf",
+            "heading1": "Ingrédients & formule",
+            "text1": "<ul><li><strong>Huile de romarin</strong> — l'actif star des routines cuir chevelu sain.</li><li><strong>Huile de ricin</strong> — nourrit et gaine la fibre.</li><li><strong>Biotine</strong> — associée à la force des cheveux.</li><li><strong>Jojoba & argan</strong> — texture légère, absorption rapide.</li></ul><p>Sans sulfates ni parabènes. Parfum naturel léger. Vegan & cruelty-free.</p>",
+            "icon2": "clipboard",
+            "heading2": "Comment l'utiliser",
+            "text2": "<ul><li><strong>Applique</strong> quelques gouttes sur cuir chevelu propre et sec, à la racine grâce à l'embout.</li><li><strong>Masse</strong> 1 à 2 minutes, mouvements circulaires, du front à la nuque.</li><li><strong>Laisse poser</strong> — idéalement le soir. Usage quotidien.</li></ul><p>Les résultats s'installent avec la constance, en 8 à 12 semaines.</p>",
+            "icon3": "truck",
+            "heading3": "Livraison & retours",
+            "text3": "<ul><li>Livraison gratuite au Canada dès 50 $, sinon 6,99 $.</li><li>Expédié du Québec sous 24 à 48 h ouvrées.</li><li>Livré en 3 à 8 jours ouvrables.</li><li>Essai 60 nuits : tu écris, on rembourse.</li></ul>",
             "block_margin_bottom": 20
           }
         },
         "share": {
           "type": "share",
-          "settings": {}
+          "disabled": true,
+          "settings": {
+            "share_label": "Partager",
+            "block_margin_bottom": 16
+          }
         }
       },
       "block_order": [
@@ -159,6 +183,7 @@
         "rating",
         "title",
         "price",
+        "pitch",
         "variant_picker",
         "stock",
         "buy_buttons",
@@ -169,15 +194,19 @@
         "share"
       ],
       "settings": {
-        "section_id": "",
+        "section_id": "acheter",
         "product_style": "medium",
+        "media_layout_desktop": "slider",
+        "media_thum_position": "bottom",
         "image_ratio": "adapt",
+        "price_first": false,
         "thumbnails_style": true,
         "preshot": true,
         "navigation": true,
         "pagination": true,
         "super_glue": true,
         "enable_zoom": true,
+        "exclude_variant_images": true,
         "desktop_content_alignment": "left",
         "enable_animations": false,
         "animation": "fade-up",
@@ -245,6 +274,797 @@
         "padding_bottom_sm": 12
       }
     },
+    "benefits": {
+      "type": "icons",
+      "blocks": {
+        "i0": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "heading": "Cuir chevelu sain",
+            "subheading": "🌿",
+            "description": "Apaise et nourrit le cuir chevelu — le sol où tout commence.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "i1": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "heading": "Moins de casse",
+            "subheading": "💪",
+            "description": "Des huiles qui gainent la fibre et aident à réduire la casse.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "i2": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "heading": "Densité visible",
+            "subheading": "✨",
+            "description": "Favorise l'apparence de cheveux plus denses, avec la constance.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        }
+      },
+      "block_order": [
+        "i0",
+        "i1",
+        "i2"
+      ],
+      "settings": {
+        "layout": "swiper",
+        "layout_style": "normal",
+        "icon__type": "complete",
+        "icon_width_desktop": 50,
+        "icon_width_mobile": 40,
+        "center_icons": false,
+        "slides_on_desktop": 3,
+        "slides_on_tablet": 2,
+        "slides_on_mobile": 1,
+        "preshot_swiper": true,
+        "loop": true,
+        "navigation": false,
+        "pagination": true,
+        "autoplay": true,
+        "speed": 5,
+        "subheading": "Les bénéfices",
+        "heading": "<p>Trois raisons d'en faire ton rituel</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1"
+      }
+    },
+    "problem": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Le problème",
+            "heading": "<p>Cheveux qui s'affinent, cuir chevelu oublié ?</p>",
+            "heading_style": "2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "description": "<p>On empile les shampoings, les masques, les promesses. La plupart des solutions sont chimiques, compliquées — ou juste décevantes.</p><p>Pendant ce temps, le cuir chevelu, lui, reste négligé. C'est pourtant là que tout commence.</p><p><strong>myrootalia repart de la base :</strong> nourrir la racine avec des actifs naturels, 2 minutes par jour.</p>",
+            "color_bold_words": "text"
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t"
+      ],
+      "settings": {
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2"
+      }
+    },
+    "solution": {
+      "type": "image-with-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>La routine de 2 minutes</p>",
+            "heading_level": "2",
+            "heading_style": "2",
+            "icon": "none"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "description": "<p><strong>Quelques gouttes.</strong> Sur cuir chevelu propre et sec, directement à la racine grâce à l'embout applicateur.</p><p><strong>1 à 2 minutes de massage.</strong> Mouvements circulaires, du front à la nuque.</p><p><strong>On laisse poser.</strong> Idéalement le soir — la texture légère ne graisse pas.</p><p>Pas de promesse magique : un rituel simple, de la constance, et des résultats qui s'installent en 8 à 12 semaines.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "ic": {
+          "type": "icons",
+          "settings": {
+            "icons_style": "bullets",
+            "fill_color": "accent",
+            "fill_fade_background": false,
+            "bg_color_icons": false,
+            "icon_1_icon_type": "check_mark",
+            "icon_1_text": "Texture légère, non grasse",
+            "icon_1_description": "",
+            "icon_1_url": "",
+            "icon_2_icon_type": "check_mark",
+            "icon_2_text": "Flacon compte-gouttes + embout cuir chevelu",
+            "icon_2_description": "",
+            "icon_2_url": "",
+            "icon_3_icon_type": "check_mark",
+            "icon_3_text": "Se marie avec le Kit Scalp Activator",
+            "icon_3_description": "",
+            "icon_3_url": ""
+          }
+        },
+        "b": {
+          "type": "button",
+          "settings": {
+            "button_text": "Commencer ma routine",
+            "button_link": "#acheter",
+            "button_style": "1",
+            "button_text_secondary": "",
+            "button_link_secondary": "",
+            "button_style_secondary": "2",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t",
+        "ic",
+        "b"
+      ],
+      "settings": {
+        "media_type": "image",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "layout_style": "normal",
+        "remove_gap": false,
+        "make_square": false,
+        "text_container_max_width": 700,
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1"
+      }
+    },
+    "ingredients": {
+      "type": "specs",
+      "blocks": {
+        "s0": {
+          "type": "spec",
+          "settings": {
+            "icon": "leaf",
+            "heading": "Huile de romarin",
+            "description": "L'actif star des routines cuir chevelu sain."
+          }
+        },
+        "s1": {
+          "type": "spec",
+          "settings": {
+            "icon": "heart",
+            "heading": "Huile de ricin",
+            "description": "Nourrit en profondeur et gaine la fibre."
+          }
+        },
+        "s2": {
+          "type": "spec",
+          "settings": {
+            "icon": "lightning_bolt",
+            "heading": "Biotine",
+            "description": "Associée à la force des cheveux."
+          }
+        },
+        "s3": {
+          "type": "spec",
+          "settings": {
+            "icon": "plant",
+            "heading": "Jojoba & argan",
+            "description": "Huiles support : texture légère, absorption rapide."
+          }
+        }
+      },
+      "block_order": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "arrow": "curve",
+        "subheading": "La formule",
+        "heading": "<p>Des ingrédients qu'on peut te nommer</p>",
+        "heading_style": "2",
+        "description": "<p>Formule courte et lisible. Sans sulfates ni parabènes. Vegan & cruelty-free.</p>",
+        "alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "button_style": "1",
+        "extra_button": false,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2"
+      }
+    },
+    "comparison": {
+      "type": "comparaison-list",
+      "blocks": {
+        "c0": {
+          "type": "bullet",
+          "settings": {
+            "title": "Des actifs naturels, une formule courte",
+            "tooltip": "",
+            "col_1": "check",
+            "text_1": "",
+            "col_2": "cross",
+            "text_2": "",
+            "col_3": "cross",
+            "text_3": "",
+            "col_4": "cross",
+            "text_4": ""
+          }
+        },
+        "c1": {
+          "type": "bullet",
+          "settings": {
+            "title": "2 minutes par jour, chez toi",
+            "tooltip": "",
+            "col_1": "check",
+            "text_1": "",
+            "col_2": "cross",
+            "text_2": "",
+            "col_3": "cross",
+            "text_3": "",
+            "col_4": "cross",
+            "text_4": ""
+          }
+        },
+        "c2": {
+          "type": "bullet",
+          "settings": {
+            "title": "Texture légère, non grasse",
+            "tooltip": "",
+            "col_1": "check",
+            "text_1": "",
+            "col_2": "cross",
+            "text_2": "",
+            "col_3": "cross",
+            "text_3": "",
+            "col_4": "cross",
+            "text_4": ""
+          }
+        },
+        "c3": {
+          "type": "bullet",
+          "settings": {
+            "title": "Sans sulfates ni parabènes",
+            "tooltip": "",
+            "col_1": "check",
+            "text_1": "",
+            "col_2": "cross",
+            "text_2": "",
+            "col_3": "cross",
+            "text_3": "",
+            "col_4": "cross",
+            "text_4": ""
+          }
+        },
+        "c4": {
+          "type": "bullet",
+          "settings": {
+            "title": "Coût mensuel",
+            "tooltip": "",
+            "col_1": "custom",
+            "text_1": "33,99 $ en abonnement",
+            "col_2": "custom",
+            "text_2": "60 à 100 $ et plus",
+            "col_3": "cross",
+            "text_3": "",
+            "col_4": "cross",
+            "text_4": ""
+          }
+        },
+        "c5": {
+          "type": "bullet",
+          "settings": {
+            "title": "Essai 60 nuits, remboursé",
+            "tooltip": "",
+            "col_1": "check",
+            "text_1": "",
+            "col_2": "cross",
+            "text_2": "",
+            "col_3": "cross",
+            "text_3": "",
+            "col_4": "cross",
+            "text_4": ""
+          }
+        }
+      },
+      "block_order": [
+        "c0",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "settings": {
+        "subheading": "Comparaison",
+        "heading": "<p>Pourquoi ce sérum plutôt qu'autre chose</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "brand_display_1": "text",
+        "brand_heading_1": "Sérum myrootalia",
+        "col_enable_2": true,
+        "brand_display_2": "text",
+        "brand_heading_2": "Traitements chimiques",
+        "col_enable_3": false,
+        "brand_display_3": "text",
+        "brand_heading_3": "Séances en salon",
+        "col_enable_4": false,
+        "brand_display_4": "text",
+        "brand_heading_4": "",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1"
+      }
+    },
+    "testimonials": {
+      "type": "scrolling-testimonials",
+      "disabled": true,
+      "blocks": {
+        "t0": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Trois semaines que je l'applique le soir. Mon cuir chevelu tiraille moins, et le massage est devenu mon moment à moi.",
+            "name": "Léa, 34 ans — Montréal",
+            "role": "Cliente",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "text": "J'avais peur que ça graisse — en fait non, la texture est très légère. Deux minutes le soir, montre en main.",
+            "name": "Sophie, 28 ans — Québec",
+            "role": "Cliente",
+            "verified": true,
+            "stars_rating": 4
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Je le combine avec le kit et le masseur. L'odeur naturelle et le geste du soir, ça change des lotions chimiques.",
+            "name": "Karim, 41 ans — Longueuil",
+            "role": "Client",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Ce que j'aime : aucune promesse magique. Une routine, de la constance. Deux mois que je tiens, et je continue.",
+            "name": "Amélie, 31 ans — Laval",
+            "role": "Cliente",
+            "verified": true,
+            "stars_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "scroll_direction": "left",
+        "scroll_speed": 24,
+        "pause_on_hover": true,
+        "enable_rating": true,
+        "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
+        "equalize_review_heights": true,
+        "review_content_position": "flex-start",
+        "subheading": "Avis clients",
+        "heading": "<p>Ce que disent les premières testeuses</p>",
+        "heading_style": "2",
+        "description": "<p>Section désactivée — active-la quand tu auras 5 à 10 vrais avis de testeuses (doc 23). Jamais de faux avis.</p>",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2"
+      }
+    },
+    "progression": {
+      "type": "timeline",
+      "blocks": {
+        "w0": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaines 1–2",
+            "heading": "Le rituel s'installe.",
+            "text": "Deux minutes chaque soir. Le cuir chevelu est nourri, le massage détend."
+          }
+        },
+        "w1": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaines 3–4",
+            "heading": "Le confort d'abord.",
+            "text": "Cuir chevelu plus confortable, moins de tiraillements pour la plupart."
+          }
+        },
+        "w2": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaines 5–8",
+            "heading": "La fibre est gainée.",
+            "text": "Les cheveux sont mieux nourris et la casse tend à diminuer."
+          }
+        },
+        "w3": {
+          "type": "timeline_event",
+          "settings": {
+            "subheading": "Semaines 8–12",
+            "heading": "Le cap des résultats.",
+            "text": "Avec la constance, les cheveux paraissent visiblement plus denses."
+          }
+        }
+      },
+      "block_order": [
+        "w0",
+        "w1",
+        "w2",
+        "w3"
+      ],
+      "settings": {
+        "subheading": "Ta progression",
+        "heading": "<p>8 à 12 semaines, en toute honnêteté</p>",
+        "heading_style": "2",
+        "description": "<p>Chaque cuir chevelu a son rythme. Voici le déroulé habituel, avec de la constance.</p>",
+        "alignment": "center",
+        "switch": true,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-1"
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "q0": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "En combien de temps je vois des résultats ?",
+            "icon": "none",
+            "row_content": "<p>Compte 8 à 12 semaines d'usage quotidien. Le confort du cuir chevelu se ressent souvent bien avant. C'est la constance qui fait tout.</p>",
+            "page": ""
+          }
+        },
+        "q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Pour qui est ce sérum ?",
+            "icon": "none",
+            "row_content": "<p>Pour toutes et tous : cheveux fins, cheveux qui s'affinent, cuir chevelu sec ou négligé. Dès 18 ans.</p>",
+            "page": ""
+          }
+        },
+        "q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Est-ce que ça graisse les cheveux ?",
+            "icon": "none",
+            "row_content": "<p>Non. La texture est légère et pénètre vite. Si tu préfères, applique-le le soir — il aura la nuit pour agir.</p>",
+            "page": ""
+          }
+        },
+        "q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Est-ce que ça fait repousser les cheveux ?",
+            "icon": "none",
+            "row_content": "<p>On ne fera jamais cette promesse : c'est un soin cosmétique, pas un traitement médical. Il nourrit le cuir chevelu et favorise l'apparence de cheveux plus denses. En cas de chute soudaine ou importante, consulte un professionnel de santé.</p>",
+            "page": ""
+          }
+        },
+        "q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Qu'est-ce qu'il y a dedans ?",
+            "icon": "none",
+            "row_content": "<p>Huile de romarin, huile de ricin, biotine, et des huiles support (jojoba, argan). Sans sulfates ni parabènes, parfum naturel léger, vegan & cruelty-free. La liste complète est sur l'étiquette.</p>",
+            "page": ""
+          }
+        },
+        "q5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Ça convient aux cheveux colorés ou traités ?",
+            "icon": "none",
+            "row_content": "<p>Oui. La formule est douce, sans sulfates, et s'applique sur le cuir chevelu. En cas de coloration très récente, attends quelques jours avant de commencer.</p>",
+            "page": ""
+          }
+        },
+        "q6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Comment fonctionne l'abonnement ?",
+            "icon": "none",
+            "row_content": "<p>-15 % sur chaque flacon, livré automatiquement chaque mois. Sans engagement : tu peux mettre en pause ou annuler en deux clics, quand tu veux.</p>",
+            "page": ""
+          }
+        },
+        "q7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Et si ça ne me convient pas ?",
+            "icon": "none",
+            "row_content": "<p>Essai 60 nuits. Tu nous écris, on te rembourse, on ne discute pas.</p>",
+            "page": ""
+          }
+        },
+        "q8": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Livraison et délais ?",
+            "icon": "none",
+            "row_content": "<p>Gratuite au Canada dès 50 $, sinon 6,99 $. Expédié du Québec sous 24 à 48 h ouvrées, livré en 3 à 8 jours ouvrables. Paiement sécurisé : Visa, Mastercard, Amex, Shop Pay.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "subheading": "FAQ",
+        "heading": "<p>Les questions qu'on nous pose</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "desktop_content_position": "top",
+        "enable_image": false,
+        "height": "adapt",
+        "layout": "image_first",
+        "open_first_collapsible_row": true,
+        "accordions_style": "1",
+        "secondary_bg_accordions": true,
+        "remove_gap": false,
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2"
+      }
+    },
+    "guarantees": {
+      "type": "icons",
+      "blocks": {
+        "g0": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🌿",
+            "heading": "Essai 60 nuits",
+            "description": "Remboursé, sans justification.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "g1": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🚚",
+            "heading": "Livraison offerte dès 50 $",
+            "description": "Expédié du Québec sous 24 h.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "g2": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "💌",
+            "heading": "Support humain",
+            "description": "On répond en moins de 24 h.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        },
+        "g3": {
+          "type": "counter",
+          "settings": {
+            "icon": "none",
+            "subheading": "🔒",
+            "heading": "Paiement sécurisé",
+            "description": "Visa · Mastercard · Amex · Shop Pay.",
+            "heading_font_size": 24,
+            "heading_font_size_mobile": 21,
+            "button_text": "",
+            "button_link": "",
+            "button_style": "2"
+          }
+        }
+      },
+      "block_order": [
+        "g0",
+        "g1",
+        "g2",
+        "g3"
+      ],
+      "settings": {
+        "layout": "swiper",
+        "layout_style": "normal",
+        "icon__type": "complete",
+        "icon_width_desktop": 50,
+        "icon_width_mobile": 40,
+        "center_icons": false,
+        "slides_on_desktop": 4,
+        "slides_on_tablet": 2,
+        "slides_on_mobile": 2,
+        "preshot_swiper": true,
+        "loop": true,
+        "navigation": false,
+        "pagination": true,
+        "autoplay": true,
+        "speed": 5,
+        "subheading": "Nos engagements",
+        "heading": "<p>On te couvre à chaque étape</p>",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 28,
+        "color_palette": "background-2"
+      }
+    },
+    "final_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "subheading": "Prêt·e à commencer ?",
+            "heading": "<p>Repars de la racine.</p>",
+            "heading_style": "2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Deux minutes par jour, de vrais ingrédients — et 60 nuits pour te décider.</p>",
+            "color_bold_words": "text"
+          }
+        },
+        "b": {
+          "type": "button",
+          "settings": {
+            "button_text": "Commencer ma routine",
+            "button_link": "#acheter",
+            "button_style": "1",
+            "extra_button": false
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t",
+        "b"
+      ],
+      "settings": {
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "layout_width": "normal",
+        "padding_top": 56,
+        "padding_bottom": 64,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 32,
+        "color_palette": "background-1"
+      }
+    },
     "related": {
       "type": "related-products",
       "settings": {
@@ -267,145 +1087,21 @@
         "padding_top_sm": 28,
         "padding_bottom_sm": 28
       }
-    },
-    "faq": {
-      "type": "collapsible-content",
-      "blocks": {
-        "q0": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Combien coûte la livraison ?",
-            "icon": "none",
-            "row_content": "<p>Gratuite au Canada dès 50 $ d'achat, sinon 6,99 $. Expédié du Québec.</p>"
-          }
-        },
-        "q1": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "En combien de temps je reçois ma commande ?",
-            "icon": "none",
-            "row_content": "<p>Expédiée sous 24 à 48 h ouvrées, livrée en 3 à 8 jours ouvrables.</p>"
-          }
-        },
-        "q2": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Et si le produit ne me convient pas ?",
-            "icon": "none",
-            "row_content": "<p>Essai 60 nuits. Tu nous écris, on te rembourse, on ne discute pas.</p>"
-          }
-        },
-        "q3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Comment vous joindre ?",
-            "icon": "none",
-            "row_content": "<p>Par courriel — on répond en moins de 24 h, par un humain.</p>"
-          }
-        },
-        "q4": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Le paiement est-il sécurisé ?",
-            "icon": "none",
-            "row_content": "<p>Oui. Visa, Mastercard, Amex et Shop Pay, via le paiement chiffré de Shopify.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "q0",
-        "q1",
-        "q2",
-        "q3",
-        "q4"
-      ],
-      "settings": {
-        "subheading": "FAQ",
-        "heading": "<p>Avant de commander</p>",
-        "heading_style": "2",
-        "alignment": "center",
-        "open_first_collapsible_row": false,
-        "enable_image": false,
-        "accordions_style": "1",
-        "color_palette": "background-2",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
-      }
-    },
-    "guarantees": {
-      "type": "icons",
-      "blocks": {
-        "g0": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "🌿",
-            "heading": "Essai 60 nuits",
-            "description": "Remboursé si tu n'aimes pas."
-          }
-        },
-        "g1": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "🚚",
-            "heading": "Livraison offerte dès 50 $",
-            "description": "Expédié du Québec sous 24 h."
-          }
-        },
-        "g2": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "💌",
-            "heading": "Support humain",
-            "description": "On répond en moins de 24 h."
-          }
-        },
-        "g3": {
-          "type": "counter",
-          "settings": {
-            "icon": "none",
-            "subheading": "🔒",
-            "heading": "Paiement sécurisé",
-            "description": "Visa · Mastercard · Amex · Shop Pay."
-          }
-        }
-      },
-      "block_order": [
-        "g0",
-        "g1",
-        "g2",
-        "g3"
-      ],
-      "settings": {
-        "subheading": "Nos engagements",
-        "heading": "<p>On te couvre à chaque étape</p>",
-        "heading_style": "2",
-        "alignment": "center",
-        "slides_on_desktop": 4,
-        "slides_on_tablet": 2,
-        "slides_on_mobile": 2,
-        "pagination": true,
-        "navigation": false,
-        "autoplay": true,
-        "speed": 5,
-        "loop": true,
-        "color_palette": "background-2",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
-      }
     }
   },
   "order": [
     "main",
     "trust_strip",
-    "related",
+    "benefits",
+    "problem",
+    "solution",
+    "ingredients",
+    "comparison",
+    "testimonials",
+    "progression",
     "faq",
-    "guarantees"
+    "guarantees",
+    "final_cta",
+    "related"
   ]
 }

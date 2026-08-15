@@ -1,0 +1,1538 @@
+{% comment %}
+  Comparaison Élégante - Version Optimisée Conversion
+  - Alignement horizontal parfait
+  - Badge "Meilleur choix"
+  - Surbrillance au survol des lignes
+  - Animation d'entrée progressive
+  - Icônes animées avec cercles optionnels
+  - Tooltips explicatifs
+  - CTA synchronisé avec section Packs + Cart Drawer
+  - Compteur animé pour pourcentages
+  - Effet glow sur colonne héros
+  - Témoignage client avec avatar, guillemets anglais et couleurs personnalisables
+  - Couleurs uniformes ou alternées par colonne
+{% endcomment %}
+
+{%- style -%}
+  /* --- Import des polices calligraphiques élégantes --- */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap');
+
+  /* --- Variables CSS --- */
+  #shopify-section-{{ section.id }} {
+    --bg-color: {{ section.settings.bg_color }};
+    --text-color: {{ section.settings.text_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --border-color: {{ section.settings.border_color }};
+    
+    --label-width: {{ section.settings.label_width }}%; 
+    
+    /* Colonne 1 */
+    --col-1-bg: {{ section.settings.col_1_bg }};
+    --col-1-bg-alt: {{ section.settings.col_1_bg_alt }};
+    --col-1-text: {{ section.settings.col_1_text }};
+    --col-1-check: {{ section.settings.col_1_check }};
+    --col-1-shadow: 0 20px 40px rgba(0,0,0, {{ section.settings.hero_shadow_opacity | divided_by: 100.0 }});
+    
+    /* Colonne 2 */
+    --col-2-bg: {{ section.settings.col_2_bg }};
+    --col-2-bg-alt: {{ section.settings.col_2_bg_alt }};
+    --col-2-text: {{ section.settings.col_2_text }};
+    --col-2-check: {{ section.settings.col_2_check }};
+    
+    /* Colonne 3 */
+    --col-3-bg: {{ section.settings.col_3_bg }};
+    --col-3-bg-alt: {{ section.settings.col_3_bg_alt }};
+    --col-3-text: {{ section.settings.col_3_text }};
+    --col-3-check: {{ section.settings.col_3_check }};
+
+    --cross-color: {{ section.settings.cross_color }};
+    
+    --pt: {{ section.settings.padding_top }}px;
+    --pb: {{ section.settings.padding_bottom }}px;
+    --pt-m: {{ section.settings.padding_top_sm }}px;
+    --pb-m: {{ section.settings.padding_bottom_sm }}px;
+
+    /* Badge */
+    --badge-bg: {{ section.settings.badge_bg_color }};
+    --badge-text: {{ section.settings.badge_text_color }};
+    
+    /* CTA */
+    --cta-bg: {{ section.settings.cta_bg_color }};
+    --cta-text: {{ section.settings.cta_text_color }};
+    --cta-hover-bg: {{ section.settings.cta_hover_bg_color }};
+    
+    /* Glow */
+    --glow-color: {{ section.settings.glow_color }};
+    
+    /* Hover ligne */
+    --row-hover-bg: {{ section.settings.row_hover_bg }};
+
+    /* Cercles des icônes */
+    --icon-circle-size: {{ section.settings.icon_circle_size }}px;
+    --icon-circle-border-width: {{ section.settings.icon_circle_border_width }}px;
+    --col-1-circle-bg: {{ section.settings.col_1_circle_bg }};
+    --col-1-circle-border: {{ section.settings.col_1_circle_border }};
+    --col-2-circle-bg: {{ section.settings.col_2_circle_bg }};
+    --col-2-circle-border: {{ section.settings.col_2_circle_border }};
+    --col-3-circle-bg: {{ section.settings.col_3_circle_bg }};
+    --col-3-circle-border: {{ section.settings.col_3_circle_border }};
+    --cross-circle-bg: {{ section.settings.cross_circle_bg }};
+    --cross-circle-border: {{ section.settings.cross_circle_border }};
+
+    /* Témoignage */
+    --testimonial-bg: {{ section.settings.testimonial_bg_color }};
+    --testimonial-text: {{ section.settings.testimonial_text_color }};
+    --testimonial-author: {{ section.settings.testimonial_author_color }};
+    --testimonial-quote-mark: {{ section.settings.testimonial_quote_color }};
+    --testimonial-stat-number: {{ section.settings.testimonial_stat_number_color }};
+    --testimonial-stat-label: {{ section.settings.testimonial_stat_label_color }};
+    --testimonial-padding: {{ section.settings.testimonial_padding }}px;
+    --testimonial-avatar-size: {{ section.settings.testimonial_avatar_size }}px;
+    --testimonial-avatar-gap: {{ section.settings.testimonial_avatar_gap }}px;
+   --testimonial-line-height: {{ section.settings.testimonial_line_height | divided_by: 10.0 }};
+    --testimonial-quote-size: {{ section.settings.testimonial_quote_size }}px;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: var(--pt-m);
+    padding-bottom: var(--pb-m);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: var(--pt);
+      padding-bottom: var(--pb);
+    }
+  }
+
+  .cl-container {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .cl-header {
+    text-align: {{ section.settings.alignment }};
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cl-subheading { 
+    font-family: 'Playfair Display', serif;
+    font-size: 12px; 
+    text-transform: uppercase; 
+    letter-spacing: 2.5px; 
+    margin-bottom: 10px; 
+    opacity: 0.7;
+    font-weight: 600;
+  }
+  
+  .cl-title { 
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 46px); 
+    line-height: 1.2; 
+    color: var(--heading-color); 
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  .cl-description { 
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; 
+    line-height: 1.6; 
+    opacity: 0.9;
+    font-style: italic;
+  }
+
+  /* --- STRUCTURE TABLE POUR COLONNES CONTINUES --- */
+  .cl-table-wrapper {
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+  }
+
+  .cl-table-row {
+    display: table-row;
+  }
+
+  .cl-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Label Column */
+  .cl-table-cell.cl-cell-label {
+    width: var(--label-width);
+    text-align: left;
+    padding-left: 0;
+    padding-right: 15px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    background-color: transparent;
+  }
+
+  /* Colonne 1 - Continue sans espace */
+  .cl-table-cell.cl-cell-col-1 {
+    background-color: var(--col-1-bg);
+    color: var(--col-1-text);
+    text-align: center;
+  }
+
+  /* Mode Alterné Colonne 1 */
+  {% if section.settings.col_1_alternate %}
+  .cl-table-row:nth-child(odd) .cl-cell-col-1 {
+    background-color: var(--col-1-bg);
+  }
+  .cl-table-row:nth-child(even) .cl-cell-col-1 {
+    background-color: var(--col-1-bg-alt);
+  }
+  {% endif %}
+
+  /* Premier et dernier row pour border-radius */
+  .cl-table-row:first-child .cl-cell-col-1 {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .cl-table-row:last-child .cl-cell-col-1 {
+    border-radius: 0 0 16px 16px;
+  }
+
+  /* Effet Glow sur colonne héros */
+  {% if section.settings.enable_glow %}
+  .cl-table-cell.cl-cell-col-1 {
+    box-shadow: 0 0 30px var(--glow-color);
+  }
+  {% endif %}
+
+  .cl-cell-col-1 .cl-icon-check { color: var(--col-1-check); }
+
+  /* Colonne 2 */
+  .cl-table-cell.cl-cell-col-2 { 
+    background-color: var(--col-2-bg); 
+    color: var(--col-2-text);
+    text-align: center;
+  }
+
+  {% if section.settings.col_2_alternate %}
+  .cl-table-row:nth-child(odd) .cl-cell-col-2 {
+    background-color: var(--col-2-bg);
+  }
+  .cl-table-row:nth-child(even) .cl-cell-col-2 {
+    background-color: var(--col-2-bg-alt);
+  }
+  {% endif %}
+
+  .cl-cell-col-2 .cl-icon-check { color: var(--col-2-check); }
+
+  /* Colonne 3 */
+  .cl-table-cell.cl-cell-col-3 { 
+    background-color: var(--col-3-bg); 
+    color: var(--col-3-text);
+    text-align: center;
+  }
+
+  {% if section.settings.col_3_alternate %}
+  .cl-table-row:nth-child(odd) .cl-cell-col-3 {
+    background-color: var(--col-3-bg);
+  }
+  .cl-table-row:nth-child(even) .cl-cell-col-3 {
+    background-color: var(--col-3-bg-alt);
+  }
+  {% endif %}
+
+  .cl-cell-col-3 .cl-icon-check { color: var(--col-3-check); }
+
+  /* Header Row */
+  .cl-table-row.cl-row-header .cl-table-cell {
+    padding-top: 25px;
+    padding-bottom: 20px;
+    vertical-align: bottom;
+  }
+
+  /* Hover sur les lignes (sauf header) */
+  .cl-table-row:not(.cl-row-header):hover .cl-cell-label {
+    background-color: var(--row-hover-bg);
+  }
+
+  /* Bordures entre les lignes */
+  .cl-table-row:not(.cl-row-header):not(:last-child) .cl-table-cell {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .cl-table-row:not(.cl-row-header):not(:last-child) .cl-cell-col-1 {
+    border-bottom-color: rgba(255,255,255,0.2);
+  }
+
+  /* Header Content */
+  .cl-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    gap: 10px;
+    width: 100%;
+    position: relative;
+    min-height: 80px;
+  }
+
+  /* Badge "Meilleur choix" */
+  .cl-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    font-family: 'Playfair Display', serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    animation: badgePulse 2s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+  }
+
+  .cl-brand-logo { 
+    width: 100px; 
+    height: auto; 
+    object-fit: contain; 
+    display: block; 
+  }
+  
+  .cl-brand-name { 
+    font-family: 'Cinzel', serif;
+    font-weight: 700; 
+    font-size: 18px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    word-break: break-word;
+  }
+
+  .cl-cell-col-1 .cl-brand-name {
+    font-size: 22px;
+    color: var(--col-1-text);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     ICÔNES AVEC CERCLES OPTIONNELS
+  ═══════════════════════════════════════════════════════════ */
+  .cl-icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Cercle autour des icônes */
+  .cl-icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-circle-size);
+    height: var(--icon-circle-size);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  /* Cercle Check - Colonne 1 */
+  .cl-cell-col-1 .cl-icon-circle.cl-circle-check {
+    background-color: var(--col-1-circle-bg);
+    border: var(--icon-circle-border-width) solid var(--col-1-circle-border);
+  }
+
+  /* Cercle Check - Colonne 2 */
+  .cl-cell-col-2 .cl-icon-circle.cl-circle-check {
+    background-color: var(--col-2-circle-bg);
+    border: var(--icon-circle-border-width) solid var(--col-2-circle-border);
+  }
+
+  /* Cercle Check - Colonne 3 */
+  .cl-cell-col-3 .cl-icon-circle.cl-circle-check {
+    background-color: var(--col-3-circle-bg);
+    border: var(--icon-circle-border-width) solid var(--col-3-circle-border);
+  }
+
+  /* Cercle Cross - Toutes colonnes */
+  .cl-icon-circle.cl-circle-cross {
+    background-color: var(--cross-circle-bg);
+    border: var(--icon-circle-border-width) solid var(--cross-circle-border);
+  }
+
+  /* Sans cercle */
+  .cl-icon-wrapper.no-circle .cl-icon-circle {
+    background-color: transparent !important;
+    border: none !important;
+    width: auto;
+    height: auto;
+  }
+
+  /* Icônes */
+  .cl-icon { 
+    width: 24px; 
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  /* Taille icône adaptée au cercle */
+  .cl-icon-circle .cl-icon {
+    width: calc(var(--icon-circle-size) * 0.5);
+    height: calc(var(--icon-circle-size) * 0.5);
+  }
+  
+  .cl-icon-cross { 
+    color: var(--cross-color); 
+  }
+
+  /* Animation des icônes */
+  .cl-icon-check {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    transition: stroke-dashoffset 0.6s ease;
+  }
+
+  .cl-icon-check.animated {
+    stroke-dashoffset: 0;
+  }
+
+  .cl-icon-cross {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .cl-icon-cross.animated {
+    opacity: 1;
+  }
+
+  /* Animation du cercle */
+  .cl-icon-circle {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .cl-icon-circle.animated {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .cl-text-value { 
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; 
+    font-size: 14px; 
+    text-align: center;
+  }
+
+  /* Progression */
+  .cl-progress-wrapper { 
+    display: inline-flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  
+  .cl-progress-text { 
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; 
+    font-weight: 700; 
+    margin: 0; 
+    color: currentColor;
+    letter-spacing: 0.5px;
+  }
+
+  /* Tooltip */
+  .cl-tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cl-tooltip-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+    color: var(--text-color);
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .cl-tooltip-icon:hover {
+    opacity: 1;
+  }
+
+  .cl-tooltip-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: #333;
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    max-width: 250px;
+    white-space: normal;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .cl-tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #333;
+  }
+
+  .cl-tooltip-wrapper:hover .cl-tooltip-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-12px);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TÉMOIGNAGE AVEC AVATAR ET GUILLEMETS ANGLAIS
+  ═══════════════════════════════════════════════════════════ */
+  .cl-testimonial {
+    text-align: center;
+    margin-top: 40px;
+    padding: var(--testimonial-padding);
+    background: var(--testimonial-bg);
+    border-radius: 16px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cl-testimonial-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--testimonial-avatar-gap);
+    text-align: left;
+  }
+
+  .cl-testimonial-avatar {
+    flex-shrink: 0;
+    width: var(--testimonial-avatar-size);
+    height: var(--testimonial-avatar-size);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--testimonial-quote-mark);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .cl-testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cl-testimonial-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--testimonial-quote-mark), #ddd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(var(--testimonial-avatar-size) * 0.4);
+    color: #fff;
+  }
+
+  .cl-testimonial-text-wrapper {
+    flex: 1;
+  }
+
+  .cl-testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: var(--testimonial-line-height);
+    color: var(--testimonial-text);
+    margin-bottom: 15px;
+    position: relative;
+    padding: 0 10px;
+  }
+
+  /* Guillemets anglais " " */
+  .cl-testimonial-quote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: var(--testimonial-quote-size);
+    color: var(--testimonial-quote-mark);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    margin-right: 5px;
+  }
+
+  .cl-testimonial-quote::after {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: var(--testimonial-quote-size);
+    color: var(--testimonial-quote-mark);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    margin-left: 5px;
+  }
+
+  .cl-testimonial-author {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--testimonial-author);
+    padding-left: 10px;
+  }
+
+  /* Layout centré si pas d'avatar */
+  .cl-testimonial.no-avatar .cl-testimonial-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cl-testimonial.no-avatar .cl-testimonial-quote {
+    text-align: center;
+  }
+
+  .cl-testimonial.no-avatar .cl-testimonial-author {
+    padding-left: 0;
+  }
+
+  .cl-testimonial-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    flex-wrap: wrap;
+  }
+
+  .cl-testimonial-stat {
+    text-align: center;
+  }
+
+  .cl-testimonial-stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--testimonial-stat-number);
+    display: block;
+  }
+
+  .cl-testimonial-stat-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--testimonial-stat-label);
+  }
+
+  /* CTA Button */
+  .cl-cta-wrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .cl-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--cta-bg);
+    color: var(--cta-text);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .cl-cta-button:hover {
+    background: var(--cta-hover-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .cl-cta-button.is-loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .cl-cta-button svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+  }
+
+  .cl-cta-button:hover svg {
+    transform: translateX(5px);
+  }
+
+  .cl-cta-spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .cl-cta-button.is-loading .cl-cta-spinner {
+    display: inline-block;
+  }
+
+  .cl-cta-button.is-loading .cl-cta-arrow {
+    display: none;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Animations d'entrée */
+  .cl-table-row {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .cl-table-row.cl-animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cl-testimonial {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .cl-testimonial.cl-animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cl-cta-wrapper {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+  }
+
+  .cl-cta-wrapper.cl-animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- MOBILE --- */
+  @media screen and (max-width: 900px) {
+    .cl-container { padding: 0 10px; }
+    
+    .cl-title { font-size: clamp(24px, 5vw, 32px); }
+    .cl-description { font-size: 15px; }
+    
+    .cl-table-cell.cl-cell-label {
+      width: 32%;
+      padding-right: 5px;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .cl-table-cell {
+      padding: 10px 4px;
+      font-size: 11px;
+    }
+
+    .cl-table-row.cl-row-header .cl-table-cell {
+      padding-top: 20px;
+      padding-bottom: 15px;
+    }
+
+    .cl-header-content {
+      min-height: 60px;
+    }
+
+    .cl-badge {
+      font-size: 8px;
+      padding: 4px 10px;
+      top: -12px;
+    }
+    
+    .cl-brand-logo { width: 60px; }
+    .cl-brand-name { font-size: 12px !important; letter-spacing: 1px; }
+    .cl-cell-col-1 .cl-brand-name { font-size: 14px !important; }
+    
+    .cl-icon { width: 18px; height: 18px; }
+    
+    /* Cercle sur mobile */
+    .cl-icon-circle {
+      width: calc(var(--icon-circle-size) * 0.75);
+      height: calc(var(--icon-circle-size) * 0.75);
+    }
+    
+    .cl-icon-circle .cl-icon {
+      width: calc(var(--icon-circle-size) * 0.35);
+      height: calc(var(--icon-circle-size) * 0.35);
+    }
+    
+    .cl-progress-text { font-size: 14px; }
+
+    .cl-tooltip-icon { display: none; }
+
+    .cl-testimonial {
+      padding: 20px 15px;
+      margin-top: 30px;
+    }
+
+    .cl-testimonial-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cl-testimonial-quote {
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .cl-testimonial-author {
+      padding-left: 0;
+      text-align: center;
+    }
+
+    .cl-testimonial-stat-number {
+      font-size: 22px;
+    }
+
+    .cl-testimonial-stats {
+      gap: 20px;
+    }
+
+    .cl-cta-button {
+      font-size: 14px;
+      padding: 14px 30px;
+      letter-spacing: 1.5px;
+    }
+
+    .cl-cta-wrapper {
+      margin-top: 30px;
+    }
+
+    /* Désactiver glow sur mobile */
+    .cl-table-cell.cl-cell-col-1 {
+      box-shadow: none !important;
+    }
+  }
+{%- endstyle -%}
+
+<div id="{{ section.settings.section_id }}" class="section-{{ section.id }}-padding" data-pack-sync-section="{{ section.settings.pack_section_id }}">
+  {% if section.settings.separator_top != 'none' %}<div class="separator-top {{ section.settings.separator_top }}"></div>{% endif %}
+
+  <div class="cl-container">
+    {% if section.settings.title != blank %}
+      <div class="cl-header animate-on-scroll">
+        {% if section.settings.subheading != blank %}<div class="cl-subheading">{{ section.settings.subheading }}</div>{% endif %}
+        <h2 class="cl-title">{{ section.settings.title | escape }}</h2>
+        {% if section.settings.description != blank %}<div class="cl-description">{{ section.settings.description }}</div>{% endif %}
+      </div>
+    {% endif %}
+
+    {% assign features = section.blocks | where: 'type', 'feature' %}
+    {% assign show_circle = section.settings.enable_icon_circles %}
+    
+    <div class="cl-table-wrapper" data-section-id="{{ section.id }}">
+      
+      <!-- Header Row -->
+      <div class="cl-table-row cl-row-header">
+        <div class="cl-table-cell cl-cell-label"></div>
+        
+        <!-- Header Col 1 (Héros) -->
+        <div class="cl-table-cell cl-cell-col-1">
+          <div class="cl-header-content">
+            {% if section.settings.show_badge %}
+              <div class="cl-badge">{{ section.settings.badge_text }}</div>
+            {% endif %}
+            {% if section.settings.brand_img_1 != blank %}
+              {{ section.settings.brand_img_1 | image_url: width: 300 | image_tag: class: 'cl-brand-logo', loading: 'lazy' }}
+            {% else %}
+              <span class="cl-brand-name">{{ section.settings.brand_heading_1 | default: "NOUS" }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Header Col 2 -->
+        <div class="cl-table-cell cl-cell-col-2">
+          <div class="cl-header-content">
+            {% if section.settings.brand_img_2 != blank %}
+              {{ section.settings.brand_img_2 | image_url: width: 300 | image_tag: class: 'cl-brand-logo', loading: 'lazy' }}
+            {% else %}
+              <span class="cl-brand-name">{{ section.settings.brand_heading_2 | default: "AUTRES" }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Header Col 3 (Optionnel) -->
+        {% if section.settings.col_enable_3 %}
+        <div class="cl-table-cell cl-cell-col-3">
+          <div class="cl-header-content">
+            {% if section.settings.brand_img_3 != blank %}
+              {{ section.settings.brand_img_3 | image_url: width: 300 | image_tag: class: 'cl-brand-logo', loading: 'lazy' }}
+            {% else %}
+              <span class="cl-brand-name">{{ section.settings.brand_heading_3 }}</span>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Feature Rows -->
+      {% for block in features %}
+        <div class="cl-table-row cl-row-feature" data-row-index="{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <!-- Label -->
+          <div class="cl-table-cell cl-cell-label">
+            {% if block.settings.tooltip != blank %}
+              <div class="cl-tooltip-wrapper">
+                <span>{{ block.settings.title }}</span>
+                <span class="cl-tooltip-icon">i</span>
+                <div class="cl-tooltip-content">{{ block.settings.tooltip }}</div>
+              </div>
+            {% else %}
+              {{ block.settings.title }}
+            {% endif %}
+          </div>
+
+          <!-- Col 1 -->
+          <div class="cl-table-cell cl-cell-col-1" {% if block.settings.col_1_custom_bg != blank %}style="background-color: {{ block.settings.col_1_custom_bg }} !important;"{% endif %}>
+            {% if block.settings.col_1 == 'check' %}
+              <div class="cl-icon-wrapper {% unless show_circle %}no-circle{% endunless %}">
+                <div class="cl-icon-circle cl-circle-check">
+                  <svg class="cl-icon cl-icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+              </div>
+            {% elsif block.settings.col_1 == 'cross' %}
+              <div class="cl-icon-wrapper {% unless show_circle %}no-circle{% endunless %}">
+                <div class="cl-icon-circle cl-circle-cross">
+                  <svg class="cl-icon cl-icon-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+              </div>
+            {% elsif block.settings.col_1 == 'progress' %}
+              <div class="cl-progress-wrapper" style="color: var(--col-1-check);">
+                <div class="cl-progress-text cl-counter" data-target="{{ block.settings.percent_1 }}">0%</div>
+              </div>
+            {% else %}
+              <span class="cl-text-value">{{ block.settings.text_1 }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Col 2 -->
+          <div class="cl-table-cell cl-cell-col-2" {% if block.settings.col_2_custom_bg != blank %}style="background-color: {{ block.settings.col_2_custom_bg }} !important;"{% endif %}>
+            {% if block.settings.col_2 == 'check' %}
+              <div class="cl-icon-wrapper {% unless show_circle %}no-circle{% endunless %}">
+                <div class="cl-icon-circle cl-circle-check">
+                  <svg class="cl-icon cl-icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+              </div>
+            {% elsif block.settings.col_2 == 'cross' %}
+              <div class="cl-icon-wrapper {% unless show_circle %}no-circle{% endunless %}">
+                <div class="cl-icon-circle cl-circle-cross">
+                  <svg class="cl-icon cl-icon-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+              </div>
+            {% elsif block.settings.col_2 == 'progress' %}
+              <div class="cl-progress-wrapper" style="color: var(--col-2-check);">
+                <div class="cl-progress-text cl-counter" data-target="{{ block.settings.percent_2 }}">0%</div>
+              </div>
+            {% else %}
+              <span class="cl-text-value">{{ block.settings.text_2 }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Col 3 (Optionnel) -->
+          {% if section.settings.col_enable_3 %}
+          <div class="cl-table-cell cl-cell-col-3" {% if block.settings.col_3_custom_bg != blank %}style="background-color: {{ block.settings.col_3_custom_bg }} !important;"{% endif %}>
+            {% if block.settings.col_3 == 'check' %}
+              <div class="cl-icon-wrapper {% unless show_circle %}no-circle{% endunless %}">
+                <div class="cl-icon-circle cl-circle-check">
+                  <svg class="cl-icon cl-icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+              </div>
+            {% elsif block.settings.col_3 == 'cross' %}
+              <div class="cl-icon-wrapper {% unless show_circle %}no-circle{% endunless %}">
+                <div class="cl-icon-circle cl-circle-cross">
+                  <svg class="cl-icon cl-icon-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+              </div>
+            {% elsif block.settings.col_3 == 'progress' %}
+              <div class="cl-progress-wrapper" style="color: var(--col-3-check);">
+                <div class="cl-progress-text cl-counter" data-target="{{ block.settings.percent_3 }}">0%</div>
+              </div>
+            {% else %}
+              <span class="cl-text-value">{{ block.settings.text_3 }}</span>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Témoignage avec Avatar et Guillemets Anglais -->
+    {% if section.settings.show_testimonial %}
+    <div class="cl-testimonial {% unless section.settings.testimonial_avatar != blank %}no-avatar{% endunless %}">
+      <div class="cl-testimonial-content">
+        {% if section.settings.testimonial_avatar != blank %}
+        <div class="cl-testimonial-avatar">
+          {{ section.settings.testimonial_avatar | image_url: width: 200 | image_tag: loading: 'lazy' }}
+        </div>
+        {% endif %}
+        
+        <div class="cl-testimonial-text-wrapper">
+          <p class="cl-testimonial-quote">{{ section.settings.testimonial_text }}</p>
+          <p class="cl-testimonial-author">— {{ section.settings.testimonial_author }}</p>
+        </div>
+      </div>
+      
+      {% if section.settings.show_testimonial_stats %}
+      <div class="cl-testimonial-stats">
+        <div class="cl-testimonial-stat">
+          <span class="cl-testimonial-stat-number cl-counter" data-target="{{ section.settings.stat_1_number }}">0</span>
+          <span class="cl-testimonial-stat-label">{{ section.settings.stat_1_label }}</span>
+        </div>
+        <div class="cl-testimonial-stat">
+          <span class="cl-testimonial-stat-number cl-counter" data-target="{{ section.settings.stat_2_number }}">0</span>
+          <span class="cl-testimonial-stat-label">{{ section.settings.stat_2_label }}</span>
+        </div>
+        <div class="cl-testimonial-stat">
+          <span class="cl-testimonial-stat-number cl-counter" data-target="{{ section.settings.stat_3_number }}">0</span>
+          <span class="cl-testimonial-stat-label">{{ section.settings.stat_3_label }}</span>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- CTA Button synchronisé avec les Packs -->
+    {% if section.settings.show_cta %}
+    <div class="cl-cta-wrapper">
+      <button 
+        type="button" 
+        class="cl-cta-button cl-sync-pack-btn"
+        data-pack-section="{{ section.settings.pack_section_id }}"
+      >
+        <span class="cl-cta-text">{{ section.settings.cta_text }}</span>
+        <span class="cl-cta-spinner"></span>
+        <svg class="cl-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+    {% endif %}
+
+  </div>
+
+  {% if section.settings.separator_bottom != 'none' %}<div class="separator-bottom {{ section.settings.separator_bottom }}"></div>{% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sectionEl = document.querySelector('#{{ section.settings.section_id }}');
+  if (!sectionEl) return;
+
+  const tableWrapper = sectionEl.querySelector('[data-section-id="{{ section.id }}"]');
+  const rows = tableWrapper ? tableWrapper.querySelectorAll('.cl-table-row') : [];
+  const testimonial = sectionEl.querySelector('.cl-testimonial');
+  const ctaWrapper = sectionEl.querySelector('.cl-cta-wrapper');
+  const ctaButton = sectionEl.querySelector('.cl-sync-pack-btn');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  // Animation d'entrée progressive des lignes
+  const rowObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const row = entry.target;
+        const index = row.dataset.rowIndex || 0;
+        setTimeout(() => {
+          row.classList.add('cl-animated');
+          
+          // Animer les cercles et icônes
+          row.querySelectorAll('.cl-icon-circle').forEach((circle, i) => {
+            setTimeout(() => {
+              circle.classList.add('animated');
+              const icon = circle.querySelector('.cl-icon');
+              if (icon) {
+                setTimeout(() => {
+                  icon.classList.add('animated');
+                }, 150);
+              }
+            }, i * 100);
+          });
+
+          row.querySelectorAll('.cl-counter').forEach(counter => {
+            animateCounter(counter);
+          });
+
+        }, index * {{ section.settings.animation_stagger }});
+        
+        rowObserver.unobserve(row);
+      }
+    });
+  }, observerOptions);
+
+  rows.forEach(row => rowObserver.observe(row));
+
+  // Observer pour le témoignage
+  if (testimonial) {
+    const testimonialObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          testimonial.classList.add('cl-animated');
+          
+          testimonial.querySelectorAll('.cl-counter').forEach((counter, i) => {
+            setTimeout(() => {
+              animateCounter(counter);
+            }, i * 200);
+          });
+          
+          testimonialObserver.unobserve(testimonial);
+        }
+      });
+    }, observerOptions);
+    
+    testimonialObserver.observe(testimonial);
+  }
+
+  // Observer pour le CTA
+  if (ctaWrapper) {
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          ctaWrapper.classList.add('cl-animated');
+          ctaObserver.unobserve(ctaWrapper);
+        }
+      });
+    }, observerOptions);
+    
+    ctaObserver.observe(ctaWrapper);
+  }
+
+  // Fonction d'animation des compteurs
+  function animateCounter(element) {
+    const target = parseInt(element.dataset.target) || 0;
+    const duration = {{ section.settings.counter_duration }};
+    const startTime = performance.now();
+    const isPercent = element.classList.contains('cl-progress-text');
+    const suffix = isPercent ? '%' : '';
+
+    function updateCounter(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(easeOut * target);
+      element.textContent = current + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      }
+    }
+    requestAnimationFrame(updateCounter);
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  // CTA SYNCHRONISÉ AVEC SECTION PACKS + CART DRAWER
+  // ═══════════════════════════════════════════════════════════
+  if (ctaButton) {
+    ctaButton.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      const packSectionId = this.dataset.packSection || '{{ section.settings.pack_section_id }}';
+      
+      // Trouver la section Packs
+      const packSection = document.querySelector(`product-pack[data-section-id="${packSectionId}"]`) ||
+                          document.querySelector('.product-pack-conversion') ||
+                          document.querySelector('product-pack');
+      
+      if (!packSection) {
+        console.warn('Section Packs non trouvée');
+        return;
+      }
+
+      // Récupérer le pack sélectionné
+      const selectedPack = packSection.querySelector('.pack__selected') || 
+                           packSection.querySelector('.pack-multi--selected');
+      
+      if (!selectedPack) {
+        console.warn('Aucun pack sélectionné');
+        return;
+      }
+
+      // Récupérer les données du pack
+      const variantInput = packSection.querySelector('input[name="id"]');
+      const quantityInput = packSection.querySelector('input[name="quantity"]');
+      
+      if (!variantInput) {
+        console.warn('Variant ID non trouvé');
+        return;
+      }
+
+      const variantId = variantInput.value;
+      const quantity = quantityInput ? quantityInput.value : (selectedPack.dataset.quantity || 1);
+
+      // Ajouter état loading
+      this.classList.add('is-loading');
+
+      // Collecter les options/propriétés sélectionnées
+      const properties = {};
+      const optionsList = packSection.querySelector('[id^="pack-options-list-"]');
+      if (optionsList) {
+        optionsList.querySelectorAll('.option-item.active:not(.hidden-option) input[type="checkbox"]:checked').forEach(input => {
+          const name = input.name.replace('properties[', '').replace(']', '');
+          properties[name] = input.value;
+        });
+      }
+
+      try {
+        // Ajouter au panier via Shopify AJAX API
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: parseInt(variantId),
+            quantity: parseInt(quantity),
+            properties: properties
+          })
+        });
+
+        if (response.ok) {
+          // Ouvrir le cart-drawer
+          openCartDrawer();
+        } else {
+          const error = await response.json();
+          console.error('Erreur ajout panier:', error);
+          alert(error.description || 'Erreur lors de l\'ajout au panier');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'ajout au panier');
+      } finally {
+        this.classList.remove('is-loading');
+      }
+    });
+  }
+
+  // Fonction pour ouvrir le cart drawer
+  function openCartDrawer() {
+    // Méthode 1: cart-drawer natif Dawn
+    const cartDrawer = document.querySelector('cart-drawer');
+    if (cartDrawer) {
+      if (typeof cartDrawer.open === 'function') {
+        cartDrawer.open();
+        return;
+      }
+      cartDrawer.classList.add('is-open', 'active');
+      cartDrawer.setAttribute('open', '');
+    }
+
+    // Méthode 2: Autres thèmes
+    const drawerSelectors = [
+      '#cart-drawer',
+      '.cart-drawer',
+      '[data-cart-drawer]',
+      '.drawer--cart',
+      '#CartDrawer',
+      '.js-drawer-cart'
+    ];
+
+    for (const selector of drawerSelectors) {
+      const drawer = document.querySelector(selector);
+      if (drawer) {
+        drawer.classList.add('is-open', 'active', 'drawer--is-open');
+        drawer.setAttribute('open', '');
+        document.body.classList.add('overflow-hidden', 'drawer-open');
+        break;
+      }
+    }
+
+    // Méthode 3: Déclencher des événements
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+    document.dispatchEvent(new CustomEvent('cart:open'));
+    
+    // Méthode 4: Cliquer sur le bouton panier du header
+    const cartTriggers = [
+      '[data-cart-toggle]',
+      '.cart-icon-bubble',
+      '.js-drawer-open-cart',
+      'a[href="/cart"]',
+      '.header__icon--cart',
+      '#cart-icon-bubble'
+    ];
+
+    for (const selector of cartTriggers) {
+      const trigger = document.querySelector(selector);
+      if (trigger && !trigger.closest('.cl-cta-wrapper')) {
+        trigger.click();
+        break;
+      }
+    }
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Comparaison Élégante",
+  "settings": [
+    { "type": "header", "content": "Configuration Générale" },
+    { "type": "text", "id": "section_id", "label": "ID de section", "default": "comparaison" },
+    {
+      "type": "range",
+      "id": "label_width",
+      "min": 15,
+      "max": 50,
+      "step": 1,
+      "label": "Largeur Colonne Texte (%)",
+      "default": 30
+    },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Pourquoi nous choisir ?" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Comparaison" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Découvrez pourquoi nos clientes nous choisissent" },
+    { "type": "select", "id": "alignment", "label": "Alignement", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centrer" } ], "default": "center" },
+
+    { "type": "header", "content": "Badge Meilleur Choix" },
+    { "type": "checkbox", "id": "show_badge", "label": "Afficher le badge", "default": true },
+    { "type": "text", "id": "badge_text", "label": "Texte du badge", "default": "Meilleur choix" },
+    { "type": "color", "id": "badge_bg_color", "label": "Fond du badge", "default": "#d4a574" },
+    { "type": "color", "id": "badge_text_color", "label": "Texte du badge", "default": "#ffffff" },
+
+    { "type": "header", "content": "═══ CERCLES DES ICÔNES ═══" },
+    { "type": "checkbox", "id": "enable_icon_circles", "label": "Activer les cercles", "default": true },
+    {
+      "type": "range",
+      "id": "icon_circle_size",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "label": "Taille des cercles (px)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_circle_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Épaisseur bordure (px)",
+      "default": 2
+    },
+
+    { "type": "header", "content": "Cercle Check - Colonne 1" },
+    { "type": "color", "id": "col_1_circle_bg", "label": "Fond du cercle", "default": "rgba(255,255,255,0.2)" },
+    { "type": "color", "id": "col_1_circle_border", "label": "Bordure du cercle", "default": "#ffffff" },
+
+    { "type": "header", "content": "Cercle Check - Colonne 2" },
+    { "type": "color", "id": "col_2_circle_bg", "label": "Fond du cercle", "default": "rgba(76,175,80,0.1)" },
+    { "type": "color", "id": "col_2_circle_border", "label": "Bordure du cercle", "default": "#4CAF50" },
+
+    { "type": "header", "content": "Cercle Check - Colonne 3" },
+    { "type": "color", "id": "col_3_circle_bg", "label": "Fond du cercle", "default": "rgba(76,175,80,0.1)" },
+    { "type": "color", "id": "col_3_circle_border", "label": "Bordure du cercle", "default": "#4CAF50" },
+
+    { "type": "header", "content": "Cercle Croix (toutes colonnes)" },
+    { "type": "color", "id": "cross_circle_bg", "label": "Fond du cercle", "default": "rgba(153,153,153,0.1)" },
+    { "type": "color", "id": "cross_circle_border", "label": "Bordure du cercle", "default": "#cccccc" },
+
+    { "type": "header", "content": "Colonne 1 (Héros)" },
+    { "type": "image_picker", "id": "brand_img_1", "label": "Logo" },
+    { "type": "text", "id": "brand_heading_1", "label": "Nom", "default": "NOUS" },
+    { "type": "color", "id": "col_1_bg", "label": "Fond", "default": "#aebfa3" },
+    { "type": "color", "id": "col_1_bg_alt", "label": "Fond alterné", "default": "#9db091" },
+    { "type": "checkbox", "id": "col_1_alternate", "label": "Activer couleurs alternées", "default": false },
+    { "type": "color", "id": "col_1_text", "label": "Texte", "default": "#ffffff" },
+    { "type": "color", "id": "col_1_check", "label": "Couleur Coche", "default": "#ffffff" },
+    { "type": "range", "id": "hero_shadow_opacity", "min": 0, "max": 100, "step": 5, "label": "Ombre Opacité", "default": 30 },
+
+    { "type": "header", "content": "Effet Glow (Héros)" },
+    { "type": "checkbox", "id": "enable_glow", "label": "Activer l'effet glow", "default": true },
+    { "type": "color", "id": "glow_color", "label": "Couleur du glow", "default": "rgba(174, 191, 163, 0.4)" },
+
+    { "type": "header", "content": "Colonne 2" },
+    { "type": "image_picker", "id": "brand_img_2", "label": "Logo" },
+    { "type": "text", "id": "brand_heading_2", "label": "Nom", "default": "AUTRES" },
+    { "type": "color", "id": "col_2_bg", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "col_2_bg_alt", "label": "Fond alterné", "default": "#f5f5f5" },
+    { "type": "checkbox", "id": "col_2_alternate", "label": "Activer couleurs alternées", "default": false },
+    { "type": "color", "id": "col_2_text", "label": "Texte", "default": "#333333" },
+    { "type": "color", "id": "col_2_check", "label": "Couleur Coche", "default": "#4CAF50" },
+
+    { "type": "header", "content": "Colonne 3" },
+    { "type": "checkbox", "id": "col_enable_3", "label": "Activer", "default": false },
+    { "type": "image_picker", "id": "brand_img_3", "label": "Logo" },
+    { "type": "text", "id": "brand_heading_3", "label": "Nom", "default": "MARQUE 3" },
+    { "type": "color", "id": "col_3_bg", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "col_3_bg_alt", "label": "Fond alterné", "default": "#f5f5f5" },
+    { "type": "checkbox", "id": "col_3_alternate", "label": "Activer couleurs alternées", "default": false },
+    { "type": "color", "id": "col_3_text", "label": "Texte", "default": "#333333" },
+    { "type": "color", "id": "col_3_check", "label": "Couleur Coche", "default": "#4CAF50" },
+
+    { "type": "header", "content": "Témoignage" },
+    { "type": "checkbox", "id": "show_testimonial", "label": "Afficher le témoignage", "default": true },
+    { "type": "image_picker", "id": "testimonial_avatar", "label": "Avatar / Photo" },
+    { "type": "textarea", "id": "testimonial_text", "label": "Texte du témoignage", "default": "Depuis que j'utilise ce produit, ma peau n'a jamais été aussi belle. Je le recommande à toutes mes amies !" },
+    { "type": "text", "id": "testimonial_author", "label": "Auteur", "default": "Marie, 34 ans" },
+    { "type": "checkbox", "id": "show_testimonial_stats", "label": "Afficher les statistiques", "default": true },
+    { "type": "text", "id": "stat_1_number", "label": "Stat 1 - Nombre", "default": "98" },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 - Label", "default": "% satisfaites" },
+    { "type": "text", "id": "stat_2_number", "label": "Stat 2 - Nombre", "default": "2847" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 - Label", "default": "Clientes" },
+    { "type": "text", "id": "stat_3_number", "label": "Stat 3 - Nombre", "default": "28" },
+    { "type": "text", "id": "stat_3_label", "label": "Stat 3 - Label", "default": "Jours pour résultats" },
+
+    { "type": "header", "content": "Couleurs Témoignage" },
+    { "type": "color", "id": "testimonial_bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "testimonial_text_color", "label": "Texte citation", "default": "#333333" },
+    { "type": "color", "id": "testimonial_author_color", "label": "Auteur", "default": "#1a1a1a" },
+    { "type": "color", "id": "testimonial_quote_color", "label": "Guillemets & bordure avatar", "default": "#aebfa3" },
+    { "type": "color", "id": "testimonial_stat_number_color", "label": "Chiffres stats", "default": "#aebfa3" },
+    { "type": "color", "id": "testimonial_stat_label_color", "label": "Labels stats", "default": "#666666" },
+
+    { "type": "header", "content": "Espacement Témoignage" },
+    { "type": "range", "id": "testimonial_padding", "min": 10, "max": 60, "step": 5, "label": "Padding général", "default": 30 },
+    { "type": "range", "id": "testimonial_avatar_size", "min": 40, "max": 120, "step": 5, "label": "Taille avatar", "default": 70 },
+    { "type": "range", "id": "testimonial_avatar_gap", "min": 10, "max": 40, "step": 5, "label": "Espace avatar-texte", "default": 20 },
+    { "type": "range", "id": "testimonial_line_height", "min": 10, "max": 20, "step": 1, "label": "Interligne citation (x10)", "default": 16, "info": "Valeur divisée par 10 (16 = 1.6)" },
+    { "type": "range", "id": "testimonial_quote_size", "min": 20, "max": 60, "step": 5, "label": "Taille guillemets", "default": 40 },
+
+    { "type": "header", "content": "Bouton CTA" },
+    { "type": "checkbox", "id": "show_cta", "label": "Afficher le CTA", "default": true },
+    { "type": "text", "id": "cta_text", "label": "Texte du bouton", "default": "Acheter maintenant" },
+    { "type": "text", "id": "pack_section_id", "label": "ID de la section Packs", "default": "pack-conversion", "info": "Entrez l'ID de votre section Pack Conversion pour synchroniser le bouton" },
+    { "type": "color", "id": "cta_bg_color", "label": "Fond du bouton", "default": "#333333" },
+    { "type": "color", "id": "cta_text_color", "label": "Texte du bouton", "default": "#ffffff" },
+    { "type": "color", "id": "cta_hover_bg_color", "label": "Fond au survol", "default": "#555555" },
+
+    { "type": "header", "content": "Style Global" },
+    { "type": "color", "id": "bg_color", "label": "Fond Section", "default": "#F4F4F4" },
+    { "type": "color", "id": "text_color", "label": "Texte Général", "default": "#333333" },
+    { "type": "color", "id": "heading_color", "label": "Titres", "default": "#1a1a1a" },
+    { "type": "color", "id": "border_color", "label": "Lignes", "default": "#e5e5e5" },
+    { "type": "color", "id": "cross_color", "label": "Croix (X)", "default": "#999999" },
+    { "type": "color", "id": "row_hover_bg", "label": "Fond survol ligne", "default": "rgba(0,0,0,0.02)" },
+    { "type": "range", "id": "max_width", "min": 800, "max": 1400, "step": 50, "label": "Largeur max", "default": 1200 },
+    
+    { "type": "header", "content": "Animations" },
+    { "type": "range", "id": "animation_stagger", "min": 0, "max": 300, "step": 25, "label": "Délai entre lignes (ms)", "default": 100 },
+    { "type": "range", "id": "counter_duration", "min": 500, "max": 3000, "step": 100, "label": "Durée compteur (ms)", "default": 1500 },
+
+    { "type": "header", "content": "Espacement" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 5, "label": "Haut (Bureau)", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 5, "label": "Bas (Bureau)", "default": 60 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 100, "step": 5, "label": "Haut (Mobile)", "default": 40 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 100, "step": 5, "label": "Bas (Mobile)", "default": 40 },
+
+    { "type": "header", "content": "Séparateurs" },
+    { "type": "select", "id": "separator_top", "label": "Haut", "options": [ { "value": "none", "label": "Aucun" }, { "value": "wave", "label": "Vague" } ], "default": "none" },
+    { "type": "select", "id": "separator_bottom", "label": "Bas", "options": [ { "value": "none", "label": "Aucun" }, { "value": "wave", "label": "Vague" } ], "default": "none" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Fonctionnalité",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Nom", "default": "Caractéristique" },
+        { "type": "text", "id": "tooltip", "label": "Info-bulle (texte explicatif)" },
+        
+        { "type": "header", "content": "Col 1" },
+        { "type": "select", "id": "col_1", "label": "Type", "options": [ { "value": "check", "label": "Coche" }, { "value": "cross", "label": "Croix" }, { "value": "custom", "label": "Texte" }, { "value": "progress", "label": "Pourcentage" } ], "default": "check" },
+        { "type": "text", "id": "text_1", "label": "Texte", "default": "Oui" },
+        { "type": "range", "id": "percent_1", "min": 0, "max": 100, "step": 1, "label": "%", "default": 95 },
+        { "type": "color", "id": "col_1_custom_bg", "label": "Fond personnalisé (optionnel)" },
+
+        { "type": "header", "content": "Col 2" },
+        { "type": "select", "id": "col_2", "label": "Type", "options": [ { "value": "check", "label": "Coche" }, { "value": "cross", "label": "Croix" }, { "value": "custom", "label": "Texte" }, { "value": "progress", "label": "Pourcentage" } ], "default": "cross" },
+        { "type": "text", "id": "text_2", "label": "Texte", "default": "Non" },
+        { "type": "range", "id": "percent_2", "min": 0, "max": 100, "step": 1, "label": "%", "default": 40 },
+        { "type": "color", "id": "col_2_custom_bg", "label": "Fond personnalisé (optionnel)" },
+
+        { "type": "header", "content": "Col 3" },
+        { "type": "select", "id": "col_3", "label": "Type", "options": [ { "value": "check", "label": "Coche" }, { "value": "cross", "label": "Croix" }, { "value": "custom", "label": "Texte" }, { "value": "progress", "label": "Pourcentage" } ], "default": "cross" },
+        { "type": "text", "id": "text_3", "label": "Texte", "default": "Non" },
+        { "type": "range", "id": "percent_3", "min": 0, "max": 100, "step": 1, "label": "%", "default": 20 },
+        { "type": "color", "id": "col_3_custom_bg", "label": "Fond personnalisé (optionnel)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparaison Premium",
+      "settings": {
+        "show_badge": true,
+        "badge_text": "Meilleur choix",
+        "show_cta": true,
+        "cta_text": "Acheter maintenant",
+        "show_testimonial": true,
+        "enable_glow": true,
+        "enable_icon_circles": true,
+        "icon_circle_size": 40,
+        "icon_circle_border_width": 2
+      },
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Ingrédients naturels", "col_1": "progress", "percent_1": 100, "col_2": "progress", "percent_2": 47 } },
+        { "type": "feature", "settings": { "title": "Efficacité prouvée", "col_1": "progress", "percent_1": 98, "col_2": "progress", "percent_2": 20 } },
+        { "type": "feature", "settings": { "title": "Soin doux", "col_1": "check", "col_2": "check" } },
+        { "type": "feature", "settings": { "title": "Tous types de peaux", "col_1": "check", "col_2": "cross" } },
+        { "type": "feature", "settings": { "title": "Concentration Bakuchiol", "col_1": "custom", "text_1": "5000 PPM", "col_2": "custom", "text_2": "2000 PPM" } },
+        { "type": "feature", "settings": { "title": "Testé dermatologiquement", "col_1": "check", "col_2": "cross" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

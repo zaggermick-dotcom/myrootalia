@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "landing": {
+      "type": "landing-rituel-myrootelia",
+      "settings": {
+        "product_handle": "huile-de-batana-100-pure-du-honduras",
+        "default_palette": "ambre",
+        "show_palette_bar": true,
+        "show_sticky": true
+      }
+    }
+  },
+  "order": ["landing"]
+}

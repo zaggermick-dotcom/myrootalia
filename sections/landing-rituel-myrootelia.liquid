@@ -1,0 +1,358 @@
+{%- comment -%}
+  myrootelia — Landing « Rituel Batana » (adaptée du document HTML fourni)
+  4 palettes commutables (sélecteur flottant) · packs par quantité (remise auto -10 % dès 3)
+  Conforme : allégations d'apparence uniquement, aucun faux avis / chiffre.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id
+  assign p = all_products[s.product_handle]
+  assign v = p.selected_or_first_available_variant
+-%}
+
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500;600&display=swap');
+
+  #lr-{{ uid }}{
+    --bg:#F8F2E9; --bg2:#F1E7D8; --ink:#2B1D14; --ink2:#6B5744;
+    --accent:#B4761F; --accent-dark:#8A5A16; --gold:#C68A3F;
+    --card:#FFFDF9; --line:#E4D6C2; --hero-glow:rgba(198,138,63,.28);
+    font-family:'Jost',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6;
+    transition:background .5s,color .5s; overflow-x:hidden;
+  }
+  #lr-{{ uid }}[data-mrtheme="foret"]{
+    --bg:#F4F3EC; --bg2:#E9EAE0; --ink:#1C2A21; --ink2:#54655A;
+    --accent:#2E5741; --accent-dark:#213F30; --gold:#B98A44;
+    --card:#FCFCF8; --line:#D8DCCE; --hero-glow:rgba(46,87,65,.18);
+  }
+  #lr-{{ uid }}[data-mrtheme="noir"]{
+    --bg:#141210; --bg2:#1D1A16; --ink:#F3EADB; --ink2:#B8A88F;
+    --accent:#D3A45A; --accent-dark:#B8853B; --gold:#D3A45A;
+    --card:#211D18; --line:#383127; --hero-glow:rgba(211,164,90,.16);
+  }
+  #lr-{{ uid }}[data-mrtheme="rose"]{
+    --bg:#FAF4F1; --bg2:#F3E7E1; --ink:#3A2620; --ink2:#8A6A5D;
+    --accent:#A05C43; --accent-dark:#7F4632; --gold:#C08A62;
+    --card:#FFFCFA; --line:#EAD9D0; --hero-glow:rgba(192,138,98,.24);
+  }
+  #lr-{{ uid }} *{margin:0;padding:0;box-sizing:border-box}
+  #lr-{{ uid }} h1,#lr-{{ uid }} h2,#lr-{{ uid }} h3,#lr-{{ uid }} .serif{font-family:'Fraunces',serif;font-weight:500}
+  #lr-{{ uid }} img{max-width:100%;display:block}
+  #lr-{{ uid }} .lr-sec{padding:88px 6vw}
+  #lr-{{ uid }} .eyebrow{letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--accent);font-weight:600;margin-bottom:14px}
+  #lr-{{ uid }} .center{text-align:center}
+  #lr-{{ uid }} .btn{display:inline-block;background:var(--accent);color:#fff;padding:16px 38px;border-radius:999px;text-decoration:none;font-weight:600;letter-spacing:.04em;font-size:.95rem;border:none;cursor:pointer;transition:transform .2s,background .3s,box-shadow .3s;box-shadow:0 10px 26px -12px var(--accent);font-family:'Jost',sans-serif}
+  #lr-{{ uid }} .btn:hover{background:var(--accent-dark);transform:translateY(-2px)}
+  #lr-{{ uid }} .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+  #lr-{{ uid }} .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  #lr-{{ uid }} h2.sec{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:400}
+  #lr-{{ uid }} .sub-sec{color:var(--ink2);margin-top:12px;max-width:60ch}
+  #lr-{{ uid }} .center .sub-sec{margin-left:auto;margin-right:auto}
+
+  /* Sélecteur de palettes */
+  #lr-{{ uid }} .palette-bar{position:fixed;right:18px;top:45%;z-index:60;display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);padding:12px 9px;border-radius:999px;box-shadow:0 14px 40px -18px rgba(0,0,0,.35)}
+  #lr-{{ uid }} .drop{width:26px;height:33px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;cursor:pointer;border:2px solid transparent;transition:transform .2s,border .2s}
+  #lr-{{ uid }} .drop:hover{transform:scale(1.15)}
+  #lr-{{ uid }} .drop.active{border-color:var(--ink);transform:scale(1.12)}
+  #lr-{{ uid }} .drop[data-t="ambre"]{background:linear-gradient(160deg,#C68A3F,#6B4517)}
+  #lr-{{ uid }} .drop[data-t="foret"]{background:linear-gradient(160deg,#2E5741,#B98A44)}
+  #lr-{{ uid }} .drop[data-t="noir"]{background:linear-gradient(160deg,#1D1A16,#D3A45A)}
+  #lr-{{ uid }} .drop[data-t="rose"]{background:linear-gradient(160deg,#C08A62,#7F4632)}
+  #lr-{{ uid }} .palette-label{font-size:.55rem;text-align:center;letter-spacing:.1em;color:var(--ink2);text-transform:uppercase}
+
+  /* Hero */
+  #lr-{{ uid }} .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:6vw;align-items:center;min-height:76vh;position:relative;background:var(--bg)}
+  #lr-{{ uid }} .hero::before{content:"";position:absolute;right:-10%;top:-20%;width:60vw;height:60vw;background:radial-gradient(circle,var(--hero-glow),transparent 65%);pointer-events:none}
+  #lr-{{ uid }} .hero h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.08;font-weight:500}
+  #lr-{{ uid }} .hero h1 em{font-style:italic;color:var(--accent)}
+  #lr-{{ uid }} .hero p.sub{margin:22px 0 30px;color:var(--ink2);font-size:1.06rem;max-width:46ch}
+  #lr-{{ uid }} .hero .proof{margin-top:12px;font-size:.85rem;color:var(--ink2)}
+  #lr-{{ uid }} .hero-visual{position:relative;aspect-ratio:4/5;border-radius:200px 200px 24px 24px;background:linear-gradient(180deg,var(--bg2),var(--card));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;box-shadow:0 40px 80px -40px rgba(0,0,0,.3);overflow:hidden}
+  #lr-{{ uid }} .hero-visual > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #lr-{{ uid }} .bottle{width:34%;aspect-ratio:1/3.2;border-radius:14px 14px 20px 20px;position:relative;background:linear-gradient(170deg,var(--accent) 0%,var(--accent-dark) 90%);box-shadow:inset 0 0 30px rgba(255,255,255,.18),0 30px 50px -20px rgba(0,0,0,.45)}
+  #lr-{{ uid }} .bottle::before{content:"";position:absolute;top:-14%;left:32%;width:36%;height:14%;background:var(--ink);border-radius:5px 5px 2px 2px}
+  #lr-{{ uid }} .bottle::after{content:"myrootelia\A BATANA";white-space:pre;position:absolute;inset:38% 10% auto;background:var(--card);border-radius:4px;padding:12px 4px;font-family:'Fraunces',serif;font-size:.72rem;text-align:center;color:var(--ink);letter-spacing:.12em;line-height:1.9}
+  #lr-{{ uid }} .badge-float{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 16px;font-size:.8rem;box-shadow:0 16px 34px -18px rgba(0,0,0,.3);z-index:2}
+  #lr-{{ uid }} .badge-float b{display:block;font-size:.95rem}
+  #lr-{{ uid }} .bf1{top:12%;left:-2%} #lr-{{ uid }} .bf2{bottom:14%;right:-2%}
+
+  /* Confiance */
+  #lr-{{ uid }} .trust{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 54px;padding:26px 6vw;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);font-size:.86rem;letter-spacing:.06em;color:var(--ink2)}
+  #lr-{{ uid }} .trust span::before{content:"✦";color:var(--accent);margin-right:9px}
+
+  /* Promesse */
+  #lr-{{ uid }} .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px}
+  #lr-{{ uid }} .lr-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 28px;transition:transform .25s,box-shadow .25s}
+  #lr-{{ uid }} .lr-card:hover{transform:translateY(-5px);box-shadow:0 24px 50px -28px rgba(0,0,0,.3)}
+  #lr-{{ uid }} .lr-card .num{font-family:'Fraunces',serif;font-size:2rem;color:var(--accent);font-style:italic}
+  #lr-{{ uid }} .lr-card h3{margin:10px 0 8px;font-size:1.2rem}
+  #lr-{{ uid }} .lr-card p{color:var(--ink2);font-size:.94rem}
+
+  /* Origine */
+  #lr-{{ uid }} .origine{background:var(--ink);color:var(--bg);display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+  #lr-{{ uid }}[data-mrtheme="noir"] .origine{background:var(--bg2);color:var(--ink)}
+  #lr-{{ uid }} .origine .eyebrow{color:var(--gold)}
+  #lr-{{ uid }} .origine h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:400}
+  #lr-{{ uid }} .origine p{color:color-mix(in srgb,var(--bg) 72%,transparent);margin-top:18px;font-size:1rem}
+  #lr-{{ uid }}[data-mrtheme="noir"] .origine p{color:var(--ink2)}
+  #lr-{{ uid }} .origine-visual{aspect-ratio:1/1;border-radius:50% 50% 8px 50%;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--gold) 45%,transparent),transparent 70%);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;text-align:center;padding:2rem;color:var(--gold)}
+
+  /* Rituel */
+  #lr-{{ uid }} .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px;counter-reset:step}
+  #lr-{{ uid }} .step{position:relative;padding:30px 26px;border-left:2px solid var(--line)}
+  #lr-{{ uid }} .step::before{counter-increment:step;content:counter(step,decimal-leading-zero);font-family:'Fraunces',serif;font-style:italic;color:var(--accent);font-size:1.6rem}
+  #lr-{{ uid }} .step h3{margin:8px 0 6px;font-size:1.1rem}
+  #lr-{{ uid }} .step p{color:var(--ink2);font-size:.92rem}
+
+  /* Packs */
+  #lr-{{ uid }} .packs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px;align-items:stretch}
+  #lr-{{ uid }} .pack{background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:38px 30px;text-align:center;position:relative;display:flex;flex-direction:column}
+  #lr-{{ uid }} .pack.best{border-color:var(--accent);transform:scale(1.04);box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+  #lr-{{ uid }} .pack .tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 18px;border-radius:999px;white-space:nowrap}
+  #lr-{{ uid }} .pack h3{font-size:1.25rem}
+  #lr-{{ uid }} .pack .prix{font-family:'Fraunces',serif;font-size:2.3rem;margin:14px 0 2px}
+  #lr-{{ uid }} .pack .ancien{text-decoration:line-through;color:var(--ink2);font-size:.95rem}
+  #lr-{{ uid }} .pack ul{list-style:none;margin:22px 0 28px;text-align:left;flex:1}
+  #lr-{{ uid }} .pack li{padding:7px 0;font-size:.92rem;color:var(--ink2)}
+  #lr-{{ uid }} .pack li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:10px}
+  #lr-{{ uid }} .econo{font-size:.8rem;color:var(--accent);font-weight:600;letter-spacing:.06em}
+  #lr-{{ uid }} .pack form{margin:0}
+  #lr-{{ uid }} .pack .btn{width:100%}
+
+  /* Garantie */
+  #lr-{{ uid }} .garantie{display:flex;align-items:center;gap:5vw;background:var(--bg)}
+  #lr-{{ uid }} .sceau{min-width:170px;width:170px;height:170px;border-radius:50%;border:2px solid var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Fraunces',serif;color:var(--accent);text-align:center;line-height:1.3}
+  #lr-{{ uid }} .sceau b{font-size:2.2rem}
+
+  /* FAQ */
+  #lr-{{ uid }} details{border-bottom:1px solid var(--line);padding:20px 4px;cursor:pointer;max-width:760px;margin:0 auto}
+  #lr-{{ uid }} summary{font-family:'Fraunces',serif;font-size:1.06rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+  #lr-{{ uid }} summary::-webkit-details-marker{display:none}
+  #lr-{{ uid }} summary::after{content:"+";color:var(--accent);font-size:1.3rem}
+  #lr-{{ uid }} details[open] summary::after{content:"–"}
+  #lr-{{ uid }} details p{margin-top:12px;color:var(--ink2);font-size:.94rem}
+
+  /* CTA final */
+  #lr-{{ uid }} .cta-final{background:var(--ink);color:var(--bg);text-align:center}
+  #lr-{{ uid }}[data-mrtheme="noir"] .cta-final{background:var(--bg2);color:var(--ink)}
+  #lr-{{ uid }} .cta-final h2{font-size:clamp(1.8rem,3.6vw,2.7rem);font-weight:400}
+  #lr-{{ uid }} .cta-final p{margin:16px auto 30px;max-width:52ch;color:color-mix(in srgb,var(--bg) 70%,transparent)}
+  #lr-{{ uid }}[data-mrtheme="noir"] .cta-final p{color:var(--ink2)}
+
+  /* Sticky mobile */
+  #lr-{{ uid }} .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:55;display:none;background:var(--card);border-top:1px solid var(--line);padding:12px 16px;align-items:center;justify-content:space-between;gap:12px}
+  #lr-{{ uid }} .sticky-cta .p{font-family:'Fraunces',serif}
+
+  @media(max-width:900px){
+    #lr-{{ uid }} .lr-sec{padding:56px 5vw}
+    #lr-{{ uid }} .hero,#lr-{{ uid }} .origine{grid-template-columns:1fr;min-height:auto;gap:44px}
+    #lr-{{ uid }} .grid3,#lr-{{ uid }} .steps,#lr-{{ uid }} .packs-grid{grid-template-columns:1fr}
+    #lr-{{ uid }} .pack.best{transform:none}
+    #lr-{{ uid }} .garantie{flex-direction:column;text-align:center}
+    {% if s.show_sticky %}#lr-{{ uid }} .sticky-cta{display:flex}{% endif %}
+    #lr-{{ uid }} .palette-bar{top:auto;bottom:86px;right:12px;padding:9px 7px}
+  }
+  @media(prefers-reduced-motion:reduce){#lr-{{ uid }} *{transition:none!important}}
+{%- endstyle -%}
+
+<div id="lr-{{ uid }}" data-mrtheme="{{ s.default_palette | default: 'ambre' }}">
+
+  {%- if s.show_palette_bar -%}
+  <div class="palette-bar" aria-label="Choisir la palette">
+    <div class="drop{% if s.default_palette == 'ambre' or s.default_palette == blank %} active{% endif %}" data-t="ambre" title="Ambre Racine"></div>
+    <div class="drop{% if s.default_palette == 'foret' %} active{% endif %}" data-t="foret" title="Forêt Miskito"></div>
+    <div class="drop{% if s.default_palette == 'noir' %} active{% endif %}" data-t="noir" title="Noir Doré"></div>
+    <div class="drop{% if s.default_palette == 'rose' %} active{% endif %}" data-t="rose" title="Cacao Rosé"></div>
+    <div class="palette-label">Palette</div>
+  </div>
+  {%- endif -%}
+
+  <!-- HERO -->
+  <section class="lr-sec hero">
+    <div>
+      <p class="eyebrow">Huile de Batana · Tradition Miskito du Honduras</p>
+      <h1>Prenez soin de vos <em>racines</em>, naturellement.</h1>
+      <p class="sub">L'huile de Batana myrootelia, 100 % pure et pressée à la main, nourrit le cuir chevelu, gaine la fibre et révèle des longueurs d'apparence dense et brillante.</p>
+      <a href="#lr-offre-{{ uid }}" class="btn">Découvrir l'huile — {{ v.price | money }}</a>
+      <p class="proof">Un seul ingrédient · Essai 60 nuits satisfait ou remboursé</p>
+    </div>
+    <div class="hero-visual">
+      {%- if s.hero_image != blank -%}
+        {{ s.hero_image | image_url: width: 1000 | image_tag: loading: 'eager', alt: 'Huile de Batana myrootelia' }}
+      {%- else -%}
+        <div class="bottle" role="img" aria-label="Flacon d'huile de Batana myrootelia"></div>
+      {%- endif -%}
+      <div class="badge-float bf1"><b>100 % pure</b>Pressée à la main</div>
+      <div class="badge-float bf2"><b>50 ml</b>Fabriqué en petits lots</div>
+    </div>
+  </section>
+
+  <!-- CONFIANCE -->
+  <div class="trust">
+    <span>Sans sulfates ni silicones</span>
+    <span>Vegan &amp; cruelty-free</span>
+    <span>Sourcing équitable Miskito</span>
+    <span>Fabriqué en petits lots</span>
+  </div>
+
+  <!-- PROMESSE -->
+  <section class="lr-sec center">
+    <p class="eyebrow">Pourquoi Batana</p>
+    <h2 class="sec">Vos cheveux méritent mieux que des promesses.</h2>
+    <p class="sub-sec">Casse, sécheresse, cuir chevelu déséquilibré : la réponse ne vient pas d'un laboratoire, mais d'une forêt.</p>
+    <div class="grid3" style="text-align:left">
+      <div class="lr-card"><div class="num">I.</div><h3>Nourrit la racine</h3><p>Riche en acides oléique et linoléique, la Batana nourrit le cuir chevelu et crée l'environnement idéal pour des cheveux d'apparence saine.</p></div>
+      <div class="lr-card"><div class="num">II.</div><h3>Fortifie la fibre</h3><p>Naturellement riche en vitamine E, elle gaine la kératine et aide à réduire visiblement la casse au fil des semaines.</p></div>
+      <div class="lr-card"><div class="num">III.</div><h3>Révèle la brillance</h3><p>Un film protecteur naturel scelle l'hydratation, discipline les frisottis et redonne aux longueurs un éclat profond.</p></div>
+    </div>
+  </section>
+
+  <!-- ORIGINE -->
+  <section class="lr-sec origine">
+    <div>
+      <p class="eyebrow">L'or liquide du Honduras</p>
+      <h2>Un secret gardé par le peuple Miskito depuis des générations.</h2>
+      <p>Sur la côte de La Moskitia, les femmes Miskito — surnommées « le peuple aux beaux cheveux » — extraient l'huile de Batana des noix du palmier américain, torréfiées et pressées à la main.</p>
+      <p>myrootelia rend cet héritage accessible : une huile brute, jamais raffinée ni coupée, à l'origine traçable.</p>
+    </div>
+    <div class="origine-visual">« Le trésor de La Moskitia,<br>de la forêt à votre rituel. »</div>
+  </section>
+
+  <!-- RITUEL -->
+  <section class="lr-sec center">
+    <p class="eyebrow">Simple. Sensoriel. Efficace.</p>
+    <h2 class="sec">Votre rituel en 3 gestes</h2>
+    <div class="steps" style="text-align:left">
+      <div class="step"><h3>Appliquez</h3><p>4 à 6 gouttes directement sur le cuir chevelu, raie par raie, sur cheveux secs ou humides.</p></div>
+      <div class="step"><h3>Massez</h3><p>2 à 3 minutes de massage circulaire pour un moment de détente et faire pénétrer l'huile.</p></div>
+      <div class="step"><h3>Laissez poser</h3><p>Toute la nuit ou minimum 30 minutes, 3 fois par semaine, puis rincez selon vos cheveux.</p></div>
+    </div>
+  </section>
+
+  <!-- PACKS -->
+  <section class="lr-sec center" id="lr-offre-{{ uid }}">
+    <p class="eyebrow">Choisissez votre cure</p>
+    <h2 class="sec">Une cure complète, un prix juste.</h2>
+    <p class="sub-sec">Un flacon accompagne environ 1 mois de rituel. Dès 3 flacons, <strong>-10 % appliqués automatiquement au panier</strong> — et la livraison est offerte dès 50 $.</p>
+    {%- if v != blank -%}
+    {%- assign p3 = v.price | times: 3 -%}
+    {%- assign p3r = p3 | times: 0.9 -%}
+    {%- assign p5 = v.price | times: 5 -%}
+    {%- assign p5r = p5 | times: 0.9 -%}
+    <div class="packs-grid">
+      <div class="pack">
+        <h3>Découverte</h3>
+        <div class="prix">{{ v.price | money }}</div>
+        <ul><li>1 flacon (50 ml)</li><li>Rituel du soir en 3 gestes</li><li>Essai 60 nuits</li></ul>
+        <form method="post" action="/cart/add" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="product">
+          <input type="hidden" name="id" value="{{ v.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" name="add" class="btn ghost">Ajouter au panier</button>
+        </form>
+      </div>
+      <div class="pack best">
+        <div class="tag">La plus populaire</div>
+        <h3>Cure 3 mois</h3>
+        <div class="prix">{{ p3r | money }}</div><div class="ancien">{{ p3 | money }}</div>
+        <p class="econo">-10 % appliqués au panier</p>
+        <ul><li>3 flacons (rituel 90 jours)</li><li>Livraison offerte</li><li>Remise automatique -10 %</li><li>Essai 60 nuits</li></ul>
+        <form method="post" action="/cart/add" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="product">
+          <input type="hidden" name="id" value="{{ v.id }}">
+          <input type="hidden" name="quantity" value="3">
+          <button type="submit" name="add" class="btn">Commencer ma cure</button>
+        </form>
+      </div>
+      <div class="pack">
+        <h3>Rituel complet</h3>
+        <div class="prix">{{ p5r | money }}</div><div class="ancien">{{ p5 | money }}</div>
+        <p class="econo">-10 % appliqués au panier</p>
+        <ul><li>5 flacons (rituel 150 jours)</li><li>Livraison offerte</li><li>Remise automatique -10 %</li><li>Essai 60 nuits</li></ul>
+        <form method="post" action="/cart/add" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="product">
+          <input type="hidden" name="id" value="{{ v.id }}">
+          <input type="hidden" name="quantity" value="5">
+          <button type="submit" name="add" class="btn ghost">Ajouter au panier</button>
+        </form>
+      </div>
+    </div>
+    {%- endif -%}
+  </section>
+
+  <!-- GARANTIE -->
+  <section class="lr-sec garantie">
+    <div class="sceau"><b>60</b>nuits<br>satisfait ou<br>remboursé</div>
+    <div>
+      <h2 class="sec">Le risque est pour nous, pas pour vous.</h2>
+      <p class="sub-sec">Testez l'huile pendant 60 nuits. Si le rituel ne vous convient pas, écrivez-nous : nous vous remboursons, sans complication.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="lr-sec center">
+    <p class="eyebrow">Questions fréquentes</p>
+    <h2 class="sec" style="margin-bottom:40px">Tout ce que vous devez savoir</h2>
+    <div style="text-align:left">
+      <details open><summary>Comment intégrer la Batana à ma routine ?</summary><p>3 fois par semaine : quelques gouttes sur le cuir chevelu, un massage de 2 à 3 minutes, une pose de 30 minutes à une nuit. La régularité fait le rituel.</p></details>
+      <details><summary>Convient-elle à tous les types de cheveux ?</summary><p>Oui — cheveux texturés (3A à 4C), bouclés, lisses, colorés ou coiffures protectrices (tresses, tissages, locks). Faites un test sur une petite zone si votre peau est sensible.</p></details>
+      <details><summary>Votre Batana est-elle vraiment pure ?</summary><p>100 % pure, pressée à la main au Honduras, jamais raffinée ni coupée. INCI : Elaeis Oleifera (Palm) Oil — rien d'autre.</p></details>
+      <details><summary>Délais et frais de livraison ?</summary><p>Expédition depuis le Québec sous 24 à 48 h ouvrées. Livraison en 3 à 8 jours ouvrables, offerte dès 50 $.</p></details>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="lr-sec cta-final">
+    <p class="eyebrow" style="color:var(--gold)">Votre rituel commence ce soir</p>
+    <h2>Des racines nourries.<br>Des longueurs dont vous serez fière.</h2>
+    <p>Un seul ingrédient, une vraie tradition — protégé par notre essai de 60 nuits satisfait ou remboursé.</p>
+    <a href="#lr-offre-{{ uid }}" class="btn">Commencer mon rituel — {{ v.price | money }}</a>
+  </section>
+
+  {%- if s.show_sticky -%}
+  <div class="sticky-cta">
+    <div><div class="p">Huile de Batana</div><small style="color:var(--ink2)">{{ v.price | money }} · 50 ml</small></div>
+    <a href="#lr-offre-{{ uid }}" class="btn" style="padding:12px 26px">Acheter</a>
+  </div>
+  {%- endif -%}
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('lr-{{ uid }}');
+    if (!root || root.dataset.init) return;
+    root.dataset.init = '1';
+    root.querySelectorAll('.drop').forEach(function (d) {
+      d.addEventListener('click', function () {
+        root.setAttribute('data-mrtheme', d.getAttribute('data-t'));
+        root.querySelectorAll('.drop').forEach(function (x) { x.classList.remove('active'); });
+        d.classList.add('active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Landing Rituel Batana",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "product_handle", "label": "Handle du produit", "default": "huile-de-batana-100-pure-du-honduras" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image hero (sinon flacon illustré)" },
+    { "type": "header", "content": "Palettes" },
+    {
+      "type": "select", "id": "default_palette", "label": "Palette par défaut", "default": "ambre",
+      "options": [
+        { "value": "ambre", "label": "Ambre Racine" },
+        { "value": "foret", "label": "Forêt Miskito" },
+        { "value": "noir", "label": "Noir Doré" },
+        { "value": "rose", "label": "Cacao Rosé" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_palette_bar", "label": "Afficher le sélecteur de palettes (visiteurs)", "default": true },
+    { "type": "checkbox", "id": "show_sticky", "label": "Barre d'achat collante sur mobile", "default": true }
+  ],
+  "presets": [{ "name": "Landing Rituel Batana" }]
+}
+{% endschema %}

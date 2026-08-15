@@ -1,0 +1,2283 @@
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # HERO BANNER VIP - NEUROMARKETING CONVERSION MACHINE - LATIF SKIN -%}
+{%- # Principes appliqués: Urgence, Rareté, Preuve sociale, Ancrage prix -%}
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+
+{%- style -%}
+/* ═══════════════════════════════════════════════════════════
+   HERO BANNER VIP - NEURO CONVERSION DESIGN
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip {
+  background: {{ section.settings.bg_gradient_start }};
+  background: linear-gradient({{ section.settings.gradient_angle }}deg, {{ section.settings.bg_gradient_start }} 0%, {{ section.settings.bg_gradient_end }} 100%);
+  padding: {{ section.settings.padding_desktop }}px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet premium subtil */
+.hero-vip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+  animation: heroShine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes heroShine {
+  0%, 100% { transform: translateX(-50%); }
+  50% { transform: translateX(50%); }
+}
+
+.hero-vip__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   IMAGE PRODUIT - NEURO: Point focal visuel
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__visual {
+  flex: 0 0 {{ section.settings.image_size_desktop }}px;
+  position: relative;
+}
+
+.hero-vip__img {
+  width: 100%;
+  filter: drop-shadow(0 15px 35px rgba(0,0,0,0.35));
+  animation: floatProduct 3.5s ease-in-out infinite;
+}
+
+.hero-vip__visual::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, {{ section.settings.glow_color }}40 0%, transparent 60%);
+  filter: blur(30px);
+  z-index: -1;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes floatProduct {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+/* Glow effect autour du timer */
+.hero-vip__timer {
+  position: relative;
+  overflow: visible;
+}
+
+.hero-vip__timer::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 35px;
+  background: linear-gradient(135deg, #FF6B6B, #FF4444);
+  opacity: 0.3;
+  filter: blur(10px);
+  z-index: -1;
+  animation: timerGlow 2s ease-in-out infinite;
+}
+
+@keyframes timerGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.02); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTENU - NEURO: Hiérarchie claire F-pattern
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__content {
+  flex: 1;
+}
+
+/* Badge urgence - NEURO: Alerte visuelle */
+.hero-vip__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: {{ section.settings.badge_bg }};
+  color: {{ section.settings.badge_color }};
+  padding: {{ section.settings.badge_padding_v }}px {{ section.settings.badge_padding_h }}px;
+  border-radius: 25px;
+  font-size: {{ section.settings.badge_size }}px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: {{ section.settings.badge_margin }}px;
+  animation: badgeAttention 2s infinite;
+  box-shadow: 0 4px 15px {{ section.settings.badge_bg }}50;
+}
+
+@keyframes badgeAttention {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Titre - NEURO: Message clair et direct */
+.hero-vip__title {
+  color: {{ section.settings.title_color }};
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 {{ section.settings.title_margin }}px 0;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.2);
+}
+
+/* Sous-titre */
+.hero-vip__subtitle {
+  color: {{ section.settings.subtitle_color }};
+  font-size: {{ section.settings.subtitle_size }}px;
+  font-weight: 500;
+  margin: 0 0 {{ section.settings.subtitle_margin }}px 0;
+  opacity: 0.9;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOC PRIX - NEURO: Ancrage et contraste
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__pricing {
+  background: rgba(0,0,0,0.2);
+  border-radius: {{ section.settings.pricing_radius }}px;
+  padding: {{ section.settings.pricing_padding }}px;
+  margin-bottom: {{ section.settings.pricing_margin }}px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.hero-vip__price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.hero-vip__price {
+  color: {{ section.settings.price_color }};
+  font-size: {{ section.settings.price_size }}px;
+  font-weight: 900;
+  text-shadow: 0 0 20px {{ section.settings.price_color }}50;
+}
+
+.hero-vip__price-old {
+  color: {{ section.settings.price_old_color }};
+  font-size: {{ section.settings.price_old_size }}px;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.hero-vip__discount {
+  background: {{ section.settings.discount_bg }};
+  color: {{ section.settings.discount_color }};
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: {{ section.settings.discount_size }}px;
+  font-weight: 800;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OPTIMISATION #1 : Badge réduction ULTRA visible
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__discount {
+  background: linear-gradient(135deg, #FF4444, #FF0000) !important;
+  color: white !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.5) !important;
+  animation: discountPulse 2.5s ease-in-out infinite;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes discountPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 4px 16px rgba(255, 0, 0, 0.5);
+  }
+  50% { 
+    transform: scale(1.08); 
+    box-shadow: 0 6px 22px rgba(255, 0, 0, 0.7);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-vip__discount {
+    font-size: 14px !important;
+    padding: 5px 12px !important;
+  }
+}
+
+.hero-vip__includes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: {{ section.settings.includes_color }};
+  font-size: {{ section.settings.includes_size }}px;
+  font-weight: 600;
+}
+
+.hero-vip__includes svg {
+  width: 18px;
+  height: 18px;
+  color: {{ section.settings.price_color }};
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AVANTAGES - NEURO: Réduction friction cognitive
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: {{ section.settings.benefits_gap }}px;
+  margin-bottom: {{ section.settings.benefits_margin }}px;
+}
+
+.hero-vip__benefit {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.1);
+  padding: {{ section.settings.benefit_padding_v }}px {{ section.settings.benefit_padding_h }}px;
+  border-radius: 20px;
+  color: {{ section.settings.benefit_color }};
+  font-size: {{ section.settings.benefit_size }}px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.hero-vip__benefit svg {
+  width: 14px;
+  height: 14px;
+  color: {{ section.settings.benefit_icon_color }};
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIMER - NEURO: Urgence et rareté (FOMO)
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: {{ section.settings.timer_bg }};
+  border: {{ section.settings.timer_border_width }}px solid {{ section.settings.timer_border_color }};
+  padding: {{ section.settings.timer_padding_v }}px {{ section.settings.timer_padding_h }}px;
+  border-radius: {{ section.settings.timer_radius }}px;
+  margin-bottom: {{ section.settings.timer_margin }}px;
+  animation: timerUrgency 1.5s infinite;
+}
+
+@keyframes timerUrgency {
+  0%, 100% { box-shadow: 0 0 0 0 {{ section.settings.timer_border_color }}60; }
+  50% { box-shadow: 0 0 0 6px {{ section.settings.timer_border_color }}00; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OPTIMISATION #4 : Timer urgence renforcée
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__timer {
+  position: relative;
+  overflow: visible;
+}
+
+.hero-vip__timer::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: {{ section.settings.timer_radius | plus: 2 }}px;
+  background: linear-gradient(135deg, #FF6B6B, #FF4444);
+  opacity: 0.3;
+  filter: blur(8px);
+  z-index: -1;
+  animation: timerGlow 2s ease-in-out infinite;
+}
+
+@keyframes timerGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Quand il reste moins de 1 heure : accélération */
+.hero-vip__timer.urgent {
+  animation: timerUrgencyFast 1s infinite !important;
+}
+
+.hero-vip__timer.urgent .hero-vip__timer-icon {
+  animation: timerShakeFast 0.5s infinite !important;
+}
+
+@keyframes timerUrgencyFast {
+  0%, 100% { box-shadow: 0 0 0 0 {{ section.settings.timer_border_color }}80; }
+  50% { box-shadow: 0 0 0 8px {{ section.settings.timer_border_color }}00; }
+}
+
+@keyframes timerShakeFast {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-12deg) scale(1.1); }
+  75% { transform: rotate(12deg) scale(1.1); }
+}
+
+.hero-vip__timer-icon {
+  width: {{ section.settings.timer_icon_size }}px;
+  height: {{ section.settings.timer_icon_size }}px;
+  color: {{ section.settings.timer_icon_color }};
+  animation: timerShake 0.8s infinite;
+}
+
+@keyframes timerShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.hero-vip__timer-label {
+  color: {{ section.settings.timer_label_color }};
+  font-size: {{ section.settings.timer_label_size }}px;
+  font-weight: 600;
+}
+
+.hero-vip__timer-digits {
+  display: flex;
+  gap: 4px;
+}
+
+.hero-vip__timer-block {
+  background: {{ section.settings.timer_digit_bg }};
+  color: {{ section.settings.timer_digit_color }};
+  padding: {{ section.settings.timer_digit_padding }}px;
+  border-radius: 6px;
+  min-width: {{ section.settings.timer_digit_width }}px;
+  text-align: center;
+  font-size: {{ section.settings.timer_digit_size }}px;
+  font-weight: 900;
+  font-family: 'SF Mono', Monaco, monospace;
+}
+
+.hero-vip__timer-sep {
+  color: {{ section.settings.timer_digit_color }};
+  font-size: {{ section.settings.timer_digit_size }}px;
+  font-weight: 900;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CTA BOUTON - NEURO: Action claire et désirable
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__cta-wrap {
+  margin-bottom: {{ section.settings.cta_margin }}px;
+}
+
+.hero-vip__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: {{ section.settings.cta_bg }};
+  color: {{ section.settings.cta_color }};
+  padding: {{ section.settings.cta_padding_v }}px {{ section.settings.cta_padding_h }}px;
+  border-radius: {{ section.settings.cta_radius }}px;
+  font-size: {{ section.settings.cta_size }}px;
+  font-weight: 800;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 25px {{ section.settings.cta_bg }}50;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-vip__cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.5s ease;
+}
+
+.hero-vip__cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 35px {{ section.settings.cta_bg }}60;
+  background: {{ section.settings.cta_hover_bg }};
+  color: {{ section.settings.cta_color }};
+}
+
+.hero-vip__cta:hover::before {
+  left: 100%;
+}
+
+.hero-vip__cta svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.hero-vip__cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* Garanties sous CTA */
+.hero-vip__guarantees {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: {{ section.settings.guarantees_gap }}px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-vip__guarantee {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: {{ section.settings.guarantees_color }};
+  font-size: {{ section.settings.guarantees_size }}px;
+  opacity: 0.85;
+}
+
+.hero-vip__guarantee svg {
+  width: 14px;
+  height: 14px;
+  color: {{ section.settings.benefit_icon_color }};
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SOCIAL PROOF - NEURO: Conformité sociale
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: {{ section.settings.social_padding }}px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OPTIMISATION #2 : Social proof ultra visible
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-vip__social {
+  background: rgba(255, 255, 255, 0.12) !important;
+  padding: 12px 18px !important;
+  border-radius: 25px !important;
+  margin-top: 10px;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-vip__social-text {
+  font-size: 15px !important;
+  font-weight: 600;
+}
+
+.hero-vip__social-text strong {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  color: {{ section.settings.price_color }} !important;
+  text-shadow: 0 0 12px {{ section.settings.price_color }}40;
+}
+
+@media screen and (max-width: 768px) {
+  .hero-vip__social {
+    padding: 10px 15px !important;
+  }
+  
+  .hero-vip__social-text {
+    font-size: 13px !important;
+  }
+  
+  .hero-vip__social-text strong {
+    font-size: 15px !important;
+  }
+}
+
+.hero-vip__avatars {
+  display: flex;
+}
+
+.hero-vip__avatar {
+  width: {{ section.settings.avatar_size }}px;
+  height: {{ section.settings.avatar_size }}px;
+  border-radius: 50%;
+  border: 2px solid {{ section.settings.bg_gradient_start }};
+  margin-left: -8px;
+  background: linear-gradient(135deg, #c9a87c 0%, #8B4F9D 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: {{ section.settings.avatar_font }}px;
+  font-weight: 700;
+}
+
+.hero-vip__avatar:first-child {
+  margin-left: 0;
+}
+
+.hero-vip__social-text {
+  color: {{ section.settings.social_text_color }};
+  font-size: {{ section.settings.social_text_size }}px;
+}
+
+.hero-vip__social-text strong {
+  color: {{ section.settings.price_color }};
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE - ULTRA COMPACT & CONVERSION FOCUSED
+   ═══════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 768px) {
+  .hero-vip {
+    padding: {{ section.settings.padding_mobile }}px 15px;
+  }
+  
+  .hero-vip__inner {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .hero-vip__visual {
+    flex: none;
+    width: {{ section.settings.image_size_mobile }}px;
+    margin: 0 auto;
+  }
+  
+  .hero-vip__content {
+    text-align: center;
+  }
+  
+  .hero-vip__badge {
+    font-size: {{ section.settings.badge_size_mobile }}px;
+    padding: {{ section.settings.badge_padding_v_mobile }}px {{ section.settings.badge_padding_h_mobile }}px;
+    margin-bottom: {{ section.settings.badge_margin_mobile }}px;
+  }
+  
+  .hero-vip__title {
+    font-size: {{ section.settings.title_size_mobile }}px;
+    margin-bottom: {{ section.settings.title_margin_mobile }}px;
+  }
+  
+  .hero-vip__subtitle {
+    font-size: {{ section.settings.subtitle_size_mobile }}px;
+    margin-bottom: {{ section.settings.subtitle_margin_mobile }}px;
+  }
+  
+  .hero-vip__pricing {
+    padding: {{ section.settings.pricing_padding_mobile }}px;
+    margin-bottom: {{ section.settings.pricing_margin_mobile }}px;
+  }
+  
+  .hero-vip__price-row {
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .hero-vip__price {
+    font-size: {{ section.settings.price_size_mobile }}px;
+  }
+  
+  .hero-vip__price-old {
+    font-size: {{ section.settings.price_old_size_mobile }}px;
+  }
+  
+  .hero-vip__discount {
+    font-size: {{ section.settings.discount_size_mobile }}px;
+  }
+  
+  .hero-vip__includes {
+    justify-content: center;
+    font-size: {{ section.settings.includes_size_mobile }}px;
+  }
+  
+  .hero-vip__benefits {
+    justify-content: center;
+    gap: {{ section.settings.benefits_gap_mobile }}px;
+    margin-bottom: {{ section.settings.benefits_margin_mobile }}px;
+  }
+  
+  .hero-vip__benefit {
+    font-size: {{ section.settings.benefit_size_mobile }}px;
+    padding: {{ section.settings.benefit_padding_v_mobile }}px {{ section.settings.benefit_padding_h_mobile }}px;
+  }
+  
+  .hero-vip__timer {
+    padding: {{ section.settings.timer_padding_v_mobile }}px {{ section.settings.timer_padding_h_mobile }}px;
+    margin-bottom: {{ section.settings.timer_margin_mobile }}px;
+    gap: 8px;
+  }
+  
+  .hero-vip__timer-icon {
+    width: {{ section.settings.timer_icon_size_mobile }}px;
+    height: {{ section.settings.timer_icon_size_mobile }}px;
+  }
+  
+  .hero-vip__timer-label {
+    font-size: {{ section.settings.timer_label_size_mobile }}px;
+  }
+  
+  .hero-vip__timer-block {
+    font-size: {{ section.settings.timer_digit_size_mobile }}px;
+    min-width: {{ section.settings.timer_digit_width_mobile }}px;
+    padding: {{ section.settings.timer_digit_padding_mobile }}px;
+  }
+  
+  .hero-vip__timer-sep {
+    font-size: {{ section.settings.timer_digit_size_mobile }}px;
+  }
+  
+  .hero-vip__cta {
+    width: 100%;
+    padding: {{ section.settings.cta_padding_v_mobile }}px {{ section.settings.cta_padding_h_mobile }}px;
+    font-size: {{ section.settings.cta_size_mobile }}px;
+  }
+  
+  .hero-vip__guarantees {
+    justify-content: center;
+    gap: {{ section.settings.guarantees_gap_mobile }}px;
+  }
+  
+  .hero-vip__guarantee {
+    font-size: {{ section.settings.guarantees_size_mobile }}px;
+  }
+  
+  .hero-vip__social {
+    justify-content: center;
+    padding-top: {{ section.settings.social_padding_mobile }}px;
+  }
+  
+  .hero-vip__avatar {
+    width: {{ section.settings.avatar_size_mobile }}px;
+    height: {{ section.settings.avatar_size_mobile }}px;
+    font-size: {{ section.settings.avatar_font_mobile }}px;
+  }
+  
+  .hero-vip__social-text {
+    font-size: {{ section.settings.social_text_size_mobile }}px;
+  }
+}
+
+/* Extra small */
+@media screen and (max-width: 380px) {
+  .hero-vip {
+    padding: {{ section.settings.padding_mobile | times: 0.8 | round }}px 12px;
+  }
+  
+  .hero-vip__title {
+    font-size: {{ section.settings.title_size_mobile | times: 0.85 | round }}px;
+  }
+  
+  .hero-vip__price {
+    font-size: {{ section.settings.price_size_mobile | times: 0.85 | round }}px;
+  }
+}
+{%- endstyle -%}
+
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # MARKUP HTML -%}
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+
+<section class="hero-vip" id="HeroVip-{{ section.id }}">
+  <div class="hero-vip__inner">
+    
+    {%- if section.settings.show_image and section.settings.image != blank -%}
+    <div class="hero-vip__visual">
+      {{ section.settings.image | image_url: width: 500 | image_tag: class: 'hero-vip__img', loading: 'eager', alt: section.settings.title }}
+    </div>
+    {%- endif -%}
+    
+    <div class="hero-vip__content">
+      
+      {%- if section.settings.badge_text != blank -%}
+      <div class="hero-vip__badge">
+        {{ section.settings.badge_text }}
+      </div>
+      {%- endif -%}
+      
+      {%- if section.settings.title != blank -%}
+      <h2 class="hero-vip__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      
+      {%- if section.settings.subtitle != blank -%}
+      <p class="hero-vip__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+      
+      {%- if section.settings.show_pricing -%}
+      <div class="hero-vip__pricing">
+        <div class="hero-vip__price-row">
+          <span class="hero-vip__price">{{ section.settings.price }}</span>
+          {%- if section.settings.price_old != blank -%}
+          <span class="hero-vip__price-old">{{ section.settings.price_old }}</span>
+          {%- endif -%}
+          {%- if section.settings.discount_text != blank -%}
+          <span class="hero-vip__discount">{{ section.settings.discount_text }}</span>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.includes_text != blank -%}
+        <div class="hero-vip__includes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+          </svg>
+          <span>{{ section.settings.includes_text }}</span>
+        </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+      
+      {%- if section.settings.show_benefits -%}
+      <div class="hero-vip__benefits">
+        {%- if section.settings.benefit_1 != blank -%}
+        <span class="hero-vip__benefit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          {{ section.settings.benefit_1 }}
+        </span>
+        {%- endif -%}
+        {%- if section.settings.benefit_2 != blank -%}
+        <span class="hero-vip__benefit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          {{ section.settings.benefit_2 }}
+        </span>
+        {%- endif -%}
+        {%- if section.settings.benefit_3 != blank -%}
+        <span class="hero-vip__benefit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          {{ section.settings.benefit_3 }}
+        </span>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+      
+      {%- if section.settings.show_timer -%}
+      <div class="hero-vip__timer" id="HeroVipTimer-{{ section.id }}">
+        <svg class="hero-vip__timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <span class="hero-vip__timer-label">{{ section.settings.timer_label }}</span>
+        <div class="hero-vip__timer-digits">
+          <span class="hero-vip__timer-block" id="HeroVipHours-{{ section.id }}">00</span>
+          <span class="hero-vip__timer-sep">:</span>
+          <span class="hero-vip__timer-block" id="HeroVipMins-{{ section.id }}">00</span>
+          <span class="hero-vip__timer-sep">:</span>
+          <span class="hero-vip__timer-block" id="HeroVipSecs-{{ section.id }}">00</span>
+        </div>
+      </div>
+      {%- endif -%}
+      
+      <div class="hero-vip__cta-wrap">
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="hero-vip__cta" id="HeroVipCta-{{ section.id }}">
+          <span>{{ section.settings.cta_text }}</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        
+         {%- # OPTIMISATION #3 : Réassurance paiement -%}
+        <div class="hero-vip__cta-trust" style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          margin-top: 8px;
+          color: rgba(255, 255, 255, 0.75);
+          font-size: 12px;
+          font-weight: 600;
+        ">
+          <svg style="width: 14px; height: 14px; color: #00E676;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Paiement 100% sécurisé</span>
+        </div>
+
+        {%- if section.settings.show_guarantees -%}
+        <div class="hero-vip__guarantees">
+          {%- if section.settings.guarantee_1 != blank -%}
+          <span class="hero-vip__guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            {{ section.settings.guarantee_1 }}
+          </span>
+          {%- endif -%}
+          {%- if section.settings.guarantee_2 != blank -%}
+          <span class="hero-vip__guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            {{ section.settings.guarantee_2 }}
+          </span>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.show_social -%}
+      <div class="hero-vip__social">
+        <div class="hero-vip__avatars">
+          <span class="hero-vip__avatar">C</span>
+          <span class="hero-vip__avatar">M</span>
+          <span class="hero-vip__avatar">S</span>
+          <span class="hero-vip__avatar">+</span>
+        </div>
+        <p class="hero-vip__social-text">
+          <strong>{{ section.settings.social_number }}</strong> {{ section.settings.social_text }}
+        </p>
+      </div>
+      {%- endif -%}
+      
+    </div>
+  </div>
+</section>
+
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+{%- # JAVASCRIPT - TIMER DYNAMIQUE + SCROLL -%}
+{%- # ════════════════════════════════════════════════════════════════════════ -%}
+
+<script>
+(function() {
+  var sectionId = '{{ section.id }}';
+  
+  /* ═══════════════════════════════════════════════════════════
+     TIMER COUNTDOWN
+     ═══════════════════════════════════════════════════════════ */
+  {%- if section.settings.show_timer -%}
+  (function initTimer() {
+    var hoursEl = document.getElementById('HeroVipHours-' + sectionId);
+    var minsEl = document.getElementById('HeroVipMins-' + sectionId);
+    var secsEl = document.getElementById('HeroVipSecs-' + sectionId);
+    
+    if (!hoursEl || !minsEl || !secsEl) return;
+    
+    var timerHours = {{ section.settings.timer_hours | default: 24 }};
+    var timerMinutes = {{ section.settings.timer_minutes | default: 0 }};
+    var timerSeconds = {{ section.settings.timer_seconds | default: 0 }};
+    var totalDuration = (timerHours * 3600) + (timerMinutes * 60) + timerSeconds;
+    
+    var storageKey = 'heroVipTimer_' + sectionId + '_v2';
+    var savedEndTime = localStorage.getItem(storageKey);
+    var endTime;
+    
+    if (savedEndTime) {
+      var parsed = parseInt(savedEndTime, 10);
+      if (parsed > Date.now()) {
+        endTime = parsed;
+      } else {
+        endTime = Date.now() + (totalDuration * 1000);
+        localStorage.setItem(storageKey, endTime.toString());
+      }
+    } else {
+      endTime = Date.now() + (totalDuration * 1000);
+      localStorage.setItem(storageKey, endTime.toString());
+    }
+    
+    function tick() {
+      var now = Date.now();
+      var remaining = Math.max(0, Math.floor((endTime - now) / 1000));
+      
+      if (remaining <= 0) {
+        endTime = Date.now() + (totalDuration * 1000);
+        localStorage.setItem(storageKey, endTime.toString());
+        remaining = totalDuration;
+      }
+      
+      var h = Math.floor(remaining / 3600);
+      var m = Math.floor((remaining % 3600) / 60);
+      var s = remaining % 60;
+      
+      hoursEl.textContent = String(h).padStart(2, '0');
+      minsEl.textContent = String(m).padStart(2, '0');
+      secsEl.textContent = String(s).padStart(2, '0');
+    }
+    
+    tick();
+    setInterval(tick, 1000);
+  })();
+  {%- endif -%}
+  
+  /* ═══════════════════════════════════════════════════════════
+     SMOOTH SCROLL VERS PACK SELECTOR - CORRIGÉ POUR LATIF
+     ═══════════════════════════════════════════════════════════ */
+  (function initScroll() {
+    var ctaBtn = document.getElementById('HeroVipCta-' + sectionId);
+    if (!ctaBtn) return;
+    
+    ctaBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      var target = null;
+      
+      // Sélecteurs SPÉCIFIQUES pour ton pack selector LATIF
+      var selectors = [
+        '.product-pack-conversion',
+        '.pack-conversion__wrapper',
+        '.pack-conversion__card',
+        '.pack-multi-wrapper',
+        'product-pack',
+        '[data-pack-index]',
+        '#product-pack-form-',
+        '.pack-countdown-ultra',
+        'form[id^="product-pack-form"]'
+      ];
+      
+      // Essayer chaque sélecteur
+      for (var i = 0; i < selectors.length; i++) {
+        var found = document.querySelector(selectors[i]);
+        if (found) {
+          target = found;
+          console.log('Pack trouvé avec:', selectors[i]);
+          break;
+        }
+      }
+      
+      // Si trouvé, remonter au conteneur parent principal
+      if (target) {
+        var packContainer = target.closest('.product-pack-conversion') || 
+                           target.closest('product-pack') ||
+                           target;
+        
+        // Calculer la hauteur du header
+        var headerHeight = 0;
+        var header = document.querySelector('.header-wrapper') || 
+                     document.querySelector('.section-header') ||
+                     document.querySelector('header');
+        if (header) {
+          headerHeight = header.offsetHeight;
+        }
+        
+        // Position de scroll
+        var rect = packContainer.getBoundingClientRect();
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var targetY = rect.top + scrollTop - headerHeight - 20;
+        
+        // Smooth scroll
+        window.scrollTo({
+          top: targetY,
+          behavior: 'smooth'
+        });
+        
+        // Effet highlight violet sur le pack selector
+        setTimeout(function() {
+          packContainer.style.transition = 'box-shadow 0.4s ease';
+          packContainer.style.boxShadow = '0 0 0 4px rgba(139, 79, 157, 0.5), 0 0 20px rgba(139, 79, 157, 0.3)';
+          
+          setTimeout(function() {
+            packContainer.style.boxShadow = 'none';
+          }, 2500);
+        }, 700);
+        
+      } else {
+        // Fallback : scroll vers le milieu bas de la page
+        console.log('Pack non trouvé, fallback scroll');
+        var scrollTarget = document.body.scrollHeight * 0.35;
+        window.scrollTo({
+          top: scrollTarget,
+          behavior: 'smooth'
+        });
+      }
+    });
+  })();
+  
+})();
+</script>
+
+
+
+{% schema %}
+{
+  "name": "🔥 Hero VIP Neuro",
+  "class": "section-hero-vip-neuro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "═══ CONTENU PRINCIPAL ═══"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge",
+      "default": "🔥 OFFRE LIMITÉE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "PACK VIP — 3 + 2 OFFERTS"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Programme complet 5 mois pour transformer ta peau"
+    },
+    {
+      "type": "header",
+      "content": "═══ PRIX & OFFRE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pricing",
+      "label": "Afficher bloc prix",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Prix actuel",
+      "default": "104,97€"
+    },
+    {
+      "type": "text",
+      "id": "price_old",
+      "label": "Ancien prix",
+      "default": "174,97€"
+    },
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Badge réduction",
+      "default": "-40%"
+    },
+    {
+      "type": "text",
+      "id": "includes_text",
+      "label": "Ce qui est inclus",
+      "default": "5 Sérums Bakuchiol • Programme 5 mois"
+    },
+    {
+      "type": "header",
+      "content": "═══ AVANTAGES ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Afficher avantages",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Avantage 1",
+      "default": "Livraison GRATUITE"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Avantage 2",
+      "default": "Garantie 30 jours"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Avantage 3",
+      "default": "Résultats 28 jours"
+    },
+    {
+      "type": "header",
+      "content": "═══ TIMER URGENCE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timer",
+      "label": "Afficher timer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "timer_label",
+      "label": "Texte timer",
+      "default": "Expire dans"
+    },
+    {
+      "type": "range",
+      "id": "timer_hours",
+      "min": 0,
+      "max": 72,
+      "step": 1,
+      "unit": "h",
+      "label": "Heures",
+      "default": 23
+    },
+    {
+      "type": "range",
+      "id": "timer_minutes",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "unit": "min",
+      "label": "Minutes",
+      "default": 59
+    },
+    {
+      "type": "range",
+      "id": "timer_seconds",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "unit": "sec",
+      "label": "Secondes",
+      "default": 59
+    },
+    {
+      "type": "header",
+      "content": "═══ BOUTON CTA ═══"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte bouton",
+      "default": "J'EN PROFITE"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien (vide = scroll auto)"
+    },
+    {
+      "type": "header",
+      "content": "═══ GARANTIES ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantees",
+      "label": "Afficher garanties",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_1",
+      "label": "Garantie 1",
+      "default": "Paiement sécurisé"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_2",
+      "label": "Garantie 2",
+      "default": "Satisfait ou remboursé"
+    },
+    {
+      "type": "header",
+      "content": "═══ PREUVE SOCIALE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Afficher preuve sociale",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "social_number",
+      "label": "Nombre",
+      "default": "1,523"
+    },
+    {
+      "type": "text",
+      "id": "social_text",
+      "label": "Texte",
+      "default": "clientes satisfaites"
+    },
+    {
+      "type": "header",
+      "content": "═══ IMAGE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Afficher image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image produit"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS FOND ═══"
+    },
+    {
+      "type": "color",
+      "id": "bg_gradient_start",
+      "label": "Dégradé début",
+      "default": "#8B4F9D"
+    },
+    {
+      "type": "color",
+      "id": "bg_gradient_end",
+      "label": "Dégradé fin",
+      "default": "#5D3A6E"
+    },
+    {
+      "type": "range",
+      "id": "gradient_angle",
+      "min": 0,
+      "max": 360,
+      "step": 15,
+      "unit": "°",
+      "label": "Angle",
+      "default": 135
+    },
+    {
+      "type": "color",
+      "id": "glow_color",
+      "label": "Couleur glow image",
+      "default": "#FFD700"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS BADGE ═══"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Fond",
+      "default": "#FF6B6B"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Texte",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS TEXTE ═══"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Titre",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Sous-titre",
+      "default": "#E8D5F0"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS PRIX ═══"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Prix actuel",
+      "default": "#FFD700"
+    },
+    {
+      "type": "color",
+      "id": "price_old_color",
+      "label": "Ancien prix",
+      "default": "#AAAAAA"
+    },
+    {
+      "type": "color",
+      "id": "discount_bg",
+      "label": "Badge réduction fond",
+      "default": "#00C853"
+    },
+    {
+      "type": "color",
+      "id": "discount_color",
+      "label": "Badge réduction texte",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "includes_color",
+      "label": "Texte inclus",
+      "default": "#E8D5F0"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS AVANTAGES ═══"
+    },
+    {
+      "type": "color",
+      "id": "benefit_color",
+      "label": "Texte",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "benefit_icon_color",
+      "label": "Icônes",
+      "default": "#00E676"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS TIMER ═══"
+    },
+    {
+      "type": "color",
+      "id": "timer_bg",
+      "label": "Fond timer",
+      "default": "rgba(255, 80, 80, 0.15)"
+    },
+    {
+      "type": "color",
+      "id": "timer_border_color",
+      "label": "Bordure",
+      "default": "#FF6B6B"
+    },
+    {
+      "type": "range",
+      "id": "timer_border_width",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Épaisseur bordure",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "timer_icon_color",
+      "label": "Icône",
+      "default": "#FF6B6B"
+    },
+    {
+      "type": "color",
+      "id": "timer_label_color",
+      "label": "Label",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "timer_digit_bg",
+      "label": "Fond chiffres",
+      "default": "rgba(0,0,0,0.3)"
+    },
+    {
+      "type": "color",
+      "id": "timer_digit_color",
+      "label": "Chiffres",
+      "default": "#FF6B6B"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS CTA ═══"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "Fond",
+      "default": "#FFD700"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_bg",
+      "label": "Fond survol",
+      "default": "#FFED4A"
+    },
+    {
+      "type": "color",
+      "id": "cta_color",
+      "label": "Texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "guarantees_color",
+      "label": "Garanties",
+      "default": "#E8D5F0"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS SOCIAL ═══"
+    },
+    {
+      "type": "color",
+      "id": "social_text_color",
+      "label": "Texte",
+      "default": "#E8D5F0"
+    },
+    {
+      "type": "header",
+      "content": "═══ TAILLES DESKTOP ═══"
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding section",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "image_size_desktop",
+      "min": 150,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "label": "Taille image",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge taille",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_v",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge padding V",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_h",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge padding H",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "badge_margin",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge marge bas",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Titre taille",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Titre marge bas",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Sous-titre taille",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin",
+      "min": 5,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Sous-titre marge bas",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "pricing_radius",
+      "min": 8,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Prix bloc arrondi",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "pricing_padding",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Prix bloc padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "pricing_margin",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Prix bloc marge bas",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 28,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "label": "Prix taille",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "price_old_size",
+      "min": 14,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Ancien prix taille",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "discount_size",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Réduction taille",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "includes_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Inclus taille",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "benefit_size",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages taille",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "benefit_padding_v",
+      "min": 5,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages padding V",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "benefit_padding_h",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages padding H",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "benefits_gap",
+      "min": 6,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages espacement",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "benefits_margin",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages marge bas",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "timer_padding_v",
+      "min": 6,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer padding V",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "timer_padding_h",
+      "min": 12,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer padding H",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "timer_radius",
+      "min": 15,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer arrondi",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "timer_margin",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer marge bas",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "timer_icon_size",
+      "min": 16,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer icône taille",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "timer_label_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer label taille",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "timer_digit_size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer chiffres taille",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "timer_digit_width",
+      "min": 28,
+      "max": 45,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer chiffres largeur",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "timer_digit_padding",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer chiffres padding",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "cta_size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "CTA taille",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_v",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "CTA padding V",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_h",
+      "min": 25,
+      "max": 55,
+      "step": 5,
+      "unit": "px",
+      "label": "CTA padding H",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "cta_radius",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "CTA arrondi",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "cta_margin",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "CTA marge bas",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "guarantees_size",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Garanties taille",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "guarantees_gap",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Garanties espacement",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "social_padding",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Social padding top",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "min": 24,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Avatar taille",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "avatar_font",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Avatar police",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "social_text_size",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Social texte taille",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "═══ TAILLES MOBILE ═══"
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding section",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_size_mobile",
+      "min": 100,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Image taille",
+      "default": 130
+    },
+    {
+      "type": "range",
+      "id": "badge_size_mobile",
+      "min": 9,
+      "max": 13,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge taille",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_v_mobile",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge padding V",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_h_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge padding H",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_margin_mobile",
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge marge bas",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 18,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Titre taille",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "title_margin_mobile",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Titre marge bas",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Sous-titre taille",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin_mobile",
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Sous-titre marge bas",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "pricing_padding_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Prix padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "pricing_margin_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Prix marge bas",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "price_size_mobile",
+      "min": 24,
+      "max": 38,
+      "step": 2,
+      "unit": "px",
+      "label": "Prix taille",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "price_old_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Ancien prix taille",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "discount_size_mobile",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Réduction taille",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "includes_size_mobile",
+      "min": 11,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Inclus taille",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "benefit_size_mobile",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages taille",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "benefit_padding_v_mobile",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages padding V",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "benefit_padding_h_mobile",
+      "min": 6,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages padding H",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "benefits_gap_mobile",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages espacement",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "benefits_margin_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Avantages marge bas",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "timer_padding_v_mobile",
+      "min": 5,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer padding V",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "timer_padding_h_mobile",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer padding H",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "timer_margin_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer marge bas",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "timer_icon_size_mobile",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer icône taille",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "timer_label_size_mobile",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer label taille",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "timer_digit_size_mobile",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer chiffres taille",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "timer_digit_width_mobile",
+      "min": 24,
+      "max": 38,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer chiffres largeur",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "timer_digit_padding_mobile",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "Timer chiffres padding",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "cta_size_mobile",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "CTA taille",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_v_mobile",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "CTA padding V",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_h_mobile",
+      "min": 20,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "CTA padding H",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "guarantees_size_mobile",
+      "min": 9,
+      "max": 13,
+      "step": 1,
+      "unit": "px",
+      "label": "Garanties taille",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "guarantees_gap_mobile",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Garanties espacement",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "social_padding_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Social padding top",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "avatar_size_mobile",
+      "min": 20,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Avatar taille",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "avatar_font_mobile",
+      "min": 8,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Avatar police",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "social_text_size_mobile",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Social texte taille",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥 Hero VIP Neuro",
+      "settings": {
+        "badge_text": "🔥 OFFRE LIMITÉE",
+        "title": "PACK VIP — 3 + 2 OFFERTS",
+        "subtitle": "Programme complet 5 mois pour transformer ta peau",
+        "price": "104,97€",
+        "price_old": "174,97€",
+        "discount_text": "-40%",
+        "includes_text": "5 Sérums Bakuchiol • Programme 5 mois",
+        "benefit_1": "Livraison GRATUITE",
+        "benefit_2": "Garantie 30 jours",
+        "benefit_3": "Résultats 28 jours",
+        "cta_text": "J'EN PROFITE",
+        "timer_hours": 23,
+        "timer_minutes": 59,
+        "timer_seconds": 59,
+        "show_timer": true,
+        "show_social": true,
+        "social_number": "1,523",
+        "social_text": "clientes satisfaites"
+      }
+    }
+  ]
+}
+{% endschema %}

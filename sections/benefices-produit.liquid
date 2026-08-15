@@ -1,0 +1,118 @@
+{% comment %}
+  Section Bénéfices - 5 points clés CRO
+  Position: après stories, avant FAQ
+{% endcomment %}
+
+<section class="benefices-cro page-width">
+  <div class="benefices-wrapper">
+    <h2 class="benefices-heading">{{ section.settings.title }}</h2>
+    <p class="benefices-subheading">{{ section.settings.subtitle }}</p>
+    
+    <div class="benefices-list">
+      {% for block in section.blocks %}
+        <div class="benefice-card" {{ block.shopify_attributes }}>
+          <span class="benefice-icon">{{ block.settings.icon }}</span>
+          <div class="benefice-text">
+            <strong class="benefice-title">{{ block.settings.title }}</strong>
+            <span class="benefice-desc">{{ block.settings.description }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.benefices-cro {
+  background: #EBEBEB;
+  border-radius: 20px;
+  padding: 50px 24px;
+  margin: 40px auto;
+}
+.benefices-wrapper { max-width: 800px; margin: 0 auto; }
+.benefices-heading {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 8px;
+}
+.benefices-subheading {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin: 0 0 32px;
+}
+.benefices-list { display: flex; flex-direction: column; gap: 12px; }
+.benefice-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.benefice-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.benefice-icon {
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f8f8, #EBEBEB);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.benefice-text { flex: 1; }
+.benefice-title {
+  display: block;
+  font-size: 1.05rem;
+  color: #111;
+  margin-bottom: 4px;
+}
+.benefice-desc {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+@media (max-width: 749px) {
+  .benefices-cro { padding: 36px 16px; margin: 28px 12px; border-radius: 16px; }
+  .benefices-heading { font-size: 1.4rem; }
+  .benefice-card { padding: 14px 16px; }
+  .benefice-icon { width: 42px; height: 42px; font-size: 1.3rem; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Bénéfices Produit",
+  "settings": [
+    {"type": "text", "id": "title", "label": "Titre", "default": "Pourquoi ce produit va transformer votre peau"},
+    {"type": "text", "id": "subtitle", "label": "Sous-titre", "default": "5 raisons de nous faire confiance"}
+  ],
+  "blocks": [
+    {
+      "type": "benefice",
+      "name": "Bénéfice",
+      "settings": [
+        {"type": "text", "id": "icon", "label": "Icône", "default": "✨"},
+        {"type": "text", "id": "title", "label": "Titre", "default": "Bénéfice"},
+        {"type": "textarea", "id": "description", "label": "Description"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Bénéfices Produit", "blocks": [
+    {"type": "benefice", "settings": {"icon": "✨", "title": "Résultats visibles en 14 jours", "description": "Peau plus lumineuse et éclatante dès les premières semaines."}},
+    {"type": "benefice", "settings": {"icon": "💧", "title": "Hydratation longue durée 24h", "description": "Formule qui nourrit en profondeur sans effet gras."}},
+    {"type": "benefice", "settings": {"icon": "🛡️", "title": "Anti-âge cliniquement prouvé", "description": "Actifs testés pour réduire rides et ridules."}},
+    {"type": "benefice", "settings": {"icon": "🌿", "title": "98% d'ingrédients naturels", "description": "Sans parabènes, sans sulfates, formule clean."}},
+    {"type": "benefice", "settings": {"icon": "❤️", "title": "Adapté à toutes les peaux", "description": "Testé dermatologiquement, même peaux sensibles."}}
+  ]}]
+}
+{% endschema %}

@@ -1,0 +1,438 @@
+{% comment %}
+  LATIF COSMOS - WIDGET ABONNEMENT ULTIME v8.0
+  Groupes VIP/Flexible intégrés • Taille compacte • 100% fonctionnel
+{% endcomment %}
+
+{% assign widget_id = section.id | replace: '-', '' | slice: 0, 8 %}
+{% assign settings = section.settings %}
+
+{% if settings.variant_id != blank %}
+  {% assign variant_id = settings.variant_id %}
+{% elsif product %}
+  {% assign variant_id = product.selected_or_first_available_variant.id %}
+{% else %}
+  {% assign variant_id = "0" %}
+{% endif %}
+
+{% assign group_blocks = section.blocks | where: "type", "group" %}
+{% assign plan_blocks = section.blocks | where: "type", "plan" %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+.lcw{{ widget_id }} {
+  --lcw-primary: {{ settings.color_primary | default: '#7c3aed' }};
+  --lcw-primary-light: {{ settings.color_primary_light | default: '#a855f7' }};
+  --lcw-secondary: {{ settings.color_secondary | default: '#f97316' }};
+  --lcw-success: {{ settings.color_success | default: '#10b981' }};
+  --lcw-error: {{ settings.color_error | default: '#ef4444' }};
+  --lcw-text-dark: {{ settings.color_text_dark | default: '#1f2937' }};
+  --lcw-text-muted: {{ settings.color_text_muted | default: '#6b7280' }};
+  --lcw-bg-primary: {{ settings.color_bg_primary | default: '#ffffff' }};
+  --lcw-bg-secondary: {{ settings.color_bg_secondary | default: '#f8f5ff' }};
+  --lcw-border: {{ settings.color_border | default: '#e5e7eb' }};
+  --lcw-border-active: {{ settings.color_border_active | default: '#7c3aed' }};
+  --lcw-font: 'Poppins', sans-serif;
+  --lcw-radius: 12px;
+}
+
+{% case settings.design_preset %}
+  {% when 'premium_gold' %}
+  .lcw{{ widget_id }} { --lcw-primary: #d4af37; --lcw-primary-light: #ffd700; --lcw-bg-secondary: #fffbeb; --lcw-border-active: #d4af37; }
+  {% when 'fresh_green' %}
+  .lcw{{ widget_id }} { --lcw-primary: #059669; --lcw-primary-light: #34d399; --lcw-bg-secondary: #ecfdf5; --lcw-border-active: #059669; }
+  {% when 'ocean_blue' %}
+  .lcw{{ widget_id }} { --lcw-primary: #0369a1; --lcw-primary-light: #38bdf8; --lcw-bg-secondary: #f0f9ff; --lcw-border-active: #0369a1; }
+  {% when 'sunset_orange' %}
+  .lcw{{ widget_id }} { --lcw-primary: #ea580c; --lcw-primary-light: #fb923c; --lcw-bg-secondary: #fff7ed; --lcw-border-active: #ea580c; }
+  {% when 'minimal_white' %}
+  .lcw{{ widget_id }} { --lcw-primary: #18181b; --lcw-primary-light: #3f3f46; --lcw-bg-secondary: #fafafa; --lcw-border-active: #18181b; }
+  {% when 'dark_neon' %}
+  .lcw{{ widget_id }} { --lcw-primary: #06b6d4; --lcw-primary-light: #22d3ee; --lcw-bg-primary: #0f172a; --lcw-bg-secondary: #1e293b; --lcw-text-dark: #f1f5f9; --lcw-text-muted: #94a3b8; --lcw-border: #334155; --lcw-border-active: #06b6d4; }
+  {% when 'rose_pink' %}
+  .lcw{{ widget_id }} { --lcw-primary: #ec4899; --lcw-primary-light: #f472b6; --lcw-bg-secondary: #fdf2f8; --lcw-border-active: #ec4899; }
+{% endcase %}
+
+.lcw{{ widget_id }} { font-family: var(--lcw-font); background: var(--lcw-bg-secondary); border-radius: var(--lcw-radius); margin: 16px 0; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 480px; }
+.lcw{{ widget_id }} * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Urgency Bar */
+.lcw{{ widget_id }} .lcw-urgency { background: var(--lcw-error); color: white; padding: 6px 12px; font-size: 0.65rem; font-weight: 600; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.lcw{{ widget_id }} .lcw-urgency .lcw-stock { font-weight: 700; background: rgba(255,255,255,0.2); padding: 1px 6px; border-radius: 3px; }
+
+/* Header */
+.lcw{{ widget_id }} .lcw-header { background: linear-gradient(135deg, var(--lcw-primary), var(--lcw-primary-light)); padding: 14px 16px; text-align: center; color: white; }
+.lcw{{ widget_id }} .lcw-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+.lcw{{ widget_id }} .lcw-subtitle { font-size: 0.7rem; opacity: 0.95; }
+.lcw{{ widget_id }} .lcw-subtitle span { color: #fbbf24; font-weight: 600; }
+
+/* Social Proof */
+.lcw{{ widget_id }} .lcw-social { background: rgba(255,255,255,0.15); padding: 6px 12px; margin-top: 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.65rem; }
+.lcw{{ widget_id }} .lcw-avatars { display: flex; }
+.lcw{{ widget_id }} .lcw-avatar { width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; margin-left: -6px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 8px; color: white; font-weight: 700; }
+.lcw{{ widget_id }} .lcw-avatar:first-child { margin-left: 0; }
+.lcw{{ widget_id }} .lcw-live { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: lcwLive{{ widget_id }} 1.5s infinite; }
+@keyframes lcwLive{{ widget_id }} { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Content */
+.lcw{{ widget_id }} .lcw-content { padding: 14px; background: var(--lcw-bg-primary); }
+
+/* Countdown */
+.lcw{{ widget_id }} .lcw-countdown { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; margin-bottom: 12px; }
+.lcw{{ widget_id }} .lcw-countdown-label { font-size: 0.6rem; color: var(--lcw-error); font-weight: 600; }
+.lcw{{ widget_id }} .lcw-countdown-timer { display: flex; gap: 4px; }
+.lcw{{ widget_id }} .lcw-countdown-block { background: var(--lcw-error); color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; min-width: 24px; text-align: center; }
+.lcw{{ widget_id }} .lcw-countdown-sep { color: var(--lcw-error); font-weight: 700; font-size: 0.7rem; }
+
+/* Groups - VIP/Flexible */
+.lcw{{ widget_id }} .lcw-groups { display: flex; gap: 8px; margin-bottom: 12px; }
+.lcw{{ widget_id }} .lcw-group-btn { flex: 1; padding: 10px 8px; border: 2px solid var(--lcw-border); border-radius: 10px; background: var(--lcw-bg-primary); cursor: pointer; transition: all 0.2s; text-align: center; }
+.lcw{{ widget_id }} .lcw-group-btn:hover { border-color: var(--lcw-primary); }
+.lcw{{ widget_id }} .lcw-group-btn.active { border-color: var(--lcw-border-active); background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(168,85,247,0.06)); }
+.lcw{{ widget_id }} .lcw-group-name { font-weight: 700; font-size: 0.75rem; color: var(--lcw-text-dark); }
+.lcw{{ widget_id }} .lcw-group-sub { font-size: 0.55rem; color: var(--lcw-text-muted); margin-top: 1px; }
+.lcw{{ widget_id }} .lcw-group-badge { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 12px; font-size: 0.5rem; font-weight: 700; color: white; background: linear-gradient(135deg, var(--lcw-primary), var(--lcw-primary-light)); }
+.lcw{{ widget_id }} .lcw-group-btn:nth-child(2) .lcw-group-badge { background: var(--lcw-secondary); }
+
+/* Plans */
+.lcw{{ widget_id }} .lcw-plans { display: flex; gap: 8px; margin-bottom: 12px; }
+.lcw{{ widget_id }} .lcw-plans-hidden { display: none !important; }
+.lcw{{ widget_id }} .lcw-plan { flex: 1; padding: 12px 8px; border: 2px solid var(--lcw-border); border-radius: 10px; background: var(--lcw-bg-primary); cursor: pointer; transition: all 0.2s; text-align: center; position: relative; }
+.lcw{{ widget_id }} .lcw-plan:hover { border-color: var(--lcw-primary); transform: translateY(-2px); }
+.lcw{{ widget_id }} .lcw-plan.selected { border-color: var(--lcw-border-active); background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(168,85,247,0.05)); box-shadow: 0 4px 15px rgba(124,58,237,0.15); }
+.lcw{{ widget_id }} .lcw-check { width: 18px; height: 18px; border: 2px solid var(--lcw-border); border-radius: 50%; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; transition: all 0.2s; }
+.lcw{{ widget_id }} .lcw-plan.selected .lcw-check { background: linear-gradient(135deg, var(--lcw-primary), var(--lcw-primary-light)); border-color: var(--lcw-primary); color: white; }
+.lcw{{ widget_id }} .lcw-qty { font-size: 1.4rem; font-weight: 800; color: var(--lcw-primary); line-height: 1; }
+.lcw{{ widget_id }} .lcw-label { font-size: 0.5rem; color: var(--lcw-text-muted); text-transform: uppercase; margin: 3px 0 6px; }
+.lcw{{ widget_id }} .lcw-price { font-size: 0.85rem; font-weight: 700; color: var(--lcw-text-dark); }
+.lcw{{ widget_id }} .lcw-price span { font-size: 0.5rem; font-weight: 400; color: var(--lcw-text-muted); }
+.lcw{{ widget_id }} .lcw-compare { font-size: 0.55rem; color: #9ca3af; text-decoration: line-through; margin-top: 2px; }
+.lcw{{ widget_id }} .lcw-discount { display: inline-block; margin-top: 4px; padding: 2px 6px; border-radius: 4px; font-size: 0.5rem; font-weight: 700; color: white; background: var(--lcw-success); }
+.lcw{{ widget_id }} .lcw-popular { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f97316, #fb923c); color: white; padding: 2px 8px; border-radius: 6px; font-size: 0.45rem; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+
+/* Savings Bar */
+.lcw{{ widget_id }} .lcw-savings { background: var(--lcw-bg-primary); border: 1px solid var(--lcw-border); border-radius: 8px; padding: 10px; margin-bottom: 12px; }
+.lcw{{ widget_id }} .lcw-savings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.lcw{{ widget_id }} .lcw-savings-label { font-size: 0.6rem; color: var(--lcw-text-muted); font-weight: 600; }
+.lcw{{ widget_id }} .lcw-savings-amount { font-size: 0.75rem; font-weight: 700; color: var(--lcw-success); }
+.lcw{{ widget_id }} .lcw-progress { height: 6px; background: var(--lcw-border); border-radius: 6px; overflow: hidden; }
+.lcw{{ widget_id }} .lcw-progress-fill { height: 100%; background: linear-gradient(90deg, var(--lcw-success), #34d399); border-radius: 6px; transition: width 0.4s; }
+
+/* Summary */
+.lcw{{ widget_id }} .lcw-summary { background: var(--lcw-bg-primary); border: 2px solid var(--lcw-border); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+.lcw{{ widget_id }} .lcw-summary-header { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--lcw-text-muted); margin-bottom: 4px; font-weight: 600; }
+.lcw{{ widget_id }} .lcw-summary-plan { font-size: 0.85rem; font-weight: 700; color: var(--lcw-text-dark); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed var(--lcw-border); }
+.lcw{{ widget_id }} .lcw-summary-row { display: flex; justify-content: space-between; align-items: flex-end; }
+.lcw{{ widget_id }} .lcw-summary-total { font-size: 1.4rem; font-weight: 800; color: var(--lcw-primary); }
+.lcw{{ widget_id }} .lcw-summary-economy { font-size: 0.65rem; color: var(--lcw-success); font-weight: 600; }
+
+/* Features */
+.lcw{{ widget_id }} .lcw-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--lcw-border); }
+.lcw{{ widget_id }} .lcw-feature { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.5rem; color: var(--lcw-text-muted); text-align: center; }
+.lcw{{ widget_id }} .lcw-feature-icon { font-size: 1rem; }
+
+/* Guarantee */
+.lcw{{ widget_id }} .lcw-guarantee { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; margin-bottom: 12px; }
+.lcw{{ widget_id }} .lcw-guarantee-icon { font-size: 1rem; }
+.lcw{{ widget_id }} .lcw-guarantee-text { font-size: 0.6rem; color: var(--lcw-success); font-weight: 600; }
+
+/* CTA */
+.lcw{{ widget_id }} .lcw-cta { width: 100%; padding: 12px 20px; background: linear-gradient(135deg, var(--lcw-primary), var(--lcw-primary-light)); border: none; border-radius: 10px; color: white; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.lcw{{ widget_id }} .lcw-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124,58,237,0.25); }
+.lcw{{ widget_id }} .lcw-cta:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+.lcw{{ widget_id }} .lcw-cta.success { background: linear-gradient(135deg, #10b981, #34d399) !important; }
+.lcw{{ widget_id }} .lcw-cta.error { background: linear-gradient(135deg, #ef4444, #f87171) !important; }
+
+/* Secure */
+.lcw{{ widget_id }} .lcw-secure { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--lcw-border); }
+.lcw{{ widget_id }} .lcw-secure-item { display: flex; align-items: center; gap: 3px; font-size: 0.55rem; color: var(--lcw-text-muted); }
+
+/* Trust & Reviews */
+.lcw{{ widget_id }} .lcw-trust { display: flex; justify-content: center; gap: 14px; padding: 10px 14px; background: rgba(0,0,0,0.02); border-top: 1px solid var(--lcw-border); flex-wrap: wrap; }
+.lcw{{ widget_id }} .lcw-trust-item { display: flex; align-items: center; gap: 4px; font-size: 0.6rem; color: var(--lcw-text-muted); }
+.lcw{{ widget_id }} .lcw-trust-item span:first-child { color: var(--lcw-success); }
+.lcw{{ widget_id }} .lcw-reviews { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; background: var(--lcw-bg-primary); border-top: 1px solid var(--lcw-border); }
+.lcw{{ widget_id }} .lcw-stars { color: #fbbf24; font-size: 0.75rem; }
+.lcw{{ widget_id }} .lcw-rating { font-size: 0.7rem; font-weight: 700; color: var(--lcw-text-dark); }
+.lcw{{ widget_id }} .lcw-reviews-count { font-size: 0.6rem; color: var(--lcw-text-muted); }
+
+/* Responsive */
+@media (max-width: 450px) {
+  .lcw{{ widget_id }} .lcw-title { font-size: 0.9rem; }
+  .lcw{{ widget_id }} .lcw-qty { font-size: 1.2rem; }
+  .lcw{{ widget_id }} .lcw-price { font-size: 0.75rem; }
+  .lcw{{ widget_id }} .lcw-summary-total { font-size: 1.2rem; }
+  .lcw{{ widget_id }} .lcw-cta { font-size: 0.8rem; padding: 10px 16px; }
+}
+</style>
+
+<div class="lcw{{ widget_id }}" id="lcw{{ widget_id }}">
+  
+  {% if settings.show_urgency_bar %}
+  <div class="lcw-urgency">
+    <span>🔥</span>
+    <span>{{ settings.urgency_text | default: "Offre limitée !" }}</span>
+    <span class="lcw-stock" id="stockCount{{ widget_id }}">{{ settings.stock_count | default: 23 }} restants</span>
+  </div>
+  {% endif %}
+  
+  <div class="lcw-header">
+    <h3 class="lcw-title">{{ settings.header_icon | default: "💧" }} {{ settings.txt_title | default: "L'Abonnement Qui Change Tout" }}</h3>
+    <p class="lcw-subtitle">{{ settings.txt_subtitle | default: "Rejoignez 1500+ membres • Économisez jusqu'à" }} <span>{{ settings.max_discount | default: "-40%" }}</span></p>
+    
+    {% if settings.show_social_proof %}
+    <div class="lcw-social">
+      <div class="lcw-avatars">
+        <div class="lcw-avatar">M</div>
+        <div class="lcw-avatar">S</div>
+        <div class="lcw-avatar">L</div>
+      </div>
+      <div class="lcw-live"></div>
+      <span id="viewerCount{{ widget_id }}">{{ settings.viewer_count | default: 34 }}</span> {{ settings.viewer_text | default: "regardent" }}
+    </div>
+    {% endif %}
+  </div>
+  
+  <div class="lcw-content">
+    
+    {% if settings.show_countdown %}
+    <div class="lcw-countdown">
+      <span class="lcw-countdown-label">⏰ {{ settings.countdown_text | default: "Expire dans" }}:</span>
+      <div class="lcw-countdown-timer">
+        <span class="lcw-countdown-block" id="countH{{ widget_id }}">{{ settings.countdown_hours | default: 2 | prepend: '00' | slice: -2, 2 }}</span>
+        <span class="lcw-countdown-sep">:</span>
+        <span class="lcw-countdown-block" id="countM{{ widget_id }}">{{ settings.countdown_mins | default: 34 | prepend: '00' | slice: -2, 2 }}</span>
+        <span class="lcw-countdown-sep">:</span>
+        <span class="lcw-countdown-block" id="countS{{ widget_id }}">{{ settings.countdown_secs | default: 56 | prepend: '00' | slice: -2, 2 }}</span>
+      </div>
+    </div>
+    {% endif %}
+    
+    {% comment %} ═══ GROUPES VIP/FLEXIBLE ═══ {% endcomment %}
+    {% if group_blocks.size > 0 %}
+      <div class="lcw-groups" id="groups{{ widget_id }}">
+        {% for block in group_blocks %}
+          <div class="lcw-group-btn{% if forloop.first %} active{% endif %}" data-group="{{ block.id }}" onclick="lcwGroup{{ widget_id }}('{{ block.id }}')">
+            <div class="lcw-group-name">{{ block.settings.group_name }}</div>
+            <div class="lcw-group-sub">{{ block.settings.group_subtitle }}</div>
+            {% if block.settings.group_badge != blank %}<div class="lcw-group-badge">{{ block.settings.group_badge }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      
+      {% for group in group_blocks %}
+        <div class="lcw-plans{% unless forloop.first %} lcw-plans-hidden{% endunless %}" id="plans_{{ group.id }}" data-group="{{ group.id }}">
+          {% assign first_in_group = true %}
+          {% for plan in plan_blocks %}
+            {% if plan.settings.plan_group == group.settings.group_name %}
+              <div class="lcw-plan{% if first_in_group %} selected{% endif %}" data-price="{{ plan.settings.plan_price }}" data-qty="{{ plan.settings.plan_qty }}" data-eco="{{ plan.settings.plan_economy }}" data-planid="{{ plan.settings.plan_selling_id }}" onclick="lcwPlan{{ widget_id }}(this)">
+                {% if plan.settings.is_popular %}<div class="lcw-popular">{{ settings.txt_popular | default: "👑 POPULAIRE" }}</div>{% endif %}
+                <div class="lcw-check">✓</div>
+                <div class="lcw-qty">{{ plan.settings.plan_qty }}</div>
+                <div class="lcw-label">{{ plan.settings.plan_label | default: "SÉRUM/MOIS" }}</div>
+                <div class="lcw-price">{{ plan.settings.plan_price }} €<span>/mois</span></div>
+                {% if plan.settings.plan_compare != blank %}<div class="lcw-compare">{{ plan.settings.plan_compare }} €</div>{% endif %}
+                {% if plan.settings.plan_discount != blank %}<div class="lcw-discount">{{ plan.settings.plan_discount }}</div>{% endif %}
+              </div>
+              {% assign first_in_group = false %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% else %}
+      {% comment %} ═══ GROUPES PAR DÉFAUT SI AUCUN BLOC ═══ {% endcomment %}
+      <div class="lcw-groups" id="groups{{ widget_id }}">
+        <div class="lcw-group-btn active" data-group="vip" onclick="lcwGroup{{ widget_id }}('vip')">
+          <div class="lcw-group-name">VIP — Meilleur Prix</div>
+          <div class="lcw-group-sub">Engagement 3 mois</div>
+          <div class="lcw-group-badge">-40%</div>
+        </div>
+        <div class="lcw-group-btn" data-group="flex" onclick="lcwGroup{{ widget_id }}('flex')">
+          <div class="lcw-group-name">Liberté Totale</div>
+          <div class="lcw-group-sub">Sans engagement</div>
+          <div class="lcw-group-badge">-30%</div>
+        </div>
+      </div>
+      
+      <div class="lcw-plans" id="plans_vip" data-group="vip">
+        <div class="lcw-plan selected" data-price="24.49" data-qty="1" data-eco="10.50" onclick="lcwPlan{{ widget_id }}(this)">
+          <div class="lcw-check">✓</div>
+          <div class="lcw-qty">1</div>
+          <div class="lcw-label">SÉRUM/MOIS</div>
+          <div class="lcw-price">24,49 €<span>/mois</span></div>
+          <div class="lcw-compare">34,99 €</div>
+          <div class="lcw-discount">-30%</div>
+        </div>
+        <div class="lcw-plan" data-price="45.49" data-qty="2" data-eco="24.49" onclick="lcwPlan{{ widget_id }}(this)">
+          <div class="lcw-check">✓</div>
+          <div class="lcw-qty">2</div>
+          <div class="lcw-label">SÉRUMS/MOIS</div>
+          <div class="lcw-price">45,49 €<span>/mois</span></div>
+          <div class="lcw-compare">69,98 €</div>
+          <div class="lcw-discount">-35%</div>
+        </div>
+        <div class="lcw-plan" data-price="62.99" data-qty="3" data-eco="41.98" onclick="lcwPlan{{ widget_id }}(this)">
+          <div class="lcw-popular">👑 POPULAIRE</div>
+          <div class="lcw-check">✓</div>
+          <div class="lcw-qty">3</div>
+          <div class="lcw-label">SÉRUMS/MOIS</div>
+          <div class="lcw-price">62,99 €<span>/mois</span></div>
+          <div class="lcw-compare">104,97 €</div>
+          <div class="lcw-discount">-40%</div>
+        </div>
+      </div>
+      
+      <div class="lcw-plans lcw-plans-hidden" id="plans_flex" data-group="flex">
+        <div class="lcw-plan" data-price="27.99" data-qty="1" data-eco="7.00" onclick="lcwPlan{{ widget_id }}(this)">
+          <div class="lcw-check">✓</div>
+          <div class="lcw-qty">1</div>
+          <div class="lcw-label">SÉRUM/MOIS</div>
+          <div class="lcw-price">27,99 €<span>/mois</span></div>
+          <div class="lcw-compare">34,99 €</div>
+          <div class="lcw-discount">-20%</div>
+        </div>
+        <div class="lcw-plan" data-price="52.49" data-qty="2" data-eco="17.49" onclick="lcwPlan{{ widget_id }}(this)">
+          <div class="lcw-check">✓</div>
+          <div class="lcw-qty">2</div>
+          <div class="lcw-label">SÉRUMS/MOIS</div>
+          <div class="lcw-price">52,49 €<span>/mois</span></div>
+          <div class="lcw-compare">69,98 €</div>
+          <div class="lcw-discount">-25%</div>
+        </div>
+        <div class="lcw-plan" data-price="73.49" data-qty="3" data-eco="31.48" onclick="lcwPlan{{ widget_id }}(this)">
+          <div class="lcw-check">✓</div>
+          <div class="lcw-qty">3</div>
+          <div class="lcw-label">SÉRUMS/MOIS</div>
+          <div class="lcw-price">73,49 €<span>/mois</span></div>
+          <div class="lcw-compare">104,97 €</div>
+          <div class="lcw-discount">-30%</div>
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if settings.show_savings_bar %}
+    <div class="lcw-savings">
+      <div class="lcw-savings-header">
+        <span class="lcw-savings-label">💰 {{ settings.savings_label | default: "Économies annuelles" }}</span>
+        <span class="lcw-savings-amount" id="savings{{ widget_id }}">126,00 €</span>
+      </div>
+      <div class="lcw-progress"><div class="lcw-progress-fill" id="progress{{ widget_id }}" style="width:30%"></div></div>
+    </div>
+    {% endif %}
+    
+    <div class="lcw-summary">
+      <div class="lcw-summary-header">{{ settings.txt_formula | default: "VOTRE FORMULE" }}</div>
+      <div class="lcw-summary-plan" id="sumPlan{{ widget_id }}">1 sérum / mois</div>
+      <div class="lcw-summary-row">
+        <div class="lcw-summary-total" id="sumTotal{{ widget_id }}">24,49 €</div>
+        <div class="lcw-summary-economy" id="sumEco{{ widget_id }}">🎉 {{ settings.txt_economy | default: "Économie" }}: 10,50 €</div>
+      </div>
+      {% if settings.show_features %}
+      <div class="lcw-features">
+        <div class="lcw-feature"><span class="lcw-feature-icon">{{ settings.feature_1_icon | default: "🚚" }}</span><span>{{ settings.feature_1_text | default: "Livraison gratuite" }}</span></div>
+        <div class="lcw-feature"><span class="lcw-feature-icon">{{ settings.feature_2_icon | default: "↩️" }}</span><span>{{ settings.feature_2_text | default: "Annulez quand vous voulez" }}</span></div>
+        <div class="lcw-feature"><span class="lcw-feature-icon">{{ settings.feature_3_icon | default: "🔒" }}</span><span>{{ settings.feature_3_text | default: "Paiement sécurisé" }}</span></div>
+      </div>
+      {% endif %}
+    </div>
+    
+    {% if settings.show_guarantee %}
+    <div class="lcw-guarantee">
+      <span class="lcw-guarantee-icon">{{ settings.guarantee_icon | default: "🛡️" }}</span>
+      <span class="lcw-guarantee-text">{{ settings.guarantee_text | default: "Garantie satisfait ou remboursé 30 jours" }}</span>
+    </div>
+    {% endif %}
+    
+    <button type="button" class="lcw-cta" id="cta{{ widget_id }}" onclick="lcwCart{{ widget_id }}()">
+      <span>{{ settings.cta_icon | default: "→" }}</span>
+      {{ settings.txt_cta | default: "OUI, JE M'ABONNE" }}
+    </button>
+    
+    {% if settings.show_secure_badges %}
+    <div class="lcw-secure">
+      <div class="lcw-secure-item"><span>🔒</span><span>SSL</span></div>
+      <div class="lcw-secure-item"><span>💳</span><span>Visa/MC</span></div>
+      <div class="lcw-secure-item"><span>📦</span><span>Suivi</span></div>
+    </div>
+    {% endif %}
+  </div>
+  
+  {% if settings.show_reviews %}
+  <div class="lcw-reviews">
+    <span class="lcw-stars">★★★★★</span>
+    <span class="lcw-rating">{{ settings.rating | default: "4.9" }}/5</span>
+    <span class="lcw-reviews-count">({{ settings.reviews_count | default: "1523" }} avis)</span>
+  </div>
+  {% endif %}
+  
+  {% if settings.show_trust_bar %}
+  <div class="lcw-trust">
+    <div class="lcw-trust-item"><span>✓</span><span>{{ settings.trust_1 | default: "Paiement sécurisé" }}</span></div>
+    <div class="lcw-trust-item"><span>✓</span><span>{{ settings.trust_2 | default: "Satisfait ou remboursé" }}</span></div>
+    <div class="lcw-trust-item"><span>✓</span><span>{{ settings.trust_3 | default: "1523+ abonnés" }}</span></div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+(function(){
+  var w='{{ widget_id }}', v='{{ variant_id }}', r={{ settings.redirect_to_cart | default: true }}, u='{{ settings.redirect_url | default: "/cart" }}';
+  var sel=null;
+  
+  function fmt(p){return parseFloat(p).toFixed(2).replace('.',',')+' €';}
+  function $(i){return document.getElementById(i);}
+  function $$(s){return document.querySelectorAll(s);}
+  
+  window['lcwGroup'+w]=function(g){
+
+    $$('#groups'+w+' .lcw-group-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-group')===g);});
+
+    $$('#lcw'+w+' .lcw-plans').forEach(function(p){
+      if(p.getAttribute('data-group')===g){p.classList.remove('lcw-plans-hidden');var f=p.querySelector('.lcw-plan');if(f)window['lcwPlan'+w](f);}
+      else{p.classList.add('lcw-plans-hidden');}
+    });
+  };
+  
+  window['lcwPlan'+w]=function(e){
+    var c=e.closest('.lcw-plans');
+    if(c)c.querySelectorAll('.lcw-plan').forEach(function(p){p.classList.remove('selected');});
+    e.classList.add('selected');sel=e;
+    var p=e.getAttribute('data-price')||'0',q=e.getAttribute('data-qty')||'1',ec=e.getAttribute('data-eco')||'0';
+    $('sumPlan'+w).textContent=q+' sérum'+(parseInt(q)>1?'s':'')+' / mois';
+    $('sumTotal'+w).textContent=fmt(p);
+    $('sumEco'+w).textContent='🎉 {{ settings.txt_economy | default: "Économie" }}: '+fmt(ec);
+    var s=$('savings'+w),pr=$('progress'+w);
+    if(s&&pr){var a=parseFloat(ec)*12;s.textContent=fmt(a);pr.style.width=Math.min(a/500*100,100)+'%';}
+  };
+  
+  window['lcwCart'+w]=function(){
+    if(!sel){alert('Sélectionnez un plan');return;}
+    var b=$('cta'+w),o=b.innerHTML;b.innerHTML='⏳ Ajout...';b.disabled=true;
+    var pid=sel.getAttribute('data-planid'),q=parseInt(sel.getAttribute('data-qty'))||1;
+    var d={items:[{id:parseInt(v),quantity:q}]};
+    if(pid&&pid!=='')d.items[0].selling_plan=parseInt(pid);
+    fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+    .then(function(r){return r.json();})
+    .then(function(x){
+      if(x.status===422)throw new Error();
+      b.innerHTML='✓ Ajouté!';b.classList.add('success');
+      setTimeout(function(){b.innerHTML=o;b.classList.remove('success');b.disabled=false;if(r)window.location.href=u;},1200);
+    })
+    .catch(function(){b.innerHTML='✗ Erreur';b.classList.add('error');setTimeout(function(){b.innerHTML=o;b.classList.remove('error');b.disabled=false;},2000);});
+  };
+  
+  function countdown(){
+    var h=$('countH'+w),m=$('countM'+w),s=$('countS'+w);if(!h)return;
+    var t=(parseInt(h.textContent)||0)*3600+(parseInt(m.textContent)||0)*60+(parseInt(s.textContent)||0);
+    setInterval(function(){if(t<=0)return;t--;h.textContent=String(Math.floor(t/3600)).padStart(2,'0');m.textContent=String(Math.floor((t%3600)/60)).padStart(2,'0');s.textContent=String(t%60).padStart(2,'0');},1000);
+  }
+  
+  function init(){
+    var f=document.querySelector('#lcw'+w+' .lcw-plan.selected');
+    if(f){sel=f;window['lcwPlan'+w](f);}
+    countdown();
+  }
+  
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>

@@ -62,7 +62,7 @@
     "buttons_space_horizontal": 20,
     "buttons_radius_range": 0,
     "buttons_font_weight": false,
-    "button_1_palette": "text",
+    "button_1_palette": "accent-1",
     "button_1_border": "none",
     "button_1_shadow": "none",
     "button_2_palette": "text-outline",
@@ -370,67 +370,67 @@
     "color_schemes": {
       "background-1": {
         "settings": {
-          "text": "#1a1a1a",
-          "text_secondary": "#1a1a1a",
-          "background_gradient_text": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
-          "background": "#ffffff",
-          "background_secondary": "#e8ddd0",
+          "text": "#26332C",
+          "text_secondary": "#4a463f",
+          "background_gradient_text": "",
+          "background": "#FFFFFF",
+          "background_secondary": "#EFE7DA",
           "background_gradient": "",
-          "accent-1": "#c9a96e",
-          "accent-2": "#8b7355",
-          "background_gradient_accent": "radial-gradient(rgba(96, 108, 56, 1) 7%, rgba(40, 54, 24, 1) 94%)"
+          "accent-1": "#C25A34",
+          "accent-2": "#1E3F33",
+          "background_gradient_accent": ""
         }
       },
       "background-2": {
         "settings": {
-          "text": "#000000",
-          "text_secondary": "#494949",
+          "text": "#26332C",
+          "text_secondary": "#4a463f",
           "background_gradient_text": "",
-          "background": "#f5f0eb",
-          "background_secondary": "#e8ddd0",
+          "background": "#F7F2E9",
+          "background_secondary": "#EAE0D0",
           "background_gradient": "",
-          "accent-1": "#c9a96e",
-          "accent-2": "#8b7355",
+          "accent-1": "#C25A34",
+          "accent-2": "#1E3F33",
           "background_gradient_accent": ""
         }
       },
       "inverse": {
         "settings": {
-          "text": "#f5f0eb",
-          "text_secondary": "#f4f4f4",
+          "text": "#F7F2E9",
+          "text_secondary": "#EDE6D8",
           "background_gradient_text": "",
-          "background": "#8b7355",
-          "background_secondary": "#dcc292",
+          "background": "#1E3F33",
+          "background_secondary": "#14291F",
           "background_gradient": "",
-          "accent-1": "#c9a96e",
-          "accent-2": "#c9a96e",
+          "accent-1": "#C25A34",
+          "accent-2": "#cbb892",
           "background_gradient_accent": ""
         }
       },
       "scheme-33ad48fa-4f8b-4c4a-996c-97d34730b2ab": {
         "settings": {
-          "text": "#ffffff",
-          "text_secondary": "#fefae0",
+          "text": "#F7F2E9",
+          "text_secondary": "#EDE6D8",
           "background_gradient_text": "",
-          "background": "#606c38",
-          "background_secondary": "#283618",
+          "background": "#1E3F33",
+          "background_secondary": "#14291F",
           "background_gradient": "",
-          "accent-1": "#ffffff",
-          "accent-2": "#fefae0",
+          "accent-1": "#C25A34",
+          "accent-2": "#cbb892",
           "background_gradient_accent": ""
         }
       },
       "scheme-3fe3c0d8-e894-45a2-8536-47eb834686e3": {
         "settings": {
-          "text": "#1a1a1a",
-          "text_secondary": "#1a1a1a",
-          "background_gradient_text": "linear-gradient(57deg, rgba(249, 119, 255, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
-          "background": "#fffaf5",
-          "background_secondary": "#e8ddd0",
+          "text": "#26332C",
+          "text_secondary": "#4a463f",
+          "background_gradient_text": "",
+          "background": "#FBF7F0",
+          "background_secondary": "#EFE7DA",
           "background_gradient": "",
-          "accent-1": "#c9a96e",
-          "accent-2": "#8b7355",
-          "background_gradient_accent": "radial-gradient(rgba(96, 108, 56, 1) 7%, rgba(40, 54, 24, 1) 94%)"
+          "accent-1": "#C25A34",
+          "accent-2": "#1E3F33",
+          "background_gradient_accent": ""
         }
       }
     }

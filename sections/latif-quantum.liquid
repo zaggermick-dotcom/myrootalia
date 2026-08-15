@@ -1,0 +1,849 @@
+{% comment %}
+  LATIF Quantum Fusion V12.4 - STABILITY & LOADING FIX
+  Correctifs : Logique Liquid sortie du CSS pour éviter les erreurs de compilation.
+  Sécurité : Variable JS sId sécurisée via filtre JSON.
+{% endcomment %}
+
+{%- liquid
+  assign s_id = section.id
+  assign media_type = section.settings.media_mode
+  assign alignment = section.settings.text_alignment
+  
+  # Calcul de l'alignement flexbox pour le CSS (plus sûr ici que dans la balise style)
+  case alignment
+    when 'center'
+      assign align_class = 'center'
+    when 'right'
+      assign align_class = 'flex-end'
+    else
+      assign align_class = 'flex-start'
+  endcase
+-%}
+
+{%- style -%}
+  :root {
+    --lqf-prim-{{ s_id }}: {{ section.settings.color_primary }};
+    --lqf-acc-{{ s_id }}: {{ section.settings.color_accent }};
+    --lqf-text-{{ s_id }}: {{ section.settings.color_text }};
+    --lqf-bg-{{ s_id }}: {{ section.settings.color_background }};
+    --lqf-card-bg-{{ s_id }}: {{ section.settings.color_card_bg }};
+    --lqf-head-{{ s_id }}: {{ section.settings.color_heading }};
+    --lqf-sub-{{ s_id }}: {{ section.settings.color_subtitle }};
+    --lqf-desc-{{ s_id }}: {{ section.settings.color_description }};
+    --lqf-btn-bg-{{ s_id }}: {{ section.settings.color_btn_bg }};
+    --lqf-btn-txt-{{ s_id }}: {{ section.settings.color_btn_text }};
+    --lqf-btn-h-{{ s_id }}: {{ section.settings.color_btn_hover }};
+    --lqf-radius-{{ s_id }}: {{ section.settings.border_radius }}px;
+    --lqf-success-{{ s_id }}: #2d7d46;
+  }
+
+  #lqf-section-{{ s_id }} {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: var(--lqf-bg-{{ s_id }});
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Main Card */
+  .lqf-main-card-{{ s_id }} {
+    background: var(--lqf-card-bg-{{ s_id }});
+    border-radius: var(--lqf-radius-{{ s_id }});
+    box-shadow: 0 25px 80px rgba(0,0,0,0.08), 0 10px 30px rgba(139, 115, 85, 0.06);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    width: 95%;
+    max-width: {{ section.settings.container_width }}px;
+    align-items: stretch;
+  }
+
+  /* Media Section */
+  .lqf-media-section-{{ s_id }} {
+    position: relative;
+    height: 100%;
+    min-height: 450px;
+    overflow: hidden;
+    background: #f4f4f4;
+    border-radius: {{ section.settings.image_radius }}px;
+    margin: {{ section.settings.image_margin }}px;
+  }
+
+  /* Before/After Container */
+  .lqf-ba-container-{{ s_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: ew-resize;
+    --pos: 50;
+    touch-action: pan-y;
+  }
+
+  .lqf-ba-img-{{ s_id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lqf-ba-before-{{ s_id }} {
+    z-index: 2;
+    clip-path: inset(0 calc(100% - (var(--pos) * 1%)) 0 0);
+  }
+
+  .lqf-ba-after-{{ s_id }} {
+    z-index: 1;
+  }
+
+  .lqf-ba-handle-{{ s_id }} {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--pos) * 1%);
+    width: 3px;
+    background: white;
+    transform: translateX(-50%);
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+  }
+
+  .lqf-ba-knob-{{ s_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45px;
+    height: 45px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lqf-ba-knob-{{ s_id }}::before {
+    content: '◀ ▶';
+    font-size: 9px;
+    color: var(--lqf-prim-{{ s_id }});
+    letter-spacing: 2px;
+  }
+
+  /* Labels */
+  .lqf-ba-label-{{ s_id }} {
+    position: absolute;
+    bottom: 20px;
+    padding: 6px 14px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .lqf-ba-label-{{ s_id }}.before { left: 20px; }
+  .lqf-ba-label-{{ s_id }}.after { right: 20px; }
+
+  /* Results Badge */
+  .lqf-results-badge-{{ s_id }} {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 10px 16px;
+    border-radius: 12px;
+    z-index: 20;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .lqf-results-badge-title-{{ s_id }} {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--lqf-prim-{{ s_id }});
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .lqf-results-badge-value-{{ s_id }} {
+    font-family: "Garamond", "Baskerville", serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--lqf-head-{{ s_id }});
+    line-height: 1;
+  }
+
+  /* Live Viewers */
+  .lqf-live-viewers-{{ s_id }} {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    color: var(--lqf-text-{{ s_id }});
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 30;
+    white-space: nowrap;
+  }
+  .lqf-live-dot-{{ s_id }} {
+    width: 6px;
+    height: 6px;
+    background: #27ae60;
+    border-radius: 50%;
+    animation: lqfLivePulse{{ s_id }} 1.5s ease-in-out infinite;
+  }
+  @keyframes lqfLivePulse{{ s_id }} {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4); }
+    50% { box-shadow: 0 0 0 5px rgba(39, 174, 96, 0); }
+  }
+  .lqf-viewer-avatars-{{ s_id }} {
+    display: flex;
+    margin-left: 6px;
+  }
+  .lqf-viewer-avatar-{{ s_id }} {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -8px;
+    object-fit: cover;
+    background-color: #e0e0e0;
+  }
+  .lqf-viewer-avatar-{{ s_id }}:first-child { margin-left: 0; }
+
+  /* Content Section */
+  .lqf-content-section-{{ s_id }} {
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: {{ alignment }};
+    /* Utilisation de la variable calculée plus haut */
+    align-items: {{ align_class }};
+  }
+
+  /* Urgency Bar */
+  .lqf-urgency-bar-{{ s_id }} {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, rgba(201, 168, 108, 0.1) 0%, rgba(139, 115, 85, 0.05) 100%);
+    border-radius: 8px;
+    border-left: 3px solid var(--lqf-acc-{{ s_id }});
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .lqf-urgency-dot-{{ s_id }} {
+    width: 8px;
+    height: 8px;
+    background: #e74c3c;
+    border-radius: 50%;
+    animation: lqfBlink{{ s_id }} 1s ease-in-out infinite;
+  }
+  @keyframes lqfBlink{{ s_id }} {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .lqf-urgency-text-{{ s_id }} {
+    font-size: 12px;
+    color: var(--lqf-text-{{ s_id }});
+  }
+  .lqf-urgency-text-{{ s_id }} strong {
+    color: #c0392b;
+    font-weight: 600;
+  }
+
+  /* Heading */
+  .lqf-heading-{{ s_id }} {
+    font-family: "Garamond", "Baskerville", serif;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.15;
+    color: var(--lqf-head-{{ s_id }});
+    margin-bottom: 18px;
+    width: 100%;
+  }
+  .lqf-heading-{{ s_id }} em {
+    font-style: italic;
+    color: var(--lqf-prim-{{ s_id }});
+  }
+
+  /* Description */
+  .lqf-description-{{ s_id }} {
+    font-size: {{ section.settings.text_size }}px;
+    line-height: 1.6;
+    color: var(--lqf-desc-{{ s_id }});
+    margin-bottom: 22px;
+    width: 100%;
+  }
+  .lqf-description-{{ s_id }} strong {
+    color: var(--lqf-prim-{{ s_id }});
+    font-weight: 600;
+  }
+
+  /* Accordion */
+  .lqf-accordion-{{ s_id }} {
+    border-top: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    margin-bottom: 22px;
+    width: 100%;
+  }
+  .lqf-accordion-header-{{ s_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .lqf-accordion-header-{{ s_id }}:hover { color: var(--lqf-prim-{{ s_id }}); }
+  .lqf-accordion-title-{{ s_id }} {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--lqf-head-{{ s_id }});
+  }
+  .lqf-accordion-icon-{{ s_id }} {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--lqf-prim-{{ s_id }});
+    transition: transform 0.3s ease;
+  }
+  .lqf-accordion-{{ s_id }}.open .lqf-accordion-icon-{{ s_id }} { transform: rotate(45deg); }
+  .lqf-accordion-content-{{ s_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+  }
+  .lqf-accordion-{{ s_id }}.open .lqf-accordion-content-{{ s_id }} { opacity: 1; }
+  .lqf-accordion-inner-{{ s_id }} {
+    padding-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--lqf-desc-{{ s_id }});
+    text-align: left;
+  }
+  .lqf-accordion-inner-{{ s_id }} p { margin-bottom: 8px; }
+  .lqf-accordion-inner-{{ s_id }} strong { color: var(--lqf-prim-{{ s_id }}); }
+
+  /* Stats Grid */
+  .lqf-stats-grid-{{ s_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    width: 100%;
+  }
+  .lqf-stat-item-{{ s_id }} {
+    background: white;
+    padding: 16px 10px;
+    text-align: center;
+    position: relative;
+  }
+  .lqf-stat-item-{{ s_id }}::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 30px; height: 2px; background: var(--lqf-acc-{{ s_id }});
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .lqf-stat-item-{{ s_id }}:hover::after { opacity: 1; }
+  .lqf-stat-number-{{ s_id }} {
+    display: block;
+    font-family: "Garamond", "Baskerville", serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--lqf-prim-{{ s_id }});
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .lqf-stat-label-{{ s_id }} {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--lqf-text-{{ s_id }});
+    opacity: 0.6;
+  }
+
+  /* CTA */
+  .lqf-cta-section-{{ s_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    /* Utilisation de la variable calculée */
+    align-items: {{ align_class }};
+  }
+  .lqf-main-cta-{{ s_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, var(--lqf-btn-bg-{{ s_id }}) 0%, var(--lqf-btn-h-{{ s_id }}) 100%);
+    color: var(--lqf-btn-txt-{{ s_id }}) !important;
+    text-decoration: none;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(139, 115, 85, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .lqf-main-cta-{{ s_id }}::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  .lqf-main-cta-{{ s_id }}:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(139, 115, 85, 0.4); }
+  .lqf-main-cta-{{ s_id }}:hover::before { left: 100%; }
+  .lqf-cta-icon-{{ s_id }} { width: 18px; height: 18px; }
+
+  /* Trust Badges */
+  .lqf-trust-badges-{{ s_id }} {
+    display: flex;
+    align-items: center;
+    /* Utilisation de la variable calculée */
+    justify-content: {{ align_class }};
+    gap: 25px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .lqf-trust-badge-{{ s_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .lqf-trust-badge-{{ s_id }} svg {
+    width: 26px;
+    height: 26px;
+    color: var(--lqf-prim-{{ s_id }});
+    opacity: 0.7;
+  }
+  .lqf-trust-badge-{{ s_id }} span {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--lqf-desc-{{ s_id }});
+    opacity: 0.7;
+  }
+
+  /* Single Image & Slideshow */
+  .lqf-media-fill-{{ s_id }} { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lqf-slide-img-{{ s_id }} {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0; transition: opacity 0.8s ease, transform 1.2s ease;
+    transform: scale(1.05);
+  }
+  .lqf-slide-img-{{ s_id }}.active { opacity: 1; transform: scale(1); }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .lqf-main-card-{{ s_id }} {
+      grid-template-columns: 1fr;
+      width: 96%;
+      margin: 0 auto;
+    }
+    .lqf-media-section-{{ s_id }} {
+      min-height: auto;
+      aspect-ratio: 1/1;
+      margin: 0;
+      border-radius: var(--lqf-radius-{{ s_id }}) var(--lqf-radius-{{ s_id }}) 0 0;
+    }
+    .lqf-results-badge-{{ s_id }} { top: 15px; right: 15px; padding: 6px 10px; }
+    .lqf-results-badge-value-{{ s_id }} { font-size: 18px; }
+    .lqf-live-viewers-{{ s_id }} { bottom: 15px; font-size: 10px; padding: 6px 12px; }
+    .lqf-ba-label-{{ s_id }} { bottom: 15px; font-size: 9px; }
+    
+    .lqf-content-section-{{ s_id }} { 
+      padding: 30px 20px; 
+      text-align: {{ alignment }}; 
+      align-items: {{ align_class }};
+    }
+    
+    .lqf-heading-{{ s_id }} { 
+      font-size: {{ section.settings.heading_size_mobile }}px;
+      line-height: 1.2; 
+    }
+    .lqf-description-{{ s_id }} { 
+      font-size: {{ section.settings.text_size_mobile }}px;
+    }
+    .lqf-main-cta-{{ s_id }} { width: 100%; max-width: 350px; padding: 16px 20px; }
+    .lqf-stats-grid-{{ s_id }} { gap: 1px; }
+    .lqf-stat-number-{{ s_id }} { font-size: 20px; }
+    .lqf-stat-label-{{ s_id }} { font-size: 8px; }
+    .lqf-trust-badges-{{ s_id }} { justify-content: center; gap: 15px; }
+  }
+{%- endstyle -%}
+
+<div id="lqf-section-{{ s_id }}">
+  <div class="lqf-main-card-{{ s_id }}">
+    
+    <!-- PARTIE MEDIA -->
+    <div class="lqf-media-section-{{ s_id }}">
+      {%- if media_type == 'before_after' -%}
+        <div class="lqf-ba-container-{{ s_id }}" id="ba-{{ s_id }}">
+          <div class="lqf-ba-after-{{ s_id }}">
+            {%- assign img_class = 'lqf-ba-img-' | append: s_id -%}
+            {%- if section.settings.image_after != blank -%}
+              {{ section.settings.image_after | image_url: width: 1500 | image_tag: loading: 'lazy', class: img_class, sizes: '(min-width: 900px) 50vw, 100vw', widths: '375, 550, 750, 1100, 1500, 2000' }}
+            {%- else -%}
+              <img src="https://via.placeholder.com/800x800/8B7355/FFFFFF?text=APRÈS" class="lqf-ba-img-{{ s_id }}">
+            {%- endif -%}
+          </div>
+          <div class="lqf-ba-before-{{ s_id }}">
+            {%- assign img_class = 'lqf-ba-img-' | append: s_id -%}
+            {%- if section.settings.image_before != blank -%}
+              {{ section.settings.image_before | image_url: width: 1500 | image_tag: loading: 'lazy', class: img_class, sizes: '(min-width: 900px) 50vw, 100vw', widths: '375, 550, 750, 1100, 1500, 2000' }}
+            {%- else -%}
+              <img src="https://via.placeholder.com/800x800/C9A86C/FFFFFF?text=AVANT" class="lqf-ba-img-{{ s_id }}">
+            {%- endif -%}
+          </div>
+          <div class="lqf-ba-handle-{{ s_id }}"><div class="lqf-ba-knob-{{ s_id }}"></div></div>
+        </div>
+        {%- if section.settings.show_ba_labels -%}
+          <span class="lqf-ba-label-{{ s_id }} before">{{ section.settings.label_before }}</span>
+          <span class="lqf-ba-label-{{ s_id }} after">{{ section.settings.label_after }}</span>
+        {%- endif -%}
+
+      {%- elsif media_type == 'single_image' -%}
+        {%- if section.settings.single_media != blank -%}
+          {%- assign img_class = 'lqf-media-fill-' | append: s_id -%}
+          {{ section.settings.single_media | image_url: width: 1500 | image_tag: loading: 'lazy', class: img_class, sizes: '(min-width: 900px) 50vw, 100vw', widths: '375, 550, 750, 1100, 1500, 2000' }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg lqf-media-fill-' | append: s_id }}
+        {%- endif -%}
+
+      {%- else -%}
+        <div class="lqf-slides-wrapper-{{ s_id }}">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'slide' -%}
+              <div class="lqf-slide-img-{{ s_id }} {% if forloop.first %}active{% endif %}">
+                {%- assign img_class = 'lqf-media-fill-' | append: s_id -%}
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1500 | image_tag: loading: 'lazy', class: img_class, sizes: '(min-width: 900px) 50vw, 100vw', widths: '375, 550, 750, 1100, 1500, 2000' }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_results_badge -%}
+        <div class="lqf-results-badge-{{ s_id }}">
+          <div class="lqf-results-badge-title-{{ s_id }}">{{ section.settings.results_badge_title }}</div>
+          <div class="lqf-results-badge-value-{{ s_id }}">{{ section.settings.results_badge_value }}</div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_live_viewers -%}
+        <div class="lqf-live-viewers-{{ s_id }}" data-min="{{ section.settings.viewers_min }}" data-max="{{ section.settings.viewers_max }}">
+          <span class="lqf-live-dot-{{ s_id }}"></span>
+          <span><strong class="lqf-viewer-count-{{ s_id }}">{{ section.settings.viewers_base }}</strong> {{ section.settings.viewers_text }}</span>
+          <div class="lqf-viewer-avatars-{{ s_id }}">
+            <img class="lqf-viewer-avatar-{{ s_id }}" alt="Visiteur 1">
+            <img class="lqf-viewer-avatar-{{ s_id }}" alt="Visiteur 2">
+            <img class="lqf-viewer-avatar-{{ s_id }}" alt="Visiteur 3">
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- PARTIE CONTENU -->
+    <div class="lqf-content-section-{{ s_id }}">
+      {%- if section.settings.show_urgency -%}
+        <div class="lqf-urgency-bar-{{ s_id }}">
+          <span class="lqf-urgency-dot-{{ s_id }}"></span>
+          <span class="lqf-urgency-text-{{ s_id }}"><strong>{{ section.settings.urgency_title }}</strong> — {{ section.settings.urgency_text }}</span>
+        </div>
+      {%- endif -%}
+
+      <h2 class="lqf-heading-{{ s_id }}">{{ section.settings.heading }}</h2>
+      <div class="lqf-description-{{ s_id }}">{{ section.settings.text }}</div>
+
+      {%- if section.settings.ingredients_title != blank -%}
+        <div class="lqf-accordion-{{ s_id }}" id="acc-{{ s_id }}">
+          <div class="lqf-accordion-header-{{ s_id }}">
+            <span class="lqf-accordion-title-{{ s_id }}">{{ section.settings.ingredients_title }}</span>
+            <span class="lqf-accordion-icon-{{ s_id }}">+</span>
+          </div>
+          <div class="lqf-accordion-content-{{ s_id }}">
+            <div class="lqf-accordion-inner-{{ s_id }}">
+              {{ section.settings.ingredients_content }}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+      {%- if stat_blocks.size > 0 -%}
+        <div class="lqf-stats-grid-{{ s_id }}">
+          {%- for block in stat_blocks -%}
+            <div class="lqf-stat-item-{{ s_id }}">
+              <span class="lqf-stat-number-{{ s_id }}">{{ block.settings.value }}{% if block.settings.is_percent %}%{% endif %}</span>
+              <span class="lqf-stat-label-{{ s_id }}">{{ block.settings.label }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="lqf-cta-section-{{ s_id }}">
+        <a href="{{ section.settings.button_link }}" class="lqf-main-cta-{{ s_id }}">
+          <span>{{ section.settings.button_text }}</span>
+          <svg class="lqf-cta-icon-{{ s_id }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      {%- if section.settings.show_trust_badges -%}
+        <div class="lqf-trust-badges-{{ s_id }}">
+          {%- if section.settings.trust_1_text != blank -%}
+            <div class="lqf-trust-badge-{{ s_id }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 12V6c0-1.66 4-3 9-3s9 1.34 9 3v6"/></svg>
+              <span>{{ section.settings.trust_1_text }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.trust_2_text != blank -%}
+            <div class="lqf-trust-badge-{{ s_id }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+              <span>{{ section.settings.trust_2_text }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.trust_3_text != blank -%}
+            <div class="lqf-trust-badge-{{ s_id }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>{{ section.settings.trust_3_text }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  (function() {
+    // SECURITY FIX: Use JSON filter to safely pass ID
+    const sId = {{ section.id | json }};
+    const section = document.getElementById('lqf-section-' + sId);
+    if(!section) return;
+
+    // --- SLIDER AVANT/APRÈS ---
+    const baContainer = section.querySelector('.lqf-ba-container-' + sId);
+    if(baContainer) {
+      const updateBA = (e) => {
+        const rect = baContainer.getBoundingClientRect();
+        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        let pos = (x / rect.width) * 100;
+        pos = Math.max(5, Math.min(95, pos));
+        baContainer.style.setProperty('--pos', pos);
+      };
+      baContainer.addEventListener('mousemove', (e) => { if(e.buttons === 1) updateBA(e); });
+      baContainer.addEventListener('mousedown', updateBA);
+      baContainer.addEventListener('touchmove', updateBA);
+      baContainer.addEventListener('touchstart', updateBA);
+    }
+
+    // --- DIAPORAMA ---
+    const slides = section.querySelectorAll('.lqf-slide-img-' + sId);
+    if(slides.length > 1) {
+      let currentSlide = 0;
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 5000);
+    }
+
+    // --- ACCORDÉON ---
+    const acc = section.querySelector('#acc-' + sId);
+    if(acc) {
+      const header = acc.querySelector('.lqf-accordion-header-' + sId);
+      const content = acc.querySelector('.lqf-accordion-content-' + sId);
+      header.addEventListener('click', () => {
+        const isOpen = acc.classList.contains('open');
+        if (isOpen) {
+          acc.classList.remove('open');
+          content.style.maxHeight = null;
+        } else {
+          acc.classList.add('open');
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+
+    // --- COMPTEUR VISITEURS & AVATARS ---
+    const viewerContainer = section.querySelector('.lqf-live-viewers-' + sId);
+    const viewerCount = section.querySelector('.lqf-viewer-count-' + sId);
+    const avatarImages = section.querySelectorAll('.lqf-viewer-avatar-' + sId);
+
+    if(viewerContainer && viewerCount) {
+      const minViewers = parseInt(viewerContainer.dataset.min) || 15;
+      const maxViewers = parseInt(viewerContainer.dataset.max) || 35;
+
+      const getRandomAvatar = () => {
+        const randomId = Math.floor(Math.random() * 70) + 1;
+        return `https://i.pravatar.cc/200?img=${randomId}`;
+      };
+
+      avatarImages.forEach(img => { img.src = getRandomAvatar(); });
+
+      setInterval(() => {
+        const current = parseInt(viewerCount.textContent);
+        const change = Math.random() > 0.5 ? 1 : -1;
+        const newValue = Math.max(minViewers, Math.min(maxViewers, current + change));
+        
+        viewerCount.textContent = newValue;
+
+        if (newValue !== current) {
+           const randomIndex = Math.floor(Math.random() * avatarImages.length);
+           avatarImages[randomIndex].src = getRandomAvatar();
+        }
+      }, 4000);
+    }
+  })();
+});
+</script>
+
+{% schema %}
+{
+  "name": "LATIF Quantum V12",
+  "settings": [
+    { "type": "header", "content": "🎨 Couleurs Globales" },
+    { "type": "color", "id": "color_primary", "label": "Couleur Primaire", "default": "#8B7355" },
+    { "type": "color", "id": "color_accent", "label": "Couleur Accent", "default": "#C9A86C" },
+    { "type": "color", "id": "color_text", "label": "Couleur Texte", "default": "#2D2D2D" },
+    { "type": "color", "id": "color_background", "label": "Fond de Section", "default": "#f8f6f3" },
+    { "type": "color", "id": "color_card_bg", "label": "Fond de la Carte", "default": "#FFFFFF" },
+    { "type": "header", "content": "🎨 Couleurs Textes" },
+    { "type": "color", "id": "color_subtitle", "label": "Couleur Sous-titre", "default": "#8B7355" },
+    { "type": "color", "id": "color_heading", "label": "Couleur Titre", "default": "#2D2D2D" },
+    { "type": "color", "id": "color_description", "label": "Couleur Description", "default": "#4a4a4a" },
+    { "type": "header", "content": "🎨 Couleurs Bouton" },
+    { "type": "color", "id": "color_btn_bg", "label": "Fond Bouton", "default": "#8B7355" },
+    { "type": "color", "id": "color_btn_text", "label": "Texte Bouton", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_btn_hover", "label": "Bouton Hover", "default": "#6d5a43" },
+    { "type": "header", "content": "📐 Mise en page" },
+    { "type": "select", "id": "media_mode", "label": "Mode Média", "options": [
+        {"value": "slideshow", "label": "Diaporama"},
+        {"value": "before_after", "label": "Avant / Après"},
+        {"value": "single_image", "label": "Image Unique"}
+      ], "default": "before_after" },
+    { "type": "select", "id": "text_alignment", "label": "Alignement du texte", "options": [
+        {"value": "left", "label": "Gauche"},
+        {"value": "center", "label": "Centré"},
+        {"value": "right", "label": "Droite"}
+      ], "default": "left" },
+    { "type": "range", "id": "container_width", "min": 800, "max": 1400, "step": 50, "label": "Largeur Max", "default": 950 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 5, "label": "Espace Haut", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 5, "label": "Espace Bas", "default": 40 },
+    { "type": "range", "id": "border_radius", "min": 0, "max": 60, "step": 4, "label": "Arrondi Carte", "default": 24 },
+    { "type": "range", "id": "image_radius", "min": 0, "max": 40, "step": 2, "label": "Arrondi Image", "default": 16 },
+    { "type": "range", "id": "image_margin", "min": 0, "max": 30, "step": 2, "label": "Marge Image", "default": 16 },
+    
+    { "type": "header", "content": "✒️ Typographie PC" },
+    { "type": "range", "id": "heading_size", "min": 20, "max": 60, "step": 1, "unit": "px", "label": "Taille Titre (PC)", "default": 34 },
+    { "type": "range", "id": "text_size", "min": 12, "max": 24, "step": 1, "unit": "px", "label": "Taille Texte (PC)", "default": 15 },
+
+    { "type": "header", "content": "📱 Typographie Mobile" },
+    { "type": "range", "id": "heading_size_mobile", "min": 18, "max": 40, "step": 1, "unit": "px", "label": "Taille Titre (Mobile)", "default": 26 },
+    { "type": "range", "id": "text_size_mobile", "min": 10, "max": 20, "step": 1, "unit": "px", "label": "Taille Texte (Mobile)", "default": 14 },
+
+    { "type": "header", "content": "📸 Médias" },
+    { "type": "image_picker", "id": "single_media", "label": "Image Unique" },
+    { "type": "image_picker", "id": "image_before", "label": "Image AVANT" },
+    { "type": "image_picker", "id": "image_after", "label": "Image APRÈS" },
+    { "type": "checkbox", "id": "show_ba_labels", "label": "Afficher labels Avant/Après", "default": true },
+    { "type": "text", "id": "label_before", "label": "Label Avant", "default": "Avant" },
+    { "type": "text", "id": "label_after", "label": "Label Après", "default": "Après" },
+    { "type": "header", "content": "🏷️ Badge Résultats" },
+    { "type": "checkbox", "id": "show_results_badge", "label": "Afficher badge résultats", "default": true },
+    { "type": "text", "id": "results_badge_title", "label": "Titre badge", "default": "Résultats visibles" },
+    { "type": "text", "id": "results_badge_value", "label": "Valeur badge", "default": "28 jours" },
+    { "type": "header", "content": "👁️ Compteur Visiteurs" },
+    { "type": "checkbox", "id": "show_live_viewers", "label": "Afficher compteur", "default": true },
+    { "type": "range", "id": "viewers_base", "min": 5, "max": 50, "step": 1, "label": "Nombre de base", "default": 23 },
+    { "type": "range", "id": "viewers_min", "min": 5, "max": 30, "step": 1, "label": "Minimum", "default": 15 },
+    { "type": "range", "id": "viewers_max", "min": 20, "max": 60, "step": 1, "label": "Maximum", "default": 35 },
+    { "type": "text", "id": "viewers_text", "label": "Texte", "default": "personnes regardent" },
+    { "type": "header", "content": "⚡ Urgence" },
+    { "type": "checkbox", "id": "show_urgency", "label": "Afficher barre urgence", "default": true },
+    { "type": "text", "id": "urgency_title", "label": "Titre urgence", "default": "Stock limité" },
+    { "type": "text", "id": "urgency_text", "label": "Texte urgence", "default": "Plus que 12 unités disponibles" },
+    { "type": "header", "content": "📝 Textes" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Marre des rides, boutons, rougeurs, peau <em>fatiguée</em> ?" },
+    { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Ne vous inquiétez pas, nous sommes là. Notre sérum <strong>régénère</strong>, <strong>rééquilibre</strong> et <strong>hydrate intensément</strong> la peau agressée par les boutons, rides, ridules, rougeurs. Il améliore la <strong>texture</strong>, renforce la <strong>barrière cutanée</strong> et redonne une peau plus <strong>lisse</strong>.</p>" },
+    { "type": "header", "content": "🌿 Ingrédients (Accordéon)" },
+    { "type": "text", "id": "ingredients_title", "label": "Titre Accordéon", "default": "Ingrédients et bienfaits" },
+    { "type": "richtext", "id": "ingredients_content", "label": "Contenu Accordéon", "default": "<p><strong>Bakuchiol végétal 5 000 ppm</strong> → Stimule le renouvellement cutané et lisse le grain de peau.</p><p><strong>13 peptides biomimétiques</strong> → Aident à raffermir et à soutenir la structure naturelle de la peau.</p><p><strong>Complexe 5-CICA + Céramides</strong> → Apaise, renforce la barrière cutanée.</p><p><strong>Acide hyaluronique moléculaire</strong> → Offre une hydratation profonde.</p>" },
+    { "type": "header", "content": "🔘 Bouton" },
+    { "type": "text", "id": "button_text", "label": "Texte Bouton", "default": "Transformer ma peau" },
+    { "type": "url", "id": "button_link", "label": "Lien Bouton" },
+    { "type": "header", "content": "✅ Trust Badges" },
+    { "type": "checkbox", "id": "show_trust_badges", "label": "Afficher trust badges", "default": true },
+    { "type": "text", "id": "trust_1_text", "label": "Badge 1", "default": "100% Vegan" },
+    { "type": "text", "id": "trust_2_text", "label": "Badge 2", "default": "Sans paraben" },
+    { "type": "text", "id": "trust_3_text", "label": "Badge 3", "default": "+2 500 clientes" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Image Diaporama",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Valeur", "default": "98" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Satisfaction" },
+        { "type": "checkbox", "id": "is_percent", "label": "Afficher %", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "LATIF Quantum V12", "blocks": [
+    { "type": "stat", "settings": { "value": "98", "label": "Satisfaction", "is_percent": true } },
+    { "type": "stat", "settings": { "value": "89", "label": "Peau plus lisse", "is_percent": true } },
+    { "type": "stat", "settings": { "value": "94", "label": "Rachèteraient", "is_percent": true } }
+  ] }]
+}
+{% endschema %}

@@ -1,0 +1,1588 @@
+{% comment %}
+  SECTION PRODUITS GRILLE ÉLÉGANTE - VERSION ULTRA STABLE
+  - Images arrondies en haut uniquement
+  - Contenu (titre, prix, bouton) avec fond plat en bas
+  - Espacement mobile configurable
+  - Affichage 100% stable et fluide
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --pg-bg-color: {{ section.settings.bg_color }};
+    --pg-title-color: {{ section.settings.title_color }};
+    --pg-text-color: {{ section.settings.text_color }};
+    --pg-price-color: {{ section.settings.price_color }};
+    --pg-btn-bg: {{ section.settings.btn_bg_color }};
+    --pg-btn-text: {{ section.settings.btn_text_color }};
+    --pg-btn-hover-bg: {{ section.settings.btn_hover_bg_color }};
+    --pg-card-bg: {{ section.settings.card_bg_color }};
+    --pg-card-border: {{ section.settings.card_border_color }};
+    --pg-badge-bg: {{ section.settings.badge_bg_color }};
+    --pg-badge-text: {{ section.settings.badge_text_color }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: var(--pg-bg-color);
+  }
+
+  .pg-container {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .pg-header {
+    text-align: {{ section.settings.header_alignment }};
+    margin-bottom: 40px;
+  }
+
+  .pg-subtitle {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--pg-text-color);
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .pg-title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 600;
+    color: var(--pg-title-color);
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+  }
+
+  .pg-description {
+    font-size: 15px;
+    color: var(--pg-text-color);
+    opacity: 0.8;
+    max-width: 600px;
+    {% if section.settings.header_alignment == 'center' %}
+    margin: 0 auto;
+    {% endif %}
+  }
+
+  /* ========================================
+     GRILLE - STABLE ET FLUIDE
+     ======================================== */
+  .pg-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: {{ section.settings.grid_gap }}px;
+    align-items: stretch;
+  }
+
+  /* ========================================
+     CARTE PRODUIT - STRUCTURE CLAIRE
+     ======================================== */
+  .pg-card {
+    background: var(--pg-card-bg);
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    {% if section.settings.card_shadow %}
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    {% endif %}
+    {% if section.settings.card_border %}
+    border: 1px solid var(--pg-card-border);
+    {% endif %}
+  }
+
+  /* ========================================
+     LIENS CLIQUABLES
+     ======================================== */
+  .pg-card-image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .pg-card-link-wrapper {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .pg-card-link-wrapper .pg-card-title {
+    color: var(--pg-title-color);
+  }
+
+  .pg-card-link-wrapper .pg-card-description {
+    color: var(--pg-text-color);
+  }
+
+  /* ========================================
+     BADGES AU-DESSUS DE L'IMAGE
+     ======================================== */
+  .pg-badges-top {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    z-index: 10;
+    justify-content: center;
+  }
+
+  /* === BADGE PROMO === */
+  .pg-badge-sale {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(255, 65, 108, 0.3);
+  }
+
+  .pg-badge-sale-icon {
+    font-size: 12px;
+  }
+
+  .pg-badge-sale-text {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1;
+  }
+
+  .pg-badge-sale-percent {
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .pg-badge-sale-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  /* === BADGE NOUVEAU === */
+  .pg-badge-new {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(17, 153, 142, 0.3);
+  }
+
+  .pg-badge-new-icon {
+    font-size: 11px;
+  }
+
+  /* === BADGE BEST-SELLER === */
+  .pg-badge-best {
+    background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(241, 39, 17, 0.3);
+  }
+
+  .pg-badge-best-icon {
+    font-size: 12px;
+  }
+
+  /* === BADGE STOCK LIMITÉ === */
+  .pg-badge-limited {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  .pg-badge-limited-icon {
+    font-size: 10px;
+  }
+
+  .pg-badge-limited-dot {
+    width: 5px;
+    height: 5px;
+    background: #ff4757;
+    border-radius: 50%;
+    animation: blink 1s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* === BADGE LIVRAISON === */
+  .pg-badge-shipping {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+  }
+
+  .pg-badge-shipping-icon {
+    font-size: 10px;
+  }
+
+  /* === BADGE PACK === */
+  .pg-badge-pack {
+    background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(142, 45, 226, 0.3);
+  }
+
+  .pg-badge-pack-icon {
+    font-size: 12px;
+  }
+
+  /* === BADGE COLLECTION === */
+  .pg-badge-collection {
+    background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(0, 176, 155, 0.3);
+  }
+
+  .pg-badge-collection-icon {
+    font-size: 11px;
+  }
+
+  /* === BADGE PERSONNALISÉ === */
+  .pg-badge-custom {
+    background: var(--pg-badge-bg);
+    color: var(--pg-badge-text);
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .pg-badge-custom-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+  }
+
+  /* ========================================
+     IMAGE - ARRONDIE EN HAUT UNIQUEMENT
+     ======================================== */
+  .pg-card-image {
+    position: relative;
+    aspect-ratio: {{ section.settings.image_ratio }};
+    overflow: hidden;
+    background: #f5f5f5;
+    border-radius: {{ section.settings.card_radius }}px {{ section.settings.card_radius }}px 0 0;
+  }
+
+  .pg-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit }};
+    display: block;
+  }
+
+  /* ========================================
+     CONTENU - FOND PLAT EN BAS
+     ======================================== */
+  .pg-card-content {
+    padding: {{ section.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: {{ section.settings.content_alignment }};
+    background: var(--pg-card-bg);
+    border-radius: 0;
+  }
+
+  .pg-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pg-title-color);
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 39px;
+  }
+
+  .pg-card-description {
+    font-size: 12px;
+    color: var(--pg-text-color);
+    opacity: 0.7;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 34px;
+  }
+
+  /* ========================================
+     PRIX
+     ======================================== */
+  .pg-card-prices {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    min-height: 28px;
+    {% if section.settings.content_alignment == 'center' %}
+    justify-content: center;
+    {% endif %}
+  }
+
+  .pg-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--pg-price-color);
+  }
+
+  .pg-price-compare {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .pg-price-save {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* ========================================
+     BOUTON - STABLE
+     ======================================== */
+  .pg-card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--pg-btn-bg);
+    color: var(--pg-btn-text);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px 20px;
+    border: none;
+    border-radius: {{ section.settings.btn_radius }}px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    margin-top: auto;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+
+  .pg-card-btn:hover {
+    background: var(--pg-btn-hover-bg);
+  }
+
+  .pg-card-btn-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ========================================
+     PRODUIT ÉPUISÉ
+     ======================================== */
+  .pg-card.sold-out .pg-card-image::after {
+    content: 'ÉPUISÉ';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .pg-card.sold-out .pg-card-btn {
+    background: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+  }
+
+  /* ========================================
+     COLLECTION CARD
+     ======================================== */
+  .pg-card.collection-card .pg-card-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+  }
+
+  .pg-card.collection-card .pg-collection-count {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.95);
+    color: #1a1a1a;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    z-index: 5;
+  }
+
+  /* ========================================
+     PACK CARD
+     ======================================== */
+  .pg-card.pack-card {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--pg-card-bg), var(--pg-card-bg)) padding-box,
+                linear-gradient(135deg, #8e2de2, #4a00e0) border-box;
+  }
+
+  .pg-card.pack-card .pg-pack-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .pg-card.pack-card .pg-pack-item-dot {
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    border-radius: 50%;
+  }
+
+  .pg-card.pack-card .pg-pack-savings {
+    background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  /* ========================================
+     RESPONSIVE TABLETTE
+     ======================================== */
+  @media screen and (max-width: 1024px) {
+    .pg-grid {
+      grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr);
+    }
+
+    .pg-badge-sale {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+
+    .pg-badge-sale-percent {
+      font-size: 12px;
+    }
+
+    .pg-badge-best,
+    .pg-badge-new,
+    .pg-badge-pack,
+    .pg-badge-collection {
+      font-size: 8px;
+      padding: 5px 10px;
+    }
+  }
+
+  /* ========================================
+     RESPONSIVE MOBILE - ESPACEMENT CONFIGURABLE
+     ======================================== */
+  @media screen and (max-width: 750px) {
+    .pg-grid {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+      gap: {{ section.settings.grid_gap_mobile }}px;
+    }
+
+    .pg-container {
+      padding: 0 {{ section.settings.container_padding_mobile }}px;
+    }
+
+    .pg-title {
+      font-size: {{ section.settings.title_size | minus: 6 }}px;
+    }
+
+    .pg-card-content {
+      padding: {{ section.settings.card_padding_mobile }}px;
+    }
+
+    .pg-card-title {
+      font-size: 12px;
+      min-height: 34px;
+      margin-bottom: 4px;
+    }
+
+    .pg-card-description {
+      font-size: 11px;
+      min-height: 28px;
+      margin-bottom: 8px;
+    }
+
+    .pg-price {
+      font-size: 16px;
+    }
+
+    .pg-price-compare {
+      font-size: 12px;
+    }
+
+    .pg-card-prices {
+      margin-bottom: 12px;
+      min-height: 24px;
+    }
+
+    .pg-card-btn {
+      padding: 12px 16px;
+      font-size: 10px;
+    }
+
+    .pg-card-btn-icon {
+      font-size: 12px;
+    }
+
+    .pg-badges-top {
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      gap: 4px;
+    }
+
+    .pg-badge-sale {
+      font-size: 9px;
+      padding: 4px 8px;
+    }
+
+    .pg-badge-sale-percent {
+      font-size: 11px;
+    }
+
+    .pg-badge-sale-icon {
+      font-size: 10px;
+    }
+
+    .pg-badge-new,
+    .pg-badge-best,
+    .pg-badge-limited,
+    .pg-badge-shipping,
+    .pg-badge-pack,
+    .pg-badge-collection,
+    .pg-badge-custom {
+      font-size: 7px;
+      padding: 4px 7px;
+    }
+
+    .pg-badge-new-icon,
+    .pg-badge-best-icon,
+    .pg-badge-limited-icon,
+    .pg-badge-shipping-icon,
+    .pg-badge-pack-icon,
+    .pg-badge-collection-icon {
+      font-size: 9px;
+    }
+
+    .pg-badge-limited-dot {
+      width: 4px;
+      height: 4px;
+    }
+
+    .pg-price-save {
+      font-size: 9px;
+      padding: 2px 6px;
+    }
+  }
+
+  /* ========================================
+     EXTRA PETIT MOBILE
+     ======================================== */
+  @media screen and (max-width: 380px) {
+    .pg-grid {
+      gap: {{ section.settings.grid_gap_mobile | minus: 2 }}px;
+    }
+
+    .pg-card-content {
+      padding: {{ section.settings.card_padding_mobile | minus: 2 }}px;
+    }
+
+    .pg-card-btn {
+      padding: 10px 12px;
+      font-size: 9px;
+    }
+
+    .pg-card-title {
+      font-size: 11px;
+      min-height: 30px;
+    }
+
+    .pg-price {
+      font-size: 14px;
+    }
+
+    .pg-badges-top {
+      gap: 3px;
+    }
+
+    .pg-badge-sale,
+    .pg-badge-new,
+    .pg-badge-best,
+    .pg-badge-limited,
+    .pg-badge-shipping,
+    .pg-badge-pack,
+    .pg-badge-collection,
+    .pg-badge-custom {
+      font-size: 6px;
+      padding: 3px 6px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="pg-container">
+    
+    <!-- En-tête -->
+    {% if section.settings.show_header %}
+    <div class="pg-header">
+      {% if section.settings.subtitle != blank %}
+        <p class="pg-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+      {% if section.settings.section_title != blank %}
+        <h2 class="pg-title">{{ section.settings.section_title }}</h2>
+      {% endif %}
+      {% if section.settings.section_description != blank %}
+        <p class="pg-description">{{ section.settings.section_description }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Grille de produits -->
+    <div class="pg-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          
+          {% comment %} === BLOC PRODUIT === {% endcomment %}
+          {% when 'product' %}
+            {% assign product = block.settings.product %}
+            {% if product != blank %}
+              {% assign is_sold_out = false %}
+              {% unless product.available %}
+                {% assign is_sold_out = true %}
+              {% endunless %}
+              
+              {% assign has_discount = false %}
+              {% assign save_percent = 0 %}
+              {% if product.compare_at_price > product.price %}
+                {% assign has_discount = true %}
+                {% assign save_percent = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+              {% endif %}
+              
+              <div class="pg-card {% if is_sold_out %}sold-out{% endif %}" {{ block.shopify_attributes }}>
+                
+                <!-- IMAGE CLIQUABLE AVEC BADGES -->
+                <a href="{{ product.url }}" class="pg-card-image-link">
+                  <div class="pg-card-image">
+                    <!-- BADGES -->
+                    <div class="pg-badges-top">
+                      {% if block.settings.show_sale_badge and has_discount %}
+                        <div class="pg-badge-sale">
+                          <span class="pg-badge-sale-icon">🔥</span>
+                          <div class="pg-badge-sale-text">
+                            <span class="pg-badge-sale-percent">-{{ save_percent }}%</span>
+                            <span class="pg-badge-sale-label">Promo</span>
+                          </div>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.show_new_badge %}
+                        <div class="pg-badge-new">
+                          <span class="pg-badge-new-icon">✨</span>
+                          <span>Nouveau</span>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.show_best_badge %}
+                        <div class="pg-badge-best">
+                          <span class="pg-badge-best-icon">👑</span>
+                          <span>Best-Seller</span>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.show_limited_badge %}
+                        <div class="pg-badge-limited">
+                          <span class="pg-badge-limited-icon">⚡</span>
+                          <span>Stock limité</span>
+                          <span class="pg-badge-limited-dot"></span>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.show_shipping_badge %}
+                        <div class="pg-badge-shipping">
+                          <span class="pg-badge-shipping-icon">🚚</span>
+                          <span>Livraison offerte</span>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.show_badge and block.settings.badge_text != blank %}
+                        <div class="pg-badge-custom">
+                          {% if block.settings.badge_icon != blank %}
+                            <img class="pg-badge-custom-icon" src="{{ block.settings.badge_icon | img_url: '30x30' }}" alt="">
+                          {% endif %}
+                          {{ block.settings.badge_text }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    {% if product.featured_image %}
+                      <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" 
+                           alt="{{ product.title }}" 
+                           loading="lazy">
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {% endif %}
+                  </div>
+                </a>
+                
+                <!-- CONTENU -->
+                <div class="pg-card-content">
+                  <a href="{{ product.url }}" class="pg-card-link-wrapper">
+                    <h3 class="pg-card-title">{{ product.title }}</h3>
+                    
+                    {% if section.settings.show_description and block.settings.custom_description != blank %}
+                      <p class="pg-card-description">{{ block.settings.custom_description }}</p>
+                    {% elsif section.settings.show_description and product.description != blank %}
+                      <p class="pg-card-description">{{ product.description | strip_html | truncate: 80 }}</p>
+                    {% endif %}
+                  </a>
+                  
+                  <a href="{{ product.url }}" class="pg-card-link-wrapper">
+                    <div class="pg-card-prices">
+                      <span class="pg-price">{{ product.price | money }}</span>
+                      {% if has_discount %}
+                        <span class="pg-price-compare">{{ product.compare_at_price | money }}</span>
+                        {% if section.settings.show_save_amount %}
+                          {% assign save_amount = product.compare_at_price | minus: product.price %}
+                          <span class="pg-price-save">-{{ save_amount | money }}</span>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </a>
+                  
+                  {% if is_sold_out %}
+                    <button class="pg-card-btn" disabled>
+                      <span>{{ section.settings.sold_out_text }}</span>
+                    </button>
+                  {% else %}
+                    <a href="{{ product.url }}" class="pg-card-btn">
+                      <span>{{ section.settings.btn_text }}</span>
+                      <span class="pg-card-btn-icon">→</span>
+                    </a>
+                  {% endif %}
+                </div>
+                
+              </div>
+            {% endif %}
+
+          {% comment %} === BLOC COLLECTION === {% endcomment %}
+          {% when 'collection' %}
+            {% assign collection = block.settings.collection %}
+            {% if collection != blank %}
+              <div class="pg-card collection-card" {{ block.shopify_attributes }}>
+                
+                <a href="{{ collection.url }}" class="pg-card-image-link">
+                  <div class="pg-card-image">
+                    <div class="pg-badges-top">
+                      <div class="pg-badge-collection">
+                        <span class="pg-badge-collection-icon">📦</span>
+                        <span>Collection</span>
+                      </div>
+                      
+                      {% if block.settings.show_custom_badge and block.settings.collection_badge_text != blank %}
+                        <div class="pg-badge-custom">
+                          {{ block.settings.collection_badge_text }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    {% if block.settings.collection_image != blank %}
+                      <img src="{{ block.settings.collection_image | img_url: '600x600', crop: 'center' }}" 
+                           alt="{{ collection.title }}" 
+                           loading="lazy">
+                    {% elsif collection.image %}
+                      <img src="{{ collection.image | img_url: '600x600', crop: 'center' }}" 
+                           alt="{{ collection.title }}" 
+                           loading="lazy">
+                    {% elsif collection.products.first.featured_image %}
+                      <img src="{{ collection.products.first.featured_image | img_url: '600x600', crop: 'center' }}" 
+                           alt="{{ collection.title }}" 
+                           loading="lazy">
+                    {% else %}
+                      {{ 'collection-1' | placeholder_svg_tag }}
+                    {% endif %}
+                    
+                    <span class="pg-collection-count">{{ collection.products_count }} produits</span>
+                  </div>
+                </a>
+                
+                <div class="pg-card-content">
+                  <a href="{{ collection.url }}" class="pg-card-link-wrapper">
+                    <h3 class="pg-card-title">{{ block.settings.collection_title | default: collection.title }}</h3>
+                    
+                    {% if block.settings.collection_description != blank %}
+                      <p class="pg-card-description">{{ block.settings.collection_description }}</p>
+                    {% elsif collection.description != blank %}
+                      <p class="pg-card-description">{{ collection.description | strip_html | truncate: 80 }}</p>
+                    {% endif %}
+                  </a>
+                  
+                  <a href="{{ collection.url }}" class="pg-card-btn">
+                    <span>{{ block.settings.collection_btn_text | default: section.settings.btn_text }}</span>
+                    <span class="pg-card-btn-icon">→</span>
+                  </a>
+                </div>
+                
+              </div>
+            {% endif %}
+
+          {% comment %} === BLOC PACK === {% endcomment %}
+          {% when 'pack' %}
+            {% assign product = block.settings.pack_product %}
+            {% if product != blank %}
+              {% assign has_discount = false %}
+              {% assign save_percent = 0 %}
+              {% if product.compare_at_price > product.price %}
+                {% assign has_discount = true %}
+                {% assign save_percent = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+              {% endif %}
+              
+              <div class="pg-card pack-card" {{ block.shopify_attributes }}>
+                
+                <a href="{{ product.url }}" class="pg-card-image-link">
+                  <div class="pg-card-image">
+                    <div class="pg-badges-top">
+                      <div class="pg-badge-pack">
+                        <span class="pg-badge-pack-icon">🎁</span>
+                        <span>{{ block.settings.pack_badge_text | default: 'Pack Économique' }}</span>
+                      </div>
+                      
+                      {% if has_discount %}
+                        <div class="pg-badge-sale">
+                          <span class="pg-badge-sale-icon">🔥</span>
+                          <div class="pg-badge-sale-text">
+                            <span class="pg-badge-sale-percent">-{{ save_percent }}%</span>
+                          </div>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.show_limited_pack %}
+                        <div class="pg-badge-limited">
+                          <span class="pg-badge-limited-icon">⚡</span>
+                          <span>Offre limitée</span>
+                          <span class="pg-badge-limited-dot"></span>
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    {% if block.settings.pack_image != blank %}
+                      <img src="{{ block.settings.pack_image | img_url: '600x600', crop: 'center' }}" 
+                           alt="{{ product.title }}" 
+                           loading="lazy">
+                    {% elsif product.featured_image %}
+                      <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" 
+                           alt="{{ product.title }}" 
+                           loading="lazy">
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {% endif %}
+                  </div>
+                </a>
+                
+                <div class="pg-card-content">
+                  {% if block.settings.pack_items_count > 0 %}
+                    <div class="pg-pack-items">
+                      {% for i in (1..block.settings.pack_items_count) %}
+                        <span class="pg-pack-item-dot"></span>
+                      {% endfor %}
+                      <span style="font-size: 10px; color: var(--pg-text-color); margin-left: 4px;">{{ block.settings.pack_items_count }} produits</span>
+                    </div>
+                  {% endif %}
+                  
+                  <a href="{{ product.url }}" class="pg-card-link-wrapper">
+                    <h3 class="pg-card-title">{{ block.settings.pack_title | default: product.title }}</h3>
+                    
+                    {% if block.settings.pack_description != blank %}
+                      <p class="pg-card-description">{{ block.settings.pack_description }}</p>
+                    {% endif %}
+                  </a>
+                  
+                  {% if has_discount %}
+                    {% assign save_amount = product.compare_at_price | minus: product.price %}
+                    <span class="pg-pack-savings">💰 Économisez {{ save_amount | money }}</span>
+                  {% endif %}
+                  
+                  <a href="{{ product.url }}" class="pg-card-link-wrapper">
+                    <div class="pg-card-prices">
+                      <span class="pg-price">{{ product.price | money }}</span>
+                      {% if has_discount %}
+                        <span class="pg-price-compare">{{ product.compare_at_price | money }}</span>
+                      {% endif %}
+                    </div>
+                  </a>
+                  
+                  {% unless product.available %}
+                    <button class="pg-card-btn" disabled>
+                      <span>{{ section.settings.sold_out_text }}</span>
+                    </button>
+                  {% else %}
+                    <a href="{{ product.url }}" class="pg-card-btn">
+                      <span>{{ block.settings.pack_btn_text | default: section.settings.btn_text }}</span>
+                      <span class="pg-card-btn-icon">→</span>
+                    </a>
+                  {% endunless %}
+                </div>
+                
+              </div>
+            {% endif %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_view_all and section.settings.view_all_link != blank %}
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="{{ section.settings.view_all_link }}" class="pg-card-btn" style="padding: 16px 50px; font-size: 13px;">
+        {{ section.settings.view_all_text }}
+        <span class="pg-card-btn-icon">→</span>
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "🚀 Grille Produits Pro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "📝 En-tête"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Afficher l'en-tête",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Découvrez"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Titre",
+      "default": "Nos Sérums Best-Sellers"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Description",
+      "default": "Des formules innovantes pour une peau éclatante"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Alignement en-tête",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centre" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Taille du titre",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "📐 Grille Desktop"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colonnes (Desktop)",
+      "min": 2,
+      "max": 6,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Colonnes (Tablette)",
+      "min": 2,
+      "max": 4,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Espacement Desktop",
+      "min": 5,
+      "max": 40,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Largeur max",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "default": 1200,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "📱 Grille Mobile"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Colonnes (Mobile)",
+      "options": [
+        { "value": "1", "label": "1 colonne" },
+        { "value": "2", "label": "2 colonnes" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "label": "Espacement Mobile",
+      "min": 4,
+      "max": 20,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_mobile",
+      "label": "Padding container Mobile",
+      "min": 8,
+      "max": 30,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "label": "Padding carte Mobile",
+      "min": 6,
+      "max": 20,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "🎴 Cartes"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Ratio image",
+      "options": [
+        { "value": "1/1", "label": "Carré (1:1)" },
+        { "value": "4/5", "label": "Portrait (4:5)" },
+        { "value": "3/4", "label": "Portrait (3:4)" },
+        { "value": "16/9", "label": "Paysage (16:9)" }
+      ],
+      "default": "1/1"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Ajustement image",
+      "options": [
+        { "value": "cover", "label": "Couvrir" },
+        { "value": "contain", "label": "Contenir" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Arrondi carte",
+      "min": 0,
+      "max": 30,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding contenu Desktop",
+      "min": 10,
+      "max": 30,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_shadow",
+      "label": "Ombre portée",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "card_border",
+      "label": "Bordure",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Alignement contenu",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centre" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Afficher description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_save_amount",
+      "label": "Afficher économie",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "🔘 Bouton"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Texte bouton",
+      "default": "Je découvre"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Arrondi bouton",
+      "min": 0,
+      "max": 30,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_text",
+      "label": "Texte épuisé",
+      "default": "Épuisé"
+    },
+    {
+      "type": "header",
+      "content": "🔗 Voir tout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Afficher bouton voir tout",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Texte",
+      "default": "Voir tous les produits"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Lien"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond section",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Fond carte",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Bordure carte",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Titres",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Textes",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Prix",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Fond bouton",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Texte bouton",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg_color",
+      "label": "Fond bouton hover",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Fond badge custom",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Texte badge custom",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "📏 Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haut",
+      "min": 0,
+      "max": 100,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge bas",
+      "min": 0,
+      "max": 100,
+      "default": 60,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "🛍️ Produit",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Produit"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_description",
+          "label": "Description personnalisée",
+          "info": "Laissez vide pour utiliser la description du produit"
+        },
+        {
+          "type": "header",
+          "content": "🔥 Badge Promo"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sale_badge",
+          "label": "Afficher si en promo",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "✨ Badge Nouveau"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_new_badge",
+          "label": "Afficher badge Nouveau",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "👑 Badge Best-Seller"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_best_badge",
+          "label": "Afficher badge Best-Seller",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "⚡ Badge Stock Limité"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_limited_badge",
+          "label": "Afficher badge Stock limité",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "🚚 Badge Livraison"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_shipping_badge",
+          "label": "Afficher badge Livraison offerte",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "🏷️ Badge Personnalisé"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge",
+          "label": "Afficher badge personnalisé",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Texte badge",
+          "default": "Premium"
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_icon",
+          "label": "Icône badge"
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "📦 Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_image",
+          "label": "Image personnalisée",
+          "info": "Laissez vide pour utiliser l'image de la collection"
+        },
+        {
+          "type": "text",
+          "id": "collection_title",
+          "label": "Titre personnalisé",
+          "info": "Laissez vide pour utiliser le titre de la collection"
+        },
+        {
+          "type": "textarea",
+          "id": "collection_description",
+          "label": "Description personnalisée"
+        },
+        {
+          "type": "text",
+          "id": "collection_btn_text",
+          "label": "Texte bouton",
+          "default": "Voir la collection"
+        },
+        {
+          "type": "header",
+          "content": "🏷️ Badge personnalisé"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_custom_badge",
+          "label": "Afficher badge personnalisé",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "collection_badge_text",
+          "label": "Texte badge",
+          "default": "Nouveautés"
+        }
+      ]
+    },
+    {
+      "type": "pack",
+      "name": "🎁 Pack",
+      "settings": [
+        {
+          "type": "product",
+          "id": "pack_product",
+          "label": "Produit Pack"
+        },
+        {
+          "type": "image_picker",
+          "id": "pack_image",
+          "label": "Image personnalisée",
+          "info": "Laissez vide pour utiliser l'image du produit"
+        },
+        {
+          "type": "text",
+          "id": "pack_title",
+          "label": "Titre du pack",
+          "default": "Pack Découverte"
+        },
+        {
+          "type": "textarea",
+          "id": "pack_description",
+          "label": "Description du pack",
+          "default": "Économisez avec notre pack complet"
+        },
+        {
+          "type": "range",
+          "id": "pack_items_count",
+          "label": "Nombre de produits dans le pack",
+          "min": 0,
+          "max": 10,
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "pack_badge_text",
+          "label": "Texte badge pack",
+          "default": "Pack Économique"
+        },
+        {
+          "type": "text",
+          "id": "pack_btn_text",
+          "label": "Texte bouton",
+          "default": "Je découvre"
+        },
+        {
+          "type": "header",
+          "content": "⚡ Badge Offre Limitée"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_limited_pack",
+          "label": "Afficher badge Offre limitée",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🚀 Grille Produits Pro",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,375 @@
+{% comment %} 
+  ═══════════════════════════════════════════════════════════════
+  🔥 STICKY BAR PROMO - 100% CONFIGURABLE
+  ═══════════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% if section.settings.enabled %}
+<style>
+  .sticky-bar-promo {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, {{ section.settings.bg_color_start }} 0%, {{ section.settings.bg_color_end }} 100%);
+    z-index: 9999;
+    padding: 10px 15px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    display: none;
+  }
+  
+  .sticky-bar-promo.active {
+    display: block;
+    animation: slideUpBar 0.4s ease;
+  }
+  
+  @keyframes slideUpBar {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  
+  .sticky-bar-promo__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .sticky-bar-promo__left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .sticky-bar-promo__badge {
+    background: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_text_color }};
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  
+  .sticky-bar-promo__offer {
+    color: {{ section.settings.text_color }};
+    font-size: 11px;
+    font-weight: 600;
+  }
+  
+  .sticky-bar-promo__price {
+    color: {{ section.settings.price_color }};
+    font-size: 16px;
+    font-weight: 800;
+  }
+  
+  .sticky-bar-promo__discount {
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+  }
+  
+  .sticky-bar-promo__discount s {
+    margin-right: 4px;
+  }
+  
+  .sticky-bar-promo__cta {
+    background: linear-gradient(135deg, {{ section.settings.cta_bg_start }}, {{ section.settings.cta_bg_end }});
+    color: {{ section.settings.cta_text_color }};
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  
+  .sticky-bar-promo__close {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    background: {{ section.settings.close_bg }};
+    border: none;
+    color: {{ section.settings.close_color }};
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  {% if section.settings.hide_on_desktop %}
+  @media (min-width: 769px) {
+    .sticky-bar-promo {
+      display: none !important;
+    }
+  }
+  {% endif %}
+</style>
+
+<div class="sticky-bar-promo" id="stickyBarPromo">
+  <button class="sticky-bar-promo__close" id="stickyBarPromoClose">&times;</button>
+  
+  <div class="sticky-bar-promo__container">
+    <div class="sticky-bar-promo__left">
+      {% if section.settings.badge_text != blank %}
+        <span class="sticky-bar-promo__badge">{{ section.settings.badge_text }}</span>
+      {% endif %}
+      
+      {% if section.settings.offer_text != blank %}
+        <span class="sticky-bar-promo__offer">{{ section.settings.offer_text }}</span>
+      {% endif %}
+      
+      <span class="sticky-bar-promo__price">{{ section.settings.price }}</span>
+      
+      {% if section.settings.price_old != blank or section.settings.discount_text != blank %}
+        <span class="sticky-bar-promo__discount">
+          {% if section.settings.price_old != blank %}<s>{{ section.settings.price_old }}</s>{% endif %}
+          {{ section.settings.discount_text }}
+        </span>
+      {% endif %}
+    </div>
+    
+    <a href="{{ section.settings.cta_link }}" class="sticky-bar-promo__cta" id="stickyBarPromoCta">
+      {{ section.settings.cta_text }}
+    </a>
+  </div>
+</div>
+
+<script>
+(function() {
+  const STICKY_DELAY = {{ section.settings.delay | times: 1000 }};
+  const STICKY_KEY = 'sticky_bar_promo_closed';
+  const PRODUCT_ONLY = {{ section.settings.product_page_only }};
+  
+  // Vérifier si uniquement page produit
+  if (PRODUCT_ONLY && !window.location.pathname.includes('/products/')) return;
+  
+  // Vérifier si déjà fermé cette session
+  if (sessionStorage.getItem(STICKY_KEY)) return;
+  
+  const stickyBar = document.getElementById('stickyBarPromo');
+  const closeBtn = document.getElementById('stickyBarPromoClose');
+  const ctaBtn = document.getElementById('stickyBarPromoCta');
+  
+  if (!stickyBar) return;
+  
+  // Afficher après délai
+  setTimeout(function() {
+    stickyBar.classList.add('active');
+  }, STICKY_DELAY);
+  
+  // Fermer
+  closeBtn.addEventListener('click', function() {
+    stickyBar.classList.remove('active');
+    sessionStorage.setItem(STICKY_KEY, 'true');
+  });
+  
+  // CTA - scroll si lien commence par #
+  ctaBtn.addEventListener('click', function(e) {
+    const href = ctaBtn.getAttribute('href');
+    
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      
+      const packSection = document.querySelector('.pack-conversion__wrapper') 
+        || document.querySelector('product-pack')
+        || document.querySelector('.pack-selector')
+        || document.querySelector('.product-pack')
+        || document.querySelector(href);
+      
+      if (packSection) {
+        packSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+})();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "🔥 Sticky Bar Promo",
+  "settings": [
+    {
+      "type": "header",
+      "content": "═══ ACTIVATION ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Activer la sticky bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "product_page_only",
+      "label": "Afficher uniquement sur les pages produit",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Masquer sur desktop (afficher mobile uniquement)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "sec",
+      "label": "Délai avant affichage",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "═══ CONTENU ═══"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge (emoji + texte)",
+      "default": "🔥 PACK VIP"
+    },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Texte offre",
+      "default": "3 = 2 OFFERTS"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Prix",
+      "default": "104,97€"
+    },
+    {
+      "type": "text",
+      "id": "price_old",
+      "label": "Ancien prix (barré)",
+      "default": "174,97€"
+    },
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Texte réduction",
+      "default": "-40%"
+    },
+    {
+      "type": "header",
+      "content": "═══ BOUTON ═══"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte bouton",
+      "default": "J'EN PROFITE"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien bouton (# pour scroll vers packs)"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS FOND ═══"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_start",
+      "label": "Fond - Début dégradé",
+      "default": "#8B4F9D"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_end",
+      "label": "Fond - Fin dégradé",
+      "default": "#5D3A6E"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS TEXTE ═══"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Couleur prix",
+      "default": "#FFD700"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS BADGE ═══"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Fond badge",
+      "default": "#ff6b6b"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Texte badge",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "═══ COULEURS BOUTON ═══"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_start",
+      "label": "Bouton - Début dégradé",
+      "default": "#FFD700"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_end",
+      "label": "Bouton - Fin dégradé",
+      "default": "#FFA500"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Bouton - Texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "═══ BOUTON FERMER ═══"
+    },
+    {
+      "type": "color",
+      "id": "close_bg",
+      "label": "Fond bouton X",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "close_color",
+      "label": "Couleur X",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥 Sticky Bar Promo"
+    }
+  ]
+}
+{% endschema %}

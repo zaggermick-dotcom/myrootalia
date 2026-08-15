@@ -8,7 +8,7 @@
         "fdf8af59-798e-415c-8656-02428e1da8b5": {
           "type": "announcement-fade",
           "settings": {
-            "text": "L’art du regard naturel, Livraison offerte dès 49€, Paiement sécurisé, Satisfait ou remboursé 14 jours",
+            "text": "100 % huile de Batana pure du Honduras, Livraison offerte dès 50 $, Paiement 100 % sécurisé, Essai 60 nuits satisfait ou remboursé",
             "color_palette": "inverse",
             "link": ""
           }
@@ -28,15 +28,15 @@
     "main_popup_newsletter_iV4dBd": {
       "type": "main-popup-newsletter",
       "settings": {
-        "modal_delay": 30,
-        "image": "shopify://shop_images/Page_conseils.webp",
-        "subheading": "",
-        "heading": "<p>Bénéficiez de -10% de réductions sur votre première commande</p>",
+        "modal_delay": 8,
+        "image": "",
+        "subheading": "OFFRE DE BIENVENUE",
+        "heading": "<p>-10 % sur votre première commande</p>",
         "heading_style": "2",
-        "description": "Rejoignez la communauté Sylys et recevez nos conseils beauté et nos exclusivités",
-        "button_text": "S'abonner",
+        "description": "Rejoignez myrootelia : recevez votre code de -10 %, le rituel Batana et nos offres en avant-première. Un seul e-mail, aucun spam.",
+        "button_text": "Je profite de -10 %",
         "button_style": "1",
-        "disclaimer": "Nous détestons tout autant que vous les spams : vos cordoonnées seront sécurisées et confidentielles."
+        "disclaimer": "Code envoyé par e-mail. Vos données restent confidentielles — désinscription en un clic."
       }
     },
     "header": {
@@ -47,7 +47,7 @@
         "logo_width": 170,
         "logo_width_mobile": 100,
         "logo_position": "middle-left",
-        "menu": "menu-principal-2-0",
+        "menu": "main-menu",
         "menu_type_desktop": "dropdown",
         "header_background_behavior": "normal",
         "logo_transparent": "shopify://shop_images/Logo_vert_clair_petit.png",

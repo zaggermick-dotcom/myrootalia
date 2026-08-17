@@ -1,0 +1,560 @@
+{% comment %}
+  MRT · Avis — preuve sociale complète
+  Résumé de note avec répartition par étoiles, avis en grille ou en
+  carrousel, photo cliente, produit acheté, badge vérifié, réponse de la
+  marque. Tout est réglable ; la note globale se calcule sur les avis
+  saisis, ou se force manuellement.
+{% endcomment %}
+
+{%- liquid
+  assign st = section.settings
+  assign avis = section.blocks | where: 'type', 'avis'
+  assign total = avis.size
+
+  assign somme = 0
+  assign n5 = 0
+  assign n4 = 0
+  assign n3 = 0
+  assign n2 = 0
+  assign n1 = 0
+  for a in avis
+    assign note = a.settings.note
+    assign somme = somme | plus: note
+    case note
+      when 5
+        assign n5 = n5 | plus: 1
+      when 4
+        assign n4 = n4 | plus: 1
+      when 3
+        assign n3 = n3 | plus: 1
+      when 2
+        assign n2 = n2 | plus: 1
+      else
+        assign n1 = n1 | plus: 1
+    endcase
+  endfor
+
+  if total > 0
+    assign moyenne = somme | times: 10 | divided_by: total
+  else
+    assign moyenne = 0
+  endif
+  assign moyenne_txt = moyenne | divided_by: 10.0 | round: 1
+
+  if st.force_average
+    assign moyenne_txt = st.average_manual | divided_by: 10.0
+    assign moyenne = st.average_manual
+  endif
+  assign etoiles_pleines = moyenne | plus: 5 | divided_by: 10
+
+  assign compte_affiche = total
+  if st.count_manual > 0
+    assign compte_affiche = st.count_manual
+  endif
+-%}
+
+{%- style -%}
+  #mrt-avis-{{ section.id }}{
+    --mrtA-bg: {{ st.color_bg }};
+    --mrtA-ink: {{ st.color_text }};
+    --mrtA-title: {{ st.color_title }};
+    --mrtA-accent: {{ st.color_accent }};
+    --mrtA-card: {{ st.color_card }};
+    --mrtA-star: {{ st.color_star }};
+    --mrtA-line: color-mix(in srgb, {{ st.color_title }} 14%, transparent);
+    --mrtA-muted: color-mix(in srgb, {{ st.color_text }} 62%, {{ st.color_bg }});
+    --mrtA-serif: var(--font-heading-family, Georgia, serif);
+    --mrtA-sans: var(--font-body-family, -apple-system, sans-serif);
+    background:var(--mrtA-bg); color:var(--mrtA-ink); font-family:var(--mrtA-sans);
+    padding:{{ st.padding_top_sm }}px 0 {{ st.padding_bottom_sm }}px;
+  }
+  @media(min-width:750px){#mrt-avis-{{ section.id }}{padding:{{ st.padding_top }}px 0 {{ st.padding_bottom }}px}}
+  #mrt-avis-{{ section.id }} *{box-sizing:border-box}
+  #mrt-avis-{{ section.id }} .mrtA-wrap{
+    max-width:{% if st.layout_width == 'large' %}1440px{% elsif st.layout_width == 'etroite' %}900px{% else %}1200px{% endif %};
+    margin:0 auto;padding:0 20px}
+
+  /* ---------- en-tête ---------- */
+  #mrt-avis-{{ section.id }} .mrtA-head{text-align:{{ st.alignment }};max-width:640px;
+    margin:0 auto {{ st.header_gap }}px;
+    {% if st.alignment == 'left' %}margin-left:0;{% endif %}}
+  #mrt-avis-{{ section.id }} .mrtA-kicker{display:inline-block;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--mrtA-accent);font-weight:600;margin-bottom:13px}
+  #mrt-avis-{{ section.id }} .mrtA-h2{font-family:var(--mrtA-serif);font-weight:500;
+    font-size:clamp(26px,3.6vw,{{ st.title_size }}px);line-height:1.16;color:var(--mrtA-title);margin:0 0 12px}
+  #mrt-avis-{{ section.id }} .mrtA-h2 p{margin:0}
+  #mrt-avis-{{ section.id }} .mrtA-h2 em{font-style:italic;color:var(--mrtA-accent)}
+  #mrt-avis-{{ section.id }} .mrtA-desc{font-size:15.5px;line-height:1.65;color:var(--mrtA-muted);margin:0}
+  #mrt-avis-{{ section.id }} .mrtA-desc p{margin:0}
+
+  /* ---------- résumé de note ---------- */
+  #mrt-avis-{{ section.id }} .mrtA-summary{display:grid;
+    grid-template-columns:auto 1fr;gap:{{ st.summary_gap }}px;align-items:center;
+    max-width:{{ st.summary_width }}px;margin:0 auto {{ st.summary_bottom_gap }}px;
+    {% if st.summary_card %}background:var(--mrtA-card);border:1px solid var(--mrtA-line);
+      border-radius:{{ st.card_radius }}px;padding:{{ st.summary_padding }}px;{% endif %}}
+  @media(max-width:749px){#mrt-avis-{{ section.id }} .mrtA-summary{grid-template-columns:1fr;
+    gap:{{ st.summary_gap | times: 0.6 | round }}px;text-align:center;
+    {% if st.summary_card %}padding:{{ st.summary_padding | times: 0.75 | round }}px;{% endif %}}}
+
+  #mrt-avis-{{ section.id }} .mrtA-score{display:flex;flex-direction:column;align-items:center;gap:7px;
+    {% if st.summary_divider %}padding-right:{{ st.summary_gap }}px;border-right:1px solid var(--mrtA-line);{% endif %}}
+  @media(max-width:749px){#mrt-avis-{{ section.id }} .mrtA-score{border-right:0;padding-right:0;
+    {% if st.summary_divider %}padding-bottom:20px;border-bottom:1px solid var(--mrtA-line);{% endif %}}}
+  #mrt-avis-{{ section.id }} .mrtA-score b{font-family:var(--mrtA-serif);font-weight:500;
+    font-size:{{ st.score_size }}px;line-height:1;color:var(--mrtA-title)}
+  #mrt-avis-{{ section.id }} .mrtA-score small{font-size:13px;color:var(--mrtA-muted);white-space:nowrap}
+
+  #mrt-avis-{{ section.id }} .mrtA-stars{display:inline-flex;gap:3px;color:var(--mrtA-star)}
+  #mrt-avis-{{ section.id }} .mrtA-stars svg{width:{{ st.star_size }}px;height:{{ st.star_size }}px}
+  #mrt-avis-{{ section.id }} .mrtA-card-stars svg{width:{{ st.star_size_card }}px;height:{{ st.star_size_card }}px}
+
+  #mrt-avis-{{ section.id }} .mrtA-bars{display:grid;gap:7px;min-width:0}
+  #mrt-avis-{{ section.id }} .mrtA-bar{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:center;
+    font-size:12.5px;color:var(--mrtA-muted)}
+  #mrt-avis-{{ section.id }} .mrtA-bar i{display:block;height:{{ st.bar_height }}px;border-radius:99px;
+    background:color-mix(in srgb, {{ st.color_title }} 10%, transparent);overflow:hidden;position:relative}
+  #mrt-avis-{{ section.id }} .mrtA-bar i em{position:absolute;inset:0 auto 0 0;border-radius:99px;
+    background:var(--mrtA-star);display:block}
+  #mrt-avis-{{ section.id }} .mrtA-bar span:first-child{display:inline-flex;align-items:center;gap:3px;
+    color:var(--mrtA-title);font-weight:600}
+  #mrt-avis-{{ section.id }} .mrtA-bar span:first-child svg{width:11px;height:11px;color:var(--mrtA-star)}
+  #mrt-avis-{{ section.id }} .mrtA-bar span:last-child{min-width:26px;text-align:right;font-variant-numeric:tabular-nums}
+
+  /* ---------- grille et carrousel ---------- */
+  {%- if st.display == 'carrousel' -%}
+  #mrt-avis-{{ section.id }} .mrtA-list{display:flex;gap:{{ st.gap }}px;overflow-x:auto;
+    scroll-snap-type:x proximity;scrollbar-width:none;padding:4px 2px 10px}
+  #mrt-avis-{{ section.id }} .mrtA-list::-webkit-scrollbar{display:none}
+  #mrt-avis-{{ section.id }} .mrtA-item{flex:0 0 {{ st.card_width }}px;scroll-snap-align:start}
+  @media(max-width:1024px){#mrt-avis-{{ section.id }} .mrtA-item{flex-basis:{{ st.card_width_tablet }}px}}
+  @media(max-width:749px){#mrt-avis-{{ section.id }} .mrtA-item{flex-basis:{{ st.card_width_mobile }}px}
+    #mrt-avis-{{ section.id }} .mrtA-list{gap:{{ st.gap_mobile }}px}}
+  {%- else -%}
+  #mrt-avis-{{ section.id }} .mrtA-list{display:grid;
+    grid-template-columns:repeat({{ st.columns }},minmax(0,1fr));gap:{{ st.gap }}px;
+    {% if st.display == 'mosaique' %}align-items:start;{% endif %}}
+  @media(max-width:1024px){#mrt-avis-{{ section.id }} .mrtA-list{
+    grid-template-columns:repeat({{ st.columns_tablet }},minmax(0,1fr))}}
+  @media(max-width:749px){#mrt-avis-{{ section.id }} .mrtA-list{
+    grid-template-columns:repeat({{ st.columns_mobile }},minmax(0,1fr));gap:{{ st.gap_mobile }}px}}
+  {%- endif -%}
+
+  /* ---------- carte d'avis ---------- */
+  #mrt-avis-{{ section.id }} .mrtA-item{opacity:0;transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)}
+  #mrt-avis-{{ section.id }} .mrtA-item.is-in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){#mrt-avis-{{ section.id }} .mrtA-item{opacity:1;transform:none;transition:none}}
+
+  #mrt-avis-{{ section.id }} .mrtA-card{height:100%;display:flex;flex-direction:column;gap:{{ st.card_gap }}px;
+    background:var(--mrtA-card);border-radius:{{ st.card_radius }}px;padding:{{ st.card_padding }}px;
+    {% if st.card_style == 'bordee' %}border:1px solid var(--mrtA-line);
+    {% elsif st.card_style == 'ombre' %}box-shadow:0 2px 18px -10px rgba(21,42,33,.3);
+    {% elsif st.card_style == 'nue' %}background:transparent;padding:0;{% endif %}
+    transition:transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease, border-color .4s ease}
+  {%- unless st.card_style == 'nue' -%}
+  #mrt-avis-{{ section.id }} .mrtA-item:hover .mrtA-card{transform:translateY(-5px);
+    box-shadow:0 26px 50px -26px rgba(21,42,33,.4);
+    border-color:color-mix(in srgb, var(--mrtA-accent) 40%, transparent)}
+  {%- endunless -%}
+
+  #mrt-avis-{{ section.id }} .mrtA-top{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  #mrt-avis-{{ section.id }} .mrtA-date{margin-left:auto;font-size:12px;color:var(--mrtA-muted);white-space:nowrap}
+  #mrt-avis-{{ section.id }} .mrtA-verif{display:inline-flex;align-items:center;gap:5px;
+    font-size:11px;font-weight:600;color:{{ st.color_verified }};
+    background:color-mix(in srgb, {{ st.color_verified }} 13%, transparent);
+    padding:4px 10px;border-radius:99px;white-space:nowrap}
+  #mrt-avis-{{ section.id }} .mrtA-verif svg{width:12px;height:12px}
+
+  #mrt-avis-{{ section.id }} .mrtA-t{font-family:var(--mrtA-serif);font-weight:500;
+    font-size:{{ st.review_title_size }}px;line-height:1.3;color:var(--mrtA-title);margin:0}
+  #mrt-avis-{{ section.id }} .mrtA-txt{font-size:{{ st.review_text_size }}px;line-height:1.62;
+    color:var(--mrtA-muted);margin:0;flex:1}
+  #mrt-avis-{{ section.id }} .mrtA-txt p{margin:0 0 .7em}
+  #mrt-avis-{{ section.id }} .mrtA-txt p:last-child{margin-bottom:0}
+  {%- if st.clamp_text -%}
+  #mrt-avis-{{ section.id }} .mrtA-txt{display:-webkit-box;-webkit-line-clamp:{{ st.clamp_lines }};
+    -webkit-box-orient:vertical;overflow:hidden}
+  {%- endif -%}
+
+  #mrt-avis-{{ section.id }} .mrtA-photo{border-radius:{{ st.photo_radius }}px;overflow:hidden;
+    {% if st.photo_ratio != 'auto' %}aspect-ratio:{{ st.photo_ratio }};{% endif %}}
+  #mrt-avis-{{ section.id }} .mrtA-photo img{width:100%;height:100%;display:block;
+    {% if st.photo_ratio != 'auto' %}object-fit:cover;{% endif %}
+    transition:transform .8s cubic-bezier(.22,.61,.36,1)}
+  #mrt-avis-{{ section.id }} .mrtA-item:hover .mrtA-photo img{transform:scale(1.04)}
+
+  #mrt-avis-{{ section.id }} .mrtA-author{display:flex;align-items:center;gap:11px;margin-top:auto;
+    padding-top:{{ st.card_gap }}px;
+    {% if st.author_divider %}border-top:1px solid var(--mrtA-line);{% endif %}}
+  #mrt-avis-{{ section.id }} .mrtA-avatar{flex:0 0 auto;width:{{ st.avatar_size }}px;height:{{ st.avatar_size }}px;
+    border-radius:50%;overflow:hidden;background:color-mix(in srgb, var(--mrtA-accent) 18%, var(--mrtA-card));
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mrtA-serif);font-size:{{ st.avatar_size | times: 0.42 | round }}px;
+    color:var(--mrtA-accent);font-weight:500}
+  #mrt-avis-{{ section.id }} .mrtA-avatar img{width:100%;height:100%;object-fit:cover}
+  #mrt-avis-{{ section.id }} .mrtA-who{min-width:0}
+  #mrt-avis-{{ section.id }} .mrtA-who b{display:block;font-size:{{ st.author_size }}px;font-weight:600;
+    color:var(--mrtA-title);line-height:1.3}
+  #mrt-avis-{{ section.id }} .mrtA-who span{display:block;font-size:12px;color:var(--mrtA-muted);line-height:1.35;margin-top:2px}
+
+  #mrt-avis-{{ section.id }} .mrtA-produit{display:inline-flex;align-items:center;gap:9px;
+    background:color-mix(in srgb, {{ st.color_title }} 5%, transparent);border-radius:10px;padding:8px 11px;
+    text-decoration:none;color:inherit;transition:background .3s ease}
+  #mrt-avis-{{ section.id }} .mrtA-produit:hover{background:color-mix(in srgb, var(--mrtA-accent) 14%, transparent)}
+  #mrt-avis-{{ section.id }} .mrtA-produit img{width:34px;height:34px;border-radius:7px;object-fit:cover;flex:0 0 auto}
+  #mrt-avis-{{ section.id }} .mrtA-produit b{font-size:12.5px;font-weight:600;color:var(--mrtA-title);
+    display:block;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #mrt-avis-{{ section.id }} .mrtA-produit span{font-size:12px;color:var(--mrtA-muted)}
+
+  #mrt-avis-{{ section.id }} .mrtA-reponse{background:color-mix(in srgb, var(--mrtA-accent) 9%, transparent);
+    border-radius:12px;padding:13px 15px;font-size:13.5px;line-height:1.55;color:var(--mrtA-muted)}
+  #mrt-avis-{{ section.id }} .mrtA-reponse b{display:block;color:var(--mrtA-title);font-size:12.5px;
+    font-weight:600;margin-bottom:5px}
+  #mrt-avis-{{ section.id }} .mrtA-reponse p{margin:0}
+
+  /* ---------- pied ---------- */
+  #mrt-avis-{{ section.id }} .mrtA-foot{text-align:center;margin-top:{{ st.foot_gap }}px}
+  #mrt-avis-{{ section.id }} .mrtA-note-bas{font-size:13px;color:var(--mrtA-muted);margin:0 0 16px}
+  #mrt-avis-{{ section.id }} .mrtA-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 34px;
+    border-radius:999px;text-decoration:none;background:{{ st.color_btn_bg }};color:{{ st.color_btn_text }};
+    font-size:15px;font-weight:600;box-shadow:0 12px 30px -14px rgba(21,42,33,.6);
+    transition:transform .3s ease, filter .3s ease}
+  #mrt-avis-{{ section.id }} .mrtA-btn:hover{transform:translateY(-3px);filter:brightness(.93)}
+  #mrt-avis-{{ section.id }} .mrtA-hint{display:none;text-align:center;font-size:12.5px;
+    color:var(--mrtA-muted);margin-top:10px}
+  {%- if st.display == 'carrousel' -%}
+  @media(max-width:749px){#mrt-avis-{{ section.id }} .mrtA-hint{display:block}}
+  {%- endif -%}
+
+  #mrt-avis-{{ section.id }} .mrtA-vide{text-align:center;padding:40px 20px;color:var(--mrtA-muted);
+    border:1px dashed var(--mrtA-line);border-radius:{{ st.card_radius }}px;font-size:14.5px}
+{%- endstyle -%}
+
+<section id="mrt-avis-{{ section.id }}">
+  <div class="mrtA-wrap">
+
+    {%- if st.kicker != blank or st.title != blank or st.description != blank -%}
+      <div class="mrtA-head">
+        {%- if st.kicker != blank -%}<span class="mrtA-kicker">{{ st.kicker | escape }}</span>{%- endif -%}
+        {%- if st.title != blank -%}<h2 class="mrtA-h2">{{ st.title }}</h2>{%- endif -%}
+        {%- if st.description != blank -%}<div class="mrtA-desc">{{ st.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if st.show_summary and total > 0 -%}
+      <div class="mrtA-summary">
+        <div class="mrtA-score">
+          <b>{{ moyenne_txt }}</b>
+          <span class="mrtA-stars" role="img" aria-label="{{ moyenne_txt }} sur 5">
+            {%- for i in (1..5) -%}
+              <svg viewBox="0 0 24 24" fill="{% if i <= etoiles_pleines %}currentColor{% else %}none{% endif %}" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg>
+            {%- endfor -%}
+          </span>
+          <small>{{ compte_affiche }} {% if compte_affiche > 1 %}avis{% else %}avis{% endif %}</small>
+        </div>
+
+        {%- if st.show_bars -%}
+          <div class="mrtA-bars">
+            {%- assign niveaux = '5,4,3,2,1' | split: ',' -%}
+            {%- for niveau in niveaux -%}
+              {%- liquid
+                case niveau
+                  when '5'
+                    assign nb = n5
+                  when '4'
+                    assign nb = n4
+                  when '3'
+                    assign nb = n3
+                  when '2'
+                    assign nb = n2
+                  else
+                    assign nb = n1
+                endcase
+                assign pct = 0
+                if total > 0
+                  assign pct = nb | times: 100 | divided_by: total
+                endif
+              -%}
+              <div class="mrtA-bar">
+                <span>{{ niveau }}
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg>
+                </span>
+                <i><em style="width:{{ pct }}%"></em></i>
+                <span>{{ nb }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if total > 0 -%}
+      <div class="mrtA-list">
+        {%- for block in avis -%}
+          {%- assign s = block.settings -%}
+          <div class="mrtA-item" style="transition-delay:{{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
+            <article class="mrtA-card">
+
+              <div class="mrtA-top">
+                <span class="mrtA-stars mrtA-card-stars" role="img" aria-label="{{ s.note }} sur 5">
+                  {%- for i in (1..5) -%}
+                    <svg viewBox="0 0 24 24" fill="{% if i <= s.note %}currentColor{% else %}none{% endif %}" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg>
+                  {%- endfor -%}
+                </span>
+                {%- if s.verifie and st.show_verified -%}
+                  <span class="mrtA-verif">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9z"/></svg>
+                    {{ st.verified_text | default: 'Achat vérifié' | escape }}
+                  </span>
+                {%- endif -%}
+                {%- if s.date != blank and st.show_date -%}
+                  <span class="mrtA-date">{{ s.date | escape }}</span>
+                {%- endif -%}
+              </div>
+
+              {%- if s.titre != blank -%}<h3 class="mrtA-t">{{ s.titre | escape }}</h3>{%- endif -%}
+              {%- if s.texte != blank -%}<div class="mrtA-txt">{{ s.texte }}</div>{%- endif -%}
+
+              {%- if s.photo != blank and st.show_photo -%}
+                <div class="mrtA-photo">
+                  {{ s.photo | image_url: width: 800 | image_tag: loading: 'lazy', alt: s.nom, widths: '300,500,800' }}
+                </div>
+              {%- endif -%}
+
+              {%- if s.produit != blank and st.show_product -%}
+                <a class="mrtA-produit" href="{{ s.produit.url }}">
+                  {%- if s.produit.featured_image -%}
+                    <img src="{{ s.produit.featured_image | image_url: width: 100 }}" alt="" width="34" height="34" loading="lazy">
+                  {%- endif -%}
+                  <span style="min-width:0">
+                    <b>{{ s.produit.title }}</b>
+                    <span>{{ s.produit.price | money }}</span>
+                  </span>
+                </a>
+              {%- endif -%}
+
+              {%- if s.reponse != blank and st.show_reply -%}
+                <div class="mrtA-reponse">
+                  <b>{{ st.reply_label | default: 'Réponse de myrootalia' | escape }}</b>
+                  <p>{{ s.reponse }}</p>
+                </div>
+              {%- endif -%}
+
+              <div class="mrtA-author">
+                {%- if st.show_avatar -%}
+                  <span class="mrtA-avatar">
+                    {%- if s.avatar != blank -%}
+                      {{ s.avatar | image_url: width: 160 | image_tag: loading: 'lazy', alt: s.nom }}
+                    {%- else -%}
+                      {{ s.nom | strip | slice: 0 | upcase }}
+                    {%- endif -%}
+                  </span>
+                {%- endif -%}
+                <span class="mrtA-who">
+                  <b>{{ s.nom | escape }}</b>
+                  {%- if s.detail != blank -%}<span>{{ s.detail | escape }}</span>{%- endif -%}
+                </span>
+              </div>
+
+            </article>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if st.display == 'carrousel' and st.scroll_hint != blank -%}
+        <p class="mrtA-hint">{{ st.scroll_hint | escape }}</p>
+      {%- endif -%}
+    {%- else -%}
+      <div class="mrtA-vide">
+        {{ st.empty_text | default: 'Ajoute tes premiers avis depuis l’éditeur : bouton « Ajouter un bloc » → Avis.' }}
+      </div>
+    {%- endif -%}
+
+    {%- if st.foot_note != blank or st.cta_text != blank -%}
+      <div class="mrtA-foot">
+        {%- if st.foot_note != blank -%}<p class="mrtA-note-bas">{{ st.foot_note | escape }}</p>{%- endif -%}
+        {%- if st.cta_text != blank -%}
+          <a class="mrtA-btn" href="{{ st.cta_link | default: routes.all_products_collection_url }}">
+            {{ st.cta_text | escape }}
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- if st.seo_schema and total > 0 and st.product_for_schema != blank -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ st.product_for_schema.title | json }},
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{{ moyenne_txt }}",
+      "reviewCount": "{{ compte_affiche }}",
+      "bestRating": "5"
+    },
+    "review": [
+      {%- for block in avis -%}
+        {
+          "@type": "Review",
+          "reviewRating": { "@type": "Rating", "ratingValue": "{{ block.settings.note }}", "bestRating": "5" },
+          "author": { "@type": "Person", "name": {{ block.settings.nom | json }} },
+          "reviewBody": {{ block.settings.texte | strip_html | strip_newlines | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+{%- endif -%}
+
+<script>
+(function () {
+  var root = document.getElementById('mrt-avis-{{ section.id }}');
+  if (!root) return;
+  var items = root.querySelectorAll('.mrtA-item');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MRT · Avis",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "En-tête" },
+    { "type": "text", "id": "kicker", "label": "Sur-titre", "default": "Avis clients" },
+    { "type": "richtext", "id": "title", "label": "Titre", "default": "<p>Ce qu'elles en <em>disent vraiment</em></p>" },
+    { "type": "richtext", "id": "description", "label": "Description" },
+    { "type": "select", "id": "alignment", "label": "Alignement", "options": [
+      { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }
+    ], "default": "center" },
+    { "type": "range", "id": "title_size", "min": 24, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
+    { "type": "range", "id": "header_gap", "min": 16, "max": 72, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 40 },
+    { "type": "header", "content": "Résumé de la note" },
+    { "type": "checkbox", "id": "show_summary", "label": "Afficher le résumé", "default": true },
+    { "type": "checkbox", "id": "show_bars", "label": "Afficher la répartition par étoiles", "default": true },
+    { "type": "checkbox", "id": "summary_card", "label": "Présenter dans une carte", "default": true },
+    { "type": "checkbox", "id": "summary_divider", "label": "Séparateur entre note et barres", "default": true },
+    { "type": "range", "id": "score_size", "min": 32, "max": 80, "step": 2, "unit": "px", "label": "Taille de la note", "default": 52 },
+    { "type": "range", "id": "star_size", "min": 12, "max": 28, "step": 1, "unit": "px", "label": "Taille des étoiles (résumé)", "default": 18 },
+    { "type": "range", "id": "bar_height", "min": 4, "max": 14, "step": 1, "unit": "px", "label": "Épaisseur des barres", "default": 7 },
+    { "type": "range", "id": "summary_width", "min": 400, "max": 900, "step": 20, "unit": "px", "label": "Largeur du résumé", "default": 660 },
+    { "type": "range", "id": "summary_padding", "min": 16, "max": 48, "step": 2, "unit": "px", "label": "Marge intérieure", "default": 28 },
+    { "type": "range", "id": "summary_gap", "min": 16, "max": 64, "step": 4, "unit": "px", "label": "Écart note / barres", "default": 32 },
+    { "type": "range", "id": "summary_bottom_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace sous le résumé", "default": 44 },
+    { "type": "checkbox", "id": "force_average", "label": "Forcer la note moyenne", "info": "Sinon, elle se calcule sur les avis saisis.", "default": false },
+    { "type": "range", "id": "average_manual", "min": 10, "max": 50, "step": 1, "unit": "/10", "label": "Note forcée", "info": "48 correspond à 4,8 sur 5.", "default": 48 },
+    { "type": "range", "id": "count_manual", "min": 0, "max": 1000, "step": 10, "label": "Nombre d'avis affiché", "info": "0 = compter les avis saisis. N'affiche jamais un chiffre supérieur à ta réalité.", "default": 0 },
+    { "type": "header", "content": "Disposition" },
+    { "type": "select", "id": "display", "label": "Affichage", "options": [
+      { "value": "grille", "label": "Grille" },
+      { "value": "mosaique", "label": "Mosaïque (hauteurs libres)" },
+      { "value": "carrousel", "label": "Carrousel horizontal" }
+    ], "default": "grille" },
+    { "type": "range", "id": "columns", "min": 1, "max": 4, "step": 1, "unit": "col", "label": "Colonnes (ordinateur)", "default": 3 },
+    { "type": "range", "id": "columns_tablet", "min": 1, "max": 3, "step": 1, "unit": "col", "label": "Colonnes (tablette)", "default": 2 },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 3, "step": 1, "unit": "col", "label": "Colonnes (mobile)", "default": 1 },
+    { "type": "range", "id": "card_width", "min": 260, "max": 480, "step": 10, "unit": "px", "label": "Largeur des cartes (carrousel)", "default": 360 },
+    { "type": "range", "id": "card_width_tablet", "min": 240, "max": 440, "step": 10, "unit": "px", "label": "Largeur (tablette)", "default": 320 },
+    { "type": "range", "id": "card_width_mobile", "min": 220, "max": 400, "step": 10, "unit": "px", "label": "Largeur (mobile)", "default": 280 },
+    { "type": "range", "id": "gap", "min": 10, "max": 48, "step": 2, "unit": "px", "label": "Espacement", "default": 22 },
+    { "type": "range", "id": "gap_mobile", "min": 10, "max": 36, "step": 2, "unit": "px", "label": "Espacement (mobile)", "default": 16 },
+    { "type": "select", "id": "layout_width", "label": "Largeur de la section", "options": [
+      { "value": "etroite", "label": "Étroite" }, { "value": "normale", "label": "Page" }, { "value": "large", "label": "Large" }
+    ], "default": "normale" },
+    { "type": "text", "id": "scroll_hint", "label": "Indication (carrousel, mobile)", "default": "Fais glisser pour voir plus →" },
+    { "type": "header", "content": "Contenu des cartes" },
+    { "type": "select", "id": "card_style", "label": "Style", "options": [
+      { "value": "bordee", "label": "Bordée" }, { "value": "ombre", "label": "Avec ombre" }, { "value": "nue", "label": "Sans fond" }
+    ], "default": "bordee" },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Arrondi", "default": 16 },
+    { "type": "range", "id": "card_padding", "min": 14, "max": 44, "step": 2, "unit": "px", "label": "Marge intérieure", "default": 24 },
+    { "type": "range", "id": "card_gap", "min": 8, "max": 28, "step": 2, "unit": "px", "label": "Espace entre les éléments", "default": 14 },
+    { "type": "range", "id": "star_size_card", "min": 11, "max": 24, "step": 1, "unit": "px", "label": "Taille des étoiles", "default": 15 },
+    { "type": "range", "id": "review_title_size", "min": 14, "max": 26, "step": 1, "unit": "px", "label": "Taille des titres d'avis", "default": 18 },
+    { "type": "range", "id": "review_text_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Taille du texte", "default": 15 },
+    { "type": "checkbox", "id": "clamp_text", "label": "Limiter la hauteur du texte", "default": false },
+    { "type": "range", "id": "clamp_lines", "min": 2, "max": 12, "step": 1, "unit": "ln", "label": "Nombre de lignes", "default": 5 },
+    { "type": "checkbox", "id": "show_date", "label": "Afficher la date", "default": true },
+    { "type": "checkbox", "id": "show_verified", "label": "Afficher le badge « vérifié »", "default": true },
+    { "type": "text", "id": "verified_text", "label": "Texte du badge", "default": "Achat vérifié" },
+    { "type": "checkbox", "id": "show_photo", "label": "Afficher les photos jointes", "default": true },
+    { "type": "select", "id": "photo_ratio", "label": "Format des photos", "options": [
+      { "value": "auto", "label": "Format d'origine" }, { "value": "1/1", "label": "Carré" },
+      { "value": "4/5", "label": "Portrait 4:5" }, { "value": "3/2", "label": "Paysage 3:2" }
+    ], "default": "4/5" },
+    { "type": "range", "id": "photo_radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Arrondi des photos", "default": 12 },
+    { "type": "checkbox", "id": "show_product", "label": "Afficher le produit acheté", "default": true },
+    { "type": "checkbox", "id": "show_reply", "label": "Afficher la réponse de la marque", "default": true },
+    { "type": "text", "id": "reply_label", "label": "Intitulé de la réponse", "default": "Réponse de myrootalia" },
+    { "type": "checkbox", "id": "show_avatar", "label": "Afficher l'avatar", "default": true },
+    { "type": "range", "id": "avatar_size", "min": 28, "max": 64, "step": 2, "unit": "px", "label": "Taille de l'avatar", "default": 42 },
+    { "type": "range", "id": "author_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Taille du nom", "default": 14 },
+    { "type": "checkbox", "id": "author_divider", "label": "Trait au-dessus de l'auteur", "default": true },
+    { "type": "header", "content": "Pied de section" },
+    { "type": "text", "id": "foot_note", "label": "Petite phrase", "default": "Tous nos avis proviennent de clientes vérifiées." },
+    { "type": "text", "id": "cta_text", "label": "Texte du bouton" },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton" },
+    { "type": "range", "id": "foot_gap", "min": 16, "max": 72, "step": 4, "unit": "px", "label": "Espace au-dessus", "default": 40 },
+    { "type": "textarea", "id": "empty_text", "label": "Message quand il n'y a aucun avis", "default": "Ajoute tes premiers avis depuis l’éditeur : bouton « Ajouter un bloc » → Avis." },
+    { "type": "header", "content": "Référencement" },
+    { "type": "checkbox", "id": "seo_schema", "label": "Balisage avis pour Google", "info": "Affiche les étoiles dans les résultats de recherche. À n'activer qu'avec de vrais avis, sous peine de pénalité.", "default": false },
+    { "type": "product", "id": "product_for_schema", "label": "Produit concerné par le balisage" },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "color_bg", "label": "Fond de section", "default": "#FAF6EF" },
+    { "type": "color", "id": "color_card", "label": "Fond des cartes", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_title", "label": "Titres", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_text", "label": "Textes", "default": "#25332C" },
+    { "type": "color", "id": "color_accent", "label": "Accent", "default": "#C6A15B" },
+    { "type": "color", "id": "color_star", "label": "Étoiles", "default": "#C6A15B" },
+    { "type": "color", "id": "color_verified", "label": "Badge vérifié", "default": "#2E7D5B" },
+    { "type": "color", "id": "color_btn_bg", "label": "Fond du bouton", "default": "#1E3A2F" },
+    { "type": "color", "id": "color_btn_text", "label": "Texte du bouton", "default": "#FAF6EF" },
+    { "type": "header", "content": "Espacements" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Haut (ordinateur)", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Bas (ordinateur)", "default": 80 },
+    { "type": "range", "id": "padding_top_sm", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Haut (mobile)", "default": 44 },
+    { "type": "range", "id": "padding_bottom_sm", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Bas (mobile)", "default": 44 }
+  ],
+  "blocks": [
+    {
+      "type": "avis",
+      "name": "Avis",
+      "settings": [
+        { "type": "range", "id": "note", "min": 1, "max": 5, "step": 1, "unit": "★", "label": "Note", "default": 5 },
+        { "type": "text", "id": "titre", "label": "Titre de l'avis", "default": "Le rituel du soir que je tiens vraiment" },
+        { "type": "richtext", "id": "texte", "label": "Avis", "default": "<p>Mon cuir chevelu tiraille moins et mes cheveux paraissent plus denses. Deux minutes chaque soir — je continue.</p>" },
+        { "type": "header", "content": "Auteur" },
+        { "type": "text", "id": "nom", "label": "Nom", "default": "Léa M." },
+        { "type": "text", "id": "detail", "label": "Détail", "info": "Ex. « 34 ans · Montréal »", "default": "34 ans · Montréal" },
+        { "type": "image_picker", "id": "avatar", "label": "Photo de profil", "info": "Sans photo, l'initiale du nom s'affiche." },
+        { "type": "text", "id": "date", "label": "Date", "default": "12 août 2026" },
+        { "type": "checkbox", "id": "verifie", "label": "Achat vérifié", "default": true },
+        { "type": "header", "content": "Compléments" },
+        { "type": "image_picker", "id": "photo", "label": "Photo jointe à l'avis" },
+        { "type": "product", "id": "produit", "label": "Produit acheté" },
+        { "type": "richtext", "id": "reponse", "label": "Réponse de la marque" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "MRT · Avis", "blocks": [ { "type": "avis" }, { "type": "avis" }, { "type": "avis" } ] }
+  ]
+}
+{% endschema %}

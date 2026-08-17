@@ -15,71 +15,71 @@
         "k": {
           "type": "surtitre",
           "settings": {
-            "texte": "100 % pure · Honduras"
+            "texte": "L'huile ancestrale du peuple Miskito"
           }
         },
         "h": {
           "type": "titre",
           "settings": {
-            "texte": "<p>Repars de <em>la racine</em></p>",
+            "texte": "<p>Vos racines méritent le <em>vrai</em> Batana</p>",
             "niveau": "h1"
           }
         },
         "t": {
           "type": "texte",
           "settings": {
-            "texte": "<p>L'huile de Batana pressée à froid, pour un cuir chevelu nourri et des cheveux visiblement plus denses. <strong>Deux minutes par jour.</strong></p>"
+            "texte": "<p>100 % huile de Batana pure du Honduras, pressée à froid. Un seul ingrédient, une vraie tradition — pour des cheveux nourris, souples et visiblement plus sains.</p>"
           }
         },
         "li": {
           "type": "puces",
           "settings": {
             "icone": "coche",
-            "texte": "Huile 100 % pure, pressée à froid\nSans sulfates ni parabènes\nEssai 60 nuits, remboursé"
+            "texte": "100 % naturelle, pressée à froid\nSatisfait ou remboursé\nLivraison suivie du Québec"
           }
         },
         "b": {
           "type": "boutons",
           "settings": {
-            "texte": "Découvrir l'huile de Batana",
+            "texte": "Découvrir l'huile",
             "lien": "shopify://products/huile-de-batana-100-pure-du-honduras",
             "style": "1",
             "fleche": true,
-            "texte_2": "Voir le rituel",
-            "lien_2": "shopify://pages/rituel-batana",
+            "texte_2": "Voir les formats",
+            "lien_2": "shopify://products/huile-de-batana-100-pure-du-honduras",
             "style_2": "3"
           }
         },
         "r1": {
           "type": "reassurance",
           "settings": {
-            "icone": "bouclier",
-            "titre": "Essai 60 nuits",
-            "texte": "Remboursé sans justification"
+            "icone": "feuille",
+            "titre": "100 % pure",
+            "texte": "Un seul ingrédient"
           }
         },
         "r2": {
           "type": "reassurance",
           "settings": {
-            "icone": "camion",
-            "titre": "Livraison offerte dès 50 $",
-            "texte": "Expédié du Québec"
+            "icone": "bouclier",
+            "titre": "Satisfait ou remboursé",
+            "texte": "Essai 60 nuits"
           }
         },
         "r3": {
           "type": "reassurance",
           "settings": {
-            "icone": "feuille",
-            "titre": "100 % pure",
-            "texte": "Pressée à froid, sans additif"
+            "icone": "camion",
+            "titre": "Livraison suivie",
+            "texte": "Expédié du Québec"
           }
         },
         "r4": {
           "type": "reassurance",
           "settings": {
-            "icone": "bulle",
-            "titre": "Support humain",
-            "texte": "Réponse en moins de 24 h"
+            "icone": "epingle",
+            "titre": "Origine Honduras",
+            "texte": "Savoir-faire Miskito"
           }
         }
       },
@@ -97,7 +97,7 @@
       "settings": {
         "image": "shopify://shop_images/myrootelia-hero-palme.png",
         "image_mobile": "shopify://shop_images/myrootelia-application-2.png",
-        "image_alt": "Huile de Batana myrootalia et fruits du palmier, origine Honduras",
+        "image_alt": "Huile de Batana myrootalia, origine Honduras",
         "focal_x": 60,
         "focal_y": 50,
         "focal_x_mobile": 50,
@@ -184,869 +184,72 @@
         "padding_bottom_sm": 48
       }
     },
-    "e40c307a-5fa2-42eb-80d1-f793e603ebcd": {
-      "type": "featured-collection",
-      "custom_css": [],
+    "accueil": {
+      "type": "accueil-myrootelia",
       "settings": {
-        "section_id": "",
-        "collection": "nos-essentiels",
-        "limit": 8,
-        "media_aspect_ratio": "square",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "variants_wrap": false,
-        "show_all": false,
-        "button_text": "View all products",
-        "button_style": "2",
-        "layout": "swiper",
-        "slides_on_desktop": 3,
-        "slides_on_tablet": 3,
-        "slides_on_mobile": "1",
-        "preshot_swiper": true,
-        "loop": true,
-        "navigation": true,
-        "pagination": true,
-        "autoplay": false,
-        "speed": 4,
-        "subheading": "",
-        "heading": "<p>NOS ESSENTIELS</p>",
-        "heading_style": "2",
-        "description": "<p>Des formules expertes pour des sourcils naturellements parfaits.</p>",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "padding_top_sm": 20,
-        "padding_bottom_sm": 20,
-        "color_palette": "background-1",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
+        "show_hero": false,
+        "product_handle": "huile-de-batana-100-pure-du-honduras",
+        "cta_url": "shopify://products/huile-de-batana-100-pure-du-honduras",
+        "about_url": "shopify://pages/story",
+        "eyebrow": "L'huile ancestrale du peuple Miskito",
+        "subtitle": "100 % huile de Batana pure du Honduras, pressée à froid. Un seul ingrédient, une vraie tradition — pour des cheveux nourris, souples et visiblement plus sains.",
+        "cta_text": "Découvrir l'huile",
+        "price": "39,99 $",
+        "compare_price": "59,99 $",
+        "discount": "-33 %",
+        "color_green": "#1E3F33",
+        "color_gold": "#C25A34",
+        "color_cream": "#F7F2E9",
+        "color_ink": "#26332C"
       }
     },
-    "7de5cb77-3239-4000-8827-9ad94d57f898": {
-      "type": "marquee",
+    "stories": {
+      "type": "stories-myrootelia",
       "blocks": {
-        "marquee_YrekgD": {
-          "type": "marquee",
+        "st1": {
+          "type": "story",
           "settings": {
-            "description": "Des sourcils parfaits au quotidien"
+            "label": "Le rituel"
           }
         },
-        "marquee_L6NcwJ": {
-          "type": "marquee",
+        "st2": {
+          "type": "story",
           "settings": {
-            "description": "Des essentiels simples et efficaces"
+            "label": "La texture"
           }
         },
-        "marquee_GzqLAQ": {
-          "type": "marquee",
+        "st3": {
+          "type": "story",
           "settings": {
-            "description": "Formules clean & élégantes"
+            "label": "L'origine"
           }
         },
-        "65234329-f0c4-4f39-9f37-9afff77a0764": {
-          "type": "marquee",
+        "st4": {
+          "type": "story",
           "settings": {
-            "description": "L’art du regard naturel"
+            "label": "Vos partages"
           }
         }
       },
       "block_order": [
-        "marquee_YrekgD",
-        "marquee_L6NcwJ",
-        "marquee_GzqLAQ",
-        "65234329-f0c4-4f39-9f37-9afff77a0764"
+        "st1",
+        "st2",
+        "st3",
+        "st4"
       ],
       "settings": {
-        "section_id": "",
-        "uppercase": false,
-        "bolder": false,
-        "font_family": "heading",
-        "font_size_desktop": 22,
-        "font_size_mobile": 20,
-        "delay": 30,
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "full",
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "padding_top_sm": 12,
-        "padding_bottom_sm": 12,
-        "color_palette": "inverse",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "image_with_text_7XR9YQ": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_GikKik": {
-          "type": "heading",
-          "settings": {
-            "heading": "<h2>Un avant / après tout en naturel</h2>",
-            "heading_level": "2",
-            "heading_style": "2",
-            "icon": "none"
-          }
-        },
-        "text_dhVefK": {
-          "type": "text",
-          "settings": {
-            "description": "<p>Révèle la ligne de tes sourcils avec une routine simple qui comble, structure et fixe sans effet artificiel.</p>",
-            "color_bold_words": "text"
-          }
-        },
-        "button_pAEUhq": {
-          "type": "button",
-          "settings": {
-            "button_text": "Voir la routine",
-            "button_link": "",
-            "button_style": "1",
-            "button_text_secondary": "",
-            "button_link_secondary": "",
-            "button_style_secondary": "2",
-            "extra_button": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_GikKik",
-        "text_dhVefK",
-        "button_pAEUhq"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "section_id": "",
-        "media_type": "image",
-        "height": "adapt",
-        "desktop_image_width": "large",
-        "layout": "text_first",
-        "layout_style": "normal",
-        "remove_gap": false,
-        "make_square": false,
-        "text_container_max_width": 700,
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "normal",
-        "padding_top": 68,
-        "padding_bottom": 68,
-        "padding_top_sm": 32,
-        "padding_bottom_sm": 32,
-        "color_palette": "",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "image_with_text_6F47PF": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_HbQVgD": {
-          "type": "heading",
-          "settings": {
-            "heading": "<h2><strong>La routine sourcils essentielle</strong></h2>",
-            "heading_level": "2",
-            "heading_style": "2",
-            "icon": "none"
-          }
-        },
-        "text_63gD3B": {
-          "type": "text",
-          "settings": {
-            "description": "<p>Trois essentiels pensés pour structurer, combler et fixer tes sourcils au quotidien. Une routine simple, naturelle et élégante pour sublimer ton regard en quelques gestes.</p>",
-            "color_bold_words": "text"
-          }
-        },
-        "icons_YWzCyP": {
-          "type": "icons",
-          "settings": {
-            "icons_style": "block",
-            "fill_color": "accent",
-            "fill_fade_background": false,
-            "bg_color_icons": false,
-            "icon_1_icon_type": "eye",
-            "icon_1_text": "Crayon définition",
-            "icon_1_description": "Structure et redessine la ligne des sourcils avec précision.",
-            "icon_1_url": "",
-            "icon_2_icon_type": "lightning_bolt",
-            "icon_2_text": "Gel fixateur",
-            "icon_2_description": "Fixe les sourcils toute la journée sans effet carton.",
-            "icon_2_url": "",
-            "icon_3_icon_type": "star",
-            "icon_3_text": "Poudre velours",
-            "icon_3_description": "Comble les zones clairsemées avec un fini doux et naturel.",
-            "icon_3_url": "",
-            "icon_4_icon_type": "heart",
-            "icon_4_text": "Routine complète",
-            "icon_4_description": "Un trio simple pour un regard naturellement sublimé.",
-            "icon_4_url": ""
-          }
-        },
-        "button_8Er89a": {
-          "type": "button",
-          "settings": {
-            "button_text": "Découvrir les essentiels",
-            "button_link": "",
-            "button_style": "1",
-            "button_text_secondary": "Discover",
-            "button_link_secondary": "",
-            "button_style_secondary": "2",
-            "extra_button": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_HbQVgD",
-        "text_63gD3B",
-        "icons_YWzCyP",
-        "button_8Er89a"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "section_id": "",
-        "media_type": "image",
-        "height": "adapt",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
-        "layout_style": "normal",
-        "remove_gap": false,
-        "make_square": false,
-        "text_container_max_width": 700,
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_top_sm": 0,
-        "padding_bottom_sm": 0,
-        "color_palette": "background-2",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "collection_tabs_aedpJT": {
-      "type": "collection-tabs",
-      "blocks": {
-        "collection_tab_VzDUQB": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "nos-essentiels-copie",
-            "tab_label": "Sourcils",
-            "limit": 12
-          }
-        },
-        "collection_tab_CGc9Nk": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "yeux",
-            "tab_label": "Yeux",
-            "limit": 12
-          }
-        },
-        "collection_tab_x7E7xL": {
-          "type": "collection_tab",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "tab_label": "Routines & Kits",
-            "limit": 12
-          }
-        },
-        "collection_tab_7eB7wK": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "accessoires",
-            "tab_label": "Accessoire",
-            "limit": 12
-          }
-        }
-      },
-      "block_order": [
-        "collection_tab_VzDUQB",
-        "collection_tab_CGc9Nk",
-        "collection_tab_x7E7xL",
-        "collection_tab_7eB7wK"
-      ],
-      "name": "t:sections.collection_tabs.presets.name",
-      "settings": {
-        "section_id": "",
-        "media_aspect_ratio": "square",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "show_rating": true,
-        "variants_wrap": false,
-        "layout": "swiper",
-        "slides_on_desktop": 5,
-        "slides_on_tablet": 3,
-        "slides_on_mobile": "1",
-        "preshot_swiper": false,
-        "loop": true,
-        "navigation": false,
-        "pagination": false,
-        "autoplay": false,
-        "speed": 4,
-        "subheading": "",
-        "heading": "<p>Découvrez toute notre gamme</p>",
-        "heading_style": "2",
-        "description": "<p>Des essentiels pensés pour sublimer chaque regard : sourcils définis, yeux intensifiés et routines complètes pour une beauté naturelle au quotidien.</p>",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 60,
-        "padding_bottom": 24,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 32,
-        "color_palette": "",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "scrolling_testimonials_qzrBjW": {
-      "type": "scrolling-testimonials",
-      "blocks": {
-        "testimonial_jtVMrV": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Le rendu est super naturel, mes sourcils sont mieux dessinés sans effet maquillé.",
-            "name": "Camille",
-            "role": "Cliente vérifiée",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_ptx7Cx": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Le crayon est précis et facile à utiliser. Parfait pour le matin quand je suis pressée.",
-            "name": "Laura",
-            "role": "Cliente vérifiée",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_RxnVFi": {
-          "type": "testimonial",
-          "settings": {
-            "text": "J’adore le gel fixateur, il tient toute la journée sans durcir les sourcils.",
-            "name": "Inès",
-            "role": "Cliente vérifiée",
-            "verified": true,
-            "stars_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_jtVMrV",
-        "testimonial_ptx7Cx",
-        "testimonial_RxnVFi"
-      ],
-      "name": "t:sections.scrolling-testimonials.presets.name",
-      "settings": {
-        "section_id": "",
-        "scroll_direction": "left",
-        "scroll_speed": 30,
-        "pause_on_hover": true,
-        "enable_rating": true,
-        "stars_style": "stars",
-        "stars_color_source": "settings",
-        "stars_color_custom": "#efca00",
-        "equalize_review_heights": false,
-        "review_content_position": "flex-start",
-        "subheading": "",
-        "heading": "<p>Elles parlent de Sylys</p>",
-        "heading_style": "2",
-        "description": "<p>Vos retours sont notre plus belle récompense</p>",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 44,
-        "padding_bottom": 0,
-        "padding_top_sm": 24,
-        "padding_bottom_sm": 0,
-        "color_palette": "scheme-3fe3c0d8-e894-45a2-8536-47eb834686e3",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "scrolling_testimonials_n4fcw3": {
-      "type": "scrolling-testimonials",
-      "blocks": {
-        "testimonial_qBTfde": {
-          "type": "testimonial",
-          "settings": {
-            "text": "La poudre donne un effet doux et naturel, exactement ce que je cherchais.",
-            "name": "Manon",
-            "role": "Cliente vérifiée",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_CUjWri": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Très belle découverte. Les produits sont simples à utiliser et le rendu est très premium.",
-            "name": "Chloé",
-            "role": "Cliente vérifiée",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_rEFc8P": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Mes sourcils restent en place toute la journée, même sans retouche.",
-            "name": "Sarah",
-            "role": "Cliente vérifiée",
-            "verified": true,
-            "stars_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_qBTfde",
-        "testimonial_CUjWri",
-        "testimonial_rEFc8P"
-      ],
-      "name": "t:sections.scrolling-testimonials.presets.name",
-      "settings": {
-        "section_id": "",
-        "scroll_direction": "right",
-        "scroll_speed": 30,
-        "pause_on_hover": true,
-        "enable_rating": true,
-        "stars_style": "stars",
-        "stars_color_source": "settings",
-        "stars_color_custom": "#efca00",
-        "equalize_review_heights": false,
-        "review_content_position": "flex-start",
-        "subheading": "",
-        "heading": "",
-        "heading_style": "2",
-        "description": "",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 28,
-        "padding_bottom": 44,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 32,
-        "color_palette": "scheme-3fe3c0d8-e894-45a2-8536-47eb834686e3",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "bundle_6FtP9L": {
-      "type": "bundle",
-      "blocks": {
-        "text_j7y4GM": {
-          "type": "text",
-          "settings": {
-            "form_text": "Profitez de [percent] de réduction sur la [product_name] en prenant la routine complète !"
-          }
-        },
-        "button_r67rKf": {
-          "type": "button",
-          "settings": {
-            "direct_checkout": false,
-            "button_text": "Ajouter au panier",
-            "button_style": "1",
-            "extra_button": false
-          }
-        },
-        "price_DxLByf": {
-          "type": "price",
-          "settings": {
-            "text_before_price": "Prix total :"
-          }
-        }
-      },
-      "block_order": [
-        "text_j7y4GM",
-        "button_r67rKf",
-        "price_DxLByf"
-      ],
-      "name": "t:sections.bundle.name",
-      "settings": {
-        "section_id": "",
-        "collection": "nos-essentiels",
-        "subheading": "",
-        "heading": "<p>Procurez-vous dès maintenant notre routine essentiel</p>",
-        "heading_style": "2",
-        "desktop_content_alignment": "center",
-        "enable_checkboxes": false,
-        "max_products": 3,
-        "discount_type": "single",
-        "product_trigger": "Poudre-Velours-Sourcils",
-        "badge": "-50%",
-        "free_label": "",
-        "percentage_offer": 20,
-        "percentage_offer_trigger": 50,
-        "navigation": true,
-        "pagination": true,
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 32,
-        "padding_bottom": 64,
-        "padding_top_sm": 32,
-        "padding_bottom_sm": 32,
-        "color_palette": "",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "scrolling_testimonials_Y4karp": {
-      "type": "scrolling-testimonials",
-      "blocks": {
-        "testimonial_HnCitL": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Amazing team and excellent support. The theme is highly customizable and perfect for building a unique store.",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_ThyhMp": {
-          "type": "testimonial",
-          "settings": {
-            "text": "A complete and high-quality theme with very responsive support. Highly recommended!",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_M8VqjX": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Great theme with many possibilities for creating a unique website that stands out from the competition.",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_HnCitL",
-        "testimonial_ThyhMp",
-        "testimonial_M8VqjX"
-      ],
-      "name": "t:sections.scrolling-testimonials.presets.name",
-      "settings": {
-        "section_id": "",
-        "scroll_direction": "left",
-        "scroll_speed": 20,
-        "pause_on_hover": true,
-        "enable_rating": true,
-        "stars_style": "stars",
-        "stars_color_source": "settings",
-        "stars_color_custom": "#efca00",
-        "equalize_review_heights": false,
-        "review_content_position": "flex-start",
-        "subheading": "Details",
-        "heading": "<p>Hear from our lovely customers</p>",
-        "heading_style": "2",
-        "description": "<p>Show to your customers a video presenting your brand and your products.</p>",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 0,
-        "padding_bottom": 36,
-        "padding_top_sm": 0,
-        "padding_bottom_sm": 0,
-        "color_palette": "",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "scrolling_testimonials_LtBcQC": {
-      "type": "scrolling-testimonials",
-      "blocks": {
-        "testimonial_L9zARJ": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Amazing team and excellent support. The theme is highly customizable and perfect for building a unique store.",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_xdczDt": {
-          "type": "testimonial",
-          "settings": {
-            "text": "A complete and high-quality theme with very responsive support. Highly recommended!",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_yeHwgw": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Great theme with many possibilities for creating a unique website that stands out from the competition.",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_L9zARJ",
-        "testimonial_xdczDt",
-        "testimonial_yeHwgw"
-      ],
-      "name": "t:sections.scrolling-testimonials.presets.name",
-      "settings": {
-        "section_id": "",
-        "scroll_direction": "left",
-        "scroll_speed": 18,
-        "pause_on_hover": true,
-        "enable_rating": true,
-        "stars_style": "stars",
-        "stars_color_source": "settings",
-        "stars_color_custom": "#efca00",
-        "equalize_review_heights": false,
-        "review_content_position": "flex-start",
-        "subheading": "",
-        "heading": "",
-        "heading_style": "2",
-        "description": "",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 0,
-        "padding_bottom": 40,
-        "padding_top_sm": 0,
-        "padding_bottom_sm": 0,
-        "color_palette": "",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "scrolling_testimonials_JrFMW9": {
-      "type": "scrolling-testimonials",
-      "blocks": {
-        "testimonial_d9YGnX": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Amazing team and excellent support. The theme is highly customizable and perfect for building a unique store.",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_yiPCr8": {
-          "type": "testimonial",
-          "settings": {
-            "text": "A complete and high-quality theme with very responsive support. Highly recommended!",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        },
-        "testimonial_YFzahr": {
-          "type": "testimonial",
-          "settings": {
-            "text": "Great theme with many possibilities for creating a unique website that stands out from the competition.",
-            "name": "Customer",
-            "role": "Verified Customer",
-            "verified": true,
-            "stars_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_d9YGnX",
-        "testimonial_yiPCr8",
-        "testimonial_YFzahr"
-      ],
-      "name": "t:sections.scrolling-testimonials.presets.name",
-      "settings": {
-        "section_id": "",
-        "scroll_direction": "left",
-        "scroll_speed": 22,
-        "pause_on_hover": true,
-        "enable_rating": true,
-        "stars_style": "stars",
-        "stars_color_source": "settings",
-        "stars_color_custom": "#efca00",
-        "equalize_review_heights": false,
-        "review_content_position": "flex-start",
-        "subheading": "",
-        "heading": "",
-        "heading_style": "2",
-        "description": "",
-        "alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "hide_desktop": false,
-        "hide_mobile": false,
-        "layout_width": "full",
-        "padding_top": 0,
-        "padding_bottom": 40,
-        "padding_top_sm": 0,
-        "padding_bottom_sm": 0,
-        "color_palette": "",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
+        "eyebrow": "En ce moment",
+        "heading": "Le rituel, en stories",
+        "instagram_handle": "@myrootelia",
+        "autoplay_preview": false,
+        "bubble_size": 96,
+        "bg_cream": true
       }
     }
   },
   "order": [
     "banniere",
-    "e40c307a-5fa2-42eb-80d1-f793e603ebcd",
-    "7de5cb77-3239-4000-8827-9ad94d57f898",
-    "image_with_text_7XR9YQ",
-    "image_with_text_6F47PF",
-    "collection_tabs_aedpJT",
-    "scrolling_testimonials_qzrBjW",
-    "scrolling_testimonials_n4fcw3",
-    "bundle_6FtP9L",
-    "scrolling_testimonials_Y4karp",
-    "scrolling_testimonials_LtBcQC",
-    "scrolling_testimonials_JrFMW9"
+    "accueil",
+    "stories"
   ]
 }

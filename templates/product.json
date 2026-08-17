@@ -323,7 +323,8 @@
         "padding_top": 80,
         "padding_bottom": 80,
         "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "padding_bottom_sm": 44,
+        "image_mobile": "shopify://shop_images/22747.png"
       }
     },
     "comparison": {
@@ -439,7 +440,8 @@
         "padding_top": 80,
         "padding_bottom": 80,
         "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "padding_bottom_sm": 44,
+        "col1_logo": "shopify://shop_images/22754.png"
       }
     },
     "faq": {
@@ -908,7 +910,8 @@
             "description": "<p>Quelques gouttes sur cuir chevelu propre et sec, directement à la racine grâce à l'embout.</p>",
             "button_label": "Le bon geste",
             "modal_title": "Bien appliquer",
-            "modal_content": "Sépare tes cheveux en quelques raies et dépose les gouttes directement sur le cuir chevelu, pas sur les longueurs. 6 à 8 gouttes suffisent pour toute la tête."
+            "modal_content": "Sépare tes cheveux en quelques raies et dépose les gouttes directement sur le cuir chevelu, pas sur les longueurs. 6 à 8 gouttes suffisent pour toute la tête.",
+            "image": "shopify://shop_images/22746.png"
           }
         },
         "s1": {
@@ -920,7 +923,8 @@
             "description": "<p>Mouvements circulaires du bout des doigts, du front à la nuque. Un vrai moment à toi.</p>",
             "button_label": "Pourquoi masser",
             "modal_title": "Pourquoi le massage compte",
-            "modal_content": "Le massage aide le soin à bien se répartir et détend le cuir chevelu. Utilise la pulpe des doigts, jamais les ongles, sans forcer."
+            "modal_content": "Le massage aide le soin à bien se répartir et détend le cuir chevelu. Utilise la pulpe des doigts, jamais les ongles, sans forcer.",
+            "image": "shopify://shop_images/22747.png"
           }
         },
         "s2": {
@@ -932,7 +936,8 @@
             "description": "<p>Idéalement le soir — la texture légère ne graisse pas et travaille pendant ton sommeil.</p>",
             "button_label": "Et le matin ?",
             "modal_title": "Le matin, on fait quoi ?",
-            "modal_content": "Tu peux laisser poser toute la nuit puis faire ton shampoing habituel le lendemain, ou espacer selon ton rythme. L'essentiel : la régularité."
+            "modal_content": "Tu peux laisser poser toute la nuit puis faire ton shampoing habituel le lendemain, ou espacer selon ton rythme. L'essentiel : la régularité.",
+            "image": "shopify://shop_images/22748.png"
           }
         }
       },
@@ -990,7 +995,8 @@
             "icone": "feuille",
             "nom": "Huile de romarin",
             "role": "Cuir chevelu sain",
-            "nom_latin": "Rosmarinus officinalis"
+            "nom_latin": "Rosmarinus officinalis",
+            "image": "shopify://shop_images/22778.png"
           }
         },
         "a1": {
@@ -999,7 +1005,8 @@
             "icone": "goutte",
             "nom": "Huile de ricin",
             "role": "Nourrit et gaine la fibre",
-            "nom_latin": "Ricinus communis"
+            "nom_latin": "Ricinus communis",
+            "image": "shopify://shop_images/22779.png"
           }
         },
         "a2": {
@@ -1008,7 +1015,8 @@
             "icone": "eclair",
             "nom": "Biotine",
             "role": "Force des cheveux",
-            "nom_latin": "Vitamine B8"
+            "nom_latin": "Vitamine B8",
+            "image": "shopify://shop_images/22780.png"
           }
         },
         "a3": {
@@ -1017,7 +1025,8 @@
             "icone": "gouttes",
             "nom": "Jojoba & argan",
             "role": "Texture légère",
-            "nom_latin": "Simmondsia · Argania"
+            "nom_latin": "Simmondsia · Argania",
+            "image": "shopify://shop_images/22781.png"
           }
         },
         "g0": {

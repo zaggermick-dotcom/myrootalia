@@ -25,15 +25,23 @@ Seule la **politique de confidentialité** existe — et c'est le modèle **angl
 
 La politique de remboursement reflète ta promesse : **essai 60 nuits, remboursé sans justification, flacon entamé accepté**. Relis les trois clauses signalées en tête du document — ce sont des choix commerciaux, pas des standards.
 
-### 4. Deux réglages du panier à corriger dans l'éditeur
-Je les ai corrigés dans le dépôt Git, mais **Shopify bloque l'écriture de fichiers sur le thème publié** (voir point 13) : il faut les refaire à la main, c'est deux clics.
+### 4. Publier le thème `Copie de Copie de myrootalia/main`
+Les corrections du panier sont **faites**, mais dans le doublon non publié — Shopify m'interdit d'écrire sur le thème en ligne. Tant que tu ne publies pas, elles ne sont pas actives.
 
-| Où | Réglage | Valeur actuelle | À mettre |
-|---|---|---|---|
-| Éditeur → icône **Panier** (le tiroir) | *Activer l'upsell* | coché, pointant vers la collection `nos-essentiels` **qui n'existe pas** | **décoché** |
-| Éditeur → ⚙️ **Paramètres du thème** → **Panier** | *URL dans le panier vide* | `collections/nos-essentiels-copie`, **inexistante** → bouton mort | `collections/meilleures-ventes` |
+Ce que contient le doublon en plus du thème en ligne :
 
-Pourquoi désactiver l'upsell plutôt que le rebrancher : tu n'as **qu'un seul produit actif**. Un upsell le proposerait dans le panier de quelqu'un qui vient de l'ajouter. Le jour où le Sérum de Croissance est publié, ajoute-le à la collection **Routine complète** (elle est déjà sélectionnée, vide) et recoche la case — rien d'autre à faire.
+| Réglage | Avant | Après |
+|---|---|---|
+| *URL dans le panier vide* | `collections/nos-essentiels-copie`, inexistante → bouton mort | `collections/meilleures-ventes` |
+| *Activer l'upsell* (tiroir panier) | coché sur `nos-essentiels`, inexistante | décoché, collection prête sur `routine-complete` |
+| Handles de démonstration (`crayon-de-maquillage-1`, `trousse`, `garantie-prolongee-pour-epilateur`) | présents | vidés |
+| Bloc **réassurance** dans le tiroir panier | absent | ajouté (Essai 60 nuits · Livraison offerte · Paiement sécurisé) |
+
+→ Thèmes → *Copie de Copie de myrootalia/main* → **Aperçu** pour contrôler, puis **Publier**.
+
+Pourquoi l'upsell est désactivé plutôt que rebranché : tu n'as **qu'un seul produit actif**. Un upsell le proposerait dans le panier de quelqu'un qui vient de l'ajouter. Le jour où le Sérum de Croissance est publié, ajoute-le à la collection **Routine complète** (déjà sélectionnée) et recoche la case — rien d'autre à faire.
+
+Le bloc réassurance est optionnel : si tu ne le veux pas, éditeur → icône Panier → supprime le bloc.
 
 ---
 
@@ -49,8 +57,15 @@ Variantes **3 flacons** et **5 flacons** : quantité à 0. La vente n'est **pas*
 
 → Crée `contact@myrootelia.com` (ton domaine est en place, avec SSL) et renseigne-le dans Paramètres → Détails de la boutique.
 
-### 7. Images manquantes
-La page produit et la page rituel ont des emplacements vides : les **3 étapes de la routine**, les **4 actifs de la formule**, l'**image du problème**, les couvertures **stories** et **UGC**. Le guide [`docs/prompts-visuels.md`](prompts-visuels.md) contient le prompt exact de chacune.
+### 7. Images et vidéos manquantes
+Tu as déjà rempli, dans l'éditeur, les **3 étapes de la routine**, les **4 actifs de la formule**, l'**image du problème** et le **logo de la comparaison** — je les ai reportées dans le dépôt pour qu'elles ne se perdent pas.
+
+Restent vides :
+- les **4 couvertures de stories** (`video_url` vide sur les 4 blocs) ;
+- les **4 vidéos UGC** (idem) ;
+- l'image de la section problème n'existe qu'en **version mobile**. Ça fonctionne — la section retombe dessus sur ordinateur — mais le cadrage sera vertical sur grand écran. Une image paysage dans le champ *Image* rendra mieux.
+
+Le guide [`docs/prompts-visuels.md`](prompts-visuels.md) contient le prompt exact de chacune.
 
 Le **Sérum de Croissance** n'a **aucune image** (0 média) — il est en brouillon, donc ce n'est pas urgent, mais il ne pourra pas être publié sans.
 
@@ -84,14 +99,16 @@ Dans le thème publié, mes tests de diagnostic ont laissé des fichiers `zz-…
 ### 12. Collections vides
 `frontpage` (Home page) et `routine-complete` n'ont aucun produit. Si elles sont affichées quelque part, elles apparaissent vides. `routine-complete` est celle qui alimentera l'upsell du panier (point 4).
 
-### 13. Le thème publié n'est plus relié à GitHub — à savoir pour la suite
+### 13. Comment on livre le code maintenant
 Le thème en ligne est **`Copie de myrootalia/main`**. C'est une copie manuelle : elle n'est **pas** synchronisée avec le dépôt GitHub (contrairement à `myrootalia/main` et aux thèmes `myrootalia/claude/…`, qui suivent des branches).
 
 Deux conséquences :
 - Un `git push` ne met **plus** la boutique à jour.
-- Shopify m'interdit d'écrire dans un thème publié. Toute modification de code doit désormais passer par : **Thèmes → ⋯ → Dupliquer** le thème publié → je travaille sur la copie (non publiée) → tu publies.
+- Shopify m'interdit d'écrire dans un thème publié.
 
-Dis-le-moi au début de la prochaine session : je travaillerai directement sur la bonne copie.
+Le circuit est donc : **dupliquer le thème publié → je travaille sur le doublon → tu publies**. C'est ce qu'on vient de faire avec `Copie de Copie de myrootalia/main`. Redis-le-moi au début de chaque session, avec le nom du doublon.
+
+**Attention à `templates/product.json`.** Ce fichier est modifié des deux côtés : par moi dans le dépôt, et par toi dans l'éditeur (c'est là que tes images ont été enregistrées). En cas de doute, **la version du thème fait foi** — je la relis avant toute modification plutôt que de pousser celle du dépôt, qui effacerait tes ajouts.
 
 ### 14. Contraste du terracotta
 Le terracotta `#C25A34` sur fond crème donne un contraste de **4,06:1**, juste sous le seuil d'accessibilité de 4,5:1 pour du texte courant. C'est acceptable pour les icônes, les filets et les gros titres ; pour les petits textes en terracotta (sur-titres en capitales), une teinte légèrement plus foncée comme `#A8482A` monterait à 5,4:1. À voir si tu veux être irréprochable côté accessibilité.
@@ -105,6 +122,7 @@ Rien n'est branché à ma connaissance : pixel Meta, Google Analytics, TikTok. �
 
 **Boutique**
 - Thème publié — le travail est en ligne
+- Panier corrigé dans le doublon : bouton du panier vide réparé, upsell mort désactivé, handles de démonstration nettoyés, bloc réassurance ajouté au tiroir (reste à publier, point 4)
 - Bug « Cannot find variant » corrigé — le produit n'était publié sur aucun canal de vente
 - Poids des variantes renseignés (0,18 / 0,52 / 0,82 kg — à confirmer à la pesée, point 10)
 - SKU manquant ajouté : `MYR-BATANA-1`, `MYR-BATANA-3`, `MYR-BATANA-5`
@@ -130,9 +148,9 @@ Rien n'est branché à ma connaissance : pixel Meta, Google Analytics, TikTok. �
 
 ## Dans quel ordre attaquer
 
-1. **Langue française + nom de boutique** (#1, #2) — dix minutes, gros impact.
-2. **Politiques légales** (#3) — obligatoire, les textes sont écrits.
-3. **Les deux réglages du panier** (#4) — deux clics, évite un bouton mort.
+1. **Publier le doublon** (#4) — les correctifs du panier sont dedans, prêts.
+2. **Langue française + nom de boutique** (#1, #2) — dix minutes, gros impact.
+3. **Politiques légales** (#3) — obligatoire, les textes sont écrits.
 4. **Commande test complète** (#9).
-5. **Images** (#7) puis **pesée réelle** (#10).
+5. **Vidéos stories et UGC** (#7) puis **pesée réelle** (#10).
 6. **Testeuses et avis** (#8) — c'est le plus long, commence tôt.

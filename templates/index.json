@@ -9,6 +9,181 @@
  */
 {
   "sections": {
+    "banniere": {
+      "type": "mrt-banniere",
+      "blocks": {
+        "k": {
+          "type": "surtitre",
+          "settings": {
+            "texte": "100 % pure · Honduras"
+          }
+        },
+        "h": {
+          "type": "titre",
+          "settings": {
+            "texte": "<p>Repars de <em>la racine</em></p>",
+            "niveau": "h1"
+          }
+        },
+        "t": {
+          "type": "texte",
+          "settings": {
+            "texte": "<p>L'huile de Batana pressée à froid, pour un cuir chevelu nourri et des cheveux visiblement plus denses. <strong>Deux minutes par jour.</strong></p>"
+          }
+        },
+        "li": {
+          "type": "puces",
+          "settings": {
+            "icone": "coche",
+            "texte": "Huile 100 % pure, pressée à froid\nSans sulfates ni parabènes\nEssai 60 nuits, remboursé"
+          }
+        },
+        "b": {
+          "type": "boutons",
+          "settings": {
+            "texte": "Découvrir l'huile de Batana",
+            "lien": "shopify://products/huile-de-batana-100-pure-du-honduras",
+            "style": "1",
+            "fleche": true,
+            "texte_2": "Voir le rituel",
+            "lien_2": "shopify://pages/rituel-batana",
+            "style_2": "3"
+          }
+        },
+        "r1": {
+          "type": "reassurance",
+          "settings": {
+            "icone": "bouclier",
+            "titre": "Essai 60 nuits",
+            "texte": "Remboursé sans justification"
+          }
+        },
+        "r2": {
+          "type": "reassurance",
+          "settings": {
+            "icone": "camion",
+            "titre": "Livraison offerte dès 50 $",
+            "texte": "Expédié du Québec"
+          }
+        },
+        "r3": {
+          "type": "reassurance",
+          "settings": {
+            "icone": "feuille",
+            "titre": "100 % pure",
+            "texte": "Pressée à froid, sans additif"
+          }
+        },
+        "r4": {
+          "type": "reassurance",
+          "settings": {
+            "icone": "bulle",
+            "titre": "Support humain",
+            "texte": "Réponse en moins de 24 h"
+          }
+        }
+      },
+      "block_order": [
+        "k",
+        "h",
+        "t",
+        "li",
+        "b",
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/myrootelia-hero-palme.png",
+        "image_mobile": "shopify://shop_images/myrootelia-application-2.png",
+        "image_alt": "Huile de Batana myrootalia et fruits du palmier, origine Honduras",
+        "focal_x": 60,
+        "focal_y": 50,
+        "focal_x_mobile": 50,
+        "focal_y_mobile": 35,
+        "ken_burns": true,
+        "ken_burns_speed": 20,
+        "grain": true,
+        "height": "px",
+        "height_px": 680,
+        "height_mobile": "px",
+        "height_px_mobile": 580,
+        "overlay_style": "gauche",
+        "overlay_color": "#12241C",
+        "overlay_opacity": 65,
+        "overlay_opacity_mobile": 70,
+        "overlay_spread": 85,
+        "position_v": "milieu",
+        "position_h": "gauche",
+        "text_align": "left",
+        "position_v_mobile": "bas",
+        "position_h_mobile": "centre",
+        "text_align_mobile": "center",
+        "content_width": 620,
+        "layout_width": "normale",
+        "block_gap": 20,
+        "block_gap_mobile": 16,
+        "card_enable": false,
+        "card_color": "#12241C",
+        "card_opacity": 45,
+        "card_blur": true,
+        "card_blur_amount": 12,
+        "card_radius": 20,
+        "card_padding": 40,
+        "card_padding_mobile": 24,
+        "card_border": false,
+        "kicker_size": 12,
+        "kicker_rule": true,
+        "title_size": 60,
+        "title_size_mobile": 34,
+        "title_weight": 500,
+        "title_leading": 108,
+        "title_shadow": true,
+        "text_size": 17,
+        "text_size_mobile": 15,
+        "text_leading": 165,
+        "text_shadow": true,
+        "bullet_size": 14,
+        "star_size": 16,
+        "star_color": "#C6A15B",
+        "logo_width": 150,
+        "button_size": 16,
+        "button_px": 38,
+        "button_py": 18,
+        "button_radius": 40,
+        "button_shine": true,
+        "buttons_full_mobile": true,
+        "strip_bg": "#12241C",
+        "strip_opacity": 55,
+        "strip_blur": true,
+        "strip_text": "#FAF6EF",
+        "strip_accent": "#C6A15B",
+        "strip_icon_size": 24,
+        "strip_title_size": 13,
+        "strip_text_size": 12,
+        "strip_padding": 20,
+        "strip_align": "centre",
+        "strip_columns_mobile": 2,
+        "anim_delay": 150,
+        "anim_stagger": 120,
+        "anim_shift": 24,
+        "scroll_hint": true,
+        "scroll_text": "Découvrir",
+        "color_bg": "#1E3A2F",
+        "color_title": "#FAF6EF",
+        "color_text": "#F1EAE0",
+        "color_accent": "#C6A15B",
+        "color_btn_bg": "#C6A15B",
+        "color_btn_text": "#12241C",
+        "side_padding": 40,
+        "side_padding_mobile": 20,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_sm": 48,
+        "padding_bottom_sm": 48
+      }
+    },
     "e40c307a-5fa2-42eb-80d1-f793e603ebcd": {
       "type": "featured-collection",
       "custom_css": [],
@@ -389,6 +564,166 @@
         "separator_bg_color": ""
       }
     },
+    "scrolling_testimonials_qzrBjW": {
+      "type": "scrolling-testimonials",
+      "blocks": {
+        "testimonial_jtVMrV": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Le rendu est super naturel, mes sourcils sont mieux dessinés sans effet maquillé.",
+            "name": "Camille",
+            "role": "Cliente vérifiée",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_ptx7Cx": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Le crayon est précis et facile à utiliser. Parfait pour le matin quand je suis pressée.",
+            "name": "Laura",
+            "role": "Cliente vérifiée",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_RxnVFi": {
+          "type": "testimonial",
+          "settings": {
+            "text": "J’adore le gel fixateur, il tient toute la journée sans durcir les sourcils.",
+            "name": "Inès",
+            "role": "Cliente vérifiée",
+            "verified": true,
+            "stars_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_jtVMrV",
+        "testimonial_ptx7Cx",
+        "testimonial_RxnVFi"
+      ],
+      "name": "t:sections.scrolling-testimonials.presets.name",
+      "settings": {
+        "section_id": "",
+        "scroll_direction": "left",
+        "scroll_speed": 30,
+        "pause_on_hover": true,
+        "enable_rating": true,
+        "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
+        "equalize_review_heights": false,
+        "review_content_position": "flex-start",
+        "subheading": "",
+        "heading": "<p>Elles parlent de Sylys</p>",
+        "heading_style": "2",
+        "description": "<p>Vos retours sont notre plus belle récompense</p>",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 44,
+        "padding_bottom": 0,
+        "padding_top_sm": 24,
+        "padding_bottom_sm": 0,
+        "color_palette": "scheme-3fe3c0d8-e894-45a2-8536-47eb834686e3",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "scrolling_testimonials_n4fcw3": {
+      "type": "scrolling-testimonials",
+      "blocks": {
+        "testimonial_qBTfde": {
+          "type": "testimonial",
+          "settings": {
+            "text": "La poudre donne un effet doux et naturel, exactement ce que je cherchais.",
+            "name": "Manon",
+            "role": "Cliente vérifiée",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_CUjWri": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Très belle découverte. Les produits sont simples à utiliser et le rendu est très premium.",
+            "name": "Chloé",
+            "role": "Cliente vérifiée",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_rEFc8P": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Mes sourcils restent en place toute la journée, même sans retouche.",
+            "name": "Sarah",
+            "role": "Cliente vérifiée",
+            "verified": true,
+            "stars_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_qBTfde",
+        "testimonial_CUjWri",
+        "testimonial_rEFc8P"
+      ],
+      "name": "t:sections.scrolling-testimonials.presets.name",
+      "settings": {
+        "section_id": "",
+        "scroll_direction": "right",
+        "scroll_speed": 30,
+        "pause_on_hover": true,
+        "enable_rating": true,
+        "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
+        "equalize_review_heights": false,
+        "review_content_position": "flex-start",
+        "subheading": "",
+        "heading": "",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 28,
+        "padding_bottom": 44,
+        "padding_top_sm": 28,
+        "padding_bottom_sm": 32,
+        "color_palette": "scheme-3fe3c0d8-e894-45a2-8536-47eb834686e3",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
     "bundle_6FtP9L": {
       "type": "bundle",
       "blocks": {
@@ -459,258 +794,244 @@
         "separator_bg_color": ""
       }
     },
-    "banniere": {
-      "type": "mrt-banniere",
+    "scrolling_testimonials_Y4karp": {
+      "type": "scrolling-testimonials",
       "blocks": {
-        "k": {
-          "type": "surtitre",
+        "testimonial_HnCitL": {
+          "type": "testimonial",
           "settings": {
-            "texte": "100 % pure · Honduras"
+            "text": "Amazing team and excellent support. The theme is highly customizable and perfect for building a unique store.",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
           }
         },
-        "h": {
-          "type": "titre",
+        "testimonial_ThyhMp": {
+          "type": "testimonial",
           "settings": {
-            "texte": "<p>Repars de <em>la racine</em></p>",
-            "niveau": "h1"
+            "text": "A complete and high-quality theme with very responsive support. Highly recommended!",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
           }
         },
-        "t": {
-          "type": "texte",
+        "testimonial_M8VqjX": {
+          "type": "testimonial",
           "settings": {
-            "texte": "<p>L'huile de Batana pressée à froid, pour un cuir chevelu nourri et des cheveux visiblement plus denses. <strong>Deux minutes par jour.</strong></p>"
-          }
-        },
-        "li": {
-          "type": "puces",
-          "settings": {
-            "icone": "coche",
-            "texte": "Huile 100 % pure, pressée à froid\nSans sulfates ni parabènes\nEssai 60 nuits, remboursé"
-          }
-        },
-        "b": {
-          "type": "boutons",
-          "settings": {
-            "texte": "Découvrir l'huile de Batana",
-            "lien": "shopify://products/huile-de-batana-100-pure-du-honduras",
-            "style": "1",
-            "fleche": true,
-            "texte_2": "Voir le rituel",
-            "lien_2": "shopify://pages/rituel-batana",
-            "style_2": "3"
-          }
-        },
-        "r1": {
-          "type": "reassurance",
-          "settings": {
-            "icone": "bouclier",
-            "titre": "Essai 60 nuits",
-            "texte": "Remboursé sans justification"
-          }
-        },
-        "r2": {
-          "type": "reassurance",
-          "settings": {
-            "icone": "camion",
-            "titre": "Livraison offerte dès 50 $",
-            "texte": "Expédié du Québec"
-          }
-        },
-        "r3": {
-          "type": "reassurance",
-          "settings": {
-            "icone": "feuille",
-            "titre": "100 % pure",
-            "texte": "Pressée à froid, sans additif"
-          }
-        },
-        "r4": {
-          "type": "reassurance",
-          "settings": {
-            "icone": "bulle",
-            "titre": "Support humain",
-            "texte": "Réponse en moins de 24 h"
+            "text": "Great theme with many possibilities for creating a unique website that stands out from the competition.",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
           }
         }
       },
       "block_order": [
-        "k",
-        "h",
-        "t",
-        "li",
-        "b",
-        "r1",
-        "r2",
-        "r3",
-        "r4"
+        "testimonial_HnCitL",
+        "testimonial_ThyhMp",
+        "testimonial_M8VqjX"
       ],
+      "name": "t:sections.scrolling-testimonials.presets.name",
       "settings": {
-        "image": "shopify://shop_images/myrootelia-hero-palme.png",
-        "image_mobile": "shopify://shop_images/myrootelia-application-2.png",
-        "image_alt": "Huile de Batana myrootalia et fruits du palmier, origine Honduras",
-        "focal_x": 60,
-        "focal_y": 50,
-        "focal_x_mobile": 50,
-        "focal_y_mobile": 35,
-        "ken_burns": true,
-        "ken_burns_speed": 20,
-        "grain": true,
-        "height": "px",
-        "height_px": 680,
-        "height_mobile": "px",
-        "height_px_mobile": 580,
-        "overlay_style": "gauche",
-        "overlay_color": "#12241C",
-        "overlay_opacity": 65,
-        "overlay_opacity_mobile": 70,
-        "overlay_spread": 85,
-        "position_v": "milieu",
-        "position_h": "gauche",
-        "text_align": "left",
-        "position_v_mobile": "bas",
-        "position_h_mobile": "centre",
-        "text_align_mobile": "center",
-        "content_width": 620,
-        "layout_width": "normale",
-        "block_gap": 20,
-        "block_gap_mobile": 16,
-        "card_enable": false,
-        "card_color": "#12241C",
-        "card_opacity": 45,
-        "card_blur": true,
-        "card_blur_amount": 12,
-        "card_radius": 20,
-        "card_padding": 40,
-        "card_padding_mobile": 24,
-        "card_border": false,
-        "kicker_size": 12,
-        "kicker_rule": true,
-        "title_size": 60,
-        "title_size_mobile": 34,
-        "title_weight": 500,
-        "title_leading": 108,
-        "title_shadow": true,
-        "text_size": 17,
-        "text_size_mobile": 15,
-        "text_leading": 165,
-        "text_shadow": true,
-        "bullet_size": 14,
-        "star_size": 16,
-        "star_color": "#C6A15B",
-        "logo_width": 150,
-        "button_size": 16,
-        "button_px": 38,
-        "button_py": 18,
-        "button_radius": 40,
-        "button_shine": true,
-        "buttons_full_mobile": true,
-        "strip_bg": "#12241C",
-        "strip_opacity": 55,
-        "strip_blur": true,
-        "strip_text": "#FAF6EF",
-        "strip_accent": "#C6A15B",
-        "strip_icon_size": 24,
-        "strip_title_size": 13,
-        "strip_text_size": 12,
-        "strip_padding": 20,
-        "strip_align": "centre",
-        "strip_columns_mobile": 2,
-        "anim_delay": 150,
-        "anim_stagger": 120,
-        "anim_shift": 24,
-        "scroll_hint": true,
-        "scroll_text": "Découvrir",
-        "color_bg": "#1E3A2F",
-        "color_title": "#FAF6EF",
-        "color_text": "#F1EAE0",
-        "color_accent": "#C6A15B",
-        "color_btn_bg": "#C6A15B",
-        "color_btn_text": "#12241C",
-        "side_padding": 40,
-        "side_padding_mobile": 20,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 48,
-        "padding_bottom_sm": 48
+        "section_id": "",
+        "scroll_direction": "left",
+        "scroll_speed": 20,
+        "pause_on_hover": true,
+        "enable_rating": true,
+        "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
+        "equalize_review_heights": false,
+        "review_content_position": "flex-start",
+        "subheading": "Details",
+        "heading": "<p>Hear from our lovely customers</p>",
+        "heading_style": "2",
+        "description": "<p>Show to your customers a video presenting your brand and your products.</p>",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 36,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     },
-    "avis": {
-      "type": "mrt-avis",
-      "blocks": {},
-      "block_order": [],
+    "scrolling_testimonials_LtBcQC": {
+      "type": "scrolling-testimonials",
+      "blocks": {
+        "testimonial_L9zARJ": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Amazing team and excellent support. The theme is highly customizable and perfect for building a unique store.",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_xdczDt": {
+          "type": "testimonial",
+          "settings": {
+            "text": "A complete and high-quality theme with very responsive support. Highly recommended!",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_yeHwgw": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Great theme with many possibilities for creating a unique website that stands out from the competition.",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_L9zARJ",
+        "testimonial_xdczDt",
+        "testimonial_yeHwgw"
+      ],
+      "name": "t:sections.scrolling-testimonials.presets.name",
       "settings": {
-        "kicker": "Avis clients",
-        "title": "<p>Ce qu'elles en <em>disent vraiment</em></p>",
+        "section_id": "",
+        "scroll_direction": "left",
+        "scroll_speed": 18,
+        "pause_on_hover": true,
+        "enable_rating": true,
+        "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
+        "equalize_review_heights": false,
+        "review_content_position": "flex-start",
+        "subheading": "",
+        "heading": "",
+        "heading_style": "2",
         "description": "",
         "alignment": "center",
-        "title_size": 36,
-        "header_gap": 40,
-        "show_summary": true,
-        "show_bars": true,
-        "summary_card": true,
-        "summary_divider": true,
-        "score_size": 52,
-        "star_size": 18,
-        "bar_height": 7,
-        "summary_width": 660,
-        "summary_padding": 28,
-        "summary_gap": 32,
-        "summary_bottom_gap": 44,
-        "force_average": false,
-        "average_manual": 48,
-        "count_manual": 0,
-        "display": "grille",
-        "columns": 3,
-        "columns_tablet": 2,
-        "columns_mobile": 1,
-        "card_width": 360,
-        "card_width_tablet": 320,
-        "card_width_mobile": 280,
-        "gap": 22,
-        "gap_mobile": 16,
-        "layout_width": "normale",
-        "scroll_hint": "Fais glisser pour voir plus →",
-        "card_style": "bordee",
-        "card_radius": 16,
-        "card_padding": 24,
-        "card_gap": 14,
-        "star_size_card": 15,
-        "review_title_size": 18,
-        "review_text_size": 15,
-        "clamp_text": false,
-        "clamp_lines": 5,
-        "show_date": true,
-        "show_verified": true,
-        "verified_text": "Achat vérifié",
-        "show_photo": true,
-        "photo_ratio": "4/5",
-        "photo_radius": 12,
-        "show_product": true,
-        "show_reply": true,
-        "reply_label": "Réponse de myrootalia",
-        "show_avatar": true,
-        "avatar_size": 42,
-        "author_size": 14,
-        "author_divider": true,
-        "foot_note": "Tous nos avis proviennent de clientes vérifiées.",
-        "cta_text": "",
-        "cta_link": "",
-        "foot_gap": 40,
-        "empty_text": "Ajoute tes premiers avis ici : bouton « Ajouter un bloc » → Avis.",
-        "seo_schema": false,
-        "color_bg": "#FAF6EF",
-        "color_card": "#FFFFFF",
-        "color_title": "#1E3A2F",
-        "color_text": "#25332C",
-        "color_accent": "#C6A15B",
-        "color_star": "#C6A15B",
-        "color_verified": "#2E7D5B",
-        "color_btn_bg": "#1E3A2F",
-        "color_btn_text": "#FAF6EF",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
+      }
+    },
+    "scrolling_testimonials_JrFMW9": {
+      "type": "scrolling-testimonials",
+      "blocks": {
+        "testimonial_d9YGnX": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Amazing team and excellent support. The theme is highly customizable and perfect for building a unique store.",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_yiPCr8": {
+          "type": "testimonial",
+          "settings": {
+            "text": "A complete and high-quality theme with very responsive support. Highly recommended!",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
+          }
+        },
+        "testimonial_YFzahr": {
+          "type": "testimonial",
+          "settings": {
+            "text": "Great theme with many possibilities for creating a unique website that stands out from the competition.",
+            "name": "Customer",
+            "role": "Verified Customer",
+            "verified": true,
+            "stars_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_d9YGnX",
+        "testimonial_yiPCr8",
+        "testimonial_YFzahr"
+      ],
+      "name": "t:sections.scrolling-testimonials.presets.name",
+      "settings": {
+        "section_id": "",
+        "scroll_direction": "left",
+        "scroll_speed": 22,
+        "pause_on_hover": true,
+        "enable_rating": true,
+        "stars_style": "stars",
+        "stars_color_source": "settings",
+        "stars_color_custom": "#efca00",
+        "equalize_review_heights": false,
+        "review_content_position": "flex-start",
+        "subheading": "",
+        "heading": "",
+        "heading_style": "2",
+        "description": "",
+        "alignment": "center",
+        "enable_animations": true,
+        "animation": "fade-up",
+        "hide_desktop": false,
+        "hide_mobile": false,
+        "layout_width": "full",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
+        "color_palette": "",
+        "enable_cut_bg_color": false,
+        "cut_bg_color": "#f6f6f6",
+        "cut_bg_color_vertical": 0,
+        "cut_bg_color_vertical_mobile": 0,
+        "cut_bg_color_horizontal": 0,
+        "cut_bg_color_horizontal_mobile": 0,
+        "separator_top": "none",
+        "separator_top_invert": false,
+        "separator_bottom": "none",
+        "separator_bottom_invert": false,
+        "separator_animated": false,
+        "separator_bg_color": ""
       }
     }
   },
@@ -721,7 +1042,11 @@
     "image_with_text_7XR9YQ",
     "image_with_text_6F47PF",
     "collection_tabs_aedpJT",
+    "scrolling_testimonials_qzrBjW",
+    "scrolling_testimonials_n4fcw3",
     "bundle_6FtP9L",
-    "avis"
+    "scrolling_testimonials_Y4karp",
+    "scrolling_testimonials_LtBcQC",
+    "scrolling_testimonials_JrFMW9"
   ]
 }

@@ -51,8 +51,55 @@
     font-size:{{ st.item_title_size }}px;line-height:1.28;color:var(--mrtT-title);margin:0 0 7px}
   #mrt-chrono-{{ section.id }} .mrtT-d{font-size:{{ st.item_text_size }}px;line-height:1.62;color:var(--mrtT-muted);margin:0}
   #mrt-chrono-{{ section.id }} .mrtT-d p{margin:0}
-  #mrt-chrono-{{ section.id }} .mrtT-img{margin-top:14px;border-radius:14px;overflow:hidden;max-width:100%}
-  #mrt-chrono-{{ section.id }} .mrtT-img img{width:100%;height:auto;display:block}
+  /* ---------- média : image ou vidéo ---------- */
+  #mrt-chrono-{{ section.id }} .mrtT-media{position:relative;margin-top:{{ st.media_gap }}px;
+    border-radius:{{ st.media_radius }}px;overflow:hidden;max-width:100%;
+    background:color-mix(in srgb, {{ st.color_title }} 8%, {{ st.color_bg }});
+    {% if st.media_shadow %}box-shadow:0 18px 40px -24px rgba(21,42,33,.55);{% endif %}}
+  #mrt-chrono-{{ section.id }} .mrtT-media img,
+  #mrt-chrono-{{ section.id }} .mrtT-media video,
+  #mrt-chrono-{{ section.id }} .mrtT-media iframe{display:block;width:100%;border:0}
+  {%- if st.media_ratio == 'auto' -%}
+  #mrt-chrono-{{ section.id }} .mrtT-media img,
+  #mrt-chrono-{{ section.id }} .mrtT-media video{height:auto}
+  #mrt-chrono-{{ section.id }} .mrtT-media iframe{aspect-ratio:16/9;height:auto}
+  {%- else -%}
+  #mrt-chrono-{{ section.id }} .mrtT-media{aspect-ratio:{{ st.media_ratio }}}
+  #mrt-chrono-{{ section.id }} .mrtT-media img,
+  #mrt-chrono-{{ section.id }} .mrtT-media video,
+  #mrt-chrono-{{ section.id }} .mrtT-media iframe{height:100%;object-fit:cover}
+  {%- endif -%}
+
+  /* affiche + bouton de lecture (vidéo externe, ou lecture au clic) */
+  #mrt-chrono-{{ section.id }} .mrtT-facade{display:block;width:100%;padding:0;border:0;cursor:pointer;
+    background:none;position:relative;line-height:0;text-align:center}
+  #mrt-chrono-{{ section.id }} .mrtT-facade::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(18,36,28,.05),rgba(18,36,28,.42));
+    transition:opacity .35s ease}
+  #mrt-chrono-{{ section.id }} .mrtT-facade:hover::after{opacity:.72}
+  #mrt-chrono-{{ section.id }} .mrtT-facade .mrtT-ph{width:100%;{% if st.media_ratio == 'auto' %}aspect-ratio:16/9;{% else %}height:100%;{% endif %}}
+  #mrt-chrono-{{ section.id }} .mrtT-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    z-index:2;width:{{ st.play_size }}px;height:{{ st.play_size }}px;border-radius:50%;
+    background:color-mix(in srgb, {{ st.color_accent }} 92%, #000);color:#fff;
+    display:flex;align-items:center;justify-content:center;pointer-events:none;
+    box-shadow:0 10px 28px -10px rgba(0,0,0,.65);
+    transition:transform .4s cubic-bezier(.34,1.4,.64,1)}
+  #mrt-chrono-{{ section.id }} .mrtT-facade:hover .mrtT-play{transform:translate(-50%,-50%) scale(1.1)}
+  #mrt-chrono-{{ section.id }} .mrtT-play svg{width:{{ st.play_size | times: 0.38 | round }}px;height:{{ st.play_size | times: 0.38 | round }}px;margin-left:2px}
+
+  /* bouton son */
+  #mrt-chrono-{{ section.id }} .mrtT-sound{position:absolute;right:10px;bottom:10px;z-index:3;
+    width:36px;height:36px;border-radius:50%;border:0;cursor:pointer;
+    background:rgba(18,36,28,.6);color:#fff;display:flex;align-items:center;justify-content:center;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .3s ease}
+  #mrt-chrono-{{ section.id }} .mrtT-sound:hover{background:rgba(18,36,28,.85)}
+  #mrt-chrono-{{ section.id }} .mrtT-sound svg{width:17px;height:17px}
+  #mrt-chrono-{{ section.id }} .mrtT-sound .mrtT-on{display:none}
+  #mrt-chrono-{{ section.id }} .mrtT-sound[aria-pressed="true"] .mrtT-on{display:block}
+  #mrt-chrono-{{ section.id }} .mrtT-sound[aria-pressed="true"] .mrtT-off{display:none}
+
+  #mrt-chrono-{{ section.id }} .mrtT-legend{font-size:12.5px;line-height:1.5;color:var(--mrtT-muted);
+    margin:8px 0 0;font-style:italic}
 
   /* pastille / point */
   #mrt-chrono-{{ section.id }} .mrtT-dot{position:absolute;z-index:2;width:var(--mrtT-dot);height:var(--mrtT-dot);
@@ -156,9 +203,66 @@
             {%- if block.settings.periode != blank -%}<span class="mrtT-period">{{ block.settings.periode | escape }}</span>{%- endif -%}
             {%- if block.settings.titre != blank -%}<h3 class="mrtT-t">{{ block.settings.titre | escape }}</h3>{%- endif -%}
             {%- if block.settings.texte != blank -%}<div class="mrtT-d">{{ block.settings.texte }}</div>{%- endif -%}
-            {%- if block.settings.image != blank -%}
-              <div class="mrtT-img">{{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.titre }}</div>
+            {%- liquid
+              assign bs = block.settings
+              assign poster = bs.video_poster | default: bs.image
+              assign alt_txt = bs.titre | default: st.kicker
+            -%}
+
+            {%- if bs.video != blank -%}
+              {%- if st.video_autoplay -%}
+                <div class="mrtT-media">
+                  {{ bs.video | video_tag:
+                       class: 'mrtT-inline',
+                       image_size: '900x',
+                       autoplay: false,
+                       loop: st.video_loop,
+                       controls: st.video_controls,
+                       muted: true,
+                       playsinline: true,
+                       preload: 'metadata' }}
+                  {%- if st.video_sound_button and st.video_controls == false -%}
+                    <button type="button" class="mrtT-sound" aria-pressed="false" aria-label="Activer le son">
+                      <svg class="mrtT-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+                      <svg class="mrtT-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+                    </button>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <div class="mrtT-media">
+                  <button type="button" class="mrtT-facade" data-mrtt-kind="file" aria-label="Lire la vidéo{% if bs.titre != blank %} — {{ bs.titre | escape }}{% endif %}">
+                    {%- if poster != blank -%}
+                      {{ poster | image_url: width: 900 | image_tag: loading: 'lazy', alt: alt_txt, class: 'mrtT-ph' }}
+                    {%- elsif bs.video.preview_image -%}
+                      {{ bs.video.preview_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: alt_txt, class: 'mrtT-ph' }}
+                    {%- endif -%}
+                    <span class="mrtT-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                  </button>
+                  <template data-mrtt-src>
+                    {{ bs.video | video_tag: image_size: '1200x', autoplay: true, loop: st.video_loop, controls: true, muted: false, playsinline: true }}
+                  </template>
+                </div>
+              {%- endif -%}
+
+            {%- elsif bs.video_url != blank -%}
+              <div class="mrtT-media">
+                <button type="button" class="mrtT-facade" data-mrtt-kind="{{ bs.video_url.type }}" data-mrtt-id="{{ bs.video_url.id }}" aria-label="Lire la vidéo{% if bs.titre != blank %} — {{ bs.titre | escape }}{% endif %}">
+                  {%- if poster != blank -%}
+                    {{ poster | image_url: width: 900 | image_tag: loading: 'lazy', alt: alt_txt, class: 'mrtT-ph' }}
+                  {%- else -%}
+                    <span class="mrtT-ph" style="display:block;background:color-mix(in srgb, {{ st.color_title }} 82%, #000)"></span>
+                  {%- endif -%}
+                  <span class="mrtT-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                </button>
+              </div>
+
+            {%- elsif bs.image != blank -%}
+              <div class="mrtT-media">
+                {{ bs.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: alt_txt }}
+              </div>
             {%- endif -%}
+
+            {%- if bs.legende != blank -%}<p class="mrtT-legend">{{ bs.legende | escape }}</p>{%- endif -%}
           </div>
         </div>
       {%- endfor -%}
@@ -191,6 +295,72 @@
   } else {
     items.forEach(function (el) { el.classList.add('is-in'); });
   }
+
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* lecture automatique des vidéos importées, uniquement quand elles sont à l'écran */
+  var inlines = root.querySelectorAll('video.mrtT-inline');
+  if (inlines.length && !calm && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    inlines.forEach(function (v) { v.muted = true; vio.observe(v); });
+  }
+
+  /* bouton son */
+  root.querySelectorAll('.mrtT-sound').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var media = btn.parentNode.querySelector('video');
+      if (!media) return;
+      var on = media.muted;
+      media.muted = !on;
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', on ? 'Couper le son' : 'Activer le son');
+      if (on) {
+        var p = media.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    });
+  });
+
+  /* affiche cliquable : on ne charge le lecteur qu'à la demande */
+  root.querySelectorAll('.mrtT-facade').forEach(function (facade) {
+    facade.addEventListener('click', function () {
+      var box = facade.parentNode;
+      var kind = facade.getAttribute('data-mrtt-kind');
+      var id = facade.getAttribute('data-mrtt-id');
+
+      if (kind === 'file') {
+        var tpl = box.querySelector('template[data-mrtt-src]');
+        if (!tpl) return;
+        box.insertAdjacentHTML('beforeend', tpl.innerHTML);
+        tpl.remove();
+        var v = box.querySelector('video');
+        if (v) { v.play().catch(function () {}); }
+      } else if (kind === 'youtube' || kind === 'vimeo') {
+        if (!id) return;
+        var f = document.createElement('iframe');
+        f.src = kind === 'youtube'
+          ? 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1'
+          : 'https://player.vimeo.com/video/' + id + '?autoplay=1';
+        f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+        f.setAttribute('allowfullscreen', '');
+        f.setAttribute('title', facade.getAttribute('aria-label') || 'Vidéo');
+        box.appendChild(f);
+      } else {
+        return;
+      }
+      facade.remove();
+    });
+  });
 })();
 </script>
 
@@ -237,6 +407,23 @@
     { "type": "range", "id": "card_padding", "min": 10, "max": 40, "step": 2, "unit": "px", "label": "Marge intérieure", "default": 22 },
     { "type": "range", "id": "item_title_size", "min": 15, "max": 30, "step": 1, "unit": "px", "label": "Taille des titres", "default": 21 },
     { "type": "range", "id": "item_text_size", "min": 12, "max": 19, "step": 1, "unit": "px", "label": "Taille des textes", "default": 15 },
+    { "type": "header", "content": "Médias (images et vidéos)" },
+    { "type": "select", "id": "media_ratio", "label": "Format", "options": [
+      { "value": "auto", "label": "Naturel (hauteur d'origine)" },
+      { "value": "16/9", "label": "Paysage 16:9" },
+      { "value": "4/3", "label": "Paysage 4:3" },
+      { "value": "1/1", "label": "Carré" },
+      { "value": "4/5", "label": "Portrait 4:5" },
+      { "value": "9/16", "label": "Vertical 9:16" }
+    ], "default": "auto" },
+    { "type": "range", "id": "media_radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Arrondi", "default": 14 },
+    { "type": "range", "id": "media_gap", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Espace au-dessus du média", "default": 14 },
+    { "type": "checkbox", "id": "media_shadow", "label": "Ombre portée", "default": false },
+    { "type": "checkbox", "id": "video_autoplay", "label": "Lecture automatique (vidéos importées)", "default": true, "info": "Sans son, et seulement quand la vidéo est à l'écran. Les vidéos YouTube et Vimeo démarrent toujours au clic." },
+    { "type": "checkbox", "id": "video_loop", "label": "Lecture en boucle", "default": true },
+    { "type": "checkbox", "id": "video_controls", "label": "Afficher les commandes de lecture", "default": false },
+    { "type": "checkbox", "id": "video_sound_button", "label": "Bouton pour activer le son", "default": true },
+    { "type": "range", "id": "play_size", "min": 40, "max": 96, "step": 4, "unit": "px", "label": "Taille du bouton de lecture", "default": 60 },
     { "type": "header", "content": "Bouton (optionnel)" },
     { "type": "text", "id": "cta_note", "label": "Petite phrase" },
     { "type": "text", "id": "cta_text", "label": "Texte du bouton" },
@@ -277,7 +464,12 @@
           { "value": "coche_cercle", "label": "✅ Coche" }, { "value": "cible", "label": "🎯 Cible" },
           { "value": "coeur", "label": "❤️ Cœur" }, { "value": "medaille", "label": "🏅 Médaille" }
         ], "default": "aucune" },
-        { "type": "image_picker", "id": "image", "label": "Image (optionnelle)" }
+        { "type": "header", "content": "Média de l'étape" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Utilisée si aucune vidéo n'est renseignée." },
+        { "type": "video", "id": "video", "label": "Vidéo importée", "info": "Recommandé : hébergée par Shopify, elle se charge plus vite et peut démarrer toute seule." },
+        { "type": "video_url", "id": "video_url", "accept": ["youtube", "vimeo"], "label": "Ou vidéo YouTube / Vimeo", "info": "Le lecteur n'est chargé qu'au clic, pour ne pas ralentir la page." },
+        { "type": "image_picker", "id": "video_poster", "label": "Affiche de la vidéo", "info": "L'image visible avant lecture. Vivement conseillée pour YouTube et Vimeo." },
+        { "type": "text", "id": "legende", "label": "Légende sous le média" }
       ]
     }
   ],

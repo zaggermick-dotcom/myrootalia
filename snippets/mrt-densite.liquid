@@ -1,0 +1,106 @@
+{% comment %}
+  MRT · Densité — couche globale de compacité
+  --------------------------------------------
+  Un seul endroit pour régler, sur toute la boutique :
+    1. l'échelle du texte du thème
+    2. les marges haut / bas des sections dont les valeurs sont écrites en dur
+
+  Les molettes sont juste en dessous. Monte les valeurs pour respirer,
+  baisse-les pour serrer.
+
+  Ce fichier ne touche QUE ce qui n'est pas réglable dans l'éditeur :
+  les sections sur mesure de la page d'accueil, dont les tailles et marges
+  sont codées dans leur CSS, et les sections MRT dont on plafonne la marge.
+  Les sections natives du thème gardent leurs curseurs : leurs valeurs ont
+  été baissées dans les modèles de page, pas écrasées ici — sinon les
+  sections volontairement collées (marge 0) auraient été rouvertes.
+
+  Rendu en dernier dans le <head> : ce fichier a le dernier mot.
+{% endcomment %}
+
+{%- style -%}
+  :root{
+    /* ---- MOLETTES ---- */
+    --mrt-pad-y: 32px;      /* marge haut/bas — ordinateur */
+    --mrt-pad-y-sm: 18px;   /* marge haut/bas — mobile */
+
+    /* Échelle de tout le texte natif du thème : en-tête, pied de page,
+       panier, collections, recherche, blog. 1 = taille d'origine.
+       Le thème calcule sa racine avec :
+         html{ font-size: calc(var(--font-body-scale) * 62.5%) }
+       donc baisser ce nombre réduit proportionnellement tout le texte en rem.
+       Équivalent éditeur : Paramètres du thème → Typographie → Taille du texte. */
+    --font-body-scale: 0.92;
+  }
+
+  /* ================================================================
+     1. MARGES HAUT / BAS
+     ================================================================ */
+
+  /* Sections MRT — racine #mrt-<nom>-<id>.
+     Vérifié : aucune n'était déjà plus serrée que le plafond, le cap ne fait
+     donc que réduire. La barre d'achat collante est exclue, ce n'est pas une
+     section de page. */
+  [id^="mrt-"]:not([id^="mrt-sticky"]){
+    padding-top: var(--mrt-pad-y-sm) !important;
+    padding-bottom: var(--mrt-pad-y-sm) !important;
+  }
+
+  /* Page d'accueil et stories : marges écrites en dur (70 à 90 px). */
+  .acc-hero__grid,
+  .acc-offer,
+  .acc-ps,
+  .acc-pillars,
+  .acc-origin__inner,
+  .acc-videosec,
+  .acc-ritual,
+  .acc-reviews,
+  .acc-news{
+    padding-top: var(--mrt-pad-y-sm) !important;
+    padding-bottom: var(--mrt-pad-y-sm) !important;
+  }
+
+  @media screen and (min-width: 750px){
+    [id^="mrt-"]:not([id^="mrt-sticky"]),
+    .acc-hero__grid,
+    .acc-offer,
+    .acc-ps,
+    .acc-pillars,
+    .acc-origin__inner,
+    .acc-videosec,
+    .acc-ritual,
+    .acc-reviews,
+    .acc-news{
+      padding-top: var(--mrt-pad-y) !important;
+      padding-bottom: var(--mrt-pad-y) !important;
+    }
+  }
+
+  /* ================================================================
+     2. TAILLE DU TEXTE — sections sur mesure de la page d'accueil
+     ================================================================
+     Ces tailles sont codées en dur dans accueil-myrootelia et
+     stories-myrootelia : aucun curseur ne les expose. Le premier nombre de
+     chaque clamp est le plancher mobile — rien ne descend sous 18 px pour un
+     titre, pour rester lisible sur petit écran. */
+
+  .acc-hero h1{ font-size: clamp(26px, 4.4vw, 52px) !important; }
+  .acc-hero__price b{ font-size: 25px !important; }
+  .acc-origin h2{ font-size: clamp(19px, 3.2vw, 36px) !important; }
+  .acc-ps__title,
+  .acc-news h2{ font-size: clamp(19px, 2.9vw, 33px) !important; }
+  .acc-offer__head .acc-h,
+  .acc-pillars .acc-h,
+  .acc-videosec .acc-h,
+  .acc-ritual .acc-h{ font-size: clamp(19px, 2.9vw, 32px) !important; }
+  .acc-reviews .acc-h{ font-size: clamp(18px, 2.6vw, 29px) !important; }
+  .acc-pill__n{ font-size: 36px !important; }
+  .acc-pk__price b{ font-size: 33px !important; }
+  .acc-pk__name{ font-size: 22px !important; }
+  .sto-h{ font-size: clamp(19px, 2.7vw, 30px) !important; }
+
+  /* Les titres des sections MRT ne sont volontairement PAS plafonnés ici :
+     leurs tailles ont été baissées dans les réglages de chaque section, pour
+     que les curseurs « Taille du titre » restent maîtres. Un plafond CSS les
+     aurait figés, et aurait même agrandi les sections déjà petites. */
+{%- endstyle -%}

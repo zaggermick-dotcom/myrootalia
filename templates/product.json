@@ -62,10 +62,10 @@
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
         "color_card_bg": "#F1EAE0",
-        "padding_top": 48,
-        "padding_bottom": 56,
-        "padding_top_sm": 24,
-        "padding_bottom_sm": 40
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "trust_strip": {
@@ -113,7 +113,7 @@
         "uppercase": true,
         "bolder": false,
         "font_family": "body",
-        "font_size_desktop": 14,
+        "font_size_desktop": 12,
         "font_size_mobile": 12,
         "delay": 30,
         "layout_width": "full",
@@ -169,7 +169,7 @@
         "title": "<p>Trois raisons d'en faire <em>ton rituel</em></p>",
         "description": "",
         "alignment": "center",
-        "title_size": 36,
+        "title_size": 30,
         "header_gap": 44,
         "style": "carte_bordee",
         "item_alignment": "center",
@@ -178,7 +178,7 @@
         "icon_gap": 16,
         "card_radius": 18,
         "card_padding": 30,
-        "item_title_size": 20,
+        "item_title_size": 18,
         "item_text_size": 14,
         "columns": 3,
         "columns_tablet": 2,
@@ -188,10 +188,10 @@
         "layout_width": "normal",
         "cta_text": "",
         "cta_link": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "padding_top_sm": 40,
-        "padding_bottom_sm": 40
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "problem": {
@@ -298,18 +298,18 @@
         "overlay_opacity": 55,
         "kicker_size": 12,
         "kicker_rules": "un",
-        "title_size": 40,
-        "title_size_mobile": 28,
+        "title_size": 34,
+        "title_size_mobile": 24,
         "title_weight": 500,
         "title_leading": 116,
-        "text_size": 16,
-        "text_size_mobile": 15,
+        "text_size": 14,
+        "text_size_mobile": 14,
         "text_leading": 170,
         "first_letter": false,
-        "quote_size": 23,
+        "quote_size": 20,
         "quote_style": "filet",
-        "stat_size": 46,
-        "button_size": 15,
+        "stat_size": 38,
+        "button_size": 14,
         "button_padding_x": 34,
         "button_padding_y": 16,
         "button_radius": 40,
@@ -320,10 +320,10 @@
         "color_accent": "#C25A34",
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44,
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16,
         "image_mobile": "shopify://shop_images/22747.png"
       }
     },
@@ -401,7 +401,7 @@
         "kicker": "Comparaison",
         "title": "<p>Pourquoi <em>myrootalia</em> plutôt qu'autre chose</p>",
         "description": "",
-        "title_size": 36,
+        "title_size": 30,
         "header_gap": 52,
         "col1_name": "myrootalia",
         "hero_badge": "Notre choix",
@@ -415,7 +415,7 @@
         "table_radius": 18,
         "cell_padding": 18,
         "cell_text_size": 14,
-        "header_text_size": 15,
+        "header_text_size": 14,
         "mark_size": 30,
         "logo_width": 90,
         "zebra": true,
@@ -437,10 +437,10 @@
         "color_no": "#B4553C",
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44,
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16,
         "col1_logo": "shopify://shop_images/22754.png"
       }
     },
@@ -537,7 +537,7 @@
         "title": "<p>Les questions <em>qu'on nous pose</em></p>",
         "description": "<p>Et nos réponses, sans détour.</p>",
         "alignment": "left",
-        "title_size": 36,
+        "title_size": 30,
         "header_gap": 44,
         "layout": "deux_colonnes",
         "layout_width": "normal",
@@ -548,8 +548,8 @@
         "gap": 10,
         "row_padding": 18,
         "icon_size": 36,
-        "question_size": 16,
-        "answer_size": 15,
+        "question_size": 15,
+        "answer_size": 14,
         "foot_note": "Une autre question ? Écris-nous, on répond en moins de 24 h.",
         "cta_text": "",
         "cta_link": "",
@@ -561,10 +561,10 @@
         "color_accent": "#C25A34",
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "guarantees": {
@@ -621,7 +621,7 @@
         "title": "<p>On te couvre <em>à chaque étape</em></p>",
         "description": "",
         "alignment": "center",
-        "title_size": 34,
+        "title_size": 28,
         "header_gap": 44,
         "style": "epure",
         "item_alignment": "center",
@@ -630,7 +630,7 @@
         "icon_gap": 14,
         "card_radius": 18,
         "card_padding": 24,
-        "item_title_size": 17,
+        "item_title_size": 16,
         "item_text_size": 13,
         "columns": 4,
         "columns_tablet": 2,
@@ -640,10 +640,10 @@
         "layout_width": "normal",
         "cta_text": "",
         "cta_link": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "padding_top_sm": 40,
-        "padding_bottom_sm": 40
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "final_cta": {
@@ -684,10 +684,10 @@
         "enable_animations": true,
         "animation": "fade-up",
         "layout_width": "normal",
-        "padding_top": 56,
-        "padding_bottom": 64,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 32,
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16,
         "color_palette": "background-1"
       }
     },
@@ -708,10 +708,10 @@
         "slides_on_mobile": "2",
         "layout_width": "normal",
         "color_palette": "background-1",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "temoignages": {
@@ -788,8 +788,8 @@
         "enable_autoplay": true,
         "autoplay_delay": 5,
         "layout_width": "container",
-        "padding_top": 72,
-        "padding_bottom": 72,
+        "padding_top": 32,
+        "padding_bottom": 32,
         "bg_color": "#FAF6EF",
         "card_bg_color": "#FFFFFF",
         "title_color": "#1E3A2F",
@@ -844,10 +844,10 @@
         "color_text": "#25332C",
         "color_accent": "#C25A34",
         "layout_width": "full",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "stories": {
@@ -892,10 +892,10 @@
         "ring_color_1": "#C25A34",
         "ring_color_2": "#1E3A2F",
         "layout_width": "normal",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "routine": {
@@ -960,7 +960,7 @@
         "chip_text": "2 minutes par jour, montre en main",
         "chip_icon": "chrono",
         "alignment": "center",
-        "title_size": 38,
+        "title_size": 32,
         "header_gap": 48,
         "cta_note": "Essai 60 nuits — remboursé si tu n'aimes pas.",
         "cta_text": "Commencer ma routine",
@@ -974,16 +974,16 @@
         "card_radius": 18,
         "image_ratio": 85,
         "content_padding": 24,
-        "card_title_size": 21,
+        "card_title_size": 18,
         "card_text_size": 14,
-        "num_size": 52,
+        "num_size": 44,
         "color_num_bg": "#1E3A2F",
         "color_num_text": "#FAF6EF",
         "modal_close_text": "J’ai compris",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "formule": {
@@ -1072,13 +1072,13 @@
         "kicker": "La formule",
         "title": "<p>Quatre actifs, <em>rien de superflu</em></p>",
         "description": "<p>Une formule courte, lisible, qu'on peut te nommer.</p>",
-        "title_size": 36,
+        "title_size": 30,
         "header_gap": 48,
         "medal_size": 140,
         "medal_ring": true,
         "ring_gap": 5,
         "medal_gap": 18,
-        "name_size": 20,
+        "name_size": 18,
         "role_size": 14,
         "columns": 4,
         "columns_tablet": 2,
@@ -1096,10 +1096,10 @@
         "color_title": "#1E3A2F",
         "color_text": "#25332C",
         "color_accent": "#C25A34",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "chronologie": {
@@ -1152,7 +1152,7 @@
         "kicker": "Ta progression",
         "title": "<p>8 à 12 semaines, <em>en toute honnêteté</em></p>",
         "description": "<p>Chaque cuir chevelu a son rythme. Voici le déroulé habituel.</p>",
-        "title_size": 36,
+        "title_size": 30,
         "header_gap": 52,
         "layout": "alternee",
         "layout_width": "normal",
@@ -1167,7 +1167,7 @@
         "card_style": true,
         "card_radius": 16,
         "card_padding": 24,
-        "item_title_size": 21,
+        "item_title_size": 18,
         "item_text_size": 15,
         "cta_note": "",
         "cta_text": "",
@@ -1180,10 +1180,10 @@
         "color_line": "#DDD3C4",
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_sm": 44,
-        "padding_bottom_sm": 44
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     }
   },

@@ -68,9 +68,9 @@
         "cart_button_style": "1",
         "cart_footer_text": "Livraison et taxes calculées à la caisse. Essai 60 nuits sur toute commande.",
         "cart_footer_payment_badges": true,
-        "padding_top": 48,
+        "padding_top": 32,
         "padding_bottom": 0,
-        "padding_top_sm": 28,
+        "padding_top_sm": 16,
         "padding_bottom_sm": 0
       }
     },
@@ -127,7 +127,7 @@
         "title": "<p>On te couvre <em>à chaque étape</em></p>",
         "description": "",
         "alignment": "center",
-        "title_size": 32,
+        "title_size": 26,
         "header_gap": 40,
         "style": "epure",
         "item_alignment": "center",
@@ -136,7 +136,7 @@
         "icon_gap": 14,
         "card_radius": 16,
         "card_padding": 24,
-        "item_title_size": 17,
+        "item_title_size": 16,
         "item_text_size": 13,
         "columns": 4,
         "columns_tablet": 2,
@@ -153,10 +153,10 @@
         "color_accent": "#C25A34",
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
-        "padding_top": 56,
-        "padding_bottom": 48,
-        "padding_top_sm": 36,
-        "padding_bottom_sm": 36
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     },
     "faq_panier": {
@@ -210,7 +210,7 @@
         "title": "<p>Les questions <em>de dernière minute</em></p>",
         "description": "",
         "alignment": "center",
-        "title_size": 32,
+        "title_size": 26,
         "header_gap": 40,
         "layout": "simple",
         "layout_width": "normal",
@@ -221,8 +221,8 @@
         "gap": 10,
         "row_padding": 16,
         "icon_size": 34,
-        "question_size": 15,
-        "answer_size": 14,
+        "question_size": 14,
+        "answer_size": 13,
         "foot_note": "Une autre question ? Écris-nous, on répond en moins de 24 h.",
         "cta_text": "",
         "cta_link": "",
@@ -234,10 +234,10 @@
         "color_accent": "#C25A34",
         "color_btn_bg": "#1E3A2F",
         "color_btn_text": "#FAF6EF",
-        "padding_top": 64,
-        "padding_bottom": 72,
-        "padding_top_sm": 36,
-        "padding_bottom_sm": 40
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_top_sm": 16,
+        "padding_bottom_sm": 16
       }
     }
   },

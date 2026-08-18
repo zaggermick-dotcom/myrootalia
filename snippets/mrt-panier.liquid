@@ -234,7 +234,7 @@
           '<span class="mrtP-bar__lab">Total</span>' +
           '<span class="mrtP-bar__val" data-mrtp-total>{{ cart.total_price | money | strip_html | escape }}</span>' +
         '</span>' +
-        '<button type="button" class="mrtP-bar__go">{{ 'Passer à la caisse' | escape }}</button>';
+        '<button type="button" class="mrtP-bar__go">Passer &agrave; la caisse</button>';
       document.body.appendChild(bar);
 
       /* la barre n'apparaît que quand le vrai bouton n'est plus à l'écran */
@@ -250,8 +250,11 @@
 
       /* recopie le total affiché sur la page, et le fait pulser quand il change */
       var cible = bar.querySelector('[data-mrtp-total]');
-      var source = document.querySelector('.totals:last-of-type .totals__subtotal-value')
-                || document.querySelector('.drawer__subtotal--amount');
+      /* le dernier montant affiche est le total : :last-of-type ne le vise pas
+         de facon fiable, on prend donc le dernier element de la liste. */
+      var montants = document.querySelectorAll('.totals__subtotal-value');
+      var source = montants.length ? montants[montants.length - 1]
+                                   : document.querySelector('.drawer__subtotal--amount');
       if (!source) return;
 
       var sync = function () {

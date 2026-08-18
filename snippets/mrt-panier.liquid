@@ -1,0 +1,276 @@
+{% comment %}
+  MRT · Panier premium
+  --------------------
+  Habillage de la page panier : lignes d'article, totaux, modules, bouton de
+  caisse, panier vide, et une barre de caisse collante sur mobile.
+
+  Rendu uniquement sur la page panier, en dernier dans le <head>.
+  Les molettes sont juste en dessous.
+{% endcomment %}
+
+{%- liquid
+  assign p_accent   = '#C25A34'
+  assign p_fonce    = '#1E3A2F'
+  assign p_encre    = '#25332C'
+  assign p_creme    = '#FAF6EF'
+  assign p_sable    = '#F1EAE0'
+  assign p_rayon    = 16
+  assign p_hauteur  = 56
+-%}
+
+{%- style -%}
+  .cart__contents{
+    --mrtP-accent: {{ p_accent }};
+    --mrtP-fonce: {{ p_fonce }};
+    --mrtP-encre: {{ p_encre }};
+    --mrtP-creme: {{ p_creme }};
+    --mrtP-sable: {{ p_sable }};
+    --mrtP-filet: color-mix(in srgb, {{ p_fonce }} 14%, transparent);
+    --mrtP-doux: color-mix(in srgb, {{ p_encre }} 58%, {{ p_creme }});
+    --mrtP-rayon: {{ p_rayon }}px;
+    --mrtP-serif: var(--font-heading-family, Georgia, serif);
+  }
+
+  /* ---------- colonnes ---------- */
+  .cart-wrapper{ gap: 28px; }
+  @media screen and (min-width: 750px){
+    .cart-wrapper .cart-modules{ top: calc(var(--header-height) + 16px); }
+  }
+
+  /* ---------- ligne d'article ---------- */
+  .cart-item{
+    background: var(--mrtP-creme);
+    border: 1px solid var(--mrtP-filet);
+    border-radius: var(--mrtP-rayon);
+    padding: 14px;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+  .cart-item:hover{
+    border-color: color-mix(in srgb, var(--mrtP-accent) 45%, transparent);
+    box-shadow: 0 14px 32px -24px rgba(21,42,33,.55);
+  }
+  .cart-items > *:not(:last-child){ margin-bottom: 12px; }
+
+  .cart-item__image,
+  .cart-item__image-container img{
+    border-radius: 12px;
+    background: var(--mrtP-sable);
+  }
+  .cart-item__name{
+    font-family: var(--mrtP-serif);
+    font-weight: 500;
+    color: var(--mrtP-fonce);
+    line-height: 1.3;
+    text-decoration: none;
+  }
+  .cart-item__name:hover{ color: var(--mrtP-accent); }
+  .cart-item__details{ color: var(--mrtP-doux); }
+  .cart-item__old-price{ color: var(--mrtP-doux); opacity: .75; }
+  .cart-item__final-price{ color: var(--mrtP-fonce); font-weight: 600; }
+
+  /* compteur de quantité */
+  .cart-item__quantity-wrapper .quantity,
+  .cart-item__quantity .quantity{
+    border: 1px solid var(--mrtP-filet);
+    border-radius: 999px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .cart-item__quantity button{ transition: color .25s ease, background .25s ease; }
+  .cart-item__quantity button:hover{
+    color: var(--mrtP-accent);
+    background: color-mix(in srgb, var(--mrtP-accent) 10%, transparent);
+  }
+
+  /* ---------- modules (livraison, minuteur, réassurance, code) ---------- */
+  .cart-modules .drawer__module,
+  .cart-modules .content-container,
+  .cart-modules > div{
+    border-radius: 14px;
+  }
+  .cart-modules .cart__discount-code input{
+    border-radius: 999px;
+    border: 1px solid var(--mrtP-filet);
+  }
+  .cart-modules .cart__discount-code button{ border-radius: 999px; }
+
+  /* barre de livraison offerte */
+  .cart-modules progress,
+  .cart-modules .progress-bar,
+  .cart-modules [class*="progress"] > span{
+    border-radius: 999px;
+    transition: width .6s cubic-bezier(.22,.61,.36,1);
+  }
+
+  /* ---------- totaux ---------- */
+  .cart-flex__right .totals,
+  .totals{
+    background: var(--mrtP-sable);
+    border-radius: var(--mrtP-rayon);
+    padding: 18px 20px;
+  }
+  .totals__subtotal{ color: var(--mrtP-doux); }
+  .totals.savings .totals__subtotal,
+  .totals.savings .totals__subtotal-value{
+    color: var(--mrtP-accent);
+    font-weight: 600;
+  }
+  .totals:last-of-type .totals__subtotal-value{
+    font-family: var(--mrtP-serif);
+    font-size: 1.35em;
+    color: var(--mrtP-fonce);
+  }
+
+  /* ---------- bouton de caisse ---------- */
+  .cart__checkout-button{
+    width: 100%;
+    min-height: {{ p_hauteur }}px;
+    border-radius: 999px;
+    background: var(--mrtP-fonce);
+    color: var(--mrtP-creme);
+    font-weight: 600;
+    letter-spacing: .01em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 34px -18px rgba(21,42,33,.7);
+    transition: transform .3s ease, filter .3s ease;
+  }
+  .cart__checkout-button:hover{ transform: translateY(-2px); filter: brightness(1.06); }
+  .cart__checkout-button::after{
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 -60%;
+    width: 45%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
+    transform: skewX(-18deg);
+    transition: left .7s cubic-bezier(.22,.61,.36,1);
+  }
+  .cart__checkout-button:hover::after{ left: 115%; }
+  @media (prefers-reduced-motion: reduce){
+    .cart__checkout-button::after{ display: none; }
+    .cart__checkout-button:hover{ transform: none; }
+  }
+
+  .cart__ctas{ display: grid; gap: 10px; }
+  .cart__footer-image img{ margin-inline: auto; }
+
+  /* ---------- panier vide ---------- */
+  .cart__empty-text{
+    font-family: var(--mrtP-serif);
+    font-size: clamp(20px, 3vw, 28px);
+    color: var(--mrtP-fonce);
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .cart__contents .underlined-link,
+  .is-empty .underlined-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background: var(--mrtP-accent);
+    color: var(--mrtP-creme);
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform .3s ease, filter .3s ease;
+  }
+  .cart__contents .underlined-link:hover{ transform: translateY(-2px); filter: brightness(1.06); }
+
+  /* ---------- barre de caisse collante, mobile ---------- */
+  .mrtP-bar{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, {{ p_creme }} 92%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--mrtP-filet);
+    transform: translateY(115%);
+    transition: transform .35s cubic-bezier(.22,.61,.36,1);
+  }
+  .mrtP-bar.is-on{ transform: none; }
+  .mrtP-bar__sum{ display: flex; flex-direction: column; line-height: 1.2; }
+  .mrtP-bar__lab{ font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--mrtP-doux); }
+  .mrtP-bar__val{ font-family: var(--mrtP-serif); font-size: 19px; color: var(--mrtP-fonce); font-weight: 600; }
+  .mrtP-bar__go{
+    flex: 1;
+    min-height: 48px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--mrtP-fonce);
+    color: var(--mrtP-creme);
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .mrtP-bar__go:active{ filter: brightness(.92); }
+  @media screen and (min-width: 750px){ .mrtP-bar{ display: none; } }
+
+  /* le total pulse quand le panier change */
+  @keyframes mrtP-pulse{ 0%{transform:scale(1)} 45%{transform:scale(1.06)} 100%{transform:scale(1)} }
+  .mrtP-pulse{ animation: mrtP-pulse .45s ease; display: inline-block; }
+  @media (prefers-reduced-motion: reduce){ .mrtP-pulse{ animation: none; } }
+{%- endstyle -%}
+
+{%- if cart != empty -%}
+  <script>
+  /* Ce fichier est rendu dans le <head> : la barre est donc construite par le
+     script et ajoutée au <body>, plutôt que d'écrire du HTML là où il n'a pas
+     sa place. */
+  (function () {
+    var demarrer = function () {
+      var real = document.getElementById('checkout');
+      if (!real || document.querySelector('.mrtP-bar')) return;
+
+      var bar = document.createElement('div');
+      bar.className = 'mrtP-bar';
+      bar.innerHTML =
+        '<span class="mrtP-bar__sum">' +
+          '<span class="mrtP-bar__lab">Total</span>' +
+          '<span class="mrtP-bar__val" data-mrtp-total>{{ cart.total_price | money | strip_html | escape }}</span>' +
+        '</span>' +
+        '<button type="button" class="mrtP-bar__go">{{ 'Passer à la caisse' | escape }}</button>';
+      document.body.appendChild(bar);
+
+      /* la barre n'apparaît que quand le vrai bouton n'est plus à l'écran */
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { bar.classList.toggle('is-on', !en.isIntersecting); });
+        }, { threshold: 0.05 }).observe(real);
+      } else {
+        bar.classList.add('is-on');
+      }
+
+      bar.querySelector('.mrtP-bar__go').addEventListener('click', function () { real.click(); });
+
+      /* recopie le total affiché sur la page, et le fait pulser quand il change */
+      var cible = bar.querySelector('[data-mrtp-total]');
+      var source = document.querySelector('.totals:last-of-type .totals__subtotal-value')
+                || document.querySelector('.drawer__subtotal--amount');
+      if (!source) return;
+
+      var sync = function () {
+        var v = source.textContent.trim();
+        if (!v || v === cible.textContent.trim()) return;
+        cible.textContent = v;
+        cible.classList.remove('mrtP-pulse');
+        void cible.offsetWidth;
+        cible.classList.add('mrtP-pulse');
+      };
+      sync();
+      new MutationObserver(sync).observe(source, { childList: true, characterData: true, subtree: true });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', demarrer);
+    } else {
+      demarrer();
+    }
+  })();
+  </script>
+{%- endif -%}

@@ -115,6 +115,9 @@
 
     {%- comment -%} Densité globale : taille du texte et marges des sections. En dernier, pour avoir le dernier mot. {%- endcomment -%}
     {%- render 'mrt-densite' -%}
+    {%- if request.page_type == 'cart' -%}
+      {%- render 'mrt-panier' -%}
+    {%- endif -%}
   </head>
 
   <body

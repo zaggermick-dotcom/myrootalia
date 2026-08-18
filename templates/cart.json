@@ -51,9 +51,9 @@
       },
       "block_order": [
         "free_shipping",
-        "timer",
         "delivery",
         "trust",
+        "timer",
         "code"
       ],
       "settings": {

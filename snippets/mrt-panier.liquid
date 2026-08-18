@@ -1,11 +1,17 @@
 {% comment %}
   MRT · Panier premium
   --------------------
-  Habillage de la page panier : lignes d'article, totaux, modules, bouton de
-  caisse, panier vide, et une barre de caisse collante sur mobile.
+  Habillage des DEUX surfaces de panier : le tiroir qui s'ouvre depuis
+  n'importe quelle page, et la page /cart. La boutique etant reglee sur
+  cart_type = drawer, c'est le tiroir que les clientes voient presque
+  toujours — d'ou le chargement sur toutes les pages, et non sur la seule
+  page panier.
 
-  Rendu uniquement sur la page panier, en dernier dans le <head>.
-  Les molettes sont juste en dessous.
+  Les deux surfaces partagent leurs classes (.cart__contents, .cart-item,
+  .cart__checkout-button, .totals) : l'essentiel du style vaut pour les deux.
+  Ce qui est propre au tiroir est regroupe dans sa section.
+
+  Rendu en dernier dans le <head>. Les molettes sont juste en dessous.
 {% endcomment %}
 
 {%- liquid
@@ -19,7 +25,7 @@
 -%}
 
 {%- style -%}
-  .cart__contents{
+  :root{
     --mrtP-accent: {{ p_accent }};
     --mrtP-fonce: {{ p_fonce }};
     --mrtP-encre: {{ p_encre }};
@@ -177,6 +183,44 @@
   }
   .cart__contents .underlined-link:hover{ transform: translateY(-2px); filter: brightness(1.06); }
 
+  /* ---------- propre au tiroir panier ---------- */
+  .drawer__inner{ background: var(--mrtP-creme); }
+  .drawer__header{
+    border-bottom: 1px solid var(--mrtP-filet);
+    padding-bottom: 14px;
+  }
+  .drawer__heading{
+    font-family: var(--mrtP-serif);
+    font-weight: 500;
+    color: var(--mrtP-fonce);
+    letter-spacing: .01em;
+  }
+  .drawer__close{ transition: color .25s ease, transform .25s ease; }
+  .drawer__close:hover{ color: var(--mrtP-accent); transform: rotate(90deg); }
+
+  .cart-drawer-items .cart-item{ background: #fff; }
+  .cart-drawer-items > *:not(:last-child){ margin-bottom: 10px; }
+
+  .drawer__module,
+  .drawer__upsell,
+  .drawer__protection{ border-radius: 14px; }
+
+  .cart-drawer__footer{
+    background: var(--mrtP-sable);
+    border-top: 1px solid var(--mrtP-filet);
+    border-radius: var(--mrtP-rayon) var(--mrtP-rayon) 0 0;
+    padding: 16px;
+  }
+  .drawer__savings--amount{ color: var(--mrtP-accent); font-weight: 600; }
+  .drawer__total--amount{
+    font-family: var(--mrtP-serif);
+    font-size: 1.3em;
+    color: var(--mrtP-fonce);
+    font-weight: 600;
+  }
+  .drawer__footer .cart__checkout-button,
+  .cart-drawer__footer .cart__checkout-button{ margin-top: 4px; }
+
   /* ---------- barre de caisse collante, mobile ---------- */
   .mrtP-bar{
     position: fixed;
@@ -217,10 +261,12 @@
   @media (prefers-reduced-motion: reduce){ .mrtP-pulse{ animation: none; } }
 {%- endstyle -%}
 
-{%- if cart != empty -%}
+{%- if cart != empty and request.page_type == 'cart' -%}
   <script>
-  /* Ce fichier est rendu dans le <head> : la barre est donc construite par le
-     script et ajoutée au <body>, plutôt que d'écrire du HTML là où il n'a pas
+  /* Barre collante reservee a la page /cart : dans le tiroir, le bouton de
+     caisse est deja visible en permanence, une seconde barre ferait doublon.
+     Ce fichier est rendu dans le <head>, la barre est donc construite par le
+     script et ajoutee au <body> plutot que d'ecrire du HTML la ou il n'a pas
      sa place. */
   (function () {
     var demarrer = function () {

@@ -30,14 +30,14 @@
          html{ font-size: calc(var(--font-body-scale) * 62.5%) }
        donc baisser ce nombre réduit proportionnellement tout le texte en rem.
        Équivalent éditeur : Paramètres du thème → Typographie → Taille du texte. */
-    --font-body-scale: 0.92;
+    --font-body-scale: 0.86;
   }
 
   /* Sur mobile on descend encore : l'écran est plus près de l'œil, un texte
      plus petit y reste parfaitement lisible et fait tenir bien plus de contenu
      au-dessus de la ligne de flottaison. */
   @media screen and (max-width: 749px){
-    :root{ --font-body-scale: 0.86; }
+    :root{ --font-body-scale: 0.80; }
   }
 
   /* ================================================================
@@ -91,46 +91,46 @@
      chaque clamp est le plancher mobile — rien ne descend sous 18 px pour un
      titre, pour rester lisible sur petit écran. */
 
-  .acc-hero h1{ font-size: clamp(26px, 4.4vw, 52px) !important; }
-  .acc-hero__price b{ font-size: 25px !important; }
-  .acc-origin h2{ font-size: clamp(19px, 3.2vw, 36px) !important; }
+  .acc-hero h1{ font-size: clamp(23px, 3.9vw, 46px) !important; }
+  .acc-hero__price b{ font-size: 22px !important; }
+  .acc-origin h2{ font-size: clamp(17px, 2.8vw, 32px) !important; }
   .acc-ps__title,
-  .acc-news h2{ font-size: clamp(19px, 2.9vw, 33px) !important; }
+  .acc-news h2{ font-size: clamp(17px, 2.6vw, 29px) !important; }
   .acc-offer__head .acc-h,
   .acc-pillars .acc-h,
   .acc-videosec .acc-h,
-  .acc-ritual .acc-h{ font-size: clamp(19px, 2.9vw, 32px) !important; }
-  .acc-reviews .acc-h{ font-size: clamp(18px, 2.6vw, 29px) !important; }
-  .acc-pill__n{ font-size: 36px !important; }
-  .acc-pk__price b{ font-size: 33px !important; }
-  .acc-pk__name{ font-size: 22px !important; }
-  .sto-h{ font-size: clamp(19px, 2.7vw, 30px) !important; }
+  .acc-ritual .acc-h{ font-size: clamp(17px, 2.6vw, 28px) !important; }
+  .acc-reviews .acc-h{ font-size: clamp(16px, 2.3vw, 26px) !important; }
+  .acc-pill__n{ font-size: 31px !important; }
+  .acc-pk__price b{ font-size: 29px !important; }
+  .acc-pk__name{ font-size: 19px !important; }
+  .sto-h{ font-size: clamp(17px, 2.4vw, 26px) !important; }
 
   /* Sur mobile, on redescend d'un cran : les planchers des clamp ci-dessus et
      les tailles fixes, qui elles ne bougeaient pas d'un écran à l'autre. */
   @media screen and (max-width: 749px){
-    .acc-hero h1{ font-size: 22px !important; }
-    .acc-hero__price b{ font-size: 21px !important; }
+    .acc-hero h1{ font-size: 20px !important; }
+    .acc-hero__price b{ font-size: 19px !important; }
     .acc-origin h2,
     .acc-ps__title,
     .acc-news h2,
     .acc-offer__head .acc-h,
     .acc-pillars .acc-h,
     .acc-videosec .acc-h,
-    .acc-ritual .acc-h{ font-size: 17px !important; }
-    .acc-reviews .acc-h{ font-size: 16px !important; }
-    .acc-pill__n{ font-size: 28px !important; }
-    .acc-pk__price b{ font-size: 27px !important; }
-    .acc-pk__name{ font-size: 19px !important; }
-    .sto-h{ font-size: 17px !important; }
+    .acc-ritual .acc-h{ font-size: 16px !important; }
+    .acc-reviews .acc-h{ font-size: 15px !important; }
+    .acc-pill__n{ font-size: 25px !important; }
+    .acc-pk__price b{ font-size: 24px !important; }
+    .acc-pk__name{ font-size: 17px !important; }
+    .sto-h{ font-size: 16px !important; }
 
     /* Sections MRT sur mobile. Leur titre s'écrit clamp(26px, 3.6vw, réglage) :
        en dessous de 750 px, 3.6vw vaut ~13 px, donc c'est TOUJOURS le plancher
        de 26-28 px qui s'applique — le curseur « Taille du titre » ne joue que
        sur ordinateur. Rabaisser ce plancher ici ne lui prend donc rien.
        Le titre du produit et celui de la bannière sont des h1 : intacts. */
-    [id^="mrt-"] h2{ font-size: 21px !important; }
-    [id^="mrt-"] h3{ font-size: 16px !important; }
+    [id^="mrt-"] h2{ font-size: 19px !important; }
+    [id^="mrt-"] h3{ font-size: 15px !important; }
   }
 
   /* Les titres des sections MRT ne sont volontairement PAS plafonnés ici :

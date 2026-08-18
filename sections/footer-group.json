@@ -1,184 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "2013bac1-7607-4fe5-b212-f1a53a39fb3e": {
-      "type": "icons",
-      "blocks": {
-        "sections--19135659901252__2013bac1-7607-4fe5-b212-f1a53a39fb3e-1687159068ab1a3399-0": {
-          "type": "icon",
-          "settings": {
-            "icon": "leaf",
-            "heading": "Clean et conscient",
-            "description": "Des formules clean, sans compromis sur la performance",
-            "heading_font_size": 24,
-            "heading_font_size_mobile": 21,
-            "button_text": "Discover",
-            "button_link": "",
-            "button_style": "2"
-          }
-        },
-        "sections--19135659901252__2013bac1-7607-4fe5-b212-f1a53a39fb3e-1687159068ab1a3399-1": {
-          "type": "icon",
-          "settings": {
-            "icon": "leather",
-            "heading": "Expertise française",
-            "description": "Développé avec soin à Paris par des experts du regard",
-            "heading_font_size": 24,
-            "heading_font_size_mobile": 21,
-            "button_text": "Discover",
-            "button_link": "",
-            "button_style": "2"
-          }
-        },
-        "sections--19135659901252__2013bac1-7607-4fe5-b212-f1a53a39fb3e-1687159068ab1a3399-2": {
-          "type": "icon",
-          "settings": {
-            "icon": "heart",
-            "heading": "Élégance et minimalisme",
-            "description": "Des packagings raffinés, à l'image de la femme Sylys",
-            "heading_font_size": 24,
-            "heading_font_size_mobile": 21,
-            "button_text": "Discover",
-            "button_link": "",
-            "button_style": "2"
-          }
-        }
-      },
-      "block_order": [
-        "sections--19135659901252__2013bac1-7607-4fe5-b212-f1a53a39fb3e-1687159068ab1a3399-0",
-        "sections--19135659901252__2013bac1-7607-4fe5-b212-f1a53a39fb3e-1687159068ab1a3399-1",
-        "sections--19135659901252__2013bac1-7607-4fe5-b212-f1a53a39fb3e-1687159068ab1a3399-2"
-      ],
-      "settings": {
-        "section_id": "",
-        "layout": "swiper",
-        "layout_style": "normal",
-        "icon__type": "complete",
-        "icon_width_desktop": 50,
-        "icon_width_mobile": 40,
-        "center_icons": true,
-        "slides_on_desktop": 4,
-        "slides_on_tablet": 3,
-        "slides_on_mobile": 1,
-        "preshot_swiper": true,
-        "loop": true,
-        "navigation": true,
-        "pagination": true,
-        "autoplay": true,
-        "speed": 4,
-        "subheading": "",
-        "heading": "",
-        "heading_style": "2",
-        "description": "",
-        "alignment": "left",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 32,
-        "padding_bottom": 32,
-        "padding_top_sm": 16,
-        "padding_bottom_sm": 16,
-        "color_palette": "background-2",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
-    "aa8bf3be-4224-454d-bc27-cddb58e85daf": {
-      "type": "newsletter",
-      "blocks": {
-        "sections--19784280637764__aa8bf3be-4224-454d-bc27-cddb58e85daf-heading-1": {
-          "type": "heading",
-          "settings": {
-            "subheading": "",
-            "heading": "<p>Recevez nos conseils beauté et nos exclusivités</p>",
-            "heading_style": "2"
-          }
-        },
-        "paragraph_4CcrUm": {
-          "type": "paragraph",
-          "settings": {
-            "description": "<p>Rejoignez la communauté Sylys et bénéficiez de -10% de réductions sur votre première commande</p>"
-          }
-        },
-        "sections--19784280637764__aa8bf3be-4224-454d-bc27-cddb58e85daf-email_form-1": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "sections--19784280637764__aa8bf3be-4224-454d-bc27-cddb58e85daf-heading-1",
-        "paragraph_4CcrUm",
-        "sections--19784280637764__aa8bf3be-4224-454d-bc27-cddb58e85daf-email_form-1"
-      ],
-      "settings": {
-        "section_id": "",
-        "desktop_content_alignment": "center",
-        "enable_animations": true,
-        "animation": "fade-up",
-        "layout_width": "normal",
-        "padding_top": 60,
-        "padding_bottom": 64,
-        "padding_top_sm": 32,
-        "padding_bottom_sm": 32,
-        "color_palette": "inverse",
-        "image_bg_colored": "shopify://shop_images/background_sylys_black.webp",
-        "image_bg_colored_mobile": "shopify://shop_images/background_sylys_black.webp",
-        "enable_cut_bg_color": false,
-        "cut_bg_color": "#f6f6f6",
-        "cut_bg_color_vertical": 0,
-        "cut_bg_color_vertical_mobile": 0,
-        "cut_bg_color_horizontal": 0,
-        "cut_bg_color_horizontal_mobile": 0,
-        "separator_top": "none",
-        "separator_top_invert": false,
-        "separator_bottom": "none",
-        "separator_bottom_invert": false,
-        "separator_animated": false,
-        "separator_bg_color": ""
-      }
-    },
     "footer": {
       "type": "footer",
       "blocks": {
         "86bc1fa1-7fbc-40a4-a5f1-6db385eaf7f5": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Sylys_Logo_Classic.png",
-            "image_width": 100,
+            "image": "shopify://shop_images/22754.png",
+            "image_width": 105,
             "alignment": "left",
-            "text_footer": "<p>Obtenez des résultats visibles avec nos produits cosmétiques.</p>"
+            "text_footer": "<p>Huile de Batana 100 % pure du Honduras.<br/>2300 Rue Du Quesne<br/>Montréal, QC H1N 3R6, Canada</p>"
           }
         },
         "4b56a407-ff69-4929-8842-bac519d7b845": {
           "type": "link_list",
           "settings": {
-            "heading": "Boutique",
-            "menu": "footer"
+            "heading": "Navigation",
+            "menu": "main-menu"
           }
         },
         "7f32e9e9-fbe8-4272-a3ec-1e5f34e16df2": {
           "type": "link_list",
           "settings": {
-            "heading": "À propos",
-            "menu": "menu-footer-secondaire"
+            "heading": "Aide & suivi",
+            "menu": "footer"
           }
         },
         "newsletter_49qmid": {
           "type": "newsletter",
           "settings": {
             "heading": "Newsletter",
-            "text": "Recevez nos conseils beauté et nos exclusivités"
+            "text": "Recevez le rituel Batana et vos offres en avant-première."
           }
         }
       },
@@ -194,18 +57,18 @@
         "border_bottom": "1",
         "footer_accordion_menu": true,
         "footer_copyright": true,
-        "footer_custom_text_before": "test",
-        "footer_custom_text_after": "Ce site est protégé",
+        "footer_custom_text_before": "",
+        "footer_custom_text_after": "myrootelia — Huile de Batana du Honduras. Tous droits réservés.",
         "footer_policy": true,
         "footer_bottom_socials": false,
         "payment_enable": true,
         "enable_animations": false,
         "animation": "fade-up",
         "layout_width": "normal",
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "padding_top_sm": 28,
-        "padding_bottom_sm": 28,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_sm": 0,
+        "padding_bottom_sm": 0,
         "color_palette": "background-2",
         "enable_cut_bg_color": false,
         "cut_bg_color": "#f6f6f6",
@@ -220,8 +83,6 @@
     }
   },
   "order": [
-    "2013bac1-7607-4fe5-b212-f1a53a39fb3e",
-    "aa8bf3be-4224-454d-bc27-cddb58e85daf",
     "footer"
   ]
 }

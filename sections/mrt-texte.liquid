@@ -375,10 +375,10 @@
     { "type": "select", "id": "layout_width", "label": "Largeur", "options": [
       { "value": "etroite", "label": "Étroite" }, { "value": "normale", "label": "Page" }, { "value": "large", "label": "Large" }
     ], "default": "normale" },
-    { "type": "range", "id": "content_max_width", "min": 420, "max": 1000, "step": 20, "unit": "px", "label": "Largeur du texte (sans image)", "default": 660 },
+    { "type": "range", "id": "content_max_width", "min": 0, "max": 1000, "step": 20, "unit": "px", "label": "Largeur du texte (sans image)", "default": 660 },
     { "type": "range", "id": "text_ratio", "min": 35, "max": 65, "step": 5, "unit": "%", "label": "Part du texte (avec image)", "default": 50 },
-    { "type": "range", "id": "split_gap", "min": 20, "max": 100, "step": 4, "unit": "px", "label": "Écart texte / image", "default": 56 },
-    { "type": "range", "id": "split_gap_mobile", "min": 16, "max": 64, "step": 4, "unit": "px", "label": "Écart sur mobile", "default": 28 },
+    { "type": "range", "id": "split_gap", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Écart texte / image", "default": 56 },
+    { "type": "range", "id": "split_gap_mobile", "min": 0, "max": 64, "step": 4, "unit": "px", "label": "Écart sur mobile", "default": 28 },
     { "type": "select", "id": "vertical_align", "label": "Alignement vertical", "options": [
       { "value": "center", "label": "Centré" }, { "value": "start", "label": "En haut" }, { "value": "stretch", "label": "Étiré" }
     ], "default": "center" },
@@ -389,9 +389,9 @@
     { "type": "select", "id": "text_align_mobile", "label": "Alignement sur mobile", "options": [
       { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" }
     ], "default": "center" },
-    { "type": "range", "id": "block_gap", "min": 6, "max": 44, "step": 2, "unit": "px", "label": "Espace entre les blocs", "default": 18 },
-    { "type": "range", "id": "block_gap_mobile", "min": 6, "max": 36, "step": 2, "unit": "px", "label": "Espace entre les blocs (mobile)", "default": 14 },
-    { "type": "range", "id": "side_padding", "min": 12, "max": 40, "step": 2, "unit": "px", "label": "Marge latérale", "default": 20 },
+    { "type": "range", "id": "block_gap", "min": 0, "max": 44, "step": 2, "unit": "px", "label": "Espace entre les blocs", "default": 18 },
+    { "type": "range", "id": "block_gap_mobile", "min": 0, "max": 36, "step": 2, "unit": "px", "label": "Espace entre les blocs (mobile)", "default": 14 },
+    { "type": "range", "id": "side_padding", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Marge latérale", "default": 20 },
     { "type": "header", "content": "Image" },
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "image_picker", "id": "image_mobile", "label": "Image pour mobile", "info": "Optionnelle. Utile pour un cadrage vertical." },
@@ -411,10 +411,10 @@
     { "type": "checkbox", "id": "image_shadow", "label": "Ombre portée", "default": true },
     { "type": "checkbox", "id": "image_zoom", "label": "Zoom léger au survol", "default": true },
     { "type": "checkbox", "id": "image_frame", "label": "Filet doré à l'intérieur", "default": false },
-    { "type": "range", "id": "frame_inset", "min": 6, "max": 30, "step": 2, "unit": "px", "label": "Retrait du filet", "default": 14 },
+    { "type": "range", "id": "frame_inset", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Retrait du filet", "default": 14 },
     { "type": "header", "content": "Image en fond" },
-    { "type": "range", "id": "bg_min_height", "min": 260, "max": 900, "step": 20, "unit": "px", "label": "Hauteur (ordinateur)", "default": 540 },
-    { "type": "range", "id": "bg_min_height_mobile", "min": 220, "max": 700, "step": 20, "unit": "px", "label": "Hauteur (mobile)", "default": 420 },
+    { "type": "range", "id": "bg_min_height", "min": 0, "max": 900, "step": 20, "unit": "px", "label": "Hauteur (ordinateur)", "default": 540 },
+    { "type": "range", "id": "bg_min_height_mobile", "min": 0, "max": 700, "step": 20, "unit": "px", "label": "Hauteur (mobile)", "default": 420 },
     { "type": "select", "id": "overlay_style", "label": "Voile", "options": [
       { "value": "uni", "label": "Uni" },
       { "value": "degrade_bas", "label": "Dégradé depuis le bas" },
@@ -423,27 +423,27 @@
     { "type": "color", "id": "overlay_color", "label": "Couleur du voile", "default": "#1E3A2F" },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Intensité du voile", "default": 55 },
     { "type": "header", "content": "Typographie" },
-    { "type": "range", "id": "kicker_size", "min": 9, "max": 16, "step": 1, "unit": "px", "label": "Taille du sur-titre", "default": 12 },
+    { "type": "range", "id": "kicker_size", "min": 0, "max": 16, "step": 1, "unit": "px", "label": "Taille du sur-titre", "default": 12 },
     { "type": "select", "id": "kicker_rules", "label": "Filets du sur-titre", "options": [
       { "value": "aucun", "label": "Aucun" }, { "value": "un", "label": "À gauche" }, { "value": "deux", "label": "De chaque côté" }
     ], "default": "deux" },
-    { "type": "range", "id": "title_size", "min": 24, "max": 76, "step": 2, "unit": "px", "label": "Taille du titre", "default": 40 },
-    { "type": "range", "id": "title_size_mobile", "min": 20, "max": 46, "step": 1, "unit": "px", "label": "Taille du titre (mobile)", "default": 28 },
+    { "type": "range", "id": "title_size", "min": 0, "max": 76, "step": 2, "unit": "px", "label": "Taille du titre", "default": 40 },
+    { "type": "range", "id": "title_size_mobile", "min": 0, "max": 46, "step": 1, "unit": "px", "label": "Taille du titre (mobile)", "default": 28 },
     { "type": "range", "id": "title_weight", "min": 300, "max": 700, "step": 100, "label": "Graisse du titre", "default": 500 },
     { "type": "range", "id": "title_leading", "min": 100, "max": 160, "step": 2, "unit": "%", "label": "Interligne du titre", "default": 116 },
-    { "type": "range", "id": "text_size", "min": 13, "max": 24, "step": 1, "unit": "px", "label": "Taille du texte", "default": 16 },
-    { "type": "range", "id": "text_size_mobile", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Taille du texte (mobile)", "default": 15 },
+    { "type": "range", "id": "text_size", "min": 0, "max": 24, "step": 1, "unit": "px", "label": "Taille du texte", "default": 16 },
+    { "type": "range", "id": "text_size_mobile", "min": 0, "max": 20, "step": 1, "unit": "px", "label": "Taille du texte (mobile)", "default": 15 },
     { "type": "range", "id": "text_leading", "min": 130, "max": 210, "step": 5, "unit": "%", "label": "Interligne du texte", "default": 170 },
     { "type": "checkbox", "id": "first_letter", "label": "Lettrine sur le premier paragraphe", "default": false },
-    { "type": "range", "id": "quote_size", "min": 16, "max": 40, "step": 1, "unit": "px", "label": "Taille des citations", "default": 23 },
+    { "type": "range", "id": "quote_size", "min": 0, "max": 40, "step": 1, "unit": "px", "label": "Taille des citations", "default": 23 },
     { "type": "select", "id": "quote_style", "label": "Style des citations", "options": [
       { "value": "filet", "label": "Filet à gauche" }, { "value": "carte", "label": "Carte teintée" }, { "value": "nu", "label": "Sans décor" }
     ], "default": "filet" },
-    { "type": "range", "id": "stat_size", "min": 28, "max": 80, "step": 2, "unit": "px", "label": "Taille des chiffres clés", "default": 46 },
+    { "type": "range", "id": "stat_size", "min": 0, "max": 80, "step": 2, "unit": "px", "label": "Taille des chiffres clés", "default": 46 },
     { "type": "header", "content": "Boutons" },
-    { "type": "range", "id": "button_size", "min": 12, "max": 20, "step": 1, "unit": "px", "label": "Taille du texte", "default": 15 },
-    { "type": "range", "id": "button_padding_x", "min": 16, "max": 56, "step": 2, "unit": "px", "label": "Largeur intérieure", "default": 34 },
-    { "type": "range", "id": "button_padding_y", "min": 10, "max": 26, "step": 1, "unit": "px", "label": "Hauteur intérieure", "default": 16 },
+    { "type": "range", "id": "button_size", "min": 0, "max": 20, "step": 1, "unit": "px", "label": "Taille du texte", "default": 15 },
+    { "type": "range", "id": "button_padding_x", "min": 0, "max": 56, "step": 2, "unit": "px", "label": "Largeur intérieure", "default": 34 },
+    { "type": "range", "id": "button_padding_y", "min": 0, "max": 26, "step": 1, "unit": "px", "label": "Hauteur intérieure", "default": 16 },
     { "type": "range", "id": "button_radius", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Arrondi", "default": 40 },
     { "type": "checkbox", "id": "buttons_full_mobile", "label": "Boutons pleine largeur sur mobile", "default": true },
     { "type": "header", "content": "Couleurs" },
@@ -511,10 +511,10 @@
       ], "default": "2" }
     ]},
     { "type": "filet", "name": "Filet", "settings": [
-      { "type": "range", "id": "largeur", "min": 20, "max": 400, "step": 10, "unit": "px", "label": "Longueur", "default": 80 }
+      { "type": "range", "id": "largeur", "min": 0, "max": 400, "step": 10, "unit": "px", "label": "Longueur", "default": 80 }
     ]},
     { "type": "espace", "name": "Espace", "settings": [
-      { "type": "range", "id": "hauteur", "min": 4, "max": 80, "step": 4, "unit": "px", "label": "Hauteur", "default": 16 }
+      { "type": "range", "id": "hauteur", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Hauteur", "default": 16 }
     ]}
   ],
   "presets": [

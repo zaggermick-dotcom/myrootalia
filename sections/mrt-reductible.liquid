@@ -249,8 +249,8 @@
     { "type": "select", "id": "alignment", "label": "Alignement de l'en-tête", "options": [
       { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }
     ], "default": "center" },
-    { "type": "range", "id": "title_size", "min": 24, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
-    { "type": "range", "id": "header_gap", "min": 16, "max": 80, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 44 },
+    { "type": "range", "id": "title_size", "min": 0, "max": 52, "step": 2, "unit": "px", "label": "Taille du titre", "default": 36 },
+    { "type": "range", "id": "header_gap", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Espace sous l'en-tête", "default": 44 },
     { "type": "header", "content": "Disposition" },
     { "type": "select", "id": "layout", "label": "Type", "options": [
       { "value": "simple", "label": "En-tête au-dessus" },
@@ -269,10 +269,10 @@
     { "type": "checkbox", "id": "indent_answer", "label": "Aligner la réponse sur le texte de la question", "default": true },
     { "type": "range", "id": "radius", "min": 0, "max": 28, "step": 2, "unit": "px", "label": "Arrondi", "default": 14 },
     { "type": "range", "id": "gap", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Espace entre les lignes", "default": 10 },
-    { "type": "range", "id": "row_padding", "min": 10, "max": 34, "step": 2, "unit": "px", "label": "Hauteur des lignes", "default": 18 },
+    { "type": "range", "id": "row_padding", "min": 0, "max": 34, "step": 2, "unit": "px", "label": "Hauteur des lignes", "default": 18 },
     { "type": "range", "id": "icon_size", "min": 0, "max": 52, "step": 2, "unit": "px", "label": "Taille des icônes", "default": 36 },
-    { "type": "range", "id": "question_size", "min": 13, "max": 22, "step": 1, "unit": "px", "label": "Taille des questions", "default": 16 },
-    { "type": "range", "id": "answer_size", "min": 12, "max": 19, "step": 1, "unit": "px", "label": "Taille des réponses", "default": 15 },
+    { "type": "range", "id": "question_size", "min": 0, "max": 22, "step": 1, "unit": "px", "label": "Taille des questions", "default": 16 },
+    { "type": "range", "id": "answer_size", "min": 0, "max": 19, "step": 1, "unit": "px", "label": "Taille des réponses", "default": 15 },
     { "type": "header", "content": "Pied de section" },
     { "type": "text", "id": "foot_note", "label": "Petite phrase", "default": "Une autre question ? Écris-nous, on répond en moins de 24 h." },
     { "type": "text", "id": "cta_text", "label": "Texte du bouton" },

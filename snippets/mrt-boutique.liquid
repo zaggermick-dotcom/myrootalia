@@ -1,0 +1,309 @@
+{% comment %}
+  MRT · Boutique — 15 fonctionnalites convertisseurs, toutes pages
+  Molettes en tete. Aucun schema. Rendu depuis layout/theme.liquid.
+{% endcomment %}
+
+{%- liquid
+  # ============= palette convertisseur =============
+  assign p_accent  = '#C25A34'
+  assign p_fonce   = '#1E3A2F'
+  assign p_creme   = '#FAF6EF'
+  assign p_or      = '#B8894A'
+  assign p_encre   = '#25332C'
+  assign p_filet   = '#DDD3C4'
+
+  # ============= 15 fonctionnalites (true / false) =============
+  # 1. Compte a rebours d'offre en haut, sticky
+  assign f_compte_rebours = false
+  assign p_cr_texte  = 'Offre du week-end : -15 % avec code MYR15'
+  assign p_cr_fin    = '2026-08-24 23:59'   # AAAA-MM-JJ HH:MM (heure locale Quebec)
+  assign p_cr_code   = 'MYR15'
+
+  # 2. Popup bienvenue -10 % pour les nouveaux visiteurs
+  assign f_popup_bienvenue = true
+  assign p_pop_delai   = 8            # secondes avant apparition
+  assign p_pop_titre   = 'Bienvenue chez myrootalia'
+  assign p_pop_sous    = 'Recois -10 % sur ta premiere commande.'
+  assign p_pop_bouton  = 'Je profite de -10 %'
+  assign p_pop_code    = 'BIENVENUE10'
+  assign p_pop_mention = 'Un seul e-mail, aucun spam. Desabonnement en un clic.'
+
+  # 3. Popup exit intent (souris qui sort du haut, ou scroll rapide vers le haut sur mobile)
+  assign f_popup_exit = true
+  assign p_exit_titre = 'Attends une seconde.'
+  assign p_exit_sous  = 'Utilise le code BIENVENUE10 : -10 %, et essai 60 nuits.'
+  assign p_exit_bouton = 'Je copie le code'
+  assign p_exit_code  = 'BIENVENUE10'
+
+  # 4. Bouton contact flottant (email par defaut, WhatsApp ou messenger si tu remplaces)
+  assign f_contact = true
+  assign p_contact_url = 'mailto:contact@myrootelia.com'
+  assign p_contact_texte = 'Une question ?'
+
+  # 5. Bouton "retour en haut" apparait apres 500px de scroll
+  assign f_retour_haut = true
+
+  # 6. Application automatique du code promo via URL — /?promo=CODE
+  assign f_promo_url = true
+
+  # 7. Bandeau reassurance sous chaque prix produit (3 mini badges)
+  assign f_reass_prix = true
+
+  # 8. Cookie banner conforme LPC Quebec
+  assign f_cookie = true
+  assign p_cookie_texte = 'On utilise des cookies pour ameliorer ton experience et mesurer notre publicite. Tu peux les refuser sans casser la navigation.'
+
+  # 9. Smooth scroll pour toutes les ancres #
+  assign f_smooth = true
+
+  # 10. Focus visible ameliore (bordure terracotta, accessibilite + SEO)
+  assign f_focus = true
+
+  # 11. Preconnect vers les CDN publicite (perfs, si tu ajoutes Meta/Google/TikTok)
+  assign f_preconnect = true
+
+  # 12. Empeche le double-clic sur les formulaires (evite les doubles commandes)
+  assign f_anti_double = true
+
+  # 13. Signal analytique : produit vu > 30 s (pour audiences de retargeting)
+  assign f_signal_vue = true
+  assign p_signal_seuil = 30            # secondes
+
+  # 14. Badge "expedie du Quebec" flottant en bas de la page produit
+  assign f_badge_qc = true
+
+  # 15. Prix natif du theme mis en accent terracotta partout
+  assign f_prix_accent = true
+-%}
+
+{%- style -%}
+:root{
+  --mrtB-accent:{{p_accent}};--mrtB-fonce:{{p_fonce}};--mrtB-creme:{{p_creme}};
+  --mrtB-or:{{p_or}};--mrtB-encre:{{p_encre}};--mrtB-filet:{{p_filet}};
+  --mrtB-serif:var(--font-heading-family,Georgia,serif);
+}
+
+{%- if f_compte_rebours -%}
+.mrtB-cr{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--mrtB-fonce);color:var(--mrtB-creme);text-align:center;padding:8px 16px;font-size:13px;line-height:1.4;transform:translateY(-100%);transition:transform .4s cubic-bezier(.22,.61,.36,1);font-family:var(--font-body-family,sans-serif)}
+.mrtB-cr.is-on{transform:none}
+.mrtB-cr strong{color:var(--mrtB-accent);font-weight:700;letter-spacing:.02em}
+.mrtB-cr code{background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px;font-family:inherit;letter-spacing:.05em;font-weight:600}
+body.mrtB-cr-on{padding-top:40px}
+{%- endif -%}
+
+{%- if f_popup_bienvenue or f_popup_exit -%}
+.mrtB-modale{position:fixed;inset:0;z-index:100;background:rgba(18,36,28,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.mrtB-modale.is-on{opacity:1;pointer-events:auto}
+.mrtB-modale__box{background:var(--mrtB-creme);border-radius:16px;max-width:400px;width:100%;padding:32px 28px;text-align:center;position:relative;transform:translateY(20px);transition:transform .4s cubic-bezier(.22,.61,.36,1);box-shadow:0 30px 60px -20px rgba(18,36,28,.5)}
+.mrtB-modale.is-on .mrtB-modale__box{transform:none}
+.mrtB-modale__close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:0;background:none;color:var(--mrtB-encre);opacity:.5;cursor:pointer;font-size:20px;line-height:1}
+.mrtB-modale__close:hover{opacity:1;color:var(--mrtB-accent)}
+.mrtB-modale__kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mrtB-accent);font-weight:600;margin-bottom:10px}
+.mrtB-modale__titre{font-family:var(--mrtB-serif);font-weight:500;font-size:24px;line-height:1.25;color:var(--mrtB-fonce);margin:0 0 10px}
+.mrtB-modale__sous{font-size:14px;line-height:1.55;color:var(--mrtB-encre);margin:0 0 20px}
+.mrtB-modale__form{display:flex;gap:6px;margin-bottom:12px}
+.mrtB-modale__form input{flex:1;padding:12px 14px;border:1px solid var(--mrtB-filet);border-radius:999px;font-size:14px;background:#fff;color:var(--mrtB-encre);font-family:inherit}
+.mrtB-modale__form input:focus{outline:2px solid var(--mrtB-accent);outline-offset:1px;border-color:var(--mrtB-accent)}
+.mrtB-modale__cta{width:100%;padding:14px 24px;background:var(--mrtB-fonce);color:var(--mrtB-creme);border:0;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:transform .3s,filter .3s}
+.mrtB-modale__cta:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.mrtB-modale__mention{font-size:11px;color:var(--mrtB-encre);opacity:.7;margin:14px 0 0;line-height:1.5}
+.mrtB-modale__code{font-family:var(--mrtB-serif);font-size:22px;font-weight:600;color:var(--mrtB-accent);padding:8px 16px;background:rgba(194,90,52,.1);border-radius:8px;display:inline-block;margin:0 0 14px;letter-spacing:.1em}
+{%- endif -%}
+
+{%- if f_contact -%}
+.mrtB-contact{position:fixed;bottom:20px;right:16px;z-index:50;padding:11px 18px;background:var(--mrtB-fonce);color:var(--mrtB-creme);border-radius:999px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 12px 28px -12px rgba(18,36,28,.5);display:inline-flex;align-items:center;gap:8px;transition:transform .3s,filter .3s}
+.mrtB-contact:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.mrtB-contact svg{width:15px;height:15px}
+@media(max-width:749px){.mrtB-contact{bottom:80px}}
+{%- endif -%}
+
+{%- if f_retour_haut -%}
+.mrtB-top{position:fixed;bottom:20px;left:16px;z-index:50;width:40px;height:40px;background:var(--mrtB-creme);color:var(--mrtB-fonce);border:1px solid var(--mrtB-filet);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -10px rgba(18,36,28,.4);opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s}
+.mrtB-top.is-on{opacity:1;pointer-events:auto;transform:none}
+.mrtB-top:hover{color:var(--mrtB-accent);border-color:var(--mrtB-accent)}
+.mrtB-top svg{width:16px;height:16px}
+@media(max-width:749px){.mrtB-top{bottom:80px}}
+{%- endif -%}
+
+{%- if f_reass_prix -%}
+/* petit bandeau sous les prix produits — n'apparait que sur la page produit */
+.template-product .price:not(.mrtB-p) + .mrtB-mini,
+.template-product .price-item--regular ~ .mrtB-mini{margin-top:8px}
+.mrtB-mini{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:11.5px;color:var(--mrtB-encre);line-height:1.4;margin-top:6px}
+.mrtB-mini span{display:inline-flex;align-items:center;gap:4px}
+.mrtB-mini svg{width:12px;height:12px;color:var(--mrtB-accent)}
+{%- endif -%}
+
+{%- if f_cookie -%}
+.mrtB-cook{position:fixed;bottom:0;left:0;right:0;z-index:55;background:var(--mrtB-fonce);color:var(--mrtB-creme);padding:14px 20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,.61,.36,1);box-shadow:0 -8px 28px -8px rgba(18,36,28,.4)}
+.mrtB-cook.is-on{transform:none}
+.mrtB-cook__inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:12.5px;line-height:1.5}
+.mrtB-cook p{margin:0;flex:1;min-width:220px}
+.mrtB-cook__btns{display:flex;gap:8px;flex-wrap:wrap}
+.mrtB-cook button{padding:8px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid transparent;letter-spacing:.02em}
+.mrtB-cook__ok{background:var(--mrtB-accent);color:#fff;border-color:var(--mrtB-accent)}
+.mrtB-cook__no{background:transparent;color:var(--mrtB-creme);border-color:rgba(255,255,255,.35)}
+.mrtB-cook__ok:hover{filter:brightness(1.08)}
+.mrtB-cook__no:hover{background:rgba(255,255,255,.08)}
+{%- endif -%}
+
+{%- if f_focus -%}
+*:focus-visible{outline:2px solid var(--mrtB-accent) !important;outline-offset:2px !important;border-radius:4px}
+{%- endif -%}
+
+{%- if f_smooth -%}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+{%- endif -%}
+
+{%- if f_prix_accent -%}
+.price-item--sale,.price__sale .price-item--last,.price-item--last{color:var(--mrtB-accent) !important}
+{%- endif -%}
+
+{%- if f_badge_qc -%}
+.mrtB-qc{position:fixed;bottom:20px;left:16px;z-index:49;background:var(--mrtB-creme);border:1px solid var(--mrtB-filet);color:var(--mrtB-fonce);padding:8px 14px 8px 12px;border-radius:999px;font-size:11.5px;font-weight:500;display:inline-flex;align-items:center;gap:6px;box-shadow:0 8px 20px -10px rgba(18,36,28,.4);opacity:0;transform:translateY(10px);transition:.4s}
+.mrtB-qc.is-on{opacity:1;transform:none}
+.mrtB-qc svg{width:14px;height:14px;color:var(--mrtB-accent)}
+{%- if f_retour_haut -%}.mrtB-qc.is-on{transform:translateX(52px)}{%- endif -%}
+@media(max-width:749px){.mrtB-qc{display:none}}
+{%- endif -%}
+{%- endstyle -%}
+
+{%- if f_preconnect -%}
+<link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+{%- endif -%}
+
+<script>
+(function(){
+var CFG={
+  cr:{{ f_compte_rebours | json }},crT:{{ p_cr_texte | json }},crF:{{ p_cr_fin | json }},crC:{{ p_cr_code | json }},
+  pop:{{ f_popup_bienvenue | json }},popD:{{ p_pop_delai | json }},popT:{{ p_pop_titre | json }},popS:{{ p_pop_sous | json }},popB:{{ p_pop_bouton | json }},popC:{{ p_pop_code | json }},popM:{{ p_pop_mention | json }},
+  ex:{{ f_popup_exit | json }},exT:{{ p_exit_titre | json }},exS:{{ p_exit_sous | json }},exB:{{ p_exit_bouton | json }},exC:{{ p_exit_code | json }},
+  con:{{ f_contact | json }},conU:{{ p_contact_url | json }},conT:{{ p_contact_texte | json }},
+  top:{{ f_retour_haut | json }},prm:{{ f_promo_url | json }},rea:{{ f_reass_prix | json }},cook:{{ f_cookie | json }},cookT:{{ p_cookie_texte | json }},
+  and:{{ f_anti_double | json }},sig:{{ f_signal_vue | json }},sigS:{{ p_signal_seuil | json }},
+  qc:{{ f_badge_qc | json }},pt:{{ request.page_type | json }}
+};
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function el(t,a,h){var e=document.createElement(t);if(a)for(var k in a)e.setAttribute(k,a[k]);if(h)e.innerHTML=h;return e}
+
+/* 1. compte a rebours */
+function crebours(){
+  if(!CFG.cr)return;var end=new Date(CFG.crF).getTime();if(isNaN(end)||end<Date.now())return;
+  var b=el('div',{class:'mrtB-cr'},'<span></span>');document.body.appendChild(b);document.body.classList.add('mrtB-cr-on');
+  var span=b.querySelector('span');
+  function fmt(n){return n<10?'0'+n:''+n}
+  function tick(){var d=end-Date.now();if(d<0){b.remove();document.body.classList.remove('mrtB-cr-on');clearInterval(iv);return}
+    var h=Math.floor(d/3.6e6),m=Math.floor(d/6e4)%60,s=Math.floor(d/1e3)%60;
+    span.innerHTML=esc(CFG.crT)+' — Termine dans <strong>'+fmt(h)+':'+fmt(m)+':'+fmt(s)+'</strong> · <code>'+esc(CFG.crC)+'</code>';}
+  tick();var iv=setInterval(tick,1000);setTimeout(function(){b.classList.add('is-on')},100);
+}
+
+/* 2 & 3. popups */
+function popupHTML(k,t,s,b,c,m,form){
+  return '<div class="mrtB-modale__box"><button type="button" class="mrtB-modale__close" aria-label="Fermer">&times;</button>'+
+    (k?'<div class="mrtB-modale__kicker">'+esc(k)+'</div>':'')+
+    '<h2 class="mrtB-modale__titre">'+esc(t)+'</h2>'+
+    '<p class="mrtB-modale__sous">'+esc(s)+'</p>'+
+    (form?'<form class="mrtB-modale__form" action="/contact#contact_form" method="post" accept-charset="UTF-8"><input type="hidden" name="form_type" value="customer"><input type="hidden" name="utf8" value="&#x2713;"><input type="hidden" name="contact[tags]" value="newsletter,popup-'+k+'"><input type="email" name="contact[email]" placeholder="ton@email.com" required><button type="submit" class="mrtB-modale__cta" style="width:auto;padding:12px 20px">'+esc(b)+'</button></form>':'<div class="mrtB-modale__code">'+esc(c)+'</div><button type="button" class="mrtB-modale__cta" data-copy="'+esc(c)+'">'+esc(b)+'</button>')+
+    (m?'<p class="mrtB-modale__mention">'+esc(m)+'</p>':'')+
+    '</div>';
+}
+function ouvrirModale(html,key){
+  if(sessionStorage.getItem('mrtB-'+key))return;
+  var m=el('div',{class:'mrtB-modale',role:'dialog','aria-modal':'true'},html);
+  document.body.appendChild(m);
+  setTimeout(function(){m.classList.add('is-on')},20);
+  function fermer(){m.classList.remove('is-on');setTimeout(function(){m.remove()},300);sessionStorage.setItem('mrtB-'+key,'1');}
+  m.querySelector('.mrtB-modale__close').addEventListener('click',fermer);
+  m.addEventListener('click',function(e){if(e.target===m)fermer()});
+  var cp=m.querySelector('[data-copy]');
+  if(cp)cp.addEventListener('click',function(){
+    if(navigator.clipboard)navigator.clipboard.writeText(cp.getAttribute('data-copy')).catch(function(){});
+    cp.textContent='Copie !';setTimeout(fermer,900);
+  });
+}
+if(CFG.pop){setTimeout(function(){
+  if(sessionStorage.getItem('mrtB-pop'))return;
+  ouvrirModale(popupHTML('Offre bienvenue',CFG.popT,CFG.popS,CFG.popB,CFG.popC,CFG.popM,true),'pop');
+},CFG.popD*1000)}
+if(CFG.ex){
+  var exArme=false;setTimeout(function(){exArme=true},4000);
+  document.addEventListener('mouseleave',function(e){
+    if(!exArme||e.clientY>10||sessionStorage.getItem('mrtB-ex')||sessionStorage.getItem('mrtB-pop'))return;
+    ouvrirModale(popupHTML('Ne pars pas',CFG.exT,CFG.exS,CFG.exB,CFG.exC,'',false),'ex');
+  });
+}
+
+/* 4. contact flottant */
+if(CFG.con){
+  var c=el('a',{class:'mrtB-contact',href:CFG.conU},'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4A8 8 0 1 1 21 12z"/></svg>'+esc(CFG.conT));
+  document.body.appendChild(c);
+}
+
+/* 5. retour en haut */
+if(CFG.top){
+  var t=el('button',{class:'mrtB-top',type:'button','aria-label':'Retour en haut'},'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>');
+  document.body.appendChild(t);
+  t.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+  window.addEventListener('scroll',function(){t.classList.toggle('is-on',window.scrollY>500)},{passive:true});
+}
+
+/* 6. auto-apply code promo via URL — /?promo=CODE */
+if(CFG.prm){
+  var u=new URL(location.href);var promo=u.searchParams.get('promo')||u.searchParams.get('discount');
+  if(promo)fetch('/discount/'+encodeURIComponent(promo),{credentials:'same-origin'}).catch(function(){});
+}
+
+/* 7. reassurance sous prix produit */
+if(CFG.rea&&CFG.pt==='product'){
+  document.addEventListener('DOMContentLoaded',function(){
+    var prix=document.querySelector('mrt-achat .price, .product .price, .price:not(.mrtB-p)');
+    if(!prix||prix.parentNode.querySelector('.mrtB-mini'))return;
+    var svgB='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/></svg>';
+    var svgC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>';
+    var svgL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+    var d=el('div',{class:'mrtB-mini'},'<span>'+svgB+'Essai 60 nuits</span><span>'+svgC+'Livraison offerte dès 50 $</span><span>'+svgL+'Paiement sécurisé</span>');
+    prix.classList.add('mrtB-p');prix.parentNode.insertBefore(d,prix.nextSibling);
+  });
+}
+
+/* 8. cookie banner */
+if(CFG.cook&&!localStorage.getItem('mrtB-cook')){
+  var cb=el('div',{class:'mrtB-cook',role:'dialog'},'<div class="mrtB-cook__inner"><p>'+esc(CFG.cookT)+'</p><div class="mrtB-cook__btns"><button type="button" class="mrtB-cook__no">Non merci</button><button type="button" class="mrtB-cook__ok">Accepter</button></div></div>');
+  document.body.appendChild(cb);
+  setTimeout(function(){cb.classList.add('is-on')},600);
+  function close(v){localStorage.setItem('mrtB-cook',v);cb.classList.remove('is-on');setTimeout(function(){cb.remove()},400)}
+  cb.querySelector('.mrtB-cook__ok').addEventListener('click',function(){close('ok');window.dispatchEvent(new CustomEvent('mrtB:consent',{detail:'ok'}))});
+  cb.querySelector('.mrtB-cook__no').addEventListener('click',function(){close('no')});
+}
+
+/* 9. anti double clic sur formulaires */
+if(CFG.and){
+  document.addEventListener('submit',function(e){
+    var f=e.target;if(f.getAttribute('data-mrtb-locked'))return;
+    f.setAttribute('data-mrtb-locked','1');
+    var btn=f.querySelector('[type="submit"]:not(.mrtB-modale__cta)');
+    if(btn){btn.setAttribute('disabled','');btn.style.opacity='.7';}
+    setTimeout(function(){if(f){f.removeAttribute('data-mrtb-locked');if(btn){btn.removeAttribute('disabled');btn.style.opacity=''}}},4000);
+  },true);
+}
+
+/* 10. signal analytique produit vu > X sec */
+if(CFG.sig&&CFG.pt==='product'){
+  setTimeout(function(){
+    if(window.dataLayer)window.dataLayer.push({event:'mrt_product_engaged',product:location.pathname});
+    if(typeof fbq==='function')fbq('trackCustom','ProductEngaged',{path:location.pathname});
+    if(typeof gtag==='function')gtag('event','mrt_product_engaged',{path:location.pathname});
+  },CFG.sigS*1000);
+}
+
+/* 11. badge "expedie du Quebec" sur page produit */
+if(CFG.qc&&CFG.pt==='product'){
+  var q=el('div',{class:'mrtB-qc'},'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Expédié du Québec sous 24 h');
+  document.body.appendChild(q);setTimeout(function(){q.classList.add('is-on')},1500);
+}
+})();
+</script>

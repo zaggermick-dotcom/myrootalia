@@ -1,668 +1,195 @@
 {% comment %}
-  MRT · Panier premium — v3
-  -------------------------
-  Habillage du tiroir panier (et de la page /cart), avec 15 fonctionnalites
-  convertisseurs, toutes reglables via les molettes ci-dessous.
-
-  Comment regler : ouvre ce fichier, change les valeurs des `assign` du bloc
-  MOLETTES. Chaque ligne est commentee. Aucune modification de schema n'est
-  necessaire — un seul endroit, aucun risque.
-
-  Palette convertisseur retenue : vert forest #1E3A2F (bouton, confiance) +
-  terracotta #C25A34 (accent, action secondaire) + creme #FAF6EF (respiration).
-  Le contraste bouton clair-sur-fonce est le plus haut des combinaisons
-  ecommerce mesurees (WCAG AAA sur le bouton principal).
-
-  Rendu en dernier dans le <head>, sur toutes les pages : le tiroir peut
-  s'ouvrir depuis n'importe ou.
+  MRT · Panier premium v3 — 15 fonctionnalites convertisseurs
+  Molettes en tete. Un seul fichier a modifier. Aucun schema.
 {% endcomment %}
 
 {%- liquid
-  # ============================================================
-  #  MOLETTES — reglages generaux
-  # ============================================================
-  assign p_titre_panier   = 'Ton panier'      # remplace "Your cart" en haut a gauche
-  assign p_cta_texte      = 'Passer a la caisse'  # texte du bouton principal
+  # ===== MOLETTES generales =====
+  assign p_titre_panier   = 'Ton panier'
+  assign p_cta_texte      = 'Passer a la caisse'
 
-  # ---------- typographie (compactee) ----------
-  assign p_titre_taille   = 18   # taille du titre du tiroir (px)
-  assign p_lignes_gap     = 6    # espace entre Sous-total / Tu economises / Total (px)
-  assign p_ligne_lab      = 13   # taille des libelles (Sous-total, Total...) (px)
-  assign p_ligne_val      = 13   # taille des montants a droite (px)
-  assign p_total_taille   = 17   # taille du montant Total (px)  <- le seul en vedette
-  assign p_cta_taille     = 14   # taille du texte "Passer a la caisse" (px)
-  assign p_cta_hauteur    = 48   # hauteur du bouton (px)
+  # typographie compactee
+  assign p_titre_taille   = 18
+  assign p_lignes_gap     = 6
+  assign p_ligne_lab      = 13
+  assign p_ligne_val      = 13
+  assign p_total_taille   = 17
+  assign p_cta_taille     = 14
+  assign p_cta_hauteur    = 48
 
-  # ---------- couleurs (palette convertisseur) ----------
-  assign p_accent         = '#C25A34'   # terracotta (accent, savings, badges)
-  assign p_fonce          = '#1E3A2F'   # vert forest (bouton, textes forts)
-  assign p_encre          = '#25332C'
-  assign p_creme          = '#FAF6EF'
-  assign p_sable          = '#F1EAE0'
-  assign p_or             = '#B8894A'   # or discret (garantie, premium)
-  assign p_rayon          = 14
+  # palette convertisseur (verte forest + terracotta + or discret)
+  assign p_accent  = '#C25A34'
+  assign p_fonce   = '#1E3A2F'
+  assign p_encre   = '#25332C'
+  assign p_creme   = '#FAF6EF'
+  assign p_sable   = '#F1EAE0'
+  assign p_or      = '#B8894A'
+  assign p_rayon   = 14
 
-  # ============================================================
-  #  FONCTIONNALITES (15) — mets 'true' / 'false' pour activer
-  # ============================================================
-  # 1. Compteur d'articles a cote du titre : "Ton panier (3)"
+  # ===== 15 fonctionnalites (true / false) =====
   assign f_compteur       = true
-  # 2. Bandeau de reassurance sous le bouton (icones + textes courts)
   assign f_reassurance    = true
-  # 3. Badges de paiement (Visa, Mastercard, Amex, Shop Pay, Apple Pay)
   assign f_paiement       = true
-  # 4. Urgence : "Ta commande part aujourd'hui si tu commandes avant Xh"
   assign f_urgence        = true
-  assign p_urgence_avant  = '15h'      # heure limite (heure locale du Quebec)
+  assign p_urgence_avant  = '15h'
   assign p_urgence_texte  = 'Commande avant $h : expediee du Quebec aujourd\'hui.'
-  # 5. Estimation de livraison sous le total
   assign f_livraison      = true
   assign p_livraison_min  = 3
   assign p_livraison_max  = 8
-  # 6. Garantie 60 nuits en badge dore
   assign f_garantie       = true
   assign p_garantie_texte = 'Essai 60 nuits, rembourse sans justification.'
-  # 7. Pulsation du montant Total quand le panier change
   assign f_total_pulse    = true
-  # 8. Micro-eclat sur les economies quand elles apparaissent
   assign f_economies_glow = true
-  # 9. Note pour l'equipe (collapsible, evite d'occuper la place par defaut)
   assign f_note           = true
   assign p_note_label     = 'Ajouter une note a la commande'
-  # 10. Petit lien "Continuer mes achats" en pied
   assign f_continuer      = true
-  # 11. Message de progression de livraison offerte "renforce" (icone + %)
   assign f_progres_livr   = true
-  # 12. Barre de caisse collante sur mobile (page /cart uniquement)
   assign f_barre_mobile   = true
-  # 13. Sceau "Paiement securise" en pied
   assign f_sceau          = true
-  # 14. Reponse rapide : "On repond en moins de 24 h"
   assign f_support        = true
-  assign p_support_texte  = 'Une question ? Notre equipe repond en moins de 24 h.'
-  # 15. Micro-avis : moyenne des avis sous le bouton, ne s'affiche que si tu
-  #     saisis un nombre reel ci-dessous (evite le faux avis)
+  assign p_support_texte  = 'Une question ? On repond en moins de 24 h.'
   assign f_avis           = false
-  assign p_avis_note      = 4.8       # ex. 4.8 / 5 — laisse f_avis=false tant que vide
-  assign p_avis_nombre    = 247       # nombre d'avis
+  assign p_avis_note      = 4.8
+  assign p_avis_nombre    = 247
 -%}
 
 {%- style -%}
-  :root{
-    --mrtP-accent: {{ p_accent }};
-    --mrtP-fonce: {{ p_fonce }};
-    --mrtP-encre: {{ p_encre }};
-    --mrtP-creme: {{ p_creme }};
-    --mrtP-sable: {{ p_sable }};
-    --mrtP-or:    {{ p_or }};
-    --mrtP-filet: color-mix(in srgb, {{ p_fonce }} 14%, transparent);
-    --mrtP-doux:  color-mix(in srgb, {{ p_encre }} 58%, {{ p_creme }});
-    --mrtP-rayon: {{ p_rayon }}px;
-    --mrtP-serif: var(--font-heading-family, Georgia, serif);
-  }
+:root{--mrtP-accent:{{p_accent}};--mrtP-fonce:{{p_fonce}};--mrtP-encre:{{p_encre}};--mrtP-creme:{{p_creme}};--mrtP-sable:{{p_sable}};--mrtP-or:{{p_or}};--mrtP-filet:color-mix(in srgb,{{p_fonce}} 14%,transparent);--mrtP-doux:color-mix(in srgb,{{p_encre}} 58%,{{p_creme}});--mrtP-rayon:{{p_rayon}}px;--mrtP-serif:var(--font-heading-family,Georgia,serif)}
 
-  /* ---------- entete du tiroir ---------- */
-  .drawer__inner{ background: var(--mrtP-creme); }
-  .drawer__header{ border-bottom: 1px solid var(--mrtP-filet); padding-bottom: 12px; }
-  .drawer__heading{
-    font-family: var(--mrtP-serif);
-    font-weight: 500;
-    font-size: {{ p_titre_taille }}px;
-    color: var(--mrtP-fonce);
-    letter-spacing: .01em;
-    display: inline-flex; align-items: baseline; gap: 8px;
-  }
-  .mrtP-count{
-    font-family: var(--font-body-family, sans-serif);
-    font-size: 12px; font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 999px;
-    background: var(--mrtP-accent);
-    color: #fff;
-    line-height: 1.4;
-  }
-  .drawer__close{ transition: color .25s ease, transform .25s ease; }
-  .drawer__close:hover{ color: var(--mrtP-accent); transform: rotate(90deg); }
+/* entete tiroir */
+.drawer__inner{background:var(--mrtP-creme)}
+.drawer__header{border-bottom:1px solid var(--mrtP-filet);padding-bottom:12px}
+.drawer__heading{font-family:var(--mrtP-serif);font-weight:500;font-size:{{p_titre_taille}}px;color:var(--mrtP-fonce);letter-spacing:.01em;display:inline-flex;align-items:baseline;gap:8px}
+.mrtP-count{font-family:var(--font-body-family,sans-serif);font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--mrtP-accent);color:#fff;line-height:1.4}
+.drawer__close{transition:color .25s,transform .25s}
+.drawer__close:hover{color:var(--mrtP-accent);transform:rotate(90deg)}
 
-  /* ---------- articles ---------- */
-  .cart-item{
-    background: var(--mrtP-creme);
-    border: 1px solid var(--mrtP-filet);
-    border-radius: var(--mrtP-rayon);
-    padding: 12px;
-    transition: border-color .3s ease, box-shadow .3s ease;
-  }
-  .cart-drawer-items .cart-item{ background: #fff; }
-  .cart-item:hover{
-    border-color: color-mix(in srgb, var(--mrtP-accent) 45%, transparent);
-    box-shadow: 0 12px 28px -22px rgba(21,42,33,.5);
-  }
-  .cart-items > *:not(:last-child),
-  .cart-drawer-items > *:not(:last-child){ margin-bottom: 8px; }
+/* articles */
+.cart-item{background:var(--mrtP-creme);border:1px solid var(--mrtP-filet);border-radius:var(--mrtP-rayon);padding:12px;transition:border-color .3s,box-shadow .3s}
+.cart-drawer-items .cart-item{background:#fff}
+.cart-item:hover{border-color:color-mix(in srgb,var(--mrtP-accent) 45%,transparent);box-shadow:0 12px 28px -22px rgba(21,42,33,.5)}
+.cart-items>*:not(:last-child),.cart-drawer-items>*:not(:last-child){margin-bottom:8px}
+.cart-item__image,.cart-item__image-container img{border-radius:12px;background:var(--mrtP-sable)}
+.cart-item__name{font-family:var(--mrtP-serif);font-weight:500;color:var(--mrtP-fonce);line-height:1.3;text-decoration:none}
+.cart-item__name:hover{color:var(--mrtP-accent)}
+.cart-item__details{color:var(--mrtP-doux)}
+.cart-item__final-price{color:var(--mrtP-fonce);font-weight:600}
+.cart-item__quantity .quantity{border:1px solid var(--mrtP-filet);border-radius:999px;background:#fff;overflow:hidden}
+.cart-item__quantity button{transition:color .25s,background .25s}
+.cart-item__quantity button:hover{color:var(--mrtP-accent);background:color-mix(in srgb,var(--mrtP-accent) 10%,transparent)}
 
-  .cart-item__image, .cart-item__image-container img{
-    border-radius: 12px; background: var(--mrtP-sable);
-  }
-  .cart-item__name{
-    font-family: var(--mrtP-serif);
-    font-weight: 500;
-    color: var(--mrtP-fonce);
-    line-height: 1.3;
-    text-decoration: none;
-  }
-  .cart-item__name:hover{ color: var(--mrtP-accent); }
-  .cart-item__details{ color: var(--mrtP-doux); }
-  .cart-item__final-price{ color: var(--mrtP-fonce); font-weight: 600; }
+/* modules */
+.cart-modules .drawer__module,.cart-modules .content-container,.drawer__module{border-radius:12px}
+.cart-modules .cart__discount-code input,.cart-modules .cart__discount-code button{border-radius:999px}
+{%- if f_progres_livr -%}
+.cart-modules progress,[class*="free_shipping"] progress,[class*="freeShipping"] progress{height:6px !important;accent-color:var(--mrtP-accent);border-radius:999px}
+{%- endif -%}
+.cart-modules progress,.cart-modules .progress-bar,.cart-modules [class*="progress"]>span{border-radius:999px;transition:width .6s cubic-bezier(.22,.61,.36,1)}
 
-  .cart-item__quantity .quantity{
-    border: 1px solid var(--mrtP-filet);
-    border-radius: 999px;
-    background: #fff;
-    overflow: hidden;
-  }
-  .cart-item__quantity button{ transition: color .25s ease, background .25s ease; }
-  .cart-item__quantity button:hover{
-    color: var(--mrtP-accent);
-    background: color-mix(in srgb, var(--mrtP-accent) 10%, transparent);
-  }
+/* PIED compact */
+.cart-drawer__footer,.cart-flex__right{padding:14px !important;background:var(--mrtP-sable);border-top:1px solid var(--mrtP-filet);border-radius:var(--mrtP-rayon) var(--mrtP-rayon) 0 0}
+.cart-drawer__footer .totals,.cart-flex__right .totals,.totals{background:transparent !important;padding:0 !important;margin:0 !important;border-radius:0 !important}
+.cart-drawer__footer .totals+.totals,.cart-flex__right .totals+.totals,.totals+.totals{margin-top:{{p_lignes_gap}}px !important}
+.totals__subtotal{color:var(--mrtP-doux);font-size:{{p_ligne_lab}}px !important;margin:0 !important}
+.totals__subtotal-value{font-size:{{p_ligne_val}}px !important;color:var(--mrtP-fonce);font-weight:600;margin:0 !important}
+.totals.savings .totals__subtotal,.totals.savings .totals__subtotal-value,.drawer__savings--amount{color:var(--mrtP-accent) !important;font-weight:700 !important}
+{%- if f_economies_glow -%}
+.totals.savings{background:color-mix(in srgb,var(--mrtP-accent) 8%,transparent) !important;padding:4px 8px !important;border-radius:8px !important;margin-inline:-4px !important}
+{%- endif -%}
+.cart-drawer__footer .totals:last-of-type,.cart-flex__right .totals:last-of-type{padding-top:{{p_lignes_gap|plus:4}}px !important;margin-top:{{p_lignes_gap|plus:2}}px !important;border-top:1px dashed var(--mrtP-filet) !important}
+.cart-drawer__footer .totals:last-of-type .totals__subtotal,.cart-flex__right .totals:last-of-type .totals__subtotal{font-size:{{p_total_taille|minus:2}}px !important;color:var(--mrtP-fonce) !important;font-weight:600 !important}
+.cart-drawer__footer .totals:last-of-type .totals__subtotal-value,.cart-flex__right .totals:last-of-type .totals__subtotal-value,.drawer__total--amount{font-family:var(--mrtP-serif) !important;font-size:{{p_total_taille}}px !important;color:var(--mrtP-fonce) !important;font-weight:700 !important}
 
-  /* ---------- modules ---------- */
-  .cart-modules .drawer__module,
-  .cart-modules .content-container,
-  .drawer__module{ border-radius: 12px; }
-  .cart-modules .cart__discount-code input,
-  .cart-modules .cart__discount-code button{ border-radius: 999px; }
+/* bouton caisse compact */
+.cart__checkout-button{width:100%;min-height:{{p_cta_hauteur}}px !important;padding:0 24px !important;border-radius:999px;background:var(--mrtP-fonce);color:var(--mrtP-creme);font-size:{{p_cta_taille}}px !important;font-weight:600;letter-spacing:.02em;position:relative;overflow:hidden;box-shadow:0 12px 28px -14px rgba(21,42,33,.65);transition:transform .3s,filter .3s}
+.cart__checkout-button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.cart__checkout-button::after{content:"";position:absolute;inset:0 auto 0 -60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.22,.61,.36,1)}
+.cart__checkout-button:hover::after{left:115%}
+@media(prefers-reduced-motion:reduce){.cart__checkout-button::after{display:none}.cart__checkout-button:hover{transform:none}}
+.cart__ctas{display:grid;gap:8px;margin-top:10px}
 
-  /* progression livraison offerte : plus visible */
-  {%- if f_progres_livr -%}
-  .cart-modules progress,
-  [class*="free_shipping"] progress,
-  [class*="freeShipping"] progress{
-    height: 6px !important;
-    accent-color: var(--mrtP-accent);
-    border-radius: 999px;
-  }
-  {%- endif -%}
-  .cart-modules progress,
-  .cart-modules .progress-bar,
-  .cart-modules [class*="progress"] > span{
-    border-radius: 999px;
-    transition: width .6s cubic-bezier(.22,.61,.36,1);
-  }
+/* additions MRT */
+.mrtP-add{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--mrtP-filet)}
+.mrtP-add>*{margin:0}
+.mrtP-reass{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:10.5px;line-height:1.25;text-align:center;color:var(--mrtP-fonce)}
+.mrtP-reass>span{display:flex;flex-direction:column;align-items:center;gap:4px}
+.mrtP-reass svg{width:16px;height:16px;color:var(--mrtP-accent)}
+@media(max-width:400px){.mrtP-reass{grid-template-columns:repeat(2,1fr)}}
+.mrtP-pay{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;opacity:.82}
+.mrtP-pay svg{height:18px;width:auto}
+.mrtP-garantie{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;background:color-mix(in srgb,{{p_or}} 12%,transparent);border:1px solid color-mix(in srgb,{{p_or}} 40%,transparent);color:var(--mrtP-fonce);font-size:12px;line-height:1.35}
+.mrtP-garantie svg{width:18px;height:18px;color:var(--mrtP-or);flex:0 0 auto}
+.mrtP-urgence{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:color-mix(in srgb,var(--mrtP-accent) 10%,transparent);color:var(--mrtP-fonce);font-size:11.5px;line-height:1.35;font-weight:500}
+.mrtP-urgence svg{width:14px;height:14px;color:var(--mrtP-accent)}
+.mrtP-livr{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mrtP-doux);margin-top:{{p_lignes_gap}}px !important}
+.mrtP-livr svg{width:13px;height:13px;color:var(--mrtP-accent)}
+.mrtP-avis{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--mrtP-doux)}
+.mrtP-avis strong{color:var(--mrtP-fonce);font-weight:600}
+.mrtP-avis .mrtP-etoiles{letter-spacing:1px;color:var(--mrtP-or)}
+.mrtP-support{font-size:11px;color:var(--mrtP-doux);text-align:center;margin:0}
+.mrtP-sceau{display:inline-flex;align-items:center;gap:6px;justify-content:center;font-size:11px;color:var(--mrtP-doux);margin-inline:auto}
+.mrtP-sceau svg{width:12px;height:12px}
+.mrtP-note{font-size:12px}
+.mrtP-note summary{cursor:pointer;color:var(--mrtP-doux);padding:6px 0;display:inline-flex;align-items:center;gap:6px;list-style:none}
+.mrtP-note summary::-webkit-details-marker{display:none}
+.mrtP-note summary::before{content:"+";font-weight:700;color:var(--mrtP-accent);transition:transform .25s;display:inline-block}
+.mrtP-note[open] summary::before{transform:rotate(45deg)}
+.mrtP-note textarea{width:100%;margin-top:6px;padding:8px 10px;font-size:12px;border:1px solid var(--mrtP-filet);border-radius:8px;background:#fff;color:var(--mrtP-fonce);resize:vertical;min-height:60px;font-family:inherit}
+.mrtP-continuer{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--mrtP-doux);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent;transition:.25s;margin-inline:auto}
+.mrtP-continuer:hover{color:var(--mrtP-accent);border-color:color-mix(in srgb,var(--mrtP-accent) 50%,transparent)}
 
-  /* ---------- PIED — compact ---------- */
-  .cart-drawer__footer,
-  .cart-flex__right{
-    padding: 14px !important;
-    background: var(--mrtP-sable);
-    border-top: 1px solid var(--mrtP-filet);
-    border-radius: var(--mrtP-rayon) var(--mrtP-rayon) 0 0;
-  }
-  .cart-drawer__footer .totals,
-  .cart-flex__right .totals,
-  .totals{
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-  }
-  .cart-drawer__footer .totals + .totals,
-  .cart-flex__right .totals + .totals,
-  .totals + .totals{ margin-top: {{ p_lignes_gap }}px !important; }
+{%- if f_total_pulse -%}
+@keyframes mrtP-pulse{0%{transform:scale(1)}45%{transform:scale(1.05)}100%{transform:scale(1)}}
+.mrtP-pulse{animation:mrtP-pulse .45s ease;display:inline-block}
+@media(prefers-reduced-motion:reduce){.mrtP-pulse{animation:none}}
+{%- endif -%}
 
-  .totals__subtotal{
-    color: var(--mrtP-doux);
-    font-size: {{ p_ligne_lab }}px !important;
-    margin: 0 !important;
-  }
-  .totals__subtotal-value{
-    font-size: {{ p_ligne_val }}px !important;
-    color: var(--mrtP-fonce);
-    font-weight: 600;
-    margin: 0 !important;
-  }
-  .totals.savings .totals__subtotal,
-  .totals.savings .totals__subtotal-value,
-  .drawer__savings--amount{
-    color: var(--mrtP-accent) !important;
-    font-weight: 700 !important;
-  }
-  {%- if f_economies_glow -%}
-  .totals.savings{
-    background: color-mix(in srgb, var(--mrtP-accent) 8%, transparent) !important;
-    padding: 4px 8px !important;
-    border-radius: 8px !important;
-    margin-inline: -4px !important;
-  }
-  {%- endif -%}
+/* panier vide */
+.cart__empty-text{font-family:var(--mrtP-serif);font-size:clamp(18px,3vw,24px);color:var(--mrtP-fonce);text-align:center;margin-bottom:16px}
+.cart__contents .underlined-link,.is-empty .underlined-link{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:999px;background:var(--mrtP-accent);color:var(--mrtP-creme);text-decoration:none;font-weight:600;transition:transform .3s,filter .3s}
+.cart__contents .underlined-link:hover{transform:translateY(-2px);filter:brightness(1.06)}
 
-  /* la ligne Total : la seule mise en avant, en gros */
-  .cart-drawer__footer .totals:last-of-type,
-  .cart-flex__right .totals:last-of-type{
-    padding-top: {{ p_lignes_gap | plus: 4 }}px !important;
-    margin-top: {{ p_lignes_gap | plus: 2 }}px !important;
-    border-top: 1px dashed var(--mrtP-filet) !important;
-  }
-  .cart-drawer__footer .totals:last-of-type .totals__subtotal,
-  .cart-flex__right .totals:last-of-type .totals__subtotal{
-    font-size: {{ p_total_taille | minus: 2 }}px !important;
-    color: var(--mrtP-fonce) !important;
-    font-weight: 600 !important;
-  }
-  .cart-drawer__footer .totals:last-of-type .totals__subtotal-value,
-  .cart-flex__right .totals:last-of-type .totals__subtotal-value,
-  .drawer__total--amount{
-    font-family: var(--mrtP-serif) !important;
-    font-size: {{ p_total_taille }}px !important;
-    color: var(--mrtP-fonce) !important;
-    font-weight: 700 !important;
-  }
-
-  /* ---------- bouton de caisse (compact) ---------- */
-  .cart__checkout-button{
-    width: 100%;
-    min-height: {{ p_cta_hauteur }}px !important;
-    padding: 0 24px !important;
-    border-radius: 999px;
-    background: var(--mrtP-fonce);
-    color: var(--mrtP-creme);
-    font-size: {{ p_cta_taille }}px !important;
-    font-weight: 600;
-    letter-spacing: .02em;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 12px 28px -14px rgba(21,42,33,.65);
-    transition: transform .3s ease, filter .3s ease;
-  }
-  .cart__checkout-button:hover{ transform: translateY(-2px); filter: brightness(1.06); }
-  .cart__checkout-button::after{
-    content: ""; position: absolute; inset: 0 auto 0 -60%; width: 45%;
-    background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
-    transform: skewX(-18deg); transition: left .7s cubic-bezier(.22,.61,.36,1);
-  }
-  .cart__checkout-button:hover::after{ left: 115%; }
-  @media (prefers-reduced-motion: reduce){
-    .cart__checkout-button::after{ display: none; }
-    .cart__checkout-button:hover{ transform: none; }
-  }
-
-  .cart__ctas{ display: grid; gap: 8px; margin-top: 10px; }
-
-  /* ---------- MRT additions (fonctionnalites 2, 3, 4, 6, 13, 14, 15) ---------- */
-  .mrtP-add{
-    display: flex; flex-direction: column; gap: 10px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--mrtP-filet);
-  }
-  .mrtP-add > *{ margin: 0; }
-  .mrtP-reass{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    font-size: 10.5px;
-    line-height: 1.25;
-    text-align: center;
-    color: var(--mrtP-fonce);
-  }
-  .mrtP-reass > span{
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-  }
-  .mrtP-reass svg{ width: 16px; height: 16px; color: var(--mrtP-accent); }
-  @media (max-width: 400px){ .mrtP-reass{ grid-template-columns: repeat(2, 1fr); } }
-
-  .mrtP-pay{
-    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center;
-    opacity: .82;
-  }
-  .mrtP-pay svg, .mrtP-pay img{ height: 18px; width: auto; }
-
-  .mrtP-garantie{
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 12px;
-    border-radius: 10px;
-    background: color-mix(in srgb, {{ p_or }} 12%, transparent);
-    border: 1px solid color-mix(in srgb, {{ p_or }} 40%, transparent);
-    color: var(--mrtP-fonce);
-    font-size: 12px;
-    line-height: 1.35;
-  }
-  .mrtP-garantie svg{ width: 18px; height: 18px; color: var(--mrtP-or); flex: 0 0 auto; }
-
-  .mrtP-urgence{
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    background: color-mix(in srgb, var(--mrtP-accent) 10%, transparent);
-    color: var(--mrtP-fonce);
-    font-size: 11.5px;
-    line-height: 1.35;
-    font-weight: 500;
-  }
-  .mrtP-urgence svg{ width: 14px; height: 14px; color: var(--mrtP-accent); }
-
-  .mrtP-livr{
-    display: flex; align-items: center; gap: 6px;
-    font-size: 11px;
-    color: var(--mrtP-doux);
-    margin-top: {{ p_lignes_gap }}px !important;
-  }
-  .mrtP-livr svg{ width: 13px; height: 13px; color: var(--mrtP-accent); }
-
-  .mrtP-avis{
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    font-size: 11.5px; color: var(--mrtP-doux);
-  }
-  .mrtP-avis strong{ color: var(--mrtP-fonce); font-weight: 600; }
-  .mrtP-avis .mrtP-etoiles{ letter-spacing: 1px; color: var(--mrtP-or); }
-
-  .mrtP-support{ font-size: 11px; color: var(--mrtP-doux); text-align: center; margin: 0; }
-
-  .mrtP-sceau{
-    display: inline-flex; align-items: center; gap: 6px; justify-content: center;
-    font-size: 11px; color: var(--mrtP-doux); margin-inline: auto;
-  }
-  .mrtP-sceau svg{ width: 12px; height: 12px; }
-
-  /* note collapsible */
-  .mrtP-note{ font-size: 12px; }
-  .mrtP-note summary{
-    cursor: pointer;
-    color: var(--mrtP-doux);
-    padding: 6px 0;
-    display: inline-flex; align-items: center; gap: 6px;
-    list-style: none;
-  }
-  .mrtP-note summary::-webkit-details-marker{ display: none; }
-  .mrtP-note summary::before{
-    content: "+"; font-weight: 700; color: var(--mrtP-accent);
-    transition: transform .25s ease; display: inline-block;
-  }
-  .mrtP-note[open] summary::before{ transform: rotate(45deg); }
-  .mrtP-note textarea{
-    width: 100%; margin-top: 6px;
-    padding: 8px 10px; font-size: 12px;
-    border: 1px solid var(--mrtP-filet);
-    border-radius: 8px;
-    background: #fff; color: var(--mrtP-fonce);
-    resize: vertical; min-height: 60px;
-    font-family: inherit;
-  }
-
-  /* continuer les achats */
-  .mrtP-continuer{
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 11.5px;
-    color: var(--mrtP-doux);
-    text-decoration: none;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
-    transition: color .25s ease, border-color .25s ease;
-    margin-inline: auto;
-  }
-  .mrtP-continuer:hover{
-    color: var(--mrtP-accent);
-    border-color: color-mix(in srgb, var(--mrtP-accent) 50%, transparent);
-  }
-
-  /* ---------- pulse ---------- */
-  {%- if f_total_pulse -%}
-  @keyframes mrtP-pulse{
-    0%{transform:scale(1)} 45%{transform:scale(1.05)} 100%{transform:scale(1)}
-  }
-  .mrtP-pulse{ animation: mrtP-pulse .45s ease; display: inline-block; }
-  @media (prefers-reduced-motion: reduce){ .mrtP-pulse{ animation: none; } }
-  {%- endif -%}
-
-  /* ---------- panier vide ---------- */
-  .cart__empty-text{
-    font-family: var(--mrtP-serif);
-    font-size: clamp(18px, 3vw, 24px);
-    color: var(--mrtP-fonce);
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .cart__contents .underlined-link,
-  .is-empty .underlined-link{
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 28px;
-    border-radius: 999px;
-    background: var(--mrtP-accent);
-    color: var(--mrtP-creme);
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform .3s ease, filter .3s ease;
-  }
-  .cart__contents .underlined-link:hover{ transform: translateY(-2px); filter: brightness(1.06); }
-
-  {%- if f_barre_mobile -%}
-  /* ---------- barre de caisse collante — page /cart uniquement ---------- */
-  .mrtP-bar{
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-    display: flex; align-items: center; gap: 12px;
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
-    background: color-mix(in srgb, {{ p_creme }} 92%, transparent);
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-    border-top: 1px solid var(--mrtP-filet);
-    transform: translateY(115%);
-    transition: transform .35s cubic-bezier(.22,.61,.36,1);
-  }
-  .mrtP-bar.is-on{ transform: none; }
-  .mrtP-bar__sum{ display: flex; flex-direction: column; line-height: 1.2; }
-  .mrtP-bar__lab{ font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--mrtP-doux); }
-  .mrtP-bar__val{ font-family: var(--mrtP-serif); font-size: 16px; color: var(--mrtP-fonce); font-weight: 700; }
-  .mrtP-bar__go{
-    flex: 1; min-height: 42px; border: 0; border-radius: 999px;
-    background: var(--mrtP-fonce); color: var(--mrtP-creme);
-    font-weight: 600; font-size: 13px; cursor: pointer;
-  }
-  @media screen and (min-width: 750px){ .mrtP-bar{ display: none; } }
-  {%- endif -%}
+{%- if f_barre_mobile -%}
+.mrtP-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:12px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,{{p_creme}} 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--mrtP-filet);transform:translateY(115%);transition:transform .35s cubic-bezier(.22,.61,.36,1)}
+.mrtP-bar.is-on{transform:none}
+.mrtP-bar__sum{display:flex;flex-direction:column;line-height:1.2}
+.mrtP-bar__lab{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mrtP-doux)}
+.mrtP-bar__val{font-family:var(--mrtP-serif);font-size:16px;color:var(--mrtP-fonce);font-weight:700}
+.mrtP-bar__go{flex:1;min-height:42px;border:0;border-radius:999px;background:var(--mrtP-fonce);color:var(--mrtP-creme);font-weight:600;font-size:13px;cursor:pointer}
+@media(min-width:750px){.mrtP-bar{display:none}}
+{%- endif -%}
 {%- endstyle -%}
 
 <script>
-(function () {
-  var CFG = {
-    titre:     {{ p_titre_panier | json }},
-    urgence:   {{ f_urgence | json }},
-    urgenceH:  {{ p_urgence_avant | json }},
-    urgenceT:  {{ p_urgence_texte | json }},
-    livraison: {{ f_livraison | json }},
-    livMin:    {{ p_livraison_min | json }},
-    livMax:    {{ p_livraison_max | json }},
-    garantie:  {{ f_garantie | json }},
-    garantieT: {{ p_garantie_texte | json }},
-    reass:     {{ f_reassurance | json }},
-    paiement:  {{ f_paiement | json }},
-    compteur:  {{ f_compteur | json }},
-    note:      {{ f_note | json }},
-    noteLab:   {{ p_note_label | json }},
-    continuer: {{ f_continuer | json }},
-    support:   {{ f_support | json }},
-    supportT:  {{ p_support_texte | json }},
-    sceau:     {{ f_sceau | json }},
-    pulse:     {{ f_total_pulse | json }},
-    avis:      {{ f_avis | json }},
-    avisN:     {{ p_avis_note | json }},
-    avisNb:    {{ p_avis_nombre | json }},
-    barre:     {{ f_barre_mobile | json }},
-    surCart:   {{ request.page_type == 'cart' | json }},
-    vide:      {{ cart == empty | json }},
-    total:     {{ cart.total_price | money | strip_html | json }},
-    count:     {{ cart.item_count | json }}
-  };
-
-  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-
-  function icon(nom){
-    var s = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
-    var p = {
-      camion:   '<path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
-      bouclier: '<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/>',
-      cadenas:  '<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
-      chrono:   '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
-      etincelle:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/>',
-      bulle:    '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4A8 8 0 1 1 21 12z"/>',
-      etoile:   '<path d="m12 3 2.6 6 6.4.6-4.9 4.4 1.5 6.4L12 17l-5.6 3.4 1.5-6.4L3 9.6 9.4 9z" fill="currentColor" stroke="none"/>'
-    };
-    return s + (p[nom]||'') + '</svg>';
-  }
-
-  function svgVisa(){ return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="Visa"><rect width="48" height="32" rx="4" fill="#1a1f71"/><text x="24" y="21" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="13">VISA</text></svg>'; }
-  function svgMC(){ return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="Mastercard"><rect width="48" height="32" rx="4" fill="#fff" stroke="#ddd"/><circle cx="20" cy="16" r="8" fill="#eb001b"/><circle cx="28" cy="16" r="8" fill="#f79e1b" fill-opacity=".9"/></svg>'; }
-  function svgAmex(){ return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="Amex"><rect width="48" height="32" rx="4" fill="#2e77bb"/><text x="24" y="20" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="10">AMEX</text></svg>'; }
-  function svgShop(){ return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="Shop Pay"><rect width="48" height="32" rx="4" fill="#5a31f4"/><text x="24" y="20" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="10">shop</text></svg>'; }
-  function svgApple(){ return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="Apple Pay"><rect width="48" height="32" rx="4" fill="#000"/><text x="24" y="20" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="600" font-size="9">Pay</text></svg>'; }
-
-  function renderExtras(){
-    var footer = document.querySelector('.cart-drawer__footer, .cart-flex__right');
-    if (!footer || footer.querySelector('.mrtP-add')) return;
-    if (CFG.vide) return;
-
-    var html = '<div class="mrtP-add">';
-
-    if (CFG.livraison) {
-      html += '<p class="mrtP-livr">' + icon('camion') +
-        ' Livraison sous <strong>' + CFG.livMin + '–' + CFG.livMax + ' jours</strong> — Canada et États-Unis.</p>';
-    }
-
-    if (CFG.urgence) {
-      html += '<div class="mrtP-urgence">' + icon('chrono') +
-        '<span>' + esc(CFG.urgenceT.replace('$h', CFG.urgenceH)) + '</span></div>';
-    }
-
-    if (CFG.garantie) {
-      html += '<div class="mrtP-garantie">' + icon('bouclier') +
-        '<span>' + esc(CFG.garantieT) + '</span></div>';
-    }
-
-    if (CFG.reass) {
-      html += '<div class="mrtP-reass">' +
-        '<span>' + icon('bouclier') + '<em>Essai 60 nuits</em></span>' +
-        '<span>' + icon('camion')   + '<em>Livraison offerte</em></span>' +
-        '<span>' + icon('etincelle')+ '<em>Actifs naturels</em></span>' +
-        '<span>' + icon('cadenas')  + '<em>Paiement sécurisé</em></span>' +
-      '</div>';
-    }
-
-    if (CFG.avis && CFG.avisN) {
-      var pleines = Math.round(CFG.avisN);
-      var etoiles = '';
-      for (var i=0;i<5;i++) etoiles += (i<pleines ? '★' : '☆');
-      html += '<p class="mrtP-avis"><span class="mrtP-etoiles">' + etoiles + '</span>' +
-        '<strong>' + CFG.avisN + '/5</strong> · ' + CFG.avisNb + ' avis</p>';
-    }
-
-    if (CFG.paiement) {
-      html += '<div class="mrtP-pay">' +
-        svgVisa() + svgMC() + svgAmex() + svgShop() + svgApple() +
-      '</div>';
-    }
-
-    if (CFG.sceau) {
-      html += '<span class="mrtP-sceau">' + icon('cadenas') +
-        'Paiement chiffré par Shopify</span>';
-    }
-
-    if (CFG.support) {
-      html += '<p class="mrtP-support">' + esc(CFG.supportT) + '</p>';
-    }
-
-    if (CFG.note) {
-      html += '<details class="mrtP-note"><summary>' + esc(CFG.noteLab) + '</summary>' +
-        '<textarea name="note" placeholder="Ton message pour l\'équipe (facultatif)"></textarea></details>';
-    }
-
-    if (CFG.continuer) {
-      html += '<a href="/collections/all" class="mrtP-continuer">← Continuer mes achats</a>';
-    }
-
-    html += '</div>';
-
-    footer.insertAdjacentHTML('beforeend', html);
-  }
-
-  function renderTitreEtCompteur(){
-    var h = document.querySelector('.drawer__heading');
-    if (!h) return;
-    var titre = CFG.titre || 'Ton panier';
-    var badge = '';
-    if (CFG.compteur && CFG.count && !CFG.vide) {
-      badge = ' <span class="mrtP-count">' + CFG.count + '</span>';
-    }
-    h.innerHTML = esc(titre) + badge;
-  }
-
-  function renderPulse(){
-    if (!CFG.pulse) return;
-    var source = document.querySelector('.drawer__total--amount, .totals:last-of-type .totals__subtotal-value');
-    if (!source) return;
-    var last = source.textContent.trim();
-    new MutationObserver(function(){
-      var v = source.textContent.trim();
-      if (v === last) return;
-      last = v;
-      source.classList.remove('mrtP-pulse');
-      void source.offsetWidth;
-      source.classList.add('mrtP-pulse');
-    }).observe(source, { childList: true, characterData: true, subtree: true });
-  }
-
-  function renderBarreMobile(){
-    if (!CFG.barre || !CFG.surCart || CFG.vide) return;
-    var real = document.getElementById('checkout');
-    if (!real || document.querySelector('.mrtP-bar')) return;
-    var bar = document.createElement('div');
-    bar.className = 'mrtP-bar';
-    bar.innerHTML =
-      '<span class="mrtP-bar__sum">' +
-        '<span class="mrtP-bar__lab">Total</span>' +
-        '<span class="mrtP-bar__val" data-mrtp-total>' + esc(CFG.total) + '</span>' +
-      '</span>' +
-      '<button type="button" class="mrtP-bar__go">' + esc(CFG.titre === 'Ton panier' ? 'Passer à la caisse' : 'Commander') + '</button>';
-    document.body.appendChild(bar);
-
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function(entries){
-        entries.forEach(function(en){ bar.classList.toggle('is-on', !en.isIntersecting); });
-      }, { threshold: 0.05 }).observe(real);
-    } else {
-      bar.classList.add('is-on');
-    }
-    bar.querySelector('.mrtP-bar__go').addEventListener('click', function(){ real.click(); });
-  }
-
-  function boot(){
-    renderTitreEtCompteur();
-    renderExtras();
-    renderPulse();
-    renderBarreMobile();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
-
-  /* Re-render quand le tiroir est mis a jour par Shopify (ajout/suppression) */
-  document.addEventListener('cart:refresh', boot);
-  document.addEventListener('cart:updated', boot);
-  document.addEventListener('cart-drawer:updated', boot);
-
-  /* filet de securite : reobserve le tiroir */
-  var target = document.querySelector('cart-drawer, #CartDrawer');
-  if (target && 'MutationObserver' in window) {
-    var deb;
-    new MutationObserver(function(){
-      clearTimeout(deb);
-      deb = setTimeout(function(){
-        var footer = document.querySelector('.cart-drawer__footer, .cart-flex__right');
-        if (footer && !footer.querySelector('.mrtP-add')) renderExtras();
-        renderTitreEtCompteur();
-      }, 120);
-    }).observe(target, { childList: true, subtree: true });
-  }
+(function(){
+var C={t:{{p_titre_panier|json}},u:{{f_urgence|json}},uh:{{p_urgence_avant|json}},ut:{{p_urgence_texte|json}},l:{{f_livraison|json}},lmn:{{p_livraison_min|json}},lmx:{{p_livraison_max|json}},g:{{f_garantie|json}},gt:{{p_garantie_texte|json}},r:{{f_reassurance|json}},p:{{f_paiement|json}},c:{{f_compteur|json}},n:{{f_note|json}},nl:{{p_note_label|json}},co:{{f_continuer|json}},s:{{f_support|json}},st:{{p_support_texte|json}},sc:{{f_sceau|json}},pu:{{f_total_pulse|json}},av:{{f_avis|json}},avn:{{p_avis_note|json}},avnb:{{p_avis_nombre|json}},b:{{f_barre_mobile|json}},sr:{{request.page_type == 'cart'|json}},vd:{{cart == empty|json}},to:{{cart.total_price|money|strip_html|json}},ct:{{cart.item_count|json}}};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function ic(n){var p={cm:'<path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',bo:'<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/>',cd:'<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',ch:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',et:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/>'};return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(p[n]||'')+'</svg>'}
+function card(n,c,t){return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="'+n+'"><rect width="48" height="32" rx="4" fill="'+c+'"'+(c=='#fff'?' stroke="#ddd"':'')+'/><text x="24" y="20" text-anchor="middle" fill="'+(c=='#fff'?'#111':'#fff')+'" font-family="Arial" font-weight="700" font-size="'+(t.length>4?10:12)+'">'+t+'</text></svg>'}
+function mc(){return '<svg viewBox="0 0 48 32" width="30" height="20" aria-label="Mastercard"><rect width="48" height="32" rx="4" fill="#fff" stroke="#ddd"/><circle cx="20" cy="16" r="8" fill="#eb001b"/><circle cx="28" cy="16" r="8" fill="#f79e1b" fill-opacity=".85"/></svg>'}
+function extras(){
+  var f=document.querySelector('.cart-drawer__footer, .cart-flex__right');
+  if(!f||f.querySelector('.mrtP-add')||C.vd)return;
+  var h='<div class="mrtP-add">';
+  if(C.l)h+='<p class="mrtP-livr">'+ic('cm')+' Livraison sous <strong>'+C.lmn+'–'+C.lmx+' jours</strong> — Canada / États-Unis.</p>';
+  if(C.u)h+='<div class="mrtP-urgence">'+ic('ch')+'<span>'+esc(C.ut.replace('$h',C.uh))+'</span></div>';
+  if(C.g)h+='<div class="mrtP-garantie">'+ic('bo')+'<span>'+esc(C.gt)+'</span></div>';
+  if(C.r)h+='<div class="mrtP-reass"><span>'+ic('bo')+'<em>Essai 60 nuits</em></span><span>'+ic('cm')+'<em>Livraison offerte</em></span><span>'+ic('et')+'<em>Actifs naturels</em></span><span>'+ic('cd')+'<em>Paiement sécurisé</em></span></div>';
+  if(C.av&&C.avn){var pl=Math.round(C.avn),et='';for(var i=0;i<5;i++)et+=(i<pl?'★':'☆');h+='<p class="mrtP-avis"><span class="mrtP-etoiles">'+et+'</span><strong>'+C.avn+'/5</strong> · '+C.avnb+' avis</p>'}
+  if(C.p)h+='<div class="mrtP-pay">'+card('Visa','#1a1f71','VISA')+mc()+card('Amex','#2e77bb','AMEX')+card('Shop Pay','#5a31f4','shop')+card('Apple Pay','#000','Pay')+'</div>';
+  if(C.sc)h+='<span class="mrtP-sceau">'+ic('cd')+'Paiement chiffré par Shopify</span>';
+  if(C.s)h+='<p class="mrtP-support">'+esc(C.st)+'</p>';
+  if(C.n)h+='<details class="mrtP-note"><summary>'+esc(C.nl)+'</summary><textarea name="note" placeholder="Ton message pour l’équipe (facultatif)"></textarea></details>';
+  if(C.co)h+='<a href="/collections/all" class="mrtP-continuer">← Continuer mes achats</a>';
+  h+='</div>';
+  f.insertAdjacentHTML('beforeend',h);
+}
+function titre(){var h=document.querySelector('.drawer__heading');if(!h)return;var b='';if(C.c&&C.ct&&!C.vd)b=' <span class="mrtP-count">'+C.ct+'</span>';h.innerHTML=esc(C.t||'Ton panier')+b}
+function pulse(){if(!C.pu)return;var s=document.querySelector('.drawer__total--amount,.totals:last-of-type .totals__subtotal-value');if(!s)return;var last=s.textContent.trim();new MutationObserver(function(){var v=s.textContent.trim();if(v===last)return;last=v;s.classList.remove('mrtP-pulse');void s.offsetWidth;s.classList.add('mrtP-pulse')}).observe(s,{childList:true,characterData:true,subtree:true})}
+function bar(){if(!C.b||!C.sr||C.vd)return;var r=document.getElementById('checkout');if(!r||document.querySelector('.mrtP-bar'))return;var b=document.createElement('div');b.className='mrtP-bar';b.innerHTML='<span class="mrtP-bar__sum"><span class="mrtP-bar__lab">Total</span><span class="mrtP-bar__val">'+esc(C.to)+'</span></span><button type="button" class="mrtP-bar__go">Passer à la caisse</button>';document.body.appendChild(b);if('IntersectionObserver' in window)new IntersectionObserver(function(e){e.forEach(function(x){b.classList.toggle('is-on',!x.isIntersecting)})},{threshold:.05}).observe(r);else b.classList.add('is-on');b.querySelector('.mrtP-bar__go').addEventListener('click',function(){r.click()})}
+function boot(){titre();extras();pulse();bar()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+document.addEventListener('cart:refresh',boot);document.addEventListener('cart:updated',boot);document.addEventListener('cart-drawer:updated',boot);
+var t=document.querySelector('cart-drawer,#CartDrawer');if(t&&'MutationObserver' in window){var d;new MutationObserver(function(){clearTimeout(d);d=setTimeout(function(){var f=document.querySelector('.cart-drawer__footer,.cart-flex__right');if(f&&!f.querySelector('.mrtP-add'))extras();titre()},120)}).observe(t,{childList:true,subtree:true})}
 })();
 </script>

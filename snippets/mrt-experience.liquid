@@ -1,0 +1,442 @@
+{% comment %}
+  MRT · Experience — 15 fonctionnalites UX et conversion supplementaires
+  Molettes en tete. Aucun schema. Rendu depuis layout/theme.liquid.
+{% endcomment %}
+
+{%- liquid
+  # ============= palette (memes refs que mrt-boutique) =============
+  assign x_accent  = '#C25A34'
+  assign x_fonce   = '#1E3A2F'
+  assign x_creme   = '#FAF6EF'
+  assign x_or      = '#B8894A'
+  assign x_encre   = '#25332C'
+  assign x_filet   = '#DDD3C4'
+
+  # ============= 15 fonctionnalites (true / false) =============
+
+  # 1. Produits vus recemment — barre flottante avec les 4 derniers produits consultes
+  assign f_vus_recemment = true
+  assign p_vus_titre     = 'Vu recemment'
+  assign p_vus_max       = 4
+
+  # 2. Partage natif — bouton partager sur page produit (Web Share API + fallback copier)
+  assign f_partage = true
+  assign p_partage_texte = 'Partager'
+
+  # 3. Estimation livraison — "Commande avant 14h, expedie aujourd'hui" sur page produit
+  assign f_livraison_est = true
+  assign p_livr_heure    = 14
+  assign p_livr_delai    = 2
+  assign p_livr_texte_av = 'Commande avant '
+  assign p_livr_texte_ap = 'h, expedie aujourd hui'
+  assign p_livr_texte_dm = 'Commande maintenant, expedie demain'
+  assign p_livr_texte_we = 'Commande maintenant, expedie lundi'
+
+  # 4. Barre de progression de lecture — fine barre en haut sur les articles
+  assign f_barre_lecture = true
+
+  # 5. Micro-interactions — animations subtiles hover sur boutons et cartes
+  assign f_micro_hover = true
+
+  # 6. Titre onglet dynamique — quand le visiteur quitte l'onglet, le titre change
+  assign f_titre_onglet = true
+  assign p_titre_quitte = 'Ton panier t attend...'
+
+  # 7. Rappel panier abandonne — toast apres 3 min si des articles dans le panier
+  assign f_rappel_panier = true
+  assign p_rappel_delai  = 180
+  assign p_rappel_texte  = 'Tu as des articles en attente dans ton panier !'
+  assign p_rappel_bouton = 'Voir le panier'
+
+  # 8. Annonces rotatives — plusieurs messages en boucle dans le header
+  assign f_annonces = true
+  assign p_ann_1 = 'Livraison offerte des 50 $'
+  assign p_ann_2 = 'Essai 60 nuits satisfait ou rembourse'
+  assign p_ann_3 = 'Batana pur 100 % du Honduras'
+  assign p_ann_4 = ''
+  assign p_ann_delai = 4
+
+  # 9. Favicon dynamique — pastille rouge sur le favicon quand il y a des articles au panier
+  assign f_favicon_dyn = true
+
+  # 10. Politique retour — badge rassurant sur page produit
+  assign f_retour_badge = true
+  assign p_retour_texte = '60 nuits pour essayer. Retour gratuit.'
+
+  # 11. Animation grille produits — entree en cascade des cartes produit
+  assign f_grille_anim = true
+
+  # 12. Copie automatique code promo — tout element avec [data-promo] devient copiable au clic
+  assign f_copie_promo = true
+
+  # 13. Auto-scroll avis — cliquer sur les etoiles scrolle vers la section avis
+  assign f_scroll_avis = true
+
+  # 14. Indicateur de stock bas — "Plus que X en stock" via data-attribut
+  assign f_stock_bas = true
+  assign p_stock_seuil = 5
+
+  # 15. Lazy facade video — remplace les iframes YouTube/Vimeo par une facade cliquable
+  assign f_lazy_video = true
+-%}
+
+{%- style -%}
+:root{
+  --mrtX-accent:{{x_accent}};--mrtX-fonce:{{x_fonce}};--mrtX-creme:{{x_creme}};
+  --mrtX-or:{{x_or}};--mrtX-encre:{{x_encre}};--mrtX-filet:{{x_filet}};
+}
+
+{%- if f_vus_recemment -%}
+.mrtX-vus{position:fixed;bottom:0;left:0;right:0;z-index:45;background:var(--mrtX-creme);border-top:1px solid var(--mrtX-filet);padding:10px 16px;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,.61,.36,1);box-shadow:0 -4px 20px -8px rgba(18,36,28,.3)}
+.mrtX-vus.is-on{transform:none}
+.mrtX-vus__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mrtX-vus__titre{font-size:12px;font-weight:600;color:var(--mrtX-fonce);text-transform:uppercase;letter-spacing:.12em}
+.mrtX-vus__fermer{width:24px;height:24px;border:0;background:none;color:var(--mrtX-encre);opacity:.6;cursor:pointer;font-size:16px;line-height:1}
+.mrtX-vus__fermer:hover{opacity:1;color:var(--mrtX-accent)}
+.mrtX-vus__liste{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.mrtX-vus__liste::-webkit-scrollbar{display:none}
+.mrtX-vus__item{flex:0 0 80px;text-decoration:none;color:var(--mrtX-encre)}
+.mrtX-vus__item img{width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--mrtX-filet);display:block}
+.mrtX-vus__item span{font-size:10px;line-height:1.3;display:block;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80px}
+@media(max-width:749px){.mrtX-vus__item{flex:0 0 64px}.mrtX-vus__item img{width:64px;height:64px}}
+{%- endif -%}
+
+{%- if f_partage -%}
+.mrtX-share{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid var(--mrtX-filet);border-radius:999px;background:var(--mrtX-creme);color:var(--mrtX-fonce);font-size:12px;font-weight:500;cursor:pointer;transition:.25s}
+.mrtX-share:hover{border-color:var(--mrtX-accent);color:var(--mrtX-accent)}
+.mrtX-share svg{width:14px;height:14px}
+.mrtX-share--ok{border-color:var(--mrtX-accent);color:var(--mrtX-accent)}
+{%- endif -%}
+
+{%- if f_livraison_est -%}
+.mrtX-livr{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mrtX-fonce);margin-top:10px;line-height:1.4}
+.mrtX-livr svg{width:16px;height:16px;color:var(--mrtX-accent);flex-shrink:0}
+.mrtX-livr strong{color:var(--mrtX-accent);font-weight:600}
+{%- endif -%}
+
+{%- if f_barre_lecture -%}
+.mrtX-progress{position:fixed;top:0;left:0;width:0;height:3px;background:var(--mrtX-accent);z-index:70;transition:width .15s linear;pointer-events:none;border-radius:0 2px 2px 0}
+{%- endif -%}
+
+{%- if f_micro_hover -%}
+.btn,.button,[class*="button--"],
+.card,.card-wrapper,.product-card-wrapper,
+a.product-card{transition:transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s !important}
+.card:hover,.card-wrapper:hover,.product-card-wrapper:hover,
+a.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px -10px rgba(18,36,28,.25)}
+.btn:active,.button:active,[class*="button--"]:active{transform:scale(.97)}
+{%- endif -%}
+
+{%- if f_rappel_panier -%}
+.mrtX-toast{position:fixed;bottom:24px;left:50%;z-index:60;transform:translateX(-50%) translateY(120%);background:var(--mrtX-fonce);color:var(--mrtX-creme);padding:14px 20px;border-radius:14px;display:flex;align-items:center;gap:12px;box-shadow:0 16px 40px -16px rgba(18,36,28,.55);font-size:13px;transition:transform .4s cubic-bezier(.22,.61,.36,1);max-width:380px;width:calc(100% - 40px)}
+.mrtX-toast.is-on{transform:translateX(-50%) translateY(0)}
+.mrtX-toast__btn{padding:8px 16px;background:var(--mrtX-accent);color:#fff;border:0;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;letter-spacing:.02em}
+.mrtX-toast__btn:hover{filter:brightness(1.08)}
+.mrtX-toast__close{border:0;background:none;color:var(--mrtX-creme);opacity:.5;cursor:pointer;font-size:16px;padding:4px;margin-left:auto}
+.mrtX-toast__close:hover{opacity:1}
+{%- endif -%}
+
+{%- if f_annonces -%}
+.mrtX-ann{overflow:hidden;height:1.4em;position:relative}
+.mrtX-ann__track{display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.mrtX-ann__item{height:1.4em;line-height:1.4;white-space:nowrap;text-align:center;flex-shrink:0}
+{%- endif -%}
+
+{%- if f_retour_badge -%}
+.mrtX-retour{display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;background:rgba(30,58,47,.06);border-radius:10px;font-size:12px;color:var(--mrtX-fonce);line-height:1.4}
+.mrtX-retour svg{width:16px;height:16px;color:var(--mrtX-accent);flex-shrink:0}
+{%- endif -%}
+
+{%- if f_grille_anim -%}
+.product-card-wrapper,.card-wrapper,.collection-product-card{opacity:0;transform:translateY(16px);transition:opacity .5s cubic-bezier(.22,.61,.36,1),transform .5s cubic-bezier(.22,.61,.36,1)}
+.product-card-wrapper.mrtX-in,.card-wrapper.mrtX-in,.collection-product-card.mrtX-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.product-card-wrapper,.card-wrapper,.collection-product-card{opacity:1;transform:none}}
+{%- endif -%}
+
+{%- if f_stock_bas -%}
+.mrtX-stock{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--mrtX-accent);font-weight:600;margin-top:6px}
+.mrtX-stock::before{content:'';width:6px;height:6px;background:var(--mrtX-accent);border-radius:50%;animation:mrtX-pulse 1.5s ease-in-out infinite}
+@keyframes mrtX-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+{%- endif -%}
+
+{%- if f_lazy_video -%}
+.mrtX-facade{position:relative;cursor:pointer;overflow:hidden;border-radius:12px;background:#111;aspect-ratio:16/9}
+.mrtX-facade img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .3s}
+.mrtX-facade:hover img{opacity:1}
+.mrtX-facade::after{content:'';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 48'%3E%3Cpath d='M66.5 7.7a8.5 8.5 0 00-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.5 8.5 0 00-6 6A90 90 0 000 24a90 90 0 001.5 16.3 8.5 8.5 0 006 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.5 8.5 0 006-6A90 90 0 0068 24a90 90 0 00-1.5-16.3z' fill='%23C25A34'/%3E%3Cpath d='M27 34l18-10-18-10z' fill='%23fff'/%3E%3C/svg%3E") no-repeat center/68px 48px}
+{%- endif -%}
+{%- endstyle -%}
+
+<script>
+(function(){
+var XCF={
+  vus:{{ f_vus_recemment | json }},vusT:{{ p_vus_titre | json }},vusM:{{ p_vus_max | json }},
+  share:{{ f_partage | json }},shareT:{{ p_partage_texte | json }},
+  livr:{{ f_livraison_est | json }},livrH:{{ p_livr_heure | json }},livrD:{{ p_livr_delai | json }},livrA:{{ p_livr_texte_av | json }},livrB:{{ p_livr_texte_ap | json }},livrDm:{{ p_livr_texte_dm | json }},livrWe:{{ p_livr_texte_we | json }},
+  bar:{{ f_barre_lecture | json }},
+  tit:{{ f_titre_onglet | json }},titQ:{{ p_titre_quitte | json }},
+  rap:{{ f_rappel_panier | json }},rapD:{{ p_rappel_delai | json }},rapT:{{ p_rappel_texte | json }},rapB:{{ p_rappel_bouton | json }},
+  ann:{{ f_annonces | json }},ann1:{{ p_ann_1 | json }},ann2:{{ p_ann_2 | json }},ann3:{{ p_ann_3 | json }},ann4:{{ p_ann_4 | json }},annD:{{ p_ann_delai | json }},
+  fav:{{ f_favicon_dyn | json }},
+  ret:{{ f_retour_badge | json }},retT:{{ p_retour_texte | json }},
+  grid:{{ f_grille_anim | json }},
+  copie:{{ f_copie_promo | json }},
+  scAv:{{ f_scroll_avis | json }},
+  stk:{{ f_stock_bas | json }},stkS:{{ p_stock_seuil | json }},
+  vid:{{ f_lazy_video | json }},
+  pt:{{ request.page_type | json }}
+};
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function el(t,a,h){var e=document.createElement(t);if(a)for(var k in a)e.setAttribute(k,a[k]);if(h)e.innerHTML=h;return e}
+function ready(fn){if(document.readyState!=='loading')fn();else document.addEventListener('DOMContentLoaded',fn)}
+
+/* 1. Produits vus recemment */
+if(XCF.vus){
+  var VUS_KEY='mrtX-vus';
+  function getVus(){try{return JSON.parse(localStorage.getItem(VUS_KEY))||[]}catch(e){return[]}}
+  function saveVu(){
+    if(XCF.pt!=='product')return;
+    var img=document.querySelector('.product__media img, .product-media-container img, .product__media-item img');
+    var titre=document.querySelector('.product__title, h1.product-single__title, h1');
+    if(!titre)return;
+    var item={u:location.pathname,t:titre.textContent.trim().slice(0,50),i:img?img.src.replace(/&width=\d+/,'&width=160'):''};
+    var list=getVus().filter(function(v){return v.u!==item.u});
+    list.unshift(item);
+    localStorage.setItem(VUS_KEY,JSON.stringify(list.slice(0,8)));
+  }
+  saveVu();
+  ready(function(){
+    var list=getVus().filter(function(v){return v.u!==location.pathname}).slice(0,XCF.vusM);
+    if(list.length<1)return;
+    var html='<div class="mrtX-vus__head"><span class="mrtX-vus__titre">'+esc(XCF.vusT)+'</span><button type="button" class="mrtX-vus__fermer" aria-label="Fermer">&times;</button></div><div class="mrtX-vus__liste">';
+    list.forEach(function(v){
+      html+='<a href="'+esc(v.u)+'" class="mrtX-vus__item">'+(v.i?'<img src="'+esc(v.i)+'" alt="'+esc(v.t)+'" loading="lazy" width="80" height="80">':'')+'<span>'+esc(v.t)+'</span></a>';
+    });
+    html+='</div>';
+    var bar=el('div',{class:'mrtX-vus'},html);document.body.appendChild(bar);
+    setTimeout(function(){bar.classList.add('is-on')},2000);
+    bar.querySelector('.mrtX-vus__fermer').addEventListener('click',function(){
+      bar.classList.remove('is-on');sessionStorage.setItem('mrtX-vus-hide','1');setTimeout(function(){bar.remove()},400);
+    });
+    if(sessionStorage.getItem('mrtX-vus-hide'))bar.remove();
+  });
+}
+
+/* 2. Partage natif */
+if(XCF.share&&XCF.pt==='product'){
+  ready(function(){
+    var cible=document.querySelector('.product__title, h1.product-single__title, h1');
+    if(!cible)return;
+    var svgShare='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>';
+    var btn=el('button',{class:'mrtX-share',type:'button'},svgShare+esc(XCF.shareT));
+    var wrap=cible.parentNode;
+    wrap.insertBefore(btn,cible.nextSibling);
+    btn.addEventListener('click',function(){
+      var data={title:document.title,url:location.href};
+      if(navigator.share){navigator.share(data).catch(function(){})}
+      else if(navigator.clipboard){navigator.clipboard.writeText(location.href).then(function(){btn.classList.add('mrtX-share--ok');btn.innerHTML=svgShare+'Lien copie !';setTimeout(function(){btn.classList.remove('mrtX-share--ok');btn.innerHTML=svgShare+esc(XCF.shareT)},2000)}).catch(function(){})}
+    });
+  });
+}
+
+/* 3. Estimation livraison */
+if(XCF.livr&&XCF.pt==='product'){
+  ready(function(){
+    var anchor=document.querySelector('.product-form__submit, .product-form__buttons, [name="add"]');
+    if(!anchor)return;
+    var now=new Date();var jour=now.getDay();var heure=now.getHours();
+    var msg='';
+    if(jour===0||jour===6){msg=XCF.livrWe}
+    else if(heure<XCF.livrH){msg=XCF.livrA+XCF.livrH+XCF.livrB}
+    else{msg=XCF.livrDm}
+    var arriv=new Date(now);
+    var add=(jour===0)?1+XCF.livrD:(jour===6)?2+XCF.livrD:(heure>=XCF.livrH)?1+XCF.livrD:XCF.livrD;
+    arriv.setDate(arriv.getDate()+add);
+    while(arriv.getDay()===0||arriv.getDay()===6){arriv.setDate(arriv.getDate()+1)}
+    var opts={weekday:'long',day:'numeric',month:'long'};
+    var dateStr=arriv.toLocaleDateString('fr-CA',opts);
+    var svgTruck='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>';
+    var div=el('div',{class:'mrtX-livr'},svgTruck+'<span>'+esc(msg)+' &mdash; Livraison estimee <strong>'+esc(dateStr)+'</strong></span>');
+    var parent=anchor.closest('.product-form')||anchor.parentNode;
+    parent.parentNode.insertBefore(div,parent.nextSibling);
+  });
+}
+
+/* 4. Barre de progression de lecture */
+if(XCF.bar&&(XCF.pt==='article'||XCF.pt==='page')){
+  var pBar=el('div',{class:'mrtX-progress'});document.body.appendChild(pBar);
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    if(h>0)pBar.style.width=(window.scrollY/h*100)+'%';
+  },{passive:true});
+}
+
+/* 5. titre onglet dynamique */
+if(XCF.tit){
+  var origTitle=document.title;
+  document.addEventListener('visibilitychange',function(){
+    document.title=document.hidden?XCF.titQ:origTitle;
+  });
+}
+
+/* 6. rappel panier abandonne */
+if(XCF.rap){
+  setTimeout(function(){
+    if(sessionStorage.getItem('mrtX-rap'))return;
+    fetch('/cart.js').then(function(r){return r.json()}).then(function(c){
+      if(!c.item_count)return;
+      var toast=el('div',{class:'mrtX-toast'},'<span>'+esc(XCF.rapT)+'</span><button type="button" class="mrtX-toast__btn">'+esc(XCF.rapB)+'</button><button type="button" class="mrtX-toast__close" aria-label="Fermer">&times;</button>');
+      document.body.appendChild(toast);
+      setTimeout(function(){toast.classList.add('is-on')},50);
+      function close(){toast.classList.remove('is-on');sessionStorage.setItem('mrtX-rap','1');setTimeout(function(){toast.remove()},400)}
+      toast.querySelector('.mrtX-toast__btn').addEventListener('click',function(){window.location.href='/cart'});
+      toast.querySelector('.mrtX-toast__close').addEventListener('click',close);
+      setTimeout(close,8000);
+    }).catch(function(){});
+  },XCF.rapD*1000);
+}
+
+/* 7. annonces rotatives */
+if(XCF.ann){
+  ready(function(){
+    var msgs=[XCF.ann1,XCF.ann2,XCF.ann3,XCF.ann4].filter(function(m){return m&&m.trim()});
+    if(msgs.length<2)return;
+    var target=document.querySelector('.announcement-bar__message, .announcement-bar p, .announcement-bar span');
+    if(!target)return;
+    var wrap=el('div',{class:'mrtX-ann'});
+    var track=el('div',{class:'mrtX-ann__track'});
+    msgs.forEach(function(m){var it=el('div',{class:'mrtX-ann__item'},esc(m));track.appendChild(it)});
+    var first=el('div',{class:'mrtX-ann__item'},esc(msgs[0]));track.appendChild(first);
+    wrap.appendChild(track);
+    target.textContent='';target.appendChild(wrap);
+    var idx=0;
+    setInterval(function(){
+      idx++;track.style.transform='translateY(-'+(idx*1.4)+'em)';
+      if(idx>=msgs.length){setTimeout(function(){track.style.transition='none';idx=0;track.style.transform='translateY(0)';
+        setTimeout(function(){track.style.transition=''},50);
+      },520)}
+    },XCF.annD*1000);
+  });
+}
+
+/* 8. favicon dynamique */
+if(XCF.fav){
+  function updateFavicon(){
+    fetch('/cart.js').then(function(r){return r.json()}).then(function(c){
+      var link=document.querySelector('link[rel="icon"]');if(!link)return;
+      if(c.item_count>0){
+        var cv=document.createElement('canvas');cv.width=32;cv.height=32;
+        var ctx=cv.getContext('2d');
+        var img=new Image();img.crossOrigin='anonymous';
+        img.onload=function(){
+          ctx.drawImage(img,0,0,32,32);
+          ctx.fillStyle='#C25A34';ctx.beginPath();ctx.arc(24,8,8,0,Math.PI*2);ctx.fill();
+          ctx.fillStyle='#fff';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+          ctx.fillText(c.item_count>9?'9+':c.item_count,24,8);
+          link.href=cv.toDataURL('image/png');
+        };
+        img.src=link.href;
+      }
+    }).catch(function(){});
+  }
+  ready(updateFavicon);
+  document.addEventListener('cart:refresh',updateFavicon);
+  document.addEventListener('submit',function(e){if(e.target.matches('form[action="/cart/add"]'))setTimeout(updateFavicon,1200)});
+}
+
+/* 9. badge politique retour */
+if(XCF.ret&&XCF.pt==='product'){
+  ready(function(){
+    var anchor=document.querySelector('.product-form, .product__info-wrapper');
+    if(!anchor)return;
+    var svgRet='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.5 15a9 9 0 1 0 2-9.4L1 10"/></svg>';
+    var div=el('div',{class:'mrtX-retour'},svgRet+'<span>'+esc(XCF.retT)+'</span>');
+    anchor.appendChild(div);
+  });
+}
+
+/* 10. animation grille produits */
+if(XCF.grid&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+  ready(function(){
+    var items=document.querySelectorAll('.product-card-wrapper,.card-wrapper,.collection-product-card');
+    if(!items.length)return;
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e,i){
+        if(e.isIntersecting){
+          setTimeout(function(){e.target.classList.add('mrtX-in')},i*80);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.1});
+    items.forEach(function(el){io.observe(el)});
+  });
+}
+
+/* 11. copie automatique codes promo */
+if(XCF.copie){
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('[data-promo]');if(!t)return;
+    var code=t.getAttribute('data-promo');
+    if(!code||!navigator.clipboard)return;
+    navigator.clipboard.writeText(code).then(function(){
+      var orig=t.textContent;t.textContent='Copie !';t.style.color='var(--mrtX-accent)';
+      setTimeout(function(){t.textContent=orig;t.style.color=''},1500);
+    }).catch(function(){});
+  });
+}
+
+/* 12. auto-scroll avis */
+if(XCF.scAv){
+  document.addEventListener('click',function(e){
+    var star=e.target.closest('.spr-badge,.jdgm-badge,.loox-rating,.review-star,.stamped-badge,.rating,[class*="rating"]');
+    if(!star)return;
+    var section=document.querySelector('#shopify-product-reviews,.spr-container,.jdgm-widget,.loox-reviews,.stamped-main-widget,[id*="review"],[id*="avis"]');
+    if(section)section.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+
+/* 13. indicateur stock bas */
+if(XCF.stk&&XCF.pt==='product'){
+  ready(function(){
+    var sel=document.querySelector('select[name="id"], input[name="id"]');
+    if(!sel)return;
+    function checkStock(){
+      var vid=sel.value;
+      if(!vid)return;
+      var existing=document.querySelector('.mrtX-stock');if(existing)existing.remove();
+      fetch(location.pathname+'.js').then(function(r){return r.json()}).then(function(p){
+        var v=p.variants.find(function(vr){return String(vr.id)===String(vid)});
+        if(!v||!v.available||!v.inventory_quantity)return;
+        if(v.inventory_quantity<=XCF.stkS&&v.inventory_quantity>0){
+          var badge=el('span',{class:'mrtX-stock'},'Plus que '+v.inventory_quantity+' en stock');
+          var anchor=document.querySelector('.product-form__submit, .product-form__buttons, [name="add"]');
+          if(anchor){var parent=anchor.closest('.product-form__buttons')||anchor.parentNode;parent.parentNode.insertBefore(badge,parent)}
+        }
+      }).catch(function(){});
+    }
+    checkStock();
+    sel.addEventListener('change',checkStock);
+    document.addEventListener('variant:changed',checkStock);
+  });
+}
+
+/* 14. lazy facade video YouTube/Vimeo */
+if(XCF.vid){
+  ready(function(){
+    document.querySelectorAll('iframe[src*="youtube.com/embed"],iframe[src*="player.vimeo.com"]').forEach(function(iframe){
+      var src=iframe.src;var isYT=src.includes('youtube');
+      var id='';
+      if(isYT){var m=src.match(/embed\/([^?&#]+)/);if(m)id=m[1]}
+      var thumb=isYT&&id?'https://img.youtube.com/vi/'+id+'/hqdefault.jpg':'';
+      var facade=el('div',{class:'mrtX-facade','data-src':src},thumb?'<img src="'+thumb+'" alt="Video" loading="lazy" width="640" height="360">':'');
+      facade.addEventListener('click',function(){
+        var f=el('iframe',{src:src+(src.includes('?')?'&':'?')+'autoplay=1',allow:'autoplay;encrypted-media',allowfullscreen:'',style:'position:absolute;inset:0;width:100%;height:100%;border:0'});
+        facade.innerHTML='';facade.style.position='relative';facade.appendChild(f);
+      },{once:true});
+      iframe.parentNode.replaceChild(facade,iframe);
+    });
+  });
+}
+})();
+</script>

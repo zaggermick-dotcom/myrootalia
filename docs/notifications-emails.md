@@ -22,6 +22,12 @@ collé, envoie-toi un email test avec **« Envoyer un e-mail test »** en haut.
 - **Pied réutilisable** avec réassurance, coordonnées et mentions.
 - **12 modèles complets** pour les emails qui portent la conversion et la
   relation client.
+- **Rédaction générique** : aucun modèle ne mentionne un produit particulier.
+  Rien ne parle de « Batana », « cuir chevelu », « gouttes » ni d'un rituel
+  d'application. Les textes s'appuient sur les tokens Shopify
+  (`{{ order_name }}`, `{{ line_items }}`, etc.) et sur des promesses de
+  marque (essai 60 nuits, expédié du Québec, actifs naturels) qui valent
+  pour tout produit que tu ajouteras plus tard.
 - Liste explicite des ~20 modèles à **laisser tels quels** parce qu'ils ne
   s'appliquent pas à myrootalia (POS, B2B, retrait magasin, livraison
   locale, cadeau, etc.).
@@ -410,8 +416,8 @@ Shopify → Notifications → **Confirmation d'expédition**.
       <tr><td style="font-size:13px;line-height:1.6;color:#5E6B62;">
         <p style="margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;">À la réception</p>
         <p style="margin:0;">
-          Applique quelques gouttes sur cuir chevelu propre et sec, masse 1 à 2 minutes, laisse poser toute la nuit.
-          <strong style="color:#1E3A2F;">Prends une photo au jour&nbsp;1 :</strong> tu compareras à la semaine 8, c'est là que la différence se voit.
+          Ouvre le colis, jette un œil au mode d'emploi joint à ton produit et prends ton temps pour bien commencer.
+          <strong style="color:#1E3A2F;">Une question ?</strong> On répond à <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a> en moins de 24 h.
         </p>
       </td></tr>
     </table>
@@ -525,7 +531,7 @@ Shopify → Notifications → **Paiement abandonné**.
         </td>
         <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#25332C;">
           <div style="font-family:Georgia,serif;font-size:15px;color:#C25A34;margin-bottom:4px;">100 %</div>
-          <strong>Batana pure</strong><br><span style="color:#5E6B62;">Origine Honduras, un seul actif</span>
+          <strong>Actifs naturels</strong><br><span style="color:#5E6B62;">Sélectionnés avec soin</span>
         </td>
       </tr>
     </table>
@@ -661,21 +667,18 @@ Envoyé automatiquement quand le transporteur marque le colis comme livré.
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
   <tr><td align="center" style="padding:36px 20px 24px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
     <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Colis livré</p>
-    <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#1E3A2F;line-height:1.3;">{{ customer.first_name | default: 'À toi' }}, ton rituel peut commencer.</h1>
-    <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5E6B62;">Ta commande <strong style="color:#1E3A2F;">{{ order_name }}</strong> est arrivée à destination. On croise les doigts pour la suite.</p>
+    <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#1E3A2F;line-height:1.3;">{{ customer.first_name | default: 'À toi' }}, ta commande est arrivée.</h1>
+    <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5E6B62;">Ta commande <strong style="color:#1E3A2F;">{{ order_name }}</strong> est arrivée à destination. On te souhaite une belle découverte.</p>
 
     <div style="background:#F1EAE0;border-radius:12px;padding:18px 20px;margin:20px 0;">
-      <p style="margin:0 0 10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C25A34;font-weight:600;">Ton geste ce soir</p>
-      <ol style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:#25332C;">
-        <li>Sépare tes cheveux en quelques raies pour bien exposer le cuir chevelu.</li>
-        <li>Applique 4 à 6 gouttes directement à la racine.</li>
-        <li>Masse 1 à 2 minutes du bout des doigts.</li>
-        <li>Laisse poser toute la nuit.</li>
-      </ol>
+      <p style="margin:0 0 10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C25A34;font-weight:600;">Bien commencer</p>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#25332C;">
+        Prends un moment pour regarder le mode d'emploi joint à ton produit et n'hésite pas à demander : chaque routine demande un peu de constance pour donner ses résultats.
+      </p>
     </div>
 
     <p style="margin:0;font-size:13px;line-height:1.6;color:#5E6B62;">
-      <strong style="color:#1E3A2F;">Astuce :</strong> prends une photo au jour&nbsp;1. Tu compareras à la semaine&nbsp;8 — c'est là que la différence se voit.
+      <strong style="color:#1E3A2F;">Astuce :</strong> prends une photo aujourd'hui. Comparer un avant-après quelques semaines plus tard, c'est là que le plaisir se voit.
     </p>
   </td></tr></table></td></tr>
 </table>
@@ -683,7 +686,7 @@ Envoyé automatiquement quand le transporteur marque le colis comme livré.
 </body></html>
 ```
 
-**Objet :** `{{ customer.first_name | default: 'Ta commande' }} est arrivée. Ton rituel peut commencer.`
+**Objet :** `{{ customer.first_name | default: 'Ta commande' }} est arrivée.`
 
 ---
 

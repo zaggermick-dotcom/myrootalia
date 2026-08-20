@@ -5,11 +5,11 @@
 
 {%- liquid
   # ============= palette (memes refs que mrt-boutique) =============
-  assign x_accent  = '#C25A34'
-  assign x_fonce   = '#1E3A2F'
-  assign x_creme   = '#FAF6EF'
-  assign x_or      = '#B8894A'
-  assign x_encre   = '#25332C'
+  assign x_accent  = '#B07A3B'
+  assign x_fonce   = '#2F5233'
+  assign x_creme   = '#F5F1EA'
+  assign x_or      = '#B07A3B'
+  assign x_encre   = '#2B2B2B'
   assign x_filet   = '#DDD3C4'
 
   # ============= 15 fonctionnalites (true / false) =============
@@ -143,7 +143,7 @@ a.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px -10px rgba
 {%- endif -%}
 
 {%- if f_retour_badge -%}
-.mrtX-retour{display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;background:rgba(30,58,47,.06);border-radius:10px;font-size:12px;color:var(--mrtX-fonce);line-height:1.4}
+.mrtX-retour{display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;background:rgba(47,82,51,.06);border-radius:10px;font-size:12px;color:var(--mrtX-fonce);line-height:1.4}
 .mrtX-retour svg{width:16px;height:16px;color:var(--mrtX-accent);flex-shrink:0}
 {%- endif -%}
 
@@ -163,7 +163,7 @@ a.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px -10px rgba
 .mrtX-facade{position:relative;cursor:pointer;overflow:hidden;border-radius:12px;background:#111;aspect-ratio:16/9}
 .mrtX-facade img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .3s}
 .mrtX-facade:hover img{opacity:1}
-.mrtX-facade::after{content:'';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 48'%3E%3Cpath d='M66.5 7.7a8.5 8.5 0 00-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.5 8.5 0 00-6 6A90 90 0 000 24a90 90 0 001.5 16.3 8.5 8.5 0 006 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.5 8.5 0 006-6A90 90 0 0068 24a90 90 0 00-1.5-16.3z' fill='%23C25A34'/%3E%3Cpath d='M27 34l18-10-18-10z' fill='%23fff'/%3E%3C/svg%3E") no-repeat center/68px 48px}
+.mrtX-facade::after{content:'';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 48'%3E%3Cpath d='M66.5 7.7a8.5 8.5 0 00-6-6C55.2 0 34 0 34 0S12.8 0 7.5 1.7a8.5 8.5 0 00-6 6A90 90 0 000 24a90 90 0 001.5 16.3 8.5 8.5 0 006 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.5 8.5 0 006-6A90 90 0 0068 24a90 90 0 00-1.5-16.3z' fill='%23B07A3B'/%3E%3Cpath d='M27 34l18-10-18-10z' fill='%23fff'/%3E%3C/svg%3E") no-repeat center/68px 48px}
 {%- endif -%}
 {%- endstyle -%}
 
@@ -331,7 +331,7 @@ if(XCF.fav){
         var img=new Image();img.crossOrigin='anonymous';
         img.onload=function(){
           ctx.drawImage(img,0,0,32,32);
-          ctx.fillStyle='#C25A34';ctx.beginPath();ctx.arc(24,8,8,0,Math.PI*2);ctx.fill();
+          ctx.fillStyle='#B07A3B';ctx.beginPath();ctx.arc(24,8,8,0,Math.PI*2);ctx.fill();
           ctx.fillStyle='#fff';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
           ctx.fillText(c.item_count>9?'9+':c.item_count,24,8);
           link.href=cv.toDataURL('image/png');

@@ -10,7 +10,7 @@ Ces réglages donnent la cohérence de marque. Colle-les avant le prompt de l'em
 
 **Bloc « style maison » :**
 
-> Photographie éditoriale de cosmétique naturelle haut de gamme. Lumière naturelle douce et rasante, ombres portées longues et douces. Palette : vert forêt profond (#1E3A2F), or ambré (#C6A15B), crème (#FAF6EF), sable (#F1EAE0). Textures mates et organiques : lin froissé, bois brut, pierre, céramique non émaillée, feuillage vert sombre. Rendu argentique, grain très fin, couleurs désaturées et chaudes. Aucun texte, aucun logo, aucun filigrane. Composition épurée avec beaucoup d'espace vide.
+> Photographie éditoriale de cosmétique naturelle haut de gamme. Lumière naturelle douce et rasante, ombres portées longues et douces. Palette : vert forêt profond (#2F5233), or ambré (#C6A15B), crème (#F5F1EA), sable (#F1EAE0). Textures mates et organiques : lin froissé, bois brut, pierre, céramique non émaillée, feuillage vert sombre. Rendu argentique, grain très fin, couleurs désaturées et chaudes. Aucun texte, aucun logo, aucun filigrane. Composition épurée avec beaucoup d'espace vide.
 
 **À bannir dans tous les prompts** — ajoute-le en négatif si ton outil le permet :
 

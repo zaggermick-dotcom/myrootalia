@@ -111,7 +111,7 @@ Le circuit est donc : **dupliquer le thème publié → je travaille sur le doub
 **Attention à `templates/product.json`.** Ce fichier est modifié des deux côtés : par moi dans le dépôt, et par toi dans l'éditeur (c'est là que tes images ont été enregistrées). En cas de doute, **la version du thème fait foi** — je la relis avant toute modification plutôt que de pousser celle du dépôt, qui effacerait tes ajouts.
 
 ### 14. Contraste du terracotta
-Le terracotta `#C25A34` sur fond crème donne un contraste de **4,06:1**, juste sous le seuil d'accessibilité de 4,5:1 pour du texte courant. C'est acceptable pour les icônes, les filets et les gros titres ; pour les petits textes en terracotta (sur-titres en capitales), une teinte légèrement plus foncée comme `#A8482A` monterait à 5,4:1. À voir si tu veux être irréprochable côté accessibilité.
+Le terracotta `#B07A3B` sur fond crème donne un contraste de **4,06:1**, juste sous le seuil d'accessibilité de 4,5:1 pour du texte courant. C'est acceptable pour les icônes, les filets et les gros titres ; pour les petits textes en terracotta (sur-titres en capitales), une teinte légèrement plus foncée comme `#A8482A` monterait à 5,4:1. À voir si tu veux être irréprochable côté accessibilité.
 
 ### 15. Mesure d'audience
 Rien n'est branché à ma connaissance : pixel Meta, Google Analytics, TikTok. À installer **avant** la publicité, sinon tu paies sans pouvoir mesurer.

@@ -49,10 +49,10 @@ Copie ces valeurs partout où tu vois `#XXX` dans les modèles :
 
 | Rôle | Couleur | Usage |
 |---|---|---|
-| Vert forêt | `#1E3A2F` | Titres, bouton principal |
-| Terracotta | `#C25A34` | Accent, filet, prix mis en avant |
-| Or discret | `#B8894A` | Badge garantie |
-| Crème | `#FAF6EF` | Fond du corps |
+| Vert forêt | `#2F5233` | Titres, bouton principal |
+| Terracotta | `#B07A3B` | Accent, filet, prix mis en avant |
+| Or discret | `#B07A3B` | Badge garantie |
+| Crème | `#F5F1EA` | Fond du corps |
 | Sable | `#F1EAE0` | Fond des blocs |
 | Encre douce | `#5E6B62` | Textes secondaires |
 | Filet | `#DDD3C4` | Séparateurs |
@@ -70,7 +70,7 @@ Copie ces valeurs partout où tu vois `#XXX` dans les modèles :
 uniquement l'URL du logo si tu l'héberges autre part.
 
 ```html
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#25332C;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#2B2B2B;">
   <tr>
     <td align="center" style="padding:32px 20px 0;">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
@@ -80,13 +80,13 @@ uniquement l'URL du logo si tu l'héberges autre part.
               {% if shop.email_logo_url %}
                 <img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">
               {% else %}
-                <span style="font-family:Georgia,'Times New Roman',serif;font-size:26px;color:#1E3A2F;letter-spacing:.02em;">myrootalia</span>
+                <span style="font-family:Georgia,'Times New Roman',serif;font-size:26px;color:#2F5233;letter-spacing:.02em;">myrootalia</span>
               {% endif %}
             </a>
           </td>
         </tr>
         <tr>
-          <td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td>
+          <td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td>
         </tr>
       </table>
     </td>
@@ -99,7 +99,7 @@ uniquement l'URL du logo si tu l'héberges autre part.
 **À coller en bas de chaque email**, avant `</body>`.
 
 ```html
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#25332C;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#2B2B2B;">
   <tr>
     <td align="center" style="padding:32px 20px 40px;">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
@@ -117,7 +117,7 @@ uniquement l'URL du logo si tu l'héberges autre part.
         <tr>
           <td style="padding-top:20px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">
             Une question ? Écris-nous à
-            <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a>
+            <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a>
             — on répond en moins de 24 h.
           </td>
         </tr>
@@ -165,45 +165,45 @@ Shopify → Paramètres → Notifications → **Confirmation de commande** → H
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{{ shop.name }} — Confirmation de commande</title>
 </head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
+<body style="margin:0;padding:0;background:#F5F1EA;">
 
 <!-- EN-TÊTE -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#25332C;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#2B2B2B;">
   <tr><td align="center" style="padding:32px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td align="center" style="padding-bottom:24px;">
         <a href="{{ shop.url }}" style="text-decoration:none;">
-          {% if shop.email_logo_url %}<img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">{% else %}<span style="font-family:Georgia,serif;font-size:26px;color:#1E3A2F;">myrootalia</span>{% endif %}
+          {% if shop.email_logo_url %}<img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">{% else %}<span style="font-family:Georgia,serif;font-size:26px;color:#2F5233;">myrootalia</span>{% endif %}
         </a>
       </td></tr>
-      <tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
+      <tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
     </table>
   </td></tr>
 </table>
 
 <!-- HÉROS : merci -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td align="center">
-        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Commande confirmée</p>
-        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;color:#1E3A2F;">
+        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Commande confirmée</p>
+        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;color:#2F5233;">
           Merci {{ customer.first_name | default: 'à toi' }}.
         </h1>
         <p style="margin:0;font-size:15px;line-height:1.6;color:#5E6B62;">
-          On a bien reçu ta commande <strong style="color:#1E3A2F;">{{ order_name }}</strong>.
+          On a bien reçu ta commande <strong style="color:#2F5233;">{{ order_name }}</strong>.
           Tu recevras un email quand elle sera expédiée du Québec — sous 24 à 48&nbsp;h ouvrées.
         </p>
       </td></tr>
       <tr><td align="center" style="padding-top:28px;">
-        <a href="{{ order_status_url }}" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.02em;">Voir ma commande</a>
+        <a href="{{ order_status_url }}" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.02em;">Voir ma commande</a>
       </td></tr>
     </table>
   </td></tr>
 </table>
 
 <!-- LIGNES D'ARTICLES -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:16px 20px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border:1px solid #DDD3C4;border-radius:14px;">
       <tr><td style="padding:20px 24px;">
@@ -214,12 +214,12 @@ Shopify → Paramètres → Notifications → **Confirmation de commande** → H
               <td valign="top" width="72" style="padding-right:14px;">
                 {% if line.image %}<img src="{{ line | img_url: 'small' }}" alt="{{ line.title | escape }}" width="60" height="60" style="display:block;width:60px;height:60px;border-radius:8px;background:#F1EAE0;object-fit:cover;">{% endif %}
               </td>
-              <td valign="top" style="font-size:14px;line-height:1.4;color:#25332C;">
-                <div style="font-family:Georgia,serif;font-size:15px;color:#1E3A2F;font-weight:500;">{{ line.title }}</div>
+              <td valign="top" style="font-size:14px;line-height:1.4;color:#2B2B2B;">
+                <div style="font-family:Georgia,serif;font-size:15px;color:#2F5233;font-weight:500;">{{ line.title }}</div>
                 {% if line.variant.title != 'Default Title' %}<div style="font-size:12px;color:#5E6B62;margin-top:2px;">{{ line.variant.title }}</div>{% endif %}
                 <div style="font-size:12px;color:#5E6B62;margin-top:2px;">Quantité : {{ line.quantity }}</div>
               </td>
-              <td valign="top" align="right" style="font-size:14px;color:#1E3A2F;font-weight:600;white-space:nowrap;">
+              <td valign="top" align="right" style="font-size:14px;color:#2F5233;font-weight:600;white-space:nowrap;">
                 {{ line.final_line_price | money }}
               </td>
             </tr>
@@ -231,35 +231,35 @@ Shopify → Paramètres → Notifications → **Confirmation de commande** → H
 </table>
 
 <!-- TOTAUX -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:8px 20px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#F1EAE0;border-radius:14px;">
       <tr><td style="padding:20px 24px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td style="padding:3px 0;font-size:13px;color:#5E6B62;">Sous-total</td>
-            <td align="right" style="padding:3px 0;font-size:13px;color:#25332C;font-weight:600;">{{ subtotal_price | money }}</td>
+            <td align="right" style="padding:3px 0;font-size:13px;color:#2B2B2B;font-weight:600;">{{ subtotal_price | money }}</td>
           </tr>
           {% if total_discounts > 0 %}
           <tr>
-            <td style="padding:3px 0;font-size:13px;color:#C25A34;font-weight:600;">Tu économises</td>
-            <td align="right" style="padding:3px 0;font-size:13px;color:#C25A34;font-weight:700;">-{{ total_discounts | money }}</td>
+            <td style="padding:3px 0;font-size:13px;color:#B07A3B;font-weight:600;">Tu économises</td>
+            <td align="right" style="padding:3px 0;font-size:13px;color:#B07A3B;font-weight:700;">-{{ total_discounts | money }}</td>
           </tr>
           {% endif %}
           <tr>
             <td style="padding:3px 0;font-size:13px;color:#5E6B62;">Livraison</td>
-            <td align="right" style="padding:3px 0;font-size:13px;color:#25332C;font-weight:600;">{% if total_shipping_price == 0 %}Offerte{% else %}{{ total_shipping_price | money }}{% endif %}</td>
+            <td align="right" style="padding:3px 0;font-size:13px;color:#2B2B2B;font-weight:600;">{% if total_shipping_price == 0 %}Offerte{% else %}{{ total_shipping_price | money }}{% endif %}</td>
           </tr>
           {% if tax_price > 0 %}
           <tr>
             <td style="padding:3px 0;font-size:13px;color:#5E6B62;">Taxes</td>
-            <td align="right" style="padding:3px 0;font-size:13px;color:#25332C;font-weight:600;">{{ tax_price | money }}</td>
+            <td align="right" style="padding:3px 0;font-size:13px;color:#2B2B2B;font-weight:600;">{{ tax_price | money }}</td>
           </tr>
           {% endif %}
           <tr><td colspan="2" style="padding-top:10px;"><div style="border-top:1px dashed #DDD3C4;"></div></td></tr>
           <tr>
-            <td style="padding:10px 0 0;font-size:14px;color:#1E3A2F;font-weight:600;">Total</td>
-            <td align="right" style="padding:10px 0 0;font-family:Georgia,serif;font-size:20px;color:#1E3A2F;font-weight:700;">{{ total_price | money }}</td>
+            <td style="padding:10px 0 0;font-size:14px;color:#2F5233;font-weight:600;">Total</td>
+            <td align="right" style="padding:10px 0 0;font-family:Georgia,serif;font-size:20px;color:#2F5233;font-weight:700;">{{ total_price | money }}</td>
           </tr>
         </table>
       </td></tr>
@@ -269,18 +269,18 @@ Shopify → Paramètres → Notifications → **Confirmation de commande** → H
 
 <!-- ADRESSE + LIVRAISON -->
 {% if requires_shipping and shipping_address %}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:16px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr>
-        <td valign="top" width="50%" style="padding-right:12px;font-size:13px;line-height:1.55;color:#25332C;">
+        <td valign="top" width="50%" style="padding-right:12px;font-size:13px;line-height:1.55;color:#2B2B2B;">
           <p style="margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;">Livraison</p>
           {{ shipping_address.name }}<br>
           {{ shipping_address.street }}<br>
           {{ shipping_address.city }} {{ shipping_address.province_code }} {{ shipping_address.zip }}<br>
           {{ shipping_address.country }}
         </td>
-        <td valign="top" width="50%" style="padding-left:12px;font-size:13px;line-height:1.55;color:#25332C;">
+        <td valign="top" width="50%" style="padding-left:12px;font-size:13px;line-height:1.55;color:#2B2B2B;">
           <p style="margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;">Méthode</p>
           {{ shipping_method.title }}
         </td>
@@ -291,11 +291,11 @@ Shopify → Paramètres → Notifications → **Confirmation de commande** → H
 {% endif %}
 
 <!-- GARANTIE 60 NUITS -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:24px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:rgba(184,137,74,0.12);border:1px solid rgba(184,137,74,0.4);border-radius:12px;">
-      <tr><td style="padding:14px 18px;font-size:13px;line-height:1.5;color:#1E3A2F;">
-        <strong style="color:#B8894A;">Essai 60 nuits.</strong>
+      <tr><td style="padding:14px 18px;font-size:13px;line-height:1.5;color:#2F5233;">
+        <strong style="color:#B07A3B;">Essai 60 nuits.</strong>
         Si le résultat ne te convient pas, écris-nous et on rembourse — flacon entamé accepté, sans justification.
       </td></tr>
     </table>
@@ -303,11 +303,11 @@ Shopify → Paramètres → Notifications → **Confirmation de commande** → H
 </table>
 
 <!-- PIED -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:32px 20px 40px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">
-        Une question ? Écris-nous à <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a> — on répond en moins de 24 h.
+        Une question ? Écris-nous à <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a> — on répond en moins de 24 h.
       </td></tr>
       <tr><td style="padding-top:20px;text-align:center;font-size:11px;line-height:1.5;color:#8A9187;">
         {{ shop.name }} — {{ shop.address.summary }}
@@ -335,37 +335,37 @@ Shopify → Notifications → **Confirmation d'expédition**.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ shop.name }} — Ta commande est partie</title></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
+<body style="margin:0;padding:0;background:#F5F1EA;">
 
 <!-- EN-TÊTE (identique) -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#25332C;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#2B2B2B;">
   <tr><td align="center" style="padding:32px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td align="center" style="padding-bottom:24px;">
-        <a href="{{ shop.url }}" style="text-decoration:none;">{% if shop.email_logo_url %}<img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">{% else %}<span style="font-family:Georgia,serif;font-size:26px;color:#1E3A2F;">myrootalia</span>{% endif %}</a>
+        <a href="{{ shop.url }}" style="text-decoration:none;">{% if shop.email_logo_url %}<img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">{% else %}<span style="font-family:Georgia,serif;font-size:26px;color:#2F5233;">myrootalia</span>{% endif %}</a>
       </td></tr>
-      <tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
+      <tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
     </table>
   </td></tr>
 </table>
 
 <!-- HÉROS -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td align="center">
-        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">En route</p>
-        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;color:#1E3A2F;">
+        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">En route</p>
+        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;color:#2F5233;">
           Ta commande arrive, {{ customer.first_name | default: 'à toi' }}.
         </h1>
         <p style="margin:0;font-size:15px;line-height:1.6;color:#5E6B62;">
-          Ta commande <strong style="color:#1E3A2F;">{{ order_name }}</strong> vient de quitter le Québec.
+          Ta commande <strong style="color:#2F5233;">{{ order_name }}</strong> vient de quitter le Québec.
           Compte 3 à 8 jours ouvrés pour la recevoir.
         </p>
       </td></tr>
       {% if fulfillment.tracking_url %}
       <tr><td align="center" style="padding-top:28px;">
-        <a href="{{ fulfillment.tracking_url }}" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.02em;">Suivre le colis</a>
+        <a href="{{ fulfillment.tracking_url }}" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.02em;">Suivre le colis</a>
       </td></tr>
       {% endif %}
     </table>
@@ -374,12 +374,12 @@ Shopify → Notifications → **Confirmation d'expédition**.
 
 <!-- SUIVI -->
 {% if fulfillment.tracking_number %}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:8px 20px 16px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#F1EAE0;border-radius:14px;">
-      <tr><td style="padding:18px 24px;text-align:center;font-size:13px;line-height:1.6;color:#25332C;">
+      <tr><td style="padding:18px 24px;text-align:center;font-size:13px;line-height:1.6;color:#2B2B2B;">
         <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;margin-bottom:6px;">Numéro de suivi</div>
-        <div style="font-family:Georgia,serif;font-size:18px;color:#1E3A2F;font-weight:600;letter-spacing:.02em;">{{ fulfillment.tracking_number }}</div>
+        <div style="font-family:Georgia,serif;font-size:18px;color:#2F5233;font-weight:600;letter-spacing:.02em;">{{ fulfillment.tracking_number }}</div>
         {% if fulfillment.tracking_company %}<div style="font-size:12px;color:#5E6B62;margin-top:4px;">Transporté par {{ fulfillment.tracking_company }}</div>{% endif %}
       </td></tr>
     </table>
@@ -388,7 +388,7 @@ Shopify → Notifications → **Confirmation d'expédition**.
 {% endif %}
 
 <!-- ARTICLES EXPÉDIÉS -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:8px 20px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border:1px solid #DDD3C4;border-radius:14px;">
       <tr><td style="padding:20px 24px;">
@@ -397,8 +397,8 @@ Shopify → Notifications → **Confirmation d'expédition**.
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:{% if forloop.last %}0{% else %}12px{% endif %};">
             <tr>
               <td valign="top" width="60" style="padding-right:12px;">{% if line.image %}<img src="{{ line | img_url: 'small' }}" alt="" width="50" height="50" style="display:block;width:50px;height:50px;border-radius:8px;background:#F1EAE0;object-fit:cover;">{% endif %}</td>
-              <td valign="top" style="font-size:14px;line-height:1.4;color:#25332C;">
-                <div style="font-family:Georgia,serif;font-size:14px;color:#1E3A2F;font-weight:500;">{{ line.title }}</div>
+              <td valign="top" style="font-size:14px;line-height:1.4;color:#2B2B2B;">
+                <div style="font-family:Georgia,serif;font-size:14px;color:#2F5233;font-weight:500;">{{ line.title }}</div>
                 <div style="font-size:12px;color:#5E6B62;margin-top:2px;">Quantité : {{ line.quantity }}</div>
               </td>
             </tr>
@@ -410,14 +410,14 @@ Shopify → Notifications → **Confirmation d'expédition**.
 </table>
 
 <!-- CE QUI SE PASSE ENSUITE -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:24px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td style="font-size:13px;line-height:1.6;color:#5E6B62;">
         <p style="margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;">À la réception</p>
         <p style="margin:0;">
           Ouvre le colis, jette un œil au mode d'emploi joint à ton produit et prends ton temps pour bien commencer.
-          <strong style="color:#1E3A2F;">Une question ?</strong> On répond à <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a> en moins de 24 h.
+          <strong style="color:#2F5233;">Une question ?</strong> On répond à <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a> en moins de 24 h.
         </p>
       </td></tr>
     </table>
@@ -425,11 +425,11 @@ Shopify → Notifications → **Confirmation d'expédition**.
 </table>
 
 <!-- PIED -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:32px 20px 40px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">
-        Colis retardé ? Écris-nous à <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a> — on ouvre une enquête sous 24 h.
+        Colis retardé ? Écris-nous à <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a> — on ouvre une enquête sous 24 h.
       </td></tr>
       <tr><td style="padding-top:20px;text-align:center;font-size:11px;line-height:1.5;color:#8A9187;">
         {{ shop.name }} — {{ shop.address.summary }}
@@ -458,43 +458,43 @@ Shopify → Notifications → **Paiement abandonné**.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ shop.name }} — Ta commande t'attend</title></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
+<body style="margin:0;padding:0;background:#F5F1EA;">
 
 <!-- EN-TÊTE (identique) -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#25332C;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#2B2B2B;">
   <tr><td align="center" style="padding:32px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td align="center" style="padding-bottom:24px;">
-        <a href="{{ shop.url }}" style="text-decoration:none;">{% if shop.email_logo_url %}<img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">{% else %}<span style="font-family:Georgia,serif;font-size:26px;color:#1E3A2F;">myrootalia</span>{% endif %}</a>
+        <a href="{{ shop.url }}" style="text-decoration:none;">{% if shop.email_logo_url %}<img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}" style="display:block;max-width:180px;height:auto;">{% else %}<span style="font-family:Georgia,serif;font-size:26px;color:#2F5233;">myrootalia</span>{% endif %}</a>
       </td></tr>
-      <tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
+      <tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
     </table>
   </td></tr>
 </table>
 
 <!-- HÉROS -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td align="center">
-        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">On t'a gardé ton panier</p>
-        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;color:#1E3A2F;">
+        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">On t'a gardé ton panier</p>
+        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;color:#2F5233;">
           {{ customer.first_name | default: 'Coucou' }}, tu as oublié quelque chose ?
         </h1>
         <p style="margin:0;font-size:15px;line-height:1.6;color:#5E6B62;">
           Ton panier est prêt à repartir en un clic. Aucun engagement — et
-          <strong style="color:#1E3A2F;">60 nuits pour te décider</strong> une fois reçu.
+          <strong style="color:#2F5233;">60 nuits pour te décider</strong> une fois reçu.
         </p>
       </td></tr>
       <tr><td align="center" style="padding-top:28px;">
-        <a href="{{ url }}" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.02em;">Finaliser ma commande</a>
+        <a href="{{ url }}" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:.02em;">Finaliser ma commande</a>
       </td></tr>
     </table>
   </td></tr>
 </table>
 
 <!-- PANIER -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:8px 20px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border:1px solid #DDD3C4;border-radius:14px;">
       <tr><td style="padding:20px 24px;">
@@ -502,12 +502,12 @@ Shopify → Notifications → **Paiement abandonné**.
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:{% if forloop.last %}0{% else %}14px{% endif %};">
             <tr>
               <td valign="top" width="72" style="padding-right:14px;">{% if line.image %}<img src="{{ line | img_url: 'small' }}" alt="" width="60" height="60" style="display:block;width:60px;height:60px;border-radius:8px;background:#F1EAE0;object-fit:cover;">{% endif %}</td>
-              <td valign="top" style="font-size:14px;line-height:1.4;color:#25332C;">
-                <div style="font-family:Georgia,serif;font-size:15px;color:#1E3A2F;font-weight:500;">{{ line.title }}</div>
+              <td valign="top" style="font-size:14px;line-height:1.4;color:#2B2B2B;">
+                <div style="font-family:Georgia,serif;font-size:15px;color:#2F5233;font-weight:500;">{{ line.title }}</div>
                 {% if line.variant.title != 'Default Title' %}<div style="font-size:12px;color:#5E6B62;margin-top:2px;">{{ line.variant.title }}</div>{% endif %}
                 <div style="font-size:12px;color:#5E6B62;margin-top:2px;">Quantité : {{ line.quantity }}</div>
               </td>
-              <td valign="top" align="right" style="font-size:14px;color:#1E3A2F;font-weight:600;white-space:nowrap;">{{ line.line_price | money }}</td>
+              <td valign="top" align="right" style="font-size:14px;color:#2F5233;font-weight:600;white-space:nowrap;">{{ line.line_price | money }}</td>
             </tr>
           </table>
         {% endfor %}
@@ -517,20 +517,20 @@ Shopify → Notifications → **Paiement abandonné**.
 </table>
 
 <!-- RÉASSURANCE 3 COLONNES -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:24px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr>
-        <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#25332C;">
-          <div style="font-family:Georgia,serif;font-size:15px;color:#C25A34;margin-bottom:4px;">60</div>
+        <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#2B2B2B;">
+          <div style="font-family:Georgia,serif;font-size:15px;color:#B07A3B;margin-bottom:4px;">60</div>
           <strong>Nuits d'essai</strong><br><span style="color:#5E6B62;">Remboursé sans justification</span>
         </td>
-        <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#25332C;">
-          <div style="font-family:Georgia,serif;font-size:15px;color:#C25A34;margin-bottom:4px;">24 h</div>
+        <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#2B2B2B;">
+          <div style="font-family:Georgia,serif;font-size:15px;color:#B07A3B;margin-bottom:4px;">24 h</div>
           <strong>Expédié du Québec</strong><br><span style="color:#5E6B62;">Livraison offerte dès 50 $</span>
         </td>
-        <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#25332C;">
-          <div style="font-family:Georgia,serif;font-size:15px;color:#C25A34;margin-bottom:4px;">100 %</div>
+        <td align="center" width="33%" style="padding:0 6px;font-size:12px;line-height:1.5;color:#2B2B2B;">
+          <div style="font-family:Georgia,serif;font-size:15px;color:#B07A3B;margin-bottom:4px;">100 %</div>
           <strong>Actifs naturels</strong><br><span style="color:#5E6B62;">Sélectionnés avec soin</span>
         </td>
       </tr>
@@ -539,12 +539,12 @@ Shopify → Notifications → **Paiement abandonné**.
 </table>
 
 <!-- PIED -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:32px 20px 40px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">
         Un doute, une question ? On répond en moins de 24 h à
-        <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a>.
+        <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a>.
       </td></tr>
       <tr><td style="padding-top:20px;text-align:center;font-size:11px;line-height:1.5;color:#8A9187;">
         {{ shop.name }} — {{ shop.address.summary }}
@@ -571,33 +571,33 @@ Shopify → Notifications → **Mise à jour du statut de l'expédition**.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
+<body style="margin:0;padding:0;background:#F5F1EA;">
 
 <!-- EN-TÊTE -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <tr><td align="center" style="padding:32px 20px 0;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
-      <tr><td align="center" style="padding-bottom:24px;"><a href="{{ shop.url }}" style="text-decoration:none;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></a></td></tr>
-      <tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
+      <tr><td align="center" style="padding-bottom:24px;"><a href="{{ shop.url }}" style="text-decoration:none;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></a></td></tr>
+      <tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
     </table>
   </td></tr>
 </table>
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td>
-        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Mise à jour</p>
-        <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#1E3A2F;line-height:1.3;">Ta commande {{ order_name }} — nouveau statut.</h1>
+        <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Mise à jour</p>
+        <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#2F5233;line-height:1.3;">Ta commande {{ order_name }} — nouveau statut.</h1>
         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#5E6B62;">Bonjour {{ customer.first_name | default: 'à toi' }}, le suivi de ton colis vient d'être mis à jour.</p>
         {% if fulfillment.tracking_number %}
         <div style="background:#F1EAE0;border-radius:12px;padding:16px 20px;margin:16px 0;">
           <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;margin-bottom:4px;">Numéro de suivi</div>
-          <div style="font-family:Georgia,serif;font-size:16px;color:#1E3A2F;font-weight:600;">{{ fulfillment.tracking_number }}</div>
+          <div style="font-family:Georgia,serif;font-size:16px;color:#2F5233;font-weight:600;">{{ fulfillment.tracking_number }}</div>
         </div>
         {% endif %}
         {% if fulfillment.tracking_url %}
-        <p style="margin:16px 0 0;"><a href="{{ fulfillment.tracking_url }}" style="display:inline-block;padding:12px 28px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Voir le suivi détaillé</a></p>
+        <p style="margin:16px 0 0;"><a href="{{ fulfillment.tracking_url }}" style="display:inline-block;padding:12px 28px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Voir le suivi détaillé</a></p>
         {% endif %}
       </td></tr>
     </table>
@@ -605,11 +605,11 @@ Shopify → Notifications → **Mise à jour du statut de l'expédition**.
 </table>
 
 <!-- PIED -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:32px 20px 40px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
       <tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">
-        Une question ? <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a>
+        Une question ? <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a>
       </td></tr>
       <tr><td style="padding-top:16px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }}</td></tr>
     </table>
@@ -632,19 +632,19 @@ Envoyé quand le transporteur prend le colis pour le dernier kilomètre.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Ton colis arrive aujourd'hui</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#1E3A2F;line-height:1.3;">Prépare la boîte aux lettres, {{ customer.first_name | default: 'à toi' }}.</h1>
-    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E6B62;">Ton colis <strong style="color:#1E3A2F;">{{ order_name }}</strong> est entre les mains du livreur. Livraison prévue dans la journée.</p>
-    {% if fulfillment.tracking_url %}<p style="margin:24px 0 0;"><a href="{{ fulfillment.tracking_url }}" style="display:inline-block;padding:12px 28px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Suivre en direct</a></p>{% endif %}
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Ton colis arrive aujourd'hui</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#2F5233;line-height:1.3;">Prépare la boîte aux lettres, {{ customer.first_name | default: 'à toi' }}.</h1>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E6B62;">Ton colis <strong style="color:#2F5233;">{{ order_name }}</strong> est entre les mains du livreur. Livraison prévue dans la journée.</p>
+    {% if fulfillment.tracking_url %}<p style="margin:24px 0 0;"><a href="{{ fulfillment.tracking_url }}" style="display:inline-block;padding:12px 28px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Suivre en direct</a></p>{% endif %}
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -660,29 +660,29 @@ Envoyé automatiquement quand le transporteur marque le colis comme livré.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 24px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Colis livré</p>
-    <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#1E3A2F;line-height:1.3;">{{ customer.first_name | default: 'À toi' }}, ta commande est arrivée.</h1>
-    <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5E6B62;">Ta commande <strong style="color:#1E3A2F;">{{ order_name }}</strong> est arrivée à destination. On te souhaite une belle découverte.</p>
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Colis livré</p>
+    <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#2F5233;line-height:1.3;">{{ customer.first_name | default: 'À toi' }}, ta commande est arrivée.</h1>
+    <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5E6B62;">Ta commande <strong style="color:#2F5233;">{{ order_name }}</strong> est arrivée à destination. On te souhaite une belle découverte.</p>
 
     <div style="background:#F1EAE0;border-radius:12px;padding:18px 20px;margin:20px 0;">
-      <p style="margin:0 0 10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C25A34;font-weight:600;">Bien commencer</p>
-      <p style="margin:0;font-size:14px;line-height:1.6;color:#25332C;">
+      <p style="margin:0 0 10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Bien commencer</p>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#2B2B2B;">
         Prends un moment pour regarder le mode d'emploi joint à ton produit et n'hésite pas à demander : chaque routine demande un peu de constance pour donner ses résultats.
       </p>
     </div>
 
     <p style="margin:0;font-size:13px;line-height:1.6;color:#5E6B62;">
-      <strong style="color:#1E3A2F;">Astuce :</strong> prends une photo aujourd'hui. Comparer un avant-après quelques semaines plus tard, c'est là que le plaisir se voit.
+      <strong style="color:#2F5233;">Astuce :</strong> prends une photo aujourd'hui. Comparer un avant-après quelques semaines plus tard, c'est là que le plaisir se voit.
     </p>
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">Un souci avec le colis ? <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a> — on répond en moins de 24 h.</td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:12px;line-height:1.6;color:#5E6B62;">Un souci avec le colis ? <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a> — on répond en moins de 24 h.</td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -700,26 +700,26 @@ Shopify → Notifications → **Invitation à créer un compte client**.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Bienvenue</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:26px;color:#1E3A2F;line-height:1.3;">On t'a créé un accès personnel.</h1>
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Bienvenue</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:26px;color:#2F5233;line-height:1.3;">On t'a créé un accès personnel.</h1>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#5E6B62;">
       Bonjour {{ customer.first_name | default: 'à toi' }}, active ton compte pour retrouver tes commandes, suivre tes livraisons et gérer ton abonnement en un clic.
     </p>
     {% if customer.account_activation_url %}
     <p style="margin:24px 0 0;">
-      <a href="{{ customer.account_activation_url }}" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Activer mon compte</a>
+      <a href="{{ customer.account_activation_url }}" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Activer mon compte</a>
     </p>
     <p style="margin:16px 0 0;font-size:12px;color:#8A9187;">Ce lien expire dans 30 jours.</p>
     {% endif %}
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -735,31 +735,31 @@ Envoyé après activation du compte.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Ton compte est actif</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#1E3A2F;line-height:1.3;">Bienvenue chez myrootalia, {{ customer.first_name | default: 'à toi' }}.</h1>
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Ton compte est actif</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:28px;color:#2F5233;line-height:1.3;">Bienvenue chez myrootalia, {{ customer.first_name | default: 'à toi' }}.</h1>
     <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#5E6B62;">
       Ton compte est prêt. Depuis ton espace, tu peux suivre chaque commande, consulter tes factures, modifier ton adresse et gérer ton abonnement en deux clics.
     </p>
     <p style="margin:24px 0 0;">
-      <a href="{{ shop.url }}/account" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Voir mon espace</a>
+      <a href="{{ shop.url }}/account" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Voir mon espace</a>
     </p>
     <div style="margin-top:32px;padding-top:24px;border-top:1px solid #DDD3C4;">
       <p style="margin:0 0 8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;">Nos engagements</p>
-      <p style="margin:0;font-size:14px;line-height:1.7;color:#25332C;">
-        <strong style="color:#1E3A2F;">Essai 60 nuits</strong> — remboursé sans justification.<br>
-        <strong style="color:#1E3A2F;">Livraison offerte</strong> dès 50&nbsp;$, expédiée du Québec sous 24&nbsp;h.<br>
-        <strong style="color:#1E3A2F;">Support humain</strong> — on répond en moins de 24&nbsp;h.
+      <p style="margin:0;font-size:14px;line-height:1.7;color:#2B2B2B;">
+        <strong style="color:#2F5233;">Essai 60 nuits</strong> — remboursé sans justification.<br>
+        <strong style="color:#2F5233;">Livraison offerte</strong> dès 50&nbsp;$, expédiée du Québec sous 24&nbsp;h.<br>
+        <strong style="color:#2F5233;">Support humain</strong> — on répond en moins de 24&nbsp;h.
       </p>
     </div>
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }}</td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }}</td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -775,23 +775,23 @@ Sec, clair, sans marketing (les gens veulent leur mot de passe, pas une pub).
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#1E3A2F;">Réinitialiser ton mot de passe</h1>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#2F5233;">Réinitialiser ton mot de passe</h1>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#5E6B62;">Bonjour {{ customer.first_name | default: 'à toi' }}, on a reçu une demande pour réinitialiser le mot de passe de ton compte myrootalia.</p>
-    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#5E6B62;">Ce lien expire dans <strong style="color:#1E3A2F;">24 heures</strong>. Si tu n'es pas à l'origine de la demande, ignore ce message — ton compte reste sécurisé.</p>
+    <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#5E6B62;">Ce lien expire dans <strong style="color:#2F5233;">24 heures</strong>. Si tu n'es pas à l'origine de la demande, ignore ce message — ton compte reste sécurisé.</p>
     {% if customer.reset_password_url %}
     <p style="margin:0;">
-      <a href="{{ customer.reset_password_url }}" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Choisir un nouveau mot de passe</a>
+      <a href="{{ customer.reset_password_url }}" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Choisir un nouveau mot de passe</a>
     </p>
     {% endif %}
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — Pour toute question, écris à <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — Pour toute question, écris à <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -807,30 +807,30 @@ Bienveillant, sans promesse creuse.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Remboursement émis</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#1E3A2F;line-height:1.3;">C'est fait, {{ customer.first_name | default: 'à toi' }}.</h1>
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Remboursement émis</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#2F5233;line-height:1.3;">C'est fait, {{ customer.first_name | default: 'à toi' }}.</h1>
     <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5E6B62;">
-      On vient d'émettre un remboursement de <strong style="color:#1E3A2F;">{{ amount | money }}</strong> sur ta commande {{ order_name }}.
+      On vient d'émettre un remboursement de <strong style="color:#2F5233;">{{ amount | money }}</strong> sur ta commande {{ order_name }}.
       Compte 5 à 10 jours ouvrés pour le voir apparaître sur ton relevé — c'est la banque qui décide du délai final.
     </p>
     {% if refund_line_items.size > 0 %}
     <div style="background:#ffffff;border:1px solid #DDD3C4;border-radius:14px;padding:20px 24px;margin:20px 0;">
       <p style="margin:0 0 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#5E6B62;font-weight:600;">Articles remboursés</p>
       {% for item in refund_line_items %}
-        <div style="font-size:14px;color:#25332C;padding:4px 0;">{{ item.line_item.title }} × {{ item.quantity }}</div>
+        <div style="font-size:14px;color:#2B2B2B;padding:4px 0;">{{ item.line_item.title }} × {{ item.quantity }}</div>
       {% endfor %}
     </div>
     {% endif %}
     <p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:#5E6B62;">Merci pour ta confiance. Si tu veux nous dire ce qui n'a pas marché, on lit toujours — on s'améliore avec chaque retour.</p>
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }} — <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -844,24 +844,24 @@ Bienveillant, sans promesse creuse.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Commande annulée</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#1E3A2F;line-height:1.3;">Ta commande {{ order_name }} est annulée.</h1>
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Commande annulée</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#2F5233;line-height:1.3;">Ta commande {{ order_name }} est annulée.</h1>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#5E6B62;">
       Bonjour {{ customer.first_name | default: 'à toi' }}, ta commande a été annulée.
       Si un paiement a été prélevé, il te sera remboursé sous 5 à 10 jours ouvrés.
     </p>
-    <p style="margin:24px 0 0;font-size:14px;line-height:1.6;color:#25332C;">
-      Un souci ? Écris-nous à <a href="mailto:{{ shop.email }}" style="color:#C25A34;text-decoration:none;">{{ shop.email }}</a> — on répond en moins de 24 h.
+    <p style="margin:24px 0 0;font-size:14px;line-height:1.6;color:#2B2B2B;">
+      Un souci ? Écris-nous à <a href="mailto:{{ shop.email }}" style="color:#B07A3B;text-decoration:none;">{{ shop.email }}</a> — on répond en moins de 24 h.
     </p>
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }}</td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">{{ shop.name }}</td></tr></table></td></tr></table>
 </body></html>
 ```
 
@@ -875,14 +875,14 @@ Bienveillant, sans promesse creuse.
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF6EF;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#1E3A2F;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #C25A34;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
+<body style="margin:0;padding:0;background:#F5F1EA;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <tr><td align="center" style="padding:32px 20px 0;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td align="center" style="padding-bottom:24px;"><span style="font-family:Georgia,serif;font-size:24px;color:#2F5233;">myrootalia</span></td></tr><tr><td style="border-top:1px solid #B07A3B;height:0;line-height:0;font-size:0;">&nbsp;</td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;">
   <tr><td align="center" style="padding:36px 20px 32px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td>
-    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#C25A34;font-weight:600;">Paiement à réessayer</p>
-    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#1E3A2F;line-height:1.3;">Un souci avec le paiement, {{ customer.first_name | default: 'à toi' }}.</h1>
+    <p style="margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B07A3B;font-weight:600;">Paiement à réessayer</p>
+    <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:500;font-size:24px;color:#2F5233;line-height:1.3;">Un souci avec le paiement, {{ customer.first_name | default: 'à toi' }}.</h1>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#5E6B62;">
       Ta banque a refusé le paiement. C'est fréquent — souvent un simple plafond hebdomadaire ou une confirmation à donner dans l'app.
     </p>
@@ -891,12 +891,12 @@ Bienveillant, sans promesse creuse.
     </p>
     {% if url %}
     <p style="margin:0;">
-      <a href="{{ url }}" style="display:inline-block;padding:14px 32px;background:#1E3A2F;color:#FAF6EF;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Reprendre mon paiement</a>
+      <a href="{{ url }}" style="display:inline-block;padding:14px 32px;background:#2F5233;color:#F5F1EA;text-decoration:none;border-radius:999px;font-size:14px;font-weight:600;">Reprendre mon paiement</a>
     </p>
     {% endif %}
   </td></tr></table></td></tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF6EF;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">Bloqué ? On t'aide sous 24 h : <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F1EA;"><tr><td align="center" style="padding:32px 20px 40px;"><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;"><tr><td style="border-top:1px solid #DDD3C4;padding-top:24px;text-align:center;font-size:11px;color:#8A9187;">Bloqué ? On t'aide sous 24 h : <a href="mailto:{{ shop.email }}" style="color:#8A9187;">{{ shop.email }}</a></td></tr></table></td></tr></table>
 </body></html>
 ```
 
